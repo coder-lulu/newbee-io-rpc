@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+// DiscoveryTemplate message
+
+message DiscoveryTemplateInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // 租户ID
+  optional uint64 tenant_id = 5;
+  // 模板名称
+  optional string template_name = 6;
+  // 模板编码
+  optional string template_code = 7;
+  // 描述
+  optional string description = 8;
+  // 版本号
+  optional string version = 9;
+  // 模板类型
+  optional string template_type = 10;
+  // 发现配置JSON
+  optional string discovery_config = 11;
+  // 字段映射模板JSON
+  optional string field_mapping_templates = 12;
+  // 验证规则JSON
+  optional string validation_rules = 13;
+  // 是否公开
+  optional bool is_public = 14;
+  // 是否系统模板
+  optional bool is_system = 15;
+  // 使用次数
+  optional int64 usage_count = 16;
+  // 标签,逗号分隔
+  optional string tags = 17;
+  // 扩展元数据JSON
+  optional string metadata = 18;
+}
+
+message DiscoveryTemplateListResp {
+  uint64 total = 1;
+  repeated DiscoveryTemplateInfo data = 2;
+}
+
+message DiscoveryTemplateListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string template_name = 6;
+  optional string template_code = 7;
+  optional string description = 8;
+  optional string version = 9;
+  optional string template_type = 10;
+  optional string discovery_config = 11;
+  optional string field_mapping_templates = 12;
+  optional string validation_rules = 13;
+  optional bool is_public = 14;
+  optional bool is_system = 15;
+  optional int64 usage_count = 16;
+  optional string tags = 17;
+  optional string metadata = 18;
+  // 关键字搜索
+  optional string keyword = 19;
+}
+
+
+service Io {
+
+  // DiscoveryTemplate management
+  // group: discoverytemplate
+  rpc createDiscoveryTemplate (DiscoveryTemplateInfo) returns (BaseIDResp);
+  // group: discoverytemplate
+  rpc updateDiscoveryTemplate (DiscoveryTemplateInfo) returns (BaseResp);
+  // group: discoverytemplate
+  rpc getDiscoveryTemplateList (DiscoveryTemplateListReq) returns (DiscoveryTemplateListResp);
+  // group: discoverytemplate
+  rpc getDiscoveryTemplateById (IDReq) returns (DiscoveryTemplateInfo);
+  // group: discoverytemplate
+  rpc deleteDiscoveryTemplate (IDsReq) returns (BaseResp);
+
+
+}

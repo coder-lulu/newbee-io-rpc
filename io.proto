@@ -1,0 +1,1060 @@
+syntax = "proto3";
+
+package io;
+option go_package = "./io";
+
+message ApprovalReq {
+  uint64 id = 1;
+  string action = 2;
+  optional string reason = 3;
+  optional uint64 approved_by = 4;
+}
+
+message BaseIDInt32Resp {
+  int32 id = 1;
+  string msg = 2;
+}
+
+message BaseIDInt64Resp {
+  int64 id = 1;
+  string msg = 2;
+}
+
+message BaseIDResp {
+  uint64 id = 1;
+  string msg = 2;
+}
+
+message BaseIDStringResp {
+  string id = 1;
+  string msg = 2;
+}
+
+message BaseIDUint32Resp {
+  uint32 id = 1;
+  string msg = 2;
+}
+
+message BaseResp {
+  string msg = 1;
+}
+
+message BaseUUIDResp {
+  string id = 1;
+  string msg = 2;
+}
+
+message CronTaskInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  任务名称
+  optional string task_name = 5;
+  //  Cron表达式, 例如: 0 3 * * * (每天凌晨3点), 0 */6 * * * (每6小时)
+  optional string cron_expression = 6;
+  //  数据源类型, 例如: vmware_vcenter, aliyun_ecs等
+  optional string input_source = 7;
+  //  数据源配置JSON字符串
+  optional string source_config = 8;
+  //  是否启用此Cron任务
+  optional bool enabled = 9;
+  //  下次执行时间（由调度器自动更新）
+  optional int64 next_run_time = 10;
+  //  上次执行时间
+  optional int64 last_run_time = 11;
+  //  总执行次数
+  optional int64 execution_count = 12;
+  //  成功次数
+  optional int64 success_count = 13;
+  //  失败次数
+  optional int64 failure_count = 14;
+  //  任务描述信息
+  optional string description = 15;
+}
+
+message CronTaskListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string task_name = 6;
+  optional string cron_expression = 7;
+  optional string input_source = 8;
+  optional string source_config = 9;
+  optional bool enabled = 10;
+  optional int64 next_run_time = 11;
+  optional int64 last_run_time = 12;
+  optional int64 execution_count = 13;
+  optional int64 success_count = 14;
+  optional int64 failure_count = 15;
+  optional string description = 16;
+}
+
+message CronTaskListResp {
+  uint64 total = 1;
+  repeated CronTaskInfo data = 2;
+}
+
+message DataTargetInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  目标名称
+  optional string target_name = 5;
+  //  目标编码
+  optional string target_code = 6;
+  //  描述
+  optional string description = 7;
+  //  目标类型: database, api, file, mq, cache
+  optional string target_type = 8;
+  //  目标系统名称
+  optional string target_system = 9;
+  //  连接配置JSON
+  optional string connection_config = 10;
+  //  认证配置JSON
+  optional string auth_config = 11;
+  //  是否启用
+  optional bool is_active = 12;
+  //  目标Schema定义JSON
+  optional string target_schema = 13;
+  //  验证规则JSON
+  optional string validation_rules = 14;
+  //  唯一键字段列表JSON
+  optional string unique_keys = 15;
+  //  扩展元数据JSON
+  optional string metadata = 16;
+}
+
+message DataTargetListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string target_name = 6;
+  optional string target_code = 7;
+  optional string description = 8;
+  optional string target_type = 9;
+  optional string target_system = 10;
+  optional string connection_config = 11;
+  optional string auth_config = 12;
+  optional bool is_active = 13;
+  optional string target_schema = 14;
+  optional string validation_rules = 15;
+  optional string unique_keys = 16;
+  optional string metadata = 17;
+}
+
+message DataTargetListResp {
+  uint64 total = 1;
+  repeated DataTargetInfo data = 2;
+}
+
+message DiscoveryPoolInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  发现池名称
+  optional string name = 5;
+  //  发现池描述
+  optional string description = 6;
+  //  发现类型: file, api, sdk, builtin
+  optional string discovery_type = 7;
+  //  池状态: active, inactive, error, maintain
+  optional string pool_status = 8;
+  //  发现配置JSON
+  optional string discovery_config = 9;
+  //  调度表达式
+  optional string schedule = 10;
+  //  批处理大小
+  optional int64 batch_size = 11;
+  //  并发限制
+  optional int64 concurrent_limit = 12;
+  //  最大重试次数
+  optional int64 max_retry = 13;
+  //  重试间隔(秒)
+  optional int64 retry_interval = 14;
+  //  字段映射配置JSON
+  optional string field_mapping = 15;
+  //  总执行次数
+  optional int64 total_runs = 16;
+  //  成功执行次数
+  optional int64 success_runs = 17;
+  //  失败执行次数
+  optional int64 failed_runs = 18;
+  //  最后执行时间
+  optional int64 last_run_at = 19;
+  //  最后成功时间
+  optional int64 last_success_at = 20;
+  //  最后错误信息
+  optional string last_error = 21;
+  //  审核状态: pending, approved, rejected
+  optional string approval_status = 22;
+  //  审核人ID
+  optional uint64 approved_by = 23;
+  //  审核时间
+  optional int64 approved_at = 24;
+  //  拒绝原因
+  optional string rejection_reason = 25;
+  //  扩展元数据JSON
+  optional string metadata = 26;
+}
+
+message DiscoveryPoolListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string name = 6;
+  optional string description = 7;
+  optional string discovery_type = 8;
+  optional string pool_status = 9;
+  optional string discovery_config = 10;
+  optional string schedule = 11;
+  optional int64 batch_size = 12;
+  optional int64 concurrent_limit = 13;
+  optional int64 max_retry = 14;
+  optional int64 retry_interval = 15;
+  optional string field_mapping = 16;
+  optional int64 total_runs = 17;
+  optional int64 success_runs = 18;
+  optional int64 failed_runs = 19;
+  optional int64 last_run_at = 20;
+  optional int64 last_success_at = 21;
+  optional string last_error = 22;
+  optional string approval_status = 23;
+  optional uint64 approved_by = 24;
+  optional int64 approved_at = 25;
+  optional string rejection_reason = 26;
+  optional string metadata = 27;
+}
+
+message DiscoveryPoolListResp {
+  uint64 total = 1;
+  repeated DiscoveryPoolInfo data = 2;
+}
+
+message DiscoveryPoolStatsResp {
+  uint64 total_pools = 1;
+  uint64 active_pools = 2;
+  uint64 running_pools = 3;
+  uint64 total_discoveries = 4;
+  uint64 successful_discoveries = 5;
+  uint64 failed_discoveries = 6;
+}
+
+message DiscoveryProviderSchemaInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  Provider唯一标识
+  optional string provider_id = 5;
+  //  Provider名称
+  optional string provider_name = 6;
+  //  Provider类别
+  optional string category = 7;
+  //  参数定义Schema(JSON)
+  optional bytes parameter_schema = 8;
+  //  字段定义Schema(JSON)
+  optional bytes field_schema = 9;
+  //  描述
+  optional string description = 10;
+  //  版本号
+  optional string version = 11;
+  //  图标URL
+  optional string icon_url = 12;
+  //  是否内置Provider
+  optional bool is_builtin = 13;
+  //  执行模式: worker-后台任务, agent-Agent执行, direct-直接执行
+  optional string execution_mode = 14;
+  //  是否启用
+  optional bool is_active = 15;
+}
+
+message DiscoveryProviderSchemaListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string provider_id = 6;
+  optional string provider_name = 7;
+  optional string category = 8;
+  optional bytes parameter_schema = 9;
+  optional bytes field_schema = 10;
+  optional string description = 11;
+  optional string version = 12;
+  optional string icon_url = 13;
+  optional bool is_builtin = 14;
+  optional string execution_mode = 15;
+  optional bool is_active = 16;
+}
+
+message DiscoveryProviderSchemaListResp {
+  uint64 total = 1;
+  repeated DiscoveryProviderSchemaInfo data = 2;
+}
+
+message DiscoveryTemplateInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  租户ID
+  optional uint64 tenant_id = 5;
+  //  模板名称
+  optional string template_name = 6;
+  //  模板编码
+  optional string template_code = 7;
+  //  描述
+  optional string description = 8;
+  //  版本号
+  optional string version = 9;
+  //  模板类型
+  optional string template_type = 10;
+  //  发现配置JSON
+  optional string discovery_config = 11;
+  //  字段映射模板JSON
+  optional string field_mapping_templates = 12;
+  //  验证规则JSON
+  optional string validation_rules = 13;
+  //  是否公开
+  optional bool is_public = 14;
+  //  是否系统模板
+  optional bool is_system = 15;
+  //  使用次数
+  optional int64 usage_count = 16;
+  //  标签,逗号分隔
+  optional string tags = 17;
+  //  扩展元数据JSON
+  optional string metadata = 18;
+}
+
+message DiscoveryTemplateListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string template_name = 6;
+  optional string template_code = 7;
+  optional string description = 8;
+  optional string version = 9;
+  optional string template_type = 10;
+  optional string discovery_config = 11;
+  optional string field_mapping_templates = 12;
+  optional string validation_rules = 13;
+  optional bool is_public = 14;
+  optional bool is_system = 15;
+  optional int64 usage_count = 16;
+  optional string tags = 17;
+  optional string metadata = 18;
+  //  关键字搜索
+  optional string keyword = 19;
+}
+
+message DiscoveryTemplateListResp {
+  uint64 total = 1;
+  repeated DiscoveryTemplateInfo data = 2;
+}
+
+//  base message
+message Empty {}
+
+message FieldDefinition {
+  string name = 1;
+  string label = 2;
+  string data_type = 3;
+  bool required = 4;
+  optional string description = 5;
+  optional string example = 6;
+}
+
+message FieldMappingInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  映射名称
+  optional string mapping_name = 5;
+  //  描述
+  optional string description = 6;
+  //  映射类型: input, output, transform, validation
+  optional string mapping_type = 7;
+  //  是否启用
+  optional bool is_active = 8;
+  //  源字段名称
+  optional string source_field = 9;
+  //  源字段路径
+  optional string source_field_path = 10;
+  //  源数据类型
+  optional string source_data_type = 11;
+  //  源字段格式
+  optional string source_format = 12;
+  //  目标字段名称
+  optional string target_field = 13;
+  //  目标字段路径
+  optional string target_field_path = 14;
+  //  目标数据类型
+  optional string target_data_type = 15;
+  //  目标字段格式
+  optional string target_format = 16;
+  //  转换类型
+  optional string transform_type = 17;
+  //  转换配置JSON
+  optional string transform_config = 18;
+  //  默认值
+  optional string default_value = 19;
+  //  允许空值
+  optional bool allow_null = 20;
+  //  是否必填
+  optional bool is_required = 21;
+  //  验证规则JSON
+  optional string validation_rules = 22;
+  //  验证正则
+  optional string validation_regex = 23;
+  //  查找表JSON
+  optional string lookup_table = 24;
+  //  查找区分大小写
+  optional bool lookup_case_sensitive = 25;
+  //  条件规则JSON
+  optional string condition_rules = 26;
+  //  优先级
+  optional int64 priority = 27;
+  //  排序顺序
+  optional int64 sort_order = 28;
+  //  关联发现池ID
+  optional uint64 discovery_pool_id = 29;
+  //  关联输入任务ID
+  optional uint64 input_task_id = 30;
+  //  关联输出任务ID
+  optional uint64 output_task_id = 31;
+  //  使用次数
+  optional int64 usage_count = 32;
+  //  成功次数
+  optional int64 success_count = 33;
+  //  失败次数
+  optional int64 failed_count = 34;
+  //  最后使用时间
+  optional int64 last_used_at = 35;
+  //  最后错误信息
+  optional string last_error = 36;
+  //  最后错误时间
+  optional int64 last_error_at = 37;
+  //  扩展元数据JSON
+  optional string metadata = 38;
+}
+
+message FieldMappingListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string mapping_name = 6;
+  optional string description = 7;
+  optional string mapping_type = 8;
+  optional bool is_active = 9;
+  optional string source_field = 10;
+  optional string source_field_path = 11;
+  optional string source_data_type = 12;
+  optional string source_format = 13;
+  optional string target_field = 14;
+  optional string target_field_path = 15;
+  optional string target_data_type = 16;
+  optional string target_format = 17;
+  optional string transform_type = 18;
+  optional string transform_config = 19;
+  optional string default_value = 20;
+  optional bool allow_null = 21;
+  optional bool is_required = 22;
+  optional string validation_rules = 23;
+  optional string validation_regex = 24;
+  optional string lookup_table = 25;
+  optional bool lookup_case_sensitive = 26;
+  optional string condition_rules = 27;
+  optional int64 priority = 28;
+  optional int64 sort_order = 29;
+  optional uint64 discovery_pool_id = 30;
+  optional uint64 input_task_id = 31;
+  optional uint64 output_task_id = 32;
+  optional int64 usage_count = 33;
+  optional int64 success_count = 34;
+  optional int64 failed_count = 35;
+  optional int64 last_used_at = 36;
+  optional string last_error = 37;
+  optional int64 last_error_at = 38;
+  optional string metadata = 39;
+}
+
+message FieldMappingListResp {
+  uint64 total = 1;
+  repeated FieldMappingInfo data = 2;
+}
+
+message GetProviderSchemaReq {
+  string provider_id = 1;
+}
+
+message GetProviderSchemaResp {
+  optional ProviderSchemaInfo data = 1;
+}
+
+message IDInt32Req {
+  int32 id = 1;
+}
+
+message IDInt64Req {
+  int64 id = 1;
+}
+
+message IDReq {
+  uint64 id = 1;
+}
+
+message IDStringReq {
+  string id = 1;
+}
+
+message IDUint32Req {
+  uint32 id = 1;
+}
+
+message IDsInt32Req {
+  repeated int32 ids = 1;
+}
+
+message IDsInt64Req {
+  repeated int64 ids = 1;
+}
+
+message IDsReq {
+  repeated uint64 ids = 1;
+}
+
+message IDsStringReq {
+  repeated string ids = 1;
+}
+
+message IDsUint32Req {
+  repeated uint32 ids = 1;
+}
+
+message InputTaskInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  任务名称
+  optional string task_name = 5;
+  //  任务描述
+  optional string description = 6;
+  //  任务类型: manual, scheduled, triggered
+  optional string task_type = 7;
+  //  任务优先级
+  optional int32 priority = 8;
+  //  超时秒数
+  optional int32 timeout_seconds = 9;
+  //  任务配置JSON
+  optional string task_config = 10;
+  //  验证配置JSON
+  optional string validation_config = 11;
+  //  输出目标JSON
+  optional string output_targets = 12;
+  //  输入源: file, api, database, mq
+  optional string input_source = 13;
+  //  源配置JSON
+  optional string source_config = 14;
+  //  任务状态
+  optional string task_status = 15;
+  //  关联发现池ID
+  optional uint64 discovery_pool_id = 16;
+  //  计划执行时间
+  optional int64 scheduled_at = 17;
+  //  开始时间
+  optional int64 started_at = 18;
+  //  完成时间
+  optional int64 completed_at = 19;
+  //  总记录数
+  optional int64 total_records = 20;
+  //  已处理记录数
+  optional int64 processed_records = 21;
+  //  成功记录数
+  optional int64 success_records = 22;
+  //  失败记录数
+  optional int64 failed_records = 23;
+  //  错误信息
+  optional string error_message = 24;
+  //  错误详情JSON
+  optional string error_details = 25;
+  //  最大重试次数
+  optional int32 max_retry = 26;
+  //  重试次数
+  optional int32 retry_count = 27;
+  //  下次重试时间
+  optional int64 next_retry_at = 28;
+  //  工作节点ID
+  optional string worker_id = 29;
+  //  进度百分比
+  optional float progress_percent = 30;
+  //  进度消息
+  optional string progress_message = 31;
+  //  扩展元数据JSON
+  optional string metadata = 32;
+}
+
+message InputTaskListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string task_name = 6;
+  optional string task_type = 7;
+  optional string input_source = 8;
+  optional string source_config = 9;
+  optional string task_status = 10;
+  optional uint64 discovery_pool_id = 11;
+  optional int64 scheduled_at = 12;
+  optional int64 started_at = 13;
+  optional int64 completed_at = 14;
+  optional int64 total_records = 15;
+  optional int64 processed_records = 16;
+  optional int64 success_records = 17;
+  optional int64 failed_records = 18;
+  optional string error_message = 19;
+  optional string metadata = 20;
+}
+
+message InputTaskListResp {
+  uint64 total = 1;
+  repeated InputTaskInfo data = 2;
+}
+
+message ListProvidersResp {
+  repeated ProviderMetadata data = 1;
+}
+
+message MappingLogInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  字段映射ID
+  optional uint64 field_mapping_id = 4;
+  //  源值
+  optional string source_value = 5;
+  //  目标值
+  optional string target_value = 6;
+  //  转换状态: success, failed, skipped
+  optional string transform_status = 7;
+  //  错误信息
+  optional string error_message = 8;
+  //  记录时间
+  optional int64 logged_at = 9;
+}
+
+message MappingLogListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint64 field_mapping_id = 5;
+  optional string source_value = 6;
+  optional string target_value = 7;
+  optional string transform_status = 8;
+  optional string error_message = 9;
+  optional int64 logged_at = 10;
+}
+
+message MappingLogListResp {
+  uint64 total = 1;
+  repeated MappingLogInfo data = 2;
+}
+
+message OutputTaskInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  //  任务名称
+  optional string task_name = 5;
+  //  任务类型
+  optional string task_type = 6;
+  //  输出目标类型
+  optional string output_target = 7;
+  //  目标配置JSON
+  optional string target_config = 8;
+  //  任务状态
+  optional string task_status = 9;
+  //  关联数据目标ID
+  optional uint64 data_target_id = 10;
+  //  计划执行时间
+  optional int64 scheduled_at = 11;
+  //  开始时间
+  optional int64 started_at = 12;
+  //  完成时间
+  optional int64 completed_at = 13;
+  //  总记录数
+  optional int64 total_records = 14;
+  //  已处理记录数
+  optional int64 processed_records = 15;
+  //  成功记录数
+  optional int64 success_records = 16;
+  //  失败记录数
+  optional int64 failed_records = 17;
+  //  错误信息
+  optional string error_message = 18;
+  //  扩展元数据JSON
+  optional string metadata = 19;
+}
+
+message OutputTaskListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string task_name = 6;
+  optional string task_type = 7;
+  optional string output_target = 8;
+  optional string target_config = 9;
+  optional string task_status = 10;
+  optional uint64 data_target_id = 11;
+  optional int64 scheduled_at = 12;
+  optional int64 started_at = 13;
+  optional int64 completed_at = 14;
+  optional int64 total_records = 15;
+  optional int64 processed_records = 16;
+  optional int64 success_records = 17;
+  optional int64 failed_records = 18;
+  optional string error_message = 19;
+  optional string metadata = 20;
+}
+
+message OutputTaskListResp {
+  uint64 total = 1;
+  repeated OutputTaskInfo data = 2;
+}
+
+message PageInfoReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+}
+
+message ParameterDefinition {
+  string name = 1;
+  string label = 2;
+  string type = 3;
+  bool required = 4;
+  optional string default_value = 5;
+  optional string placeholder = 6;
+  repeated string options = 7;
+  optional string description = 8;
+}
+
+message ProviderMetadata {
+  string id = 1;
+  string name = 2;
+  string category = 3;
+  optional string description = 4;
+  optional string version = 5;
+  optional string icon = 6;
+}
+
+message ProviderSchemaInfo {
+  string id = 1;
+  string provider_id = 2;
+  string provider_name = 3;
+  string category = 4;
+  optional string description = 5;
+  optional string version = 6;
+  optional string icon_url = 7;
+  repeated ParameterDefinition parameter_schema = 8;
+  repeated FieldDefinition field_schema = 9;
+  bool is_active = 10;
+  bool is_builtin = 11;
+  string execution_mode = 12;
+}
+
+message TaskLogInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  任务类型: input, output
+  optional string task_type = 4;
+  //  任务ID
+  optional uint64 task_id = 5;
+  //  日志级别
+  optional string log_level = 6;
+  //  日志消息
+  optional string log_message = 7;
+  //  详细信息JSON
+  optional string log_detail = 8;
+  //  记录时间
+  optional int64 logged_at = 9;
+}
+
+message TaskLogListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional string task_type = 5;
+  optional uint64 task_id = 6;
+  optional string log_level = 7;
+  optional string log_message = 8;
+  optional string log_detail = 9;
+  optional int64 logged_at = 10;
+}
+
+message TaskLogListResp {
+  uint64 total = 1;
+  repeated TaskLogInfo data = 2;
+}
+
+message TestConnectionReq {
+  string provider_id = 1;
+  string config = 2;
+}
+
+message TestConnectionResp {
+  bool success = 1;
+  optional string message = 2;
+}
+
+message UUIDReq {
+  string id = 1;
+}
+
+message UUIDsReq {
+  repeated string ids = 1;
+}
+
+message WorkerMetricsInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  //  Worker ID
+  optional string worker_id = 4;
+  //  Worker名称
+  optional string worker_name = 5;
+  //  Worker状态: idle, busy, offline
+  optional string worker_status = 6;
+  //  当前任务数
+  optional int64 current_tasks = 7;
+  //  总任务数
+  optional int64 total_tasks = 8;
+  //  成功任务数
+  optional int64 success_tasks = 9;
+  //  失败任务数
+  optional int64 failed_tasks = 10;
+  //  CPU使用率
+  optional double cpu_usage = 11;
+  //  内存使用率
+  optional double memory_usage = 12;
+  //  最后心跳时间
+  optional int64 last_heartbeat = 13;
+  //  扩展元数据JSON
+  optional string metadata = 14;
+}
+
+message WorkerMetricsListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional string worker_id = 5;
+  optional string worker_name = 6;
+  optional string worker_status = 7;
+  optional int64 current_tasks = 8;
+  optional int64 total_tasks = 9;
+  optional int64 success_tasks = 10;
+  optional int64 failed_tasks = 11;
+  optional double cpu_usage = 12;
+  optional double memory_usage = 13;
+  optional int64 last_heartbeat = 14;
+  optional string metadata = 15;
+}
+
+message WorkerMetricsListResp {
+  uint64 total = 1;
+  repeated WorkerMetricsInfo data = 2;
+}
+
+service Io {
+  //  group: base
+  rpc initDatabase(Empty) returns (BaseResp);
+  //  CronTask management
+  //  group: crontask
+  rpc createCronTask(CronTaskInfo) returns (BaseIDResp);
+  //  group: crontask
+  rpc updateCronTask(CronTaskInfo) returns (BaseResp);
+  //  group: crontask
+  rpc getCronTaskList(CronTaskListReq) returns (CronTaskListResp);
+  //  group: crontask
+  rpc getCronTaskById(IDReq) returns (CronTaskInfo);
+  //  group: crontask
+  rpc deleteCronTask(IDsReq) returns (BaseResp);
+  //  CronTask lifecycle operations
+  //  group: crontask
+  rpc enableCronTask(IDReq) returns (BaseResp);
+  //  group: crontask
+  rpc disableCronTask(IDReq) returns (BaseResp);
+  //  group: crontask
+  rpc triggerCronTaskNow(IDReq) returns (BaseIDResp);
+  //  DataTarget management
+  //  group: datatarget
+  rpc createDataTarget(DataTargetInfo) returns (BaseIDResp);
+  //  group: datatarget
+  rpc updateDataTarget(DataTargetInfo) returns (BaseResp);
+  //  group: datatarget
+  rpc getDataTargetList(DataTargetListReq) returns (DataTargetListResp);
+  //  group: datatarget
+  rpc getDataTargetById(IDReq) returns (DataTargetInfo);
+  //  group: datatarget
+  rpc deleteDataTarget(IDsReq) returns (BaseResp);
+  //  Discovery Provider 业务接口
+  //  group: discoveryprovider
+  rpc listDiscoveryProviders(Empty) returns (ListProvidersResp);
+  //  group: discoveryprovider
+  rpc getProviderSchema(GetProviderSchemaReq) returns (GetProviderSchemaResp);
+  //  group: discoveryprovider
+  rpc testProviderConnection(TestConnectionReq) returns (TestConnectionResp);
+  //  DiscoveryPool management
+  //  group: discoverypool
+  rpc createDiscoveryPool(DiscoveryPoolInfo) returns (BaseIDResp);
+  //  group: discoverypool
+  rpc updateDiscoveryPool(DiscoveryPoolInfo) returns (BaseResp);
+  //  group: discoverypool
+  rpc getDiscoveryPoolList(DiscoveryPoolListReq) returns (DiscoveryPoolListResp);
+  //  group: discoverypool
+  rpc getDiscoveryPoolById(IDReq) returns (DiscoveryPoolInfo);
+  //  group: discoverypool
+  rpc deleteDiscoveryPool(IDsReq) returns (BaseResp);
+  //  DiscoveryPool lifecycle operations
+  //  group: discoverypool
+  rpc approveDiscoveryPool(ApprovalReq) returns (BaseResp);
+  //  group: discoverypool
+  rpc enableDiscoveryPool(IDReq) returns (BaseResp);
+  //  group: discoverypool
+  rpc disableDiscoveryPool(IDReq) returns (BaseResp);
+  //  group: discoverypool
+  rpc triggerDiscoveryPool(IDReq) returns (BaseResp);
+  //  group: discoverypool
+  rpc getDiscoveryPoolStats(Empty) returns (DiscoveryPoolStatsResp);
+  //  DiscoveryProviderSchema management
+  //  group: discoveryproviderschema
+  rpc createDiscoveryProviderSchema(DiscoveryProviderSchemaInfo) returns (BaseIDResp);
+  //  group: discoveryproviderschema
+  rpc updateDiscoveryProviderSchema(DiscoveryProviderSchemaInfo) returns (BaseResp);
+  //  group: discoveryproviderschema
+  rpc getDiscoveryProviderSchemaList(DiscoveryProviderSchemaListReq) returns (DiscoveryProviderSchemaListResp);
+  //  group: discoveryproviderschema
+  rpc getDiscoveryProviderSchemaById(IDReq) returns (DiscoveryProviderSchemaInfo);
+  //  group: discoveryproviderschema
+  rpc deleteDiscoveryProviderSchema(IDsReq) returns (BaseResp);
+  //  DiscoveryTemplate management
+  //  group: discoverytemplate
+  rpc createDiscoveryTemplate(DiscoveryTemplateInfo) returns (BaseIDResp);
+  //  group: discoverytemplate
+  rpc updateDiscoveryTemplate(DiscoveryTemplateInfo) returns (BaseResp);
+  //  group: discoverytemplate
+  rpc getDiscoveryTemplateList(DiscoveryTemplateListReq) returns (DiscoveryTemplateListResp);
+  //  group: discoverytemplate
+  rpc getDiscoveryTemplateById(IDReq) returns (DiscoveryTemplateInfo);
+  //  group: discoverytemplate
+  rpc deleteDiscoveryTemplate(IDsReq) returns (BaseResp);
+  //  FieldMapping management
+  //  group: fieldmapping
+  rpc createFieldMapping(FieldMappingInfo) returns (BaseIDResp);
+  //  group: fieldmapping
+  rpc updateFieldMapping(FieldMappingInfo) returns (BaseResp);
+  //  group: fieldmapping
+  rpc getFieldMappingList(FieldMappingListReq) returns (FieldMappingListResp);
+  //  group: fieldmapping
+  rpc getFieldMappingById(IDReq) returns (FieldMappingInfo);
+  //  group: fieldmapping
+  rpc deleteFieldMapping(IDsReq) returns (BaseResp);
+  //  InputTask management
+  //  group: inputtask
+  rpc createInputTask(InputTaskInfo) returns (BaseIDResp);
+  //  group: inputtask
+  rpc updateInputTask(InputTaskInfo) returns (BaseResp);
+  //  group: inputtask
+  rpc getInputTaskList(InputTaskListReq) returns (InputTaskListResp);
+  //  group: inputtask
+  rpc getInputTaskById(IDReq) returns (InputTaskInfo);
+  //  group: inputtask
+  rpc deleteInputTask(IDsReq) returns (BaseResp);
+  //  InputTask lifecycle operations
+  //  group: inputtask
+  rpc approveInputTask(ApprovalReq) returns (BaseResp);
+  //  group: inputtask
+  rpc startInputTask(IDReq) returns (BaseResp);
+  //  group: inputtask
+  rpc pauseInputTask(IDReq) returns (BaseResp);
+  //  group: inputtask
+  rpc cancelInputTask(IDReq) returns (BaseResp);
+  //  MappingLog management (read-only logs, no update)
+  //  group: mappinglog
+  rpc createMappingLog(MappingLogInfo) returns (BaseIDResp);
+  //  group: mappinglog
+  rpc getMappingLogList(MappingLogListReq) returns (MappingLogListResp);
+  //  group: mappinglog
+  rpc getMappingLogById(IDReq) returns (MappingLogInfo);
+  //  group: mappinglog
+  rpc deleteMappingLog(IDsReq) returns (BaseResp);
+  //  OutputTask management
+  //  group: outputtask
+  rpc createOutputTask(OutputTaskInfo) returns (BaseIDResp);
+  //  group: outputtask
+  rpc updateOutputTask(OutputTaskInfo) returns (BaseResp);
+  //  group: outputtask
+  rpc getOutputTaskList(OutputTaskListReq) returns (OutputTaskListResp);
+  //  group: outputtask
+  rpc getOutputTaskById(IDReq) returns (OutputTaskInfo);
+  //  group: outputtask
+  rpc deleteOutputTask(IDsReq) returns (BaseResp);
+  //  OutputTask lifecycle operations
+  //  group: outputtask
+  rpc startOutputTask(IDReq) returns (BaseResp);
+  //  group: outputtask
+  rpc pauseOutputTask(IDReq) returns (BaseResp);
+  //  group: outputtask
+  rpc cancelOutputTask(IDReq) returns (BaseResp);
+  //  TaskLog management (read-only logs, no update)
+  //  group: tasklog
+  rpc createTaskLog(TaskLogInfo) returns (BaseIDResp);
+  //  group: tasklog
+  rpc getTaskLogList(TaskLogListReq) returns (TaskLogListResp);
+  //  group: tasklog
+  rpc getTaskLogById(IDReq) returns (TaskLogInfo);
+  //  group: tasklog
+  rpc deleteTaskLog(IDsReq) returns (BaseResp);
+  //  WorkerMetrics management
+  //  group: workermetrics
+  rpc createWorkerMetrics(WorkerMetricsInfo) returns (BaseIDResp);
+  //  group: workermetrics
+  rpc updateWorkerMetrics(WorkerMetricsInfo) returns (BaseResp);
+  //  group: workermetrics
+  rpc getWorkerMetricsList(WorkerMetricsListReq) returns (WorkerMetricsListResp);
+  //  group: workermetrics
+  rpc getWorkerMetricsById(IDReq) returns (WorkerMetricsInfo);
+  //  group: workermetrics
+  rpc deleteWorkerMetrics(IDsReq) returns (BaseResp);
+}
+

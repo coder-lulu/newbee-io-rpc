@@ -12,41 +12,19 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/attribute"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/choicefloat"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/choiceinteger"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/choicetext"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/ciapprovalflow"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cilifecyclestate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cioperation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cipermission"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cirecords"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cirelation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cis"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citype"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeattribute"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeattributegroup"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeattributegroupitem"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypegroup"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypegroupitem"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeinheritance"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cityperelation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importerror"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importrecord"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importtask"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importtemplate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissioncache"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissiondatafilter"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissionfieldmask"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissionoperation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissiontemplate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/relationtype"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuedatetime"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuefloat"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valueindextext"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valueinteger"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuejson"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuetext"
+	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/datatarget"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoverypool"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoveryproviderschema"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoverytemplate"
+	"github.com/coder-lulu/newbee-io-rpc/ent/dlqmessage"
+	"github.com/coder-lulu/newbee-io-rpc/ent/fieldmapping"
+	"github.com/coder-lulu/newbee-io-rpc/ent/inputtask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/mappinglog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/outboxmessage"
+	"github.com/coder-lulu/newbee-io-rpc/ent/outputtask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/tasklog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/workermetrics"
 )
 
 // ent aliases to avoid import conflicts in user's code.
@@ -107,41 +85,19 @@ var (
 func checkColumn(t, c string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
-			attribute.Table:                attribute.ValidColumn,
-			choicefloat.Table:              choicefloat.ValidColumn,
-			choiceinteger.Table:            choiceinteger.ValidColumn,
-			choicetext.Table:               choicetext.ValidColumn,
-			ciapprovalflow.Table:           ciapprovalflow.ValidColumn,
-			cilifecyclestate.Table:         cilifecyclestate.ValidColumn,
-			cioperation.Table:              cioperation.ValidColumn,
-			cipermission.Table:             cipermission.ValidColumn,
-			cirecords.Table:                cirecords.ValidColumn,
-			cirelation.Table:               cirelation.ValidColumn,
-			citype.Table:                   citype.ValidColumn,
-			citypeattribute.Table:          citypeattribute.ValidColumn,
-			citypeattributegroup.Table:     citypeattributegroup.ValidColumn,
-			citypeattributegroupitem.Table: citypeattributegroupitem.ValidColumn,
-			citypegroup.Table:              citypegroup.ValidColumn,
-			citypegroupitem.Table:          citypegroupitem.ValidColumn,
-			citypeinheritance.Table:        citypeinheritance.ValidColumn,
-			cityperelation.Table:           cityperelation.ValidColumn,
-			cis.Table:                      cis.ValidColumn,
-			importerror.Table:              importerror.ValidColumn,
-			importrecord.Table:             importrecord.ValidColumn,
-			importtask.Table:               importtask.ValidColumn,
-			importtemplate.Table:           importtemplate.ValidColumn,
-			permissioncache.Table:          permissioncache.ValidColumn,
-			permissiondatafilter.Table:     permissiondatafilter.ValidColumn,
-			permissionfieldmask.Table:      permissionfieldmask.ValidColumn,
-			permissionoperation.Table:      permissionoperation.ValidColumn,
-			permissiontemplate.Table:       permissiontemplate.ValidColumn,
-			relationtype.Table:             relationtype.ValidColumn,
-			valuedatetime.Table:            valuedatetime.ValidColumn,
-			valuefloat.Table:               valuefloat.ValidColumn,
-			valueindextext.Table:           valueindextext.ValidColumn,
-			valueinteger.Table:             valueinteger.ValidColumn,
-			valuejson.Table:                valuejson.ValidColumn,
-			valuetext.Table:                valuetext.ValidColumn,
+			crontask.Table:                crontask.ValidColumn,
+			datatarget.Table:              datatarget.ValidColumn,
+			discoverypool.Table:           discoverypool.ValidColumn,
+			discoveryproviderschema.Table: discoveryproviderschema.ValidColumn,
+			discoverytemplate.Table:       discoverytemplate.ValidColumn,
+			dlqmessage.Table:              dlqmessage.ValidColumn,
+			fieldmapping.Table:            fieldmapping.ValidColumn,
+			inputtask.Table:               inputtask.ValidColumn,
+			mappinglog.Table:              mappinglog.ValidColumn,
+			outboxmessage.Table:           outboxmessage.ValidColumn,
+			outputtask.Table:              outputtask.ValidColumn,
+			tasklog.Table:                 tasklog.ValidColumn,
+			workermetrics.Table:           workermetrics.ValidColumn,
 		})
 	})
 	return columnCheck(t, c)

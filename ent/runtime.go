@@ -2,4 +2,1174 @@
 
 package ent
 
-// The schema-stitching logic is generated in github.com/coder-lulu/newbee-cmdb-rpc/ent/runtime/runtime.go
+import (
+	"time"
+
+	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/datatarget"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoverypool"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoveryproviderschema"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoverytemplate"
+	"github.com/coder-lulu/newbee-io-rpc/ent/dlqmessage"
+	"github.com/coder-lulu/newbee-io-rpc/ent/fieldmapping"
+	"github.com/coder-lulu/newbee-io-rpc/ent/inputtask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/mappinglog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/outboxmessage"
+	"github.com/coder-lulu/newbee-io-rpc/ent/outputtask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/schema"
+	"github.com/coder-lulu/newbee-io-rpc/ent/tasklog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/workermetrics"
+)
+
+// The init function reads all schema descriptors with runtime code
+// (default values, validators, hooks and policies) and stitches it
+// to their package variables.
+func init() {
+	crontaskMixin := schema.CronTask{}.Mixin()
+	crontaskMixinFields0 := crontaskMixin[0].Fields()
+	_ = crontaskMixinFields0
+	crontaskMixinFields1 := crontaskMixin[1].Fields()
+	_ = crontaskMixinFields1
+	crontaskMixinFields2 := crontaskMixin[2].Fields()
+	_ = crontaskMixinFields2
+	crontaskFields := schema.CronTask{}.Fields()
+	_ = crontaskFields
+	// crontaskDescCreatedAt is the schema descriptor for created_at field.
+	crontaskDescCreatedAt := crontaskMixinFields0[1].Descriptor()
+	// crontask.DefaultCreatedAt holds the default value on creation for the created_at field.
+	crontask.DefaultCreatedAt = crontaskDescCreatedAt.Default.(func() time.Time)
+	// crontaskDescUpdatedAt is the schema descriptor for updated_at field.
+	crontaskDescUpdatedAt := crontaskMixinFields0[2].Descriptor()
+	// crontask.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	crontask.DefaultUpdatedAt = crontaskDescUpdatedAt.Default.(func() time.Time)
+	// crontask.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	crontask.UpdateDefaultUpdatedAt = crontaskDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// crontaskDescStatus is the schema descriptor for status field.
+	crontaskDescStatus := crontaskMixinFields1[0].Descriptor()
+	// crontask.DefaultStatus holds the default value on creation for the status field.
+	crontask.DefaultStatus = crontaskDescStatus.Default.(uint8)
+	// crontaskDescTenantID is the schema descriptor for tenant_id field.
+	crontaskDescTenantID := crontaskMixinFields2[0].Descriptor()
+	// crontask.DefaultTenantID holds the default value on creation for the tenant_id field.
+	crontask.DefaultTenantID = crontaskDescTenantID.Default.(uint64)
+	// crontaskDescEnabled is the schema descriptor for enabled field.
+	crontaskDescEnabled := crontaskFields[4].Descriptor()
+	// crontask.DefaultEnabled holds the default value on creation for the enabled field.
+	crontask.DefaultEnabled = crontaskDescEnabled.Default.(bool)
+	// crontaskDescExecutionCount is the schema descriptor for execution_count field.
+	crontaskDescExecutionCount := crontaskFields[7].Descriptor()
+	// crontask.DefaultExecutionCount holds the default value on creation for the execution_count field.
+	crontask.DefaultExecutionCount = crontaskDescExecutionCount.Default.(int)
+	// crontaskDescSuccessCount is the schema descriptor for success_count field.
+	crontaskDescSuccessCount := crontaskFields[8].Descriptor()
+	// crontask.DefaultSuccessCount holds the default value on creation for the success_count field.
+	crontask.DefaultSuccessCount = crontaskDescSuccessCount.Default.(int)
+	// crontaskDescFailureCount is the schema descriptor for failure_count field.
+	crontaskDescFailureCount := crontaskFields[9].Descriptor()
+	// crontask.DefaultFailureCount holds the default value on creation for the failure_count field.
+	crontask.DefaultFailureCount = crontaskDescFailureCount.Default.(int)
+	datatargetMixin := schema.DataTarget{}.Mixin()
+	datatargetMixinFields0 := datatargetMixin[0].Fields()
+	_ = datatargetMixinFields0
+	datatargetMixinFields1 := datatargetMixin[1].Fields()
+	_ = datatargetMixinFields1
+	datatargetMixinFields2 := datatargetMixin[2].Fields()
+	_ = datatargetMixinFields2
+	datatargetFields := schema.DataTarget{}.Fields()
+	_ = datatargetFields
+	// datatargetDescCreatedAt is the schema descriptor for created_at field.
+	datatargetDescCreatedAt := datatargetMixinFields0[1].Descriptor()
+	// datatarget.DefaultCreatedAt holds the default value on creation for the created_at field.
+	datatarget.DefaultCreatedAt = datatargetDescCreatedAt.Default.(func() time.Time)
+	// datatargetDescUpdatedAt is the schema descriptor for updated_at field.
+	datatargetDescUpdatedAt := datatargetMixinFields0[2].Descriptor()
+	// datatarget.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	datatarget.DefaultUpdatedAt = datatargetDescUpdatedAt.Default.(func() time.Time)
+	// datatarget.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	datatarget.UpdateDefaultUpdatedAt = datatargetDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// datatargetDescTenantID is the schema descriptor for tenant_id field.
+	datatargetDescTenantID := datatargetMixinFields1[0].Descriptor()
+	// datatarget.DefaultTenantID holds the default value on creation for the tenant_id field.
+	datatarget.DefaultTenantID = datatargetDescTenantID.Default.(uint64)
+	// datatargetDescStatus is the schema descriptor for status field.
+	datatargetDescStatus := datatargetMixinFields2[0].Descriptor()
+	// datatarget.DefaultStatus holds the default value on creation for the status field.
+	datatarget.DefaultStatus = datatargetDescStatus.Default.(uint8)
+	// datatargetDescTargetName is the schema descriptor for target_name field.
+	datatargetDescTargetName := datatargetFields[0].Descriptor()
+	// datatarget.TargetNameValidator is a validator for the "target_name" field. It is called by the builders before save.
+	datatarget.TargetNameValidator = func() func(string) error {
+		validators := datatargetDescTargetName.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(target_name string) error {
+			for _, fn := range fns {
+				if err := fn(target_name); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// datatargetDescTargetCode is the schema descriptor for target_code field.
+	datatargetDescTargetCode := datatargetFields[1].Descriptor()
+	// datatarget.TargetCodeValidator is a validator for the "target_code" field. It is called by the builders before save.
+	datatarget.TargetCodeValidator = func() func(string) error {
+		validators := datatargetDescTargetCode.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(target_code string) error {
+			for _, fn := range fns {
+				if err := fn(target_code); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// datatargetDescDescription is the schema descriptor for description field.
+	datatargetDescDescription := datatargetFields[2].Descriptor()
+	// datatarget.DescriptionValidator is a validator for the "description" field. It is called by the builders before save.
+	datatarget.DescriptionValidator = datatargetDescDescription.Validators[0].(func(string) error)
+	// datatargetDescTargetType is the schema descriptor for target_type field.
+	datatargetDescTargetType := datatargetFields[3].Descriptor()
+	// datatarget.TargetTypeValidator is a validator for the "target_type" field. It is called by the builders before save.
+	datatarget.TargetTypeValidator = func() func(string) error {
+		validators := datatargetDescTargetType.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(target_type string) error {
+			for _, fn := range fns {
+				if err := fn(target_type); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// datatargetDescTargetSystem is the schema descriptor for target_system field.
+	datatargetDescTargetSystem := datatargetFields[4].Descriptor()
+	// datatarget.TargetSystemValidator is a validator for the "target_system" field. It is called by the builders before save.
+	datatarget.TargetSystemValidator = datatargetDescTargetSystem.Validators[0].(func(string) error)
+	// datatargetDescIsActive is the schema descriptor for is_active field.
+	datatargetDescIsActive := datatargetFields[7].Descriptor()
+	// datatarget.DefaultIsActive holds the default value on creation for the is_active field.
+	datatarget.DefaultIsActive = datatargetDescIsActive.Default.(bool)
+	discoverypoolMixin := schema.DiscoveryPool{}.Mixin()
+	discoverypoolMixinFields0 := discoverypoolMixin[0].Fields()
+	_ = discoverypoolMixinFields0
+	discoverypoolMixinFields1 := discoverypoolMixin[1].Fields()
+	_ = discoverypoolMixinFields1
+	discoverypoolMixinFields2 := discoverypoolMixin[2].Fields()
+	_ = discoverypoolMixinFields2
+	discoverypoolFields := schema.DiscoveryPool{}.Fields()
+	_ = discoverypoolFields
+	// discoverypoolDescCreatedAt is the schema descriptor for created_at field.
+	discoverypoolDescCreatedAt := discoverypoolMixinFields0[1].Descriptor()
+	// discoverypool.DefaultCreatedAt holds the default value on creation for the created_at field.
+	discoverypool.DefaultCreatedAt = discoverypoolDescCreatedAt.Default.(func() time.Time)
+	// discoverypoolDescUpdatedAt is the schema descriptor for updated_at field.
+	discoverypoolDescUpdatedAt := discoverypoolMixinFields0[2].Descriptor()
+	// discoverypool.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	discoverypool.DefaultUpdatedAt = discoverypoolDescUpdatedAt.Default.(func() time.Time)
+	// discoverypool.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	discoverypool.UpdateDefaultUpdatedAt = discoverypoolDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// discoverypoolDescTenantID is the schema descriptor for tenant_id field.
+	discoverypoolDescTenantID := discoverypoolMixinFields1[0].Descriptor()
+	// discoverypool.DefaultTenantID holds the default value on creation for the tenant_id field.
+	discoverypool.DefaultTenantID = discoverypoolDescTenantID.Default.(uint64)
+	// discoverypoolDescStatus is the schema descriptor for status field.
+	discoverypoolDescStatus := discoverypoolMixinFields2[0].Descriptor()
+	// discoverypool.DefaultStatus holds the default value on creation for the status field.
+	discoverypool.DefaultStatus = discoverypoolDescStatus.Default.(uint8)
+	// discoverypoolDescName is the schema descriptor for name field.
+	discoverypoolDescName := discoverypoolFields[0].Descriptor()
+	// discoverypool.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	discoverypool.NameValidator = func() func(string) error {
+		validators := discoverypoolDescName.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(name string) error {
+			for _, fn := range fns {
+				if err := fn(name); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// discoverypoolDescDescription is the schema descriptor for description field.
+	discoverypoolDescDescription := discoverypoolFields[1].Descriptor()
+	// discoverypool.DescriptionValidator is a validator for the "description" field. It is called by the builders before save.
+	discoverypool.DescriptionValidator = discoverypoolDescDescription.Validators[0].(func(string) error)
+	// discoverypoolDescDiscoveryType is the schema descriptor for discovery_type field.
+	discoverypoolDescDiscoveryType := discoverypoolFields[2].Descriptor()
+	// discoverypool.DiscoveryTypeValidator is a validator for the "discovery_type" field. It is called by the builders before save.
+	discoverypool.DiscoveryTypeValidator = func() func(string) error {
+		validators := discoverypoolDescDiscoveryType.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(discovery_type string) error {
+			for _, fn := range fns {
+				if err := fn(discovery_type); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// discoverypoolDescPoolStatus is the schema descriptor for pool_status field.
+	discoverypoolDescPoolStatus := discoverypoolFields[3].Descriptor()
+	// discoverypool.DefaultPoolStatus holds the default value on creation for the pool_status field.
+	discoverypool.DefaultPoolStatus = discoverypoolDescPoolStatus.Default.(string)
+	// discoverypool.PoolStatusValidator is a validator for the "pool_status" field. It is called by the builders before save.
+	discoverypool.PoolStatusValidator = discoverypoolDescPoolStatus.Validators[0].(func(string) error)
+	// discoverypoolDescSchedule is the schema descriptor for schedule field.
+	discoverypoolDescSchedule := discoverypoolFields[5].Descriptor()
+	// discoverypool.ScheduleValidator is a validator for the "schedule" field. It is called by the builders before save.
+	discoverypool.ScheduleValidator = discoverypoolDescSchedule.Validators[0].(func(string) error)
+	// discoverypoolDescBatchSize is the schema descriptor for batch_size field.
+	discoverypoolDescBatchSize := discoverypoolFields[6].Descriptor()
+	// discoverypool.DefaultBatchSize holds the default value on creation for the batch_size field.
+	discoverypool.DefaultBatchSize = discoverypoolDescBatchSize.Default.(int)
+	// discoverypoolDescConcurrentLimit is the schema descriptor for concurrent_limit field.
+	discoverypoolDescConcurrentLimit := discoverypoolFields[7].Descriptor()
+	// discoverypool.DefaultConcurrentLimit holds the default value on creation for the concurrent_limit field.
+	discoverypool.DefaultConcurrentLimit = discoverypoolDescConcurrentLimit.Default.(int)
+	// discoverypoolDescMaxRetry is the schema descriptor for max_retry field.
+	discoverypoolDescMaxRetry := discoverypoolFields[8].Descriptor()
+	// discoverypool.DefaultMaxRetry holds the default value on creation for the max_retry field.
+	discoverypool.DefaultMaxRetry = discoverypoolDescMaxRetry.Default.(int)
+	// discoverypoolDescRetryInterval is the schema descriptor for retry_interval field.
+	discoverypoolDescRetryInterval := discoverypoolFields[9].Descriptor()
+	// discoverypool.DefaultRetryInterval holds the default value on creation for the retry_interval field.
+	discoverypool.DefaultRetryInterval = discoverypoolDescRetryInterval.Default.(int)
+	// discoverypoolDescTotalRuns is the schema descriptor for total_runs field.
+	discoverypoolDescTotalRuns := discoverypoolFields[11].Descriptor()
+	// discoverypool.DefaultTotalRuns holds the default value on creation for the total_runs field.
+	discoverypool.DefaultTotalRuns = discoverypoolDescTotalRuns.Default.(int64)
+	// discoverypoolDescSuccessRuns is the schema descriptor for success_runs field.
+	discoverypoolDescSuccessRuns := discoverypoolFields[12].Descriptor()
+	// discoverypool.DefaultSuccessRuns holds the default value on creation for the success_runs field.
+	discoverypool.DefaultSuccessRuns = discoverypoolDescSuccessRuns.Default.(int64)
+	// discoverypoolDescFailedRuns is the schema descriptor for failed_runs field.
+	discoverypoolDescFailedRuns := discoverypoolFields[13].Descriptor()
+	// discoverypool.DefaultFailedRuns holds the default value on creation for the failed_runs field.
+	discoverypool.DefaultFailedRuns = discoverypoolDescFailedRuns.Default.(int64)
+	// discoverypoolDescApprovalStatus is the schema descriptor for approval_status field.
+	discoverypoolDescApprovalStatus := discoverypoolFields[17].Descriptor()
+	// discoverypool.DefaultApprovalStatus holds the default value on creation for the approval_status field.
+	discoverypool.DefaultApprovalStatus = discoverypoolDescApprovalStatus.Default.(string)
+	// discoverypool.ApprovalStatusValidator is a validator for the "approval_status" field. It is called by the builders before save.
+	discoverypool.ApprovalStatusValidator = discoverypoolDescApprovalStatus.Validators[0].(func(string) error)
+	discoveryproviderschemaMixin := schema.DiscoveryProviderSchema{}.Mixin()
+	discoveryproviderschemaMixinFields0 := discoveryproviderschemaMixin[0].Fields()
+	_ = discoveryproviderschemaMixinFields0
+	discoveryproviderschemaMixinFields1 := discoveryproviderschemaMixin[1].Fields()
+	_ = discoveryproviderschemaMixinFields1
+	discoveryproviderschemaFields := schema.DiscoveryProviderSchema{}.Fields()
+	_ = discoveryproviderschemaFields
+	// discoveryproviderschemaDescCreatedAt is the schema descriptor for created_at field.
+	discoveryproviderschemaDescCreatedAt := discoveryproviderschemaMixinFields0[1].Descriptor()
+	// discoveryproviderschema.DefaultCreatedAt holds the default value on creation for the created_at field.
+	discoveryproviderschema.DefaultCreatedAt = discoveryproviderschemaDescCreatedAt.Default.(func() time.Time)
+	// discoveryproviderschemaDescUpdatedAt is the schema descriptor for updated_at field.
+	discoveryproviderschemaDescUpdatedAt := discoveryproviderschemaMixinFields0[2].Descriptor()
+	// discoveryproviderschema.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	discoveryproviderschema.DefaultUpdatedAt = discoveryproviderschemaDescUpdatedAt.Default.(func() time.Time)
+	// discoveryproviderschema.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	discoveryproviderschema.UpdateDefaultUpdatedAt = discoveryproviderschemaDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// discoveryproviderschemaDescStatus is the schema descriptor for status field.
+	discoveryproviderschemaDescStatus := discoveryproviderschemaMixinFields1[0].Descriptor()
+	// discoveryproviderschema.DefaultStatus holds the default value on creation for the status field.
+	discoveryproviderschema.DefaultStatus = discoveryproviderschemaDescStatus.Default.(uint8)
+	// discoveryproviderschemaDescDepartmentID is the schema descriptor for department_id field.
+	discoveryproviderschemaDescDepartmentID := discoveryproviderschemaFields[1].Descriptor()
+	// discoveryproviderschema.DefaultDepartmentID holds the default value on creation for the department_id field.
+	discoveryproviderschema.DefaultDepartmentID = discoveryproviderschemaDescDepartmentID.Default.(uint64)
+	// discoveryproviderschemaDescProviderID is the schema descriptor for provider_id field.
+	discoveryproviderschemaDescProviderID := discoveryproviderschemaFields[2].Descriptor()
+	// discoveryproviderschema.ProviderIDValidator is a validator for the "provider_id" field. It is called by the builders before save.
+	discoveryproviderschema.ProviderIDValidator = func() func(string) error {
+		validators := discoveryproviderschemaDescProviderID.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(provider_id string) error {
+			for _, fn := range fns {
+				if err := fn(provider_id); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// discoveryproviderschemaDescProviderName is the schema descriptor for provider_name field.
+	discoveryproviderschemaDescProviderName := discoveryproviderschemaFields[3].Descriptor()
+	// discoveryproviderschema.ProviderNameValidator is a validator for the "provider_name" field. It is called by the builders before save.
+	discoveryproviderschema.ProviderNameValidator = func() func(string) error {
+		validators := discoveryproviderschemaDescProviderName.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(provider_name string) error {
+			for _, fn := range fns {
+				if err := fn(provider_name); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// discoveryproviderschemaDescDescription is the schema descriptor for description field.
+	discoveryproviderschemaDescDescription := discoveryproviderschemaFields[7].Descriptor()
+	// discoveryproviderschema.DescriptionValidator is a validator for the "description" field. It is called by the builders before save.
+	discoveryproviderschema.DescriptionValidator = discoveryproviderschemaDescDescription.Validators[0].(func(string) error)
+	// discoveryproviderschemaDescVersion is the schema descriptor for version field.
+	discoveryproviderschemaDescVersion := discoveryproviderschemaFields[8].Descriptor()
+	// discoveryproviderschema.VersionValidator is a validator for the "version" field. It is called by the builders before save.
+	discoveryproviderschema.VersionValidator = discoveryproviderschemaDescVersion.Validators[0].(func(string) error)
+	// discoveryproviderschemaDescIconURL is the schema descriptor for icon_url field.
+	discoveryproviderschemaDescIconURL := discoveryproviderschemaFields[9].Descriptor()
+	// discoveryproviderschema.IconURLValidator is a validator for the "icon_url" field. It is called by the builders before save.
+	discoveryproviderschema.IconURLValidator = discoveryproviderschemaDescIconURL.Validators[0].(func(string) error)
+	// discoveryproviderschemaDescIsBuiltin is the schema descriptor for is_builtin field.
+	discoveryproviderschemaDescIsBuiltin := discoveryproviderschemaFields[10].Descriptor()
+	// discoveryproviderschema.DefaultIsBuiltin holds the default value on creation for the is_builtin field.
+	discoveryproviderschema.DefaultIsBuiltin = discoveryproviderschemaDescIsBuiltin.Default.(bool)
+	// discoveryproviderschemaDescIsActive is the schema descriptor for is_active field.
+	discoveryproviderschemaDescIsActive := discoveryproviderschemaFields[12].Descriptor()
+	// discoveryproviderschema.DefaultIsActive holds the default value on creation for the is_active field.
+	discoveryproviderschema.DefaultIsActive = discoveryproviderschemaDescIsActive.Default.(bool)
+	discoverytemplateMixin := schema.DiscoveryTemplate{}.Mixin()
+	discoverytemplateMixinFields0 := discoverytemplateMixin[0].Fields()
+	_ = discoverytemplateMixinFields0
+	discoverytemplateMixinFields1 := discoverytemplateMixin[1].Fields()
+	_ = discoverytemplateMixinFields1
+	discoverytemplateMixinFields2 := discoverytemplateMixin[2].Fields()
+	_ = discoverytemplateMixinFields2
+	discoverytemplateFields := schema.DiscoveryTemplate{}.Fields()
+	_ = discoverytemplateFields
+	// discoverytemplateDescCreatedAt is the schema descriptor for created_at field.
+	discoverytemplateDescCreatedAt := discoverytemplateMixinFields0[1].Descriptor()
+	// discoverytemplate.DefaultCreatedAt holds the default value on creation for the created_at field.
+	discoverytemplate.DefaultCreatedAt = discoverytemplateDescCreatedAt.Default.(func() time.Time)
+	// discoverytemplateDescUpdatedAt is the schema descriptor for updated_at field.
+	discoverytemplateDescUpdatedAt := discoverytemplateMixinFields0[2].Descriptor()
+	// discoverytemplate.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	discoverytemplate.DefaultUpdatedAt = discoverytemplateDescUpdatedAt.Default.(func() time.Time)
+	// discoverytemplate.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	discoverytemplate.UpdateDefaultUpdatedAt = discoverytemplateDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// discoverytemplateDescTenantID is the schema descriptor for tenant_id field.
+	discoverytemplateDescTenantID := discoverytemplateMixinFields1[0].Descriptor()
+	// discoverytemplate.DefaultTenantID holds the default value on creation for the tenant_id field.
+	discoverytemplate.DefaultTenantID = discoverytemplateDescTenantID.Default.(uint64)
+	// discoverytemplateDescStatus is the schema descriptor for status field.
+	discoverytemplateDescStatus := discoverytemplateMixinFields2[0].Descriptor()
+	// discoverytemplate.DefaultStatus holds the default value on creation for the status field.
+	discoverytemplate.DefaultStatus = discoverytemplateDescStatus.Default.(uint8)
+	// discoverytemplateDescTemplateName is the schema descriptor for template_name field.
+	discoverytemplateDescTemplateName := discoverytemplateFields[0].Descriptor()
+	// discoverytemplate.TemplateNameValidator is a validator for the "template_name" field. It is called by the builders before save.
+	discoverytemplate.TemplateNameValidator = func() func(string) error {
+		validators := discoverytemplateDescTemplateName.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(template_name string) error {
+			for _, fn := range fns {
+				if err := fn(template_name); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// discoverytemplateDescTemplateCode is the schema descriptor for template_code field.
+	discoverytemplateDescTemplateCode := discoverytemplateFields[1].Descriptor()
+	// discoverytemplate.TemplateCodeValidator is a validator for the "template_code" field. It is called by the builders before save.
+	discoverytemplate.TemplateCodeValidator = func() func(string) error {
+		validators := discoverytemplateDescTemplateCode.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(template_code string) error {
+			for _, fn := range fns {
+				if err := fn(template_code); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// discoverytemplateDescDescription is the schema descriptor for description field.
+	discoverytemplateDescDescription := discoverytemplateFields[2].Descriptor()
+	// discoverytemplate.DescriptionValidator is a validator for the "description" field. It is called by the builders before save.
+	discoverytemplate.DescriptionValidator = discoverytemplateDescDescription.Validators[0].(func(string) error)
+	// discoverytemplateDescVersion is the schema descriptor for version field.
+	discoverytemplateDescVersion := discoverytemplateFields[3].Descriptor()
+	// discoverytemplate.DefaultVersion holds the default value on creation for the version field.
+	discoverytemplate.DefaultVersion = discoverytemplateDescVersion.Default.(string)
+	// discoverytemplate.VersionValidator is a validator for the "version" field. It is called by the builders before save.
+	discoverytemplate.VersionValidator = discoverytemplateDescVersion.Validators[0].(func(string) error)
+	// discoverytemplateDescTemplateType is the schema descriptor for template_type field.
+	discoverytemplateDescTemplateType := discoverytemplateFields[4].Descriptor()
+	// discoverytemplate.DefaultTemplateType holds the default value on creation for the template_type field.
+	discoverytemplate.DefaultTemplateType = discoverytemplateDescTemplateType.Default.(string)
+	// discoverytemplate.TemplateTypeValidator is a validator for the "template_type" field. It is called by the builders before save.
+	discoverytemplate.TemplateTypeValidator = discoverytemplateDescTemplateType.Validators[0].(func(string) error)
+	// discoverytemplateDescIsPublic is the schema descriptor for is_public field.
+	discoverytemplateDescIsPublic := discoverytemplateFields[8].Descriptor()
+	// discoverytemplate.DefaultIsPublic holds the default value on creation for the is_public field.
+	discoverytemplate.DefaultIsPublic = discoverytemplateDescIsPublic.Default.(bool)
+	// discoverytemplateDescIsSystem is the schema descriptor for is_system field.
+	discoverytemplateDescIsSystem := discoverytemplateFields[9].Descriptor()
+	// discoverytemplate.DefaultIsSystem holds the default value on creation for the is_system field.
+	discoverytemplate.DefaultIsSystem = discoverytemplateDescIsSystem.Default.(bool)
+	// discoverytemplateDescUsageCount is the schema descriptor for usage_count field.
+	discoverytemplateDescUsageCount := discoverytemplateFields[10].Descriptor()
+	// discoverytemplate.DefaultUsageCount holds the default value on creation for the usage_count field.
+	discoverytemplate.DefaultUsageCount = discoverytemplateDescUsageCount.Default.(int64)
+	// discoverytemplateDescTags is the schema descriptor for tags field.
+	discoverytemplateDescTags := discoverytemplateFields[11].Descriptor()
+	// discoverytemplate.TagsValidator is a validator for the "tags" field. It is called by the builders before save.
+	discoverytemplate.TagsValidator = discoverytemplateDescTags.Validators[0].(func(string) error)
+	dlqmessageMixin := schema.DlqMessage{}.Mixin()
+	dlqmessageMixinFields0 := dlqmessageMixin[0].Fields()
+	_ = dlqmessageMixinFields0
+	dlqmessageMixinFields1 := dlqmessageMixin[1].Fields()
+	_ = dlqmessageMixinFields1
+	dlqmessageFields := schema.DlqMessage{}.Fields()
+	_ = dlqmessageFields
+	// dlqmessageDescCreatedAt is the schema descriptor for created_at field.
+	dlqmessageDescCreatedAt := dlqmessageMixinFields0[1].Descriptor()
+	// dlqmessage.DefaultCreatedAt holds the default value on creation for the created_at field.
+	dlqmessage.DefaultCreatedAt = dlqmessageDescCreatedAt.Default.(func() time.Time)
+	// dlqmessageDescUpdatedAt is the schema descriptor for updated_at field.
+	dlqmessageDescUpdatedAt := dlqmessageMixinFields0[2].Descriptor()
+	// dlqmessage.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	dlqmessage.DefaultUpdatedAt = dlqmessageDescUpdatedAt.Default.(func() time.Time)
+	// dlqmessage.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	dlqmessage.UpdateDefaultUpdatedAt = dlqmessageDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// dlqmessageDescTenantID is the schema descriptor for tenant_id field.
+	dlqmessageDescTenantID := dlqmessageMixinFields1[0].Descriptor()
+	// dlqmessage.DefaultTenantID holds the default value on creation for the tenant_id field.
+	dlqmessage.DefaultTenantID = dlqmessageDescTenantID.Default.(uint64)
+	// dlqmessageDescAggregateType is the schema descriptor for aggregate_type field.
+	dlqmessageDescAggregateType := dlqmessageFields[1].Descriptor()
+	// dlqmessage.AggregateTypeValidator is a validator for the "aggregate_type" field. It is called by the builders before save.
+	dlqmessage.AggregateTypeValidator = func() func(string) error {
+		validators := dlqmessageDescAggregateType.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(aggregate_type string) error {
+			for _, fn := range fns {
+				if err := fn(aggregate_type); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// dlqmessageDescAggregateID is the schema descriptor for aggregate_id field.
+	dlqmessageDescAggregateID := dlqmessageFields[2].Descriptor()
+	// dlqmessage.AggregateIDValidator is a validator for the "aggregate_id" field. It is called by the builders before save.
+	dlqmessage.AggregateIDValidator = func() func(string) error {
+		validators := dlqmessageDescAggregateID.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(aggregate_id string) error {
+			for _, fn := range fns {
+				if err := fn(aggregate_id); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// dlqmessageDescTopic is the schema descriptor for topic field.
+	dlqmessageDescTopic := dlqmessageFields[3].Descriptor()
+	// dlqmessage.TopicValidator is a validator for the "topic" field. It is called by the builders before save.
+	dlqmessage.TopicValidator = func() func(string) error {
+		validators := dlqmessageDescTopic.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(topic string) error {
+			for _, fn := range fns {
+				if err := fn(topic); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// dlqmessageDescMessageKey is the schema descriptor for message_key field.
+	dlqmessageDescMessageKey := dlqmessageFields[4].Descriptor()
+	// dlqmessage.MessageKeyValidator is a validator for the "message_key" field. It is called by the builders before save.
+	dlqmessage.MessageKeyValidator = dlqmessageDescMessageKey.Validators[0].(func(string) error)
+	// dlqmessageDescEventType is the schema descriptor for event_type field.
+	dlqmessageDescEventType := dlqmessageFields[7].Descriptor()
+	// dlqmessage.EventTypeValidator is a validator for the "event_type" field. It is called by the builders before save.
+	dlqmessage.EventTypeValidator = dlqmessageDescEventType.Validators[0].(func(string) error)
+	// dlqmessageDescRetryCount is the schema descriptor for retry_count field.
+	dlqmessageDescRetryCount := dlqmessageFields[8].Descriptor()
+	// dlqmessage.DefaultRetryCount holds the default value on creation for the retry_count field.
+	dlqmessage.DefaultRetryCount = dlqmessageDescRetryCount.Default.(int)
+	// dlqmessageDescFailureReason is the schema descriptor for failure_reason field.
+	dlqmessageDescFailureReason := dlqmessageFields[9].Descriptor()
+	// dlqmessage.FailureReasonValidator is a validator for the "failure_reason" field. It is called by the builders before save.
+	dlqmessage.FailureReasonValidator = dlqmessageDescFailureReason.Validators[0].(func(string) error)
+	// dlqmessageDescResolutionNotes is the schema descriptor for resolution_notes field.
+	dlqmessageDescResolutionNotes := dlqmessageFields[16].Descriptor()
+	// dlqmessage.ResolutionNotesValidator is a validator for the "resolution_notes" field. It is called by the builders before save.
+	dlqmessage.ResolutionNotesValidator = dlqmessageDescResolutionNotes.Validators[0].(func(string) error)
+	fieldmappingMixin := schema.FieldMapping{}.Mixin()
+	fieldmappingMixinFields0 := fieldmappingMixin[0].Fields()
+	_ = fieldmappingMixinFields0
+	fieldmappingMixinFields1 := fieldmappingMixin[1].Fields()
+	_ = fieldmappingMixinFields1
+	fieldmappingMixinFields2 := fieldmappingMixin[2].Fields()
+	_ = fieldmappingMixinFields2
+	fieldmappingFields := schema.FieldMapping{}.Fields()
+	_ = fieldmappingFields
+	// fieldmappingDescCreatedAt is the schema descriptor for created_at field.
+	fieldmappingDescCreatedAt := fieldmappingMixinFields0[1].Descriptor()
+	// fieldmapping.DefaultCreatedAt holds the default value on creation for the created_at field.
+	fieldmapping.DefaultCreatedAt = fieldmappingDescCreatedAt.Default.(func() time.Time)
+	// fieldmappingDescUpdatedAt is the schema descriptor for updated_at field.
+	fieldmappingDescUpdatedAt := fieldmappingMixinFields0[2].Descriptor()
+	// fieldmapping.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	fieldmapping.DefaultUpdatedAt = fieldmappingDescUpdatedAt.Default.(func() time.Time)
+	// fieldmapping.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	fieldmapping.UpdateDefaultUpdatedAt = fieldmappingDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// fieldmappingDescTenantID is the schema descriptor for tenant_id field.
+	fieldmappingDescTenantID := fieldmappingMixinFields1[0].Descriptor()
+	// fieldmapping.DefaultTenantID holds the default value on creation for the tenant_id field.
+	fieldmapping.DefaultTenantID = fieldmappingDescTenantID.Default.(uint64)
+	// fieldmappingDescStatus is the schema descriptor for status field.
+	fieldmappingDescStatus := fieldmappingMixinFields2[0].Descriptor()
+	// fieldmapping.DefaultStatus holds the default value on creation for the status field.
+	fieldmapping.DefaultStatus = fieldmappingDescStatus.Default.(uint8)
+	// fieldmappingDescMappingName is the schema descriptor for mapping_name field.
+	fieldmappingDescMappingName := fieldmappingFields[0].Descriptor()
+	// fieldmapping.MappingNameValidator is a validator for the "mapping_name" field. It is called by the builders before save.
+	fieldmapping.MappingNameValidator = func() func(string) error {
+		validators := fieldmappingDescMappingName.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(mapping_name string) error {
+			for _, fn := range fns {
+				if err := fn(mapping_name); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// fieldmappingDescDescription is the schema descriptor for description field.
+	fieldmappingDescDescription := fieldmappingFields[1].Descriptor()
+	// fieldmapping.DescriptionValidator is a validator for the "description" field. It is called by the builders before save.
+	fieldmapping.DescriptionValidator = fieldmappingDescDescription.Validators[0].(func(string) error)
+	// fieldmappingDescMappingType is the schema descriptor for mapping_type field.
+	fieldmappingDescMappingType := fieldmappingFields[2].Descriptor()
+	// fieldmapping.DefaultMappingType holds the default value on creation for the mapping_type field.
+	fieldmapping.DefaultMappingType = fieldmappingDescMappingType.Default.(string)
+	// fieldmapping.MappingTypeValidator is a validator for the "mapping_type" field. It is called by the builders before save.
+	fieldmapping.MappingTypeValidator = fieldmappingDescMappingType.Validators[0].(func(string) error)
+	// fieldmappingDescIsActive is the schema descriptor for is_active field.
+	fieldmappingDescIsActive := fieldmappingFields[3].Descriptor()
+	// fieldmapping.DefaultIsActive holds the default value on creation for the is_active field.
+	fieldmapping.DefaultIsActive = fieldmappingDescIsActive.Default.(bool)
+	// fieldmappingDescSourceField is the schema descriptor for source_field field.
+	fieldmappingDescSourceField := fieldmappingFields[4].Descriptor()
+	// fieldmapping.SourceFieldValidator is a validator for the "source_field" field. It is called by the builders before save.
+	fieldmapping.SourceFieldValidator = func() func(string) error {
+		validators := fieldmappingDescSourceField.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(source_field string) error {
+			for _, fn := range fns {
+				if err := fn(source_field); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// fieldmappingDescSourceFieldPath is the schema descriptor for source_field_path field.
+	fieldmappingDescSourceFieldPath := fieldmappingFields[5].Descriptor()
+	// fieldmapping.SourceFieldPathValidator is a validator for the "source_field_path" field. It is called by the builders before save.
+	fieldmapping.SourceFieldPathValidator = fieldmappingDescSourceFieldPath.Validators[0].(func(string) error)
+	// fieldmappingDescSourceDataType is the schema descriptor for source_data_type field.
+	fieldmappingDescSourceDataType := fieldmappingFields[6].Descriptor()
+	// fieldmapping.SourceDataTypeValidator is a validator for the "source_data_type" field. It is called by the builders before save.
+	fieldmapping.SourceDataTypeValidator = fieldmappingDescSourceDataType.Validators[0].(func(string) error)
+	// fieldmappingDescSourceFormat is the schema descriptor for source_format field.
+	fieldmappingDescSourceFormat := fieldmappingFields[7].Descriptor()
+	// fieldmapping.SourceFormatValidator is a validator for the "source_format" field. It is called by the builders before save.
+	fieldmapping.SourceFormatValidator = fieldmappingDescSourceFormat.Validators[0].(func(string) error)
+	// fieldmappingDescTargetField is the schema descriptor for target_field field.
+	fieldmappingDescTargetField := fieldmappingFields[8].Descriptor()
+	// fieldmapping.TargetFieldValidator is a validator for the "target_field" field. It is called by the builders before save.
+	fieldmapping.TargetFieldValidator = func() func(string) error {
+		validators := fieldmappingDescTargetField.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(target_field string) error {
+			for _, fn := range fns {
+				if err := fn(target_field); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// fieldmappingDescTargetFieldPath is the schema descriptor for target_field_path field.
+	fieldmappingDescTargetFieldPath := fieldmappingFields[9].Descriptor()
+	// fieldmapping.TargetFieldPathValidator is a validator for the "target_field_path" field. It is called by the builders before save.
+	fieldmapping.TargetFieldPathValidator = fieldmappingDescTargetFieldPath.Validators[0].(func(string) error)
+	// fieldmappingDescTargetDataType is the schema descriptor for target_data_type field.
+	fieldmappingDescTargetDataType := fieldmappingFields[10].Descriptor()
+	// fieldmapping.TargetDataTypeValidator is a validator for the "target_data_type" field. It is called by the builders before save.
+	fieldmapping.TargetDataTypeValidator = fieldmappingDescTargetDataType.Validators[0].(func(string) error)
+	// fieldmappingDescTargetFormat is the schema descriptor for target_format field.
+	fieldmappingDescTargetFormat := fieldmappingFields[11].Descriptor()
+	// fieldmapping.TargetFormatValidator is a validator for the "target_format" field. It is called by the builders before save.
+	fieldmapping.TargetFormatValidator = fieldmappingDescTargetFormat.Validators[0].(func(string) error)
+	// fieldmappingDescTransformType is the schema descriptor for transform_type field.
+	fieldmappingDescTransformType := fieldmappingFields[12].Descriptor()
+	// fieldmapping.DefaultTransformType holds the default value on creation for the transform_type field.
+	fieldmapping.DefaultTransformType = fieldmappingDescTransformType.Default.(string)
+	// fieldmapping.TransformTypeValidator is a validator for the "transform_type" field. It is called by the builders before save.
+	fieldmapping.TransformTypeValidator = fieldmappingDescTransformType.Validators[0].(func(string) error)
+	// fieldmappingDescDefaultValue is the schema descriptor for default_value field.
+	fieldmappingDescDefaultValue := fieldmappingFields[14].Descriptor()
+	// fieldmapping.DefaultValueValidator is a validator for the "default_value" field. It is called by the builders before save.
+	fieldmapping.DefaultValueValidator = fieldmappingDescDefaultValue.Validators[0].(func(string) error)
+	// fieldmappingDescAllowNull is the schema descriptor for allow_null field.
+	fieldmappingDescAllowNull := fieldmappingFields[15].Descriptor()
+	// fieldmapping.DefaultAllowNull holds the default value on creation for the allow_null field.
+	fieldmapping.DefaultAllowNull = fieldmappingDescAllowNull.Default.(bool)
+	// fieldmappingDescIsRequired is the schema descriptor for is_required field.
+	fieldmappingDescIsRequired := fieldmappingFields[16].Descriptor()
+	// fieldmapping.DefaultIsRequired holds the default value on creation for the is_required field.
+	fieldmapping.DefaultIsRequired = fieldmappingDescIsRequired.Default.(bool)
+	// fieldmappingDescValidationRegex is the schema descriptor for validation_regex field.
+	fieldmappingDescValidationRegex := fieldmappingFields[18].Descriptor()
+	// fieldmapping.ValidationRegexValidator is a validator for the "validation_regex" field. It is called by the builders before save.
+	fieldmapping.ValidationRegexValidator = fieldmappingDescValidationRegex.Validators[0].(func(string) error)
+	// fieldmappingDescLookupCaseSensitive is the schema descriptor for lookup_case_sensitive field.
+	fieldmappingDescLookupCaseSensitive := fieldmappingFields[20].Descriptor()
+	// fieldmapping.DefaultLookupCaseSensitive holds the default value on creation for the lookup_case_sensitive field.
+	fieldmapping.DefaultLookupCaseSensitive = fieldmappingDescLookupCaseSensitive.Default.(bool)
+	// fieldmappingDescPriority is the schema descriptor for priority field.
+	fieldmappingDescPriority := fieldmappingFields[22].Descriptor()
+	// fieldmapping.DefaultPriority holds the default value on creation for the priority field.
+	fieldmapping.DefaultPriority = fieldmappingDescPriority.Default.(int)
+	// fieldmappingDescSortOrder is the schema descriptor for sort_order field.
+	fieldmappingDescSortOrder := fieldmappingFields[23].Descriptor()
+	// fieldmapping.DefaultSortOrder holds the default value on creation for the sort_order field.
+	fieldmapping.DefaultSortOrder = fieldmappingDescSortOrder.Default.(int)
+	// fieldmappingDescUsageCount is the schema descriptor for usage_count field.
+	fieldmappingDescUsageCount := fieldmappingFields[27].Descriptor()
+	// fieldmapping.DefaultUsageCount holds the default value on creation for the usage_count field.
+	fieldmapping.DefaultUsageCount = fieldmappingDescUsageCount.Default.(int64)
+	// fieldmappingDescSuccessCount is the schema descriptor for success_count field.
+	fieldmappingDescSuccessCount := fieldmappingFields[28].Descriptor()
+	// fieldmapping.DefaultSuccessCount holds the default value on creation for the success_count field.
+	fieldmapping.DefaultSuccessCount = fieldmappingDescSuccessCount.Default.(int64)
+	// fieldmappingDescFailedCount is the schema descriptor for failed_count field.
+	fieldmappingDescFailedCount := fieldmappingFields[29].Descriptor()
+	// fieldmapping.DefaultFailedCount holds the default value on creation for the failed_count field.
+	fieldmapping.DefaultFailedCount = fieldmappingDescFailedCount.Default.(int64)
+	inputtaskMixin := schema.InputTask{}.Mixin()
+	inputtaskMixinFields0 := inputtaskMixin[0].Fields()
+	_ = inputtaskMixinFields0
+	inputtaskMixinFields1 := inputtaskMixin[1].Fields()
+	_ = inputtaskMixinFields1
+	inputtaskMixinFields2 := inputtaskMixin[2].Fields()
+	_ = inputtaskMixinFields2
+	inputtaskFields := schema.InputTask{}.Fields()
+	_ = inputtaskFields
+	// inputtaskDescCreatedAt is the schema descriptor for created_at field.
+	inputtaskDescCreatedAt := inputtaskMixinFields0[1].Descriptor()
+	// inputtask.DefaultCreatedAt holds the default value on creation for the created_at field.
+	inputtask.DefaultCreatedAt = inputtaskDescCreatedAt.Default.(func() time.Time)
+	// inputtaskDescUpdatedAt is the schema descriptor for updated_at field.
+	inputtaskDescUpdatedAt := inputtaskMixinFields0[2].Descriptor()
+	// inputtask.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	inputtask.DefaultUpdatedAt = inputtaskDescUpdatedAt.Default.(func() time.Time)
+	// inputtask.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	inputtask.UpdateDefaultUpdatedAt = inputtaskDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// inputtaskDescTenantID is the schema descriptor for tenant_id field.
+	inputtaskDescTenantID := inputtaskMixinFields1[0].Descriptor()
+	// inputtask.DefaultTenantID holds the default value on creation for the tenant_id field.
+	inputtask.DefaultTenantID = inputtaskDescTenantID.Default.(uint64)
+	// inputtaskDescStatus is the schema descriptor for status field.
+	inputtaskDescStatus := inputtaskMixinFields2[0].Descriptor()
+	// inputtask.DefaultStatus holds the default value on creation for the status field.
+	inputtask.DefaultStatus = inputtaskDescStatus.Default.(uint8)
+	// inputtaskDescTaskName is the schema descriptor for task_name field.
+	inputtaskDescTaskName := inputtaskFields[0].Descriptor()
+	// inputtask.TaskNameValidator is a validator for the "task_name" field. It is called by the builders before save.
+	inputtask.TaskNameValidator = func() func(string) error {
+		validators := inputtaskDescTaskName.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(task_name string) error {
+			for _, fn := range fns {
+				if err := fn(task_name); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// inputtaskDescTaskType is the schema descriptor for task_type field.
+	inputtaskDescTaskType := inputtaskFields[1].Descriptor()
+	// inputtask.DefaultTaskType holds the default value on creation for the task_type field.
+	inputtask.DefaultTaskType = inputtaskDescTaskType.Default.(string)
+	// inputtask.TaskTypeValidator is a validator for the "task_type" field. It is called by the builders before save.
+	inputtask.TaskTypeValidator = inputtaskDescTaskType.Validators[0].(func(string) error)
+	// inputtaskDescInputSource is the schema descriptor for input_source field.
+	inputtaskDescInputSource := inputtaskFields[2].Descriptor()
+	// inputtask.InputSourceValidator is a validator for the "input_source" field. It is called by the builders before save.
+	inputtask.InputSourceValidator = func() func(string) error {
+		validators := inputtaskDescInputSource.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(input_source string) error {
+			for _, fn := range fns {
+				if err := fn(input_source); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// inputtaskDescTaskStatus is the schema descriptor for task_status field.
+	inputtaskDescTaskStatus := inputtaskFields[4].Descriptor()
+	// inputtask.DefaultTaskStatus holds the default value on creation for the task_status field.
+	inputtask.DefaultTaskStatus = inputtaskDescTaskStatus.Default.(string)
+	// inputtask.TaskStatusValidator is a validator for the "task_status" field. It is called by the builders before save.
+	inputtask.TaskStatusValidator = inputtaskDescTaskStatus.Validators[0].(func(string) error)
+	// inputtaskDescTotalRecords is the schema descriptor for total_records field.
+	inputtaskDescTotalRecords := inputtaskFields[11].Descriptor()
+	// inputtask.DefaultTotalRecords holds the default value on creation for the total_records field.
+	inputtask.DefaultTotalRecords = inputtaskDescTotalRecords.Default.(int64)
+	// inputtaskDescProcessedRecords is the schema descriptor for processed_records field.
+	inputtaskDescProcessedRecords := inputtaskFields[12].Descriptor()
+	// inputtask.DefaultProcessedRecords holds the default value on creation for the processed_records field.
+	inputtask.DefaultProcessedRecords = inputtaskDescProcessedRecords.Default.(int64)
+	// inputtaskDescSuccessRecords is the schema descriptor for success_records field.
+	inputtaskDescSuccessRecords := inputtaskFields[13].Descriptor()
+	// inputtask.DefaultSuccessRecords holds the default value on creation for the success_records field.
+	inputtask.DefaultSuccessRecords = inputtaskDescSuccessRecords.Default.(int64)
+	// inputtaskDescFailedRecords is the schema descriptor for failed_records field.
+	inputtaskDescFailedRecords := inputtaskFields[14].Descriptor()
+	// inputtask.DefaultFailedRecords holds the default value on creation for the failed_records field.
+	inputtask.DefaultFailedRecords = inputtaskDescFailedRecords.Default.(int64)
+	mappinglogMixin := schema.MappingLog{}.Mixin()
+	mappinglogMixinFields0 := mappinglogMixin[0].Fields()
+	_ = mappinglogMixinFields0
+	mappinglogMixinFields1 := mappinglogMixin[1].Fields()
+	_ = mappinglogMixinFields1
+	mappinglogFields := schema.MappingLog{}.Fields()
+	_ = mappinglogFields
+	// mappinglogDescCreatedAt is the schema descriptor for created_at field.
+	mappinglogDescCreatedAt := mappinglogMixinFields0[1].Descriptor()
+	// mappinglog.DefaultCreatedAt holds the default value on creation for the created_at field.
+	mappinglog.DefaultCreatedAt = mappinglogDescCreatedAt.Default.(func() time.Time)
+	// mappinglogDescUpdatedAt is the schema descriptor for updated_at field.
+	mappinglogDescUpdatedAt := mappinglogMixinFields0[2].Descriptor()
+	// mappinglog.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	mappinglog.DefaultUpdatedAt = mappinglogDescUpdatedAt.Default.(func() time.Time)
+	// mappinglog.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	mappinglog.UpdateDefaultUpdatedAt = mappinglogDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// mappinglogDescTenantID is the schema descriptor for tenant_id field.
+	mappinglogDescTenantID := mappinglogMixinFields1[0].Descriptor()
+	// mappinglog.DefaultTenantID holds the default value on creation for the tenant_id field.
+	mappinglog.DefaultTenantID = mappinglogDescTenantID.Default.(uint64)
+	// mappinglogDescSourceValue is the schema descriptor for source_value field.
+	mappinglogDescSourceValue := mappinglogFields[1].Descriptor()
+	// mappinglog.SourceValueValidator is a validator for the "source_value" field. It is called by the builders before save.
+	mappinglog.SourceValueValidator = mappinglogDescSourceValue.Validators[0].(func(string) error)
+	// mappinglogDescTargetValue is the schema descriptor for target_value field.
+	mappinglogDescTargetValue := mappinglogFields[2].Descriptor()
+	// mappinglog.TargetValueValidator is a validator for the "target_value" field. It is called by the builders before save.
+	mappinglog.TargetValueValidator = mappinglogDescTargetValue.Validators[0].(func(string) error)
+	// mappinglogDescTransformStatus is the schema descriptor for transform_status field.
+	mappinglogDescTransformStatus := mappinglogFields[3].Descriptor()
+	// mappinglog.DefaultTransformStatus holds the default value on creation for the transform_status field.
+	mappinglog.DefaultTransformStatus = mappinglogDescTransformStatus.Default.(string)
+	// mappinglog.TransformStatusValidator is a validator for the "transform_status" field. It is called by the builders before save.
+	mappinglog.TransformStatusValidator = mappinglogDescTransformStatus.Validators[0].(func(string) error)
+	outboxmessageMixin := schema.OutboxMessage{}.Mixin()
+	outboxmessageMixinFields0 := outboxmessageMixin[0].Fields()
+	_ = outboxmessageMixinFields0
+	outboxmessageMixinFields1 := outboxmessageMixin[1].Fields()
+	_ = outboxmessageMixinFields1
+	outboxmessageMixinFields2 := outboxmessageMixin[2].Fields()
+	_ = outboxmessageMixinFields2
+	outboxmessageFields := schema.OutboxMessage{}.Fields()
+	_ = outboxmessageFields
+	// outboxmessageDescCreatedAt is the schema descriptor for created_at field.
+	outboxmessageDescCreatedAt := outboxmessageMixinFields0[1].Descriptor()
+	// outboxmessage.DefaultCreatedAt holds the default value on creation for the created_at field.
+	outboxmessage.DefaultCreatedAt = outboxmessageDescCreatedAt.Default.(func() time.Time)
+	// outboxmessageDescUpdatedAt is the schema descriptor for updated_at field.
+	outboxmessageDescUpdatedAt := outboxmessageMixinFields0[2].Descriptor()
+	// outboxmessage.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	outboxmessage.DefaultUpdatedAt = outboxmessageDescUpdatedAt.Default.(func() time.Time)
+	// outboxmessage.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	outboxmessage.UpdateDefaultUpdatedAt = outboxmessageDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// outboxmessageDescTenantID is the schema descriptor for tenant_id field.
+	outboxmessageDescTenantID := outboxmessageMixinFields1[0].Descriptor()
+	// outboxmessage.DefaultTenantID holds the default value on creation for the tenant_id field.
+	outboxmessage.DefaultTenantID = outboxmessageDescTenantID.Default.(uint64)
+	// outboxmessageDescStatus is the schema descriptor for status field.
+	outboxmessageDescStatus := outboxmessageMixinFields2[0].Descriptor()
+	// outboxmessage.DefaultStatus holds the default value on creation for the status field.
+	outboxmessage.DefaultStatus = outboxmessageDescStatus.Default.(uint8)
+	// outboxmessageDescAggregateType is the schema descriptor for aggregate_type field.
+	outboxmessageDescAggregateType := outboxmessageFields[0].Descriptor()
+	// outboxmessage.AggregateTypeValidator is a validator for the "aggregate_type" field. It is called by the builders before save.
+	outboxmessage.AggregateTypeValidator = func() func(string) error {
+		validators := outboxmessageDescAggregateType.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(aggregate_type string) error {
+			for _, fn := range fns {
+				if err := fn(aggregate_type); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// outboxmessageDescAggregateID is the schema descriptor for aggregate_id field.
+	outboxmessageDescAggregateID := outboxmessageFields[1].Descriptor()
+	// outboxmessage.AggregateIDValidator is a validator for the "aggregate_id" field. It is called by the builders before save.
+	outboxmessage.AggregateIDValidator = func() func(string) error {
+		validators := outboxmessageDescAggregateID.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(aggregate_id string) error {
+			for _, fn := range fns {
+				if err := fn(aggregate_id); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// outboxmessageDescTopic is the schema descriptor for topic field.
+	outboxmessageDescTopic := outboxmessageFields[2].Descriptor()
+	// outboxmessage.TopicValidator is a validator for the "topic" field. It is called by the builders before save.
+	outboxmessage.TopicValidator = func() func(string) error {
+		validators := outboxmessageDescTopic.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(topic string) error {
+			for _, fn := range fns {
+				if err := fn(topic); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// outboxmessageDescMessageKey is the schema descriptor for message_key field.
+	outboxmessageDescMessageKey := outboxmessageFields[3].Descriptor()
+	// outboxmessage.MessageKeyValidator is a validator for the "message_key" field. It is called by the builders before save.
+	outboxmessage.MessageKeyValidator = outboxmessageDescMessageKey.Validators[0].(func(string) error)
+	// outboxmessageDescEventType is the schema descriptor for event_type field.
+	outboxmessageDescEventType := outboxmessageFields[6].Descriptor()
+	// outboxmessage.EventTypeValidator is a validator for the "event_type" field. It is called by the builders before save.
+	outboxmessage.EventTypeValidator = func() func(string) error {
+		validators := outboxmessageDescEventType.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(event_type string) error {
+			for _, fn := range fns {
+				if err := fn(event_type); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// outboxmessageDescSendStatus is the schema descriptor for send_status field.
+	outboxmessageDescSendStatus := outboxmessageFields[7].Descriptor()
+	// outboxmessage.DefaultSendStatus holds the default value on creation for the send_status field.
+	outboxmessage.DefaultSendStatus = outboxmessageDescSendStatus.Default.(string)
+	// outboxmessage.SendStatusValidator is a validator for the "send_status" field. It is called by the builders before save.
+	outboxmessage.SendStatusValidator = outboxmessageDescSendStatus.Validators[0].(func(string) error)
+	// outboxmessageDescRetryCount is the schema descriptor for retry_count field.
+	outboxmessageDescRetryCount := outboxmessageFields[8].Descriptor()
+	// outboxmessage.DefaultRetryCount holds the default value on creation for the retry_count field.
+	outboxmessage.DefaultRetryCount = outboxmessageDescRetryCount.Default.(int)
+	// outboxmessageDescMaxRetries is the schema descriptor for max_retries field.
+	outboxmessageDescMaxRetries := outboxmessageFields[9].Descriptor()
+	// outboxmessage.DefaultMaxRetries holds the default value on creation for the max_retries field.
+	outboxmessage.DefaultMaxRetries = outboxmessageDescMaxRetries.Default.(int)
+	// outboxmessageDescPriority is the schema descriptor for priority field.
+	outboxmessageDescPriority := outboxmessageFields[15].Descriptor()
+	// outboxmessage.DefaultPriority holds the default value on creation for the priority field.
+	outboxmessage.DefaultPriority = outboxmessageDescPriority.Default.(int)
+	outputtaskMixin := schema.OutputTask{}.Mixin()
+	outputtaskMixinFields0 := outputtaskMixin[0].Fields()
+	_ = outputtaskMixinFields0
+	outputtaskMixinFields1 := outputtaskMixin[1].Fields()
+	_ = outputtaskMixinFields1
+	outputtaskMixinFields2 := outputtaskMixin[2].Fields()
+	_ = outputtaskMixinFields2
+	outputtaskFields := schema.OutputTask{}.Fields()
+	_ = outputtaskFields
+	// outputtaskDescCreatedAt is the schema descriptor for created_at field.
+	outputtaskDescCreatedAt := outputtaskMixinFields0[1].Descriptor()
+	// outputtask.DefaultCreatedAt holds the default value on creation for the created_at field.
+	outputtask.DefaultCreatedAt = outputtaskDescCreatedAt.Default.(func() time.Time)
+	// outputtaskDescUpdatedAt is the schema descriptor for updated_at field.
+	outputtaskDescUpdatedAt := outputtaskMixinFields0[2].Descriptor()
+	// outputtask.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	outputtask.DefaultUpdatedAt = outputtaskDescUpdatedAt.Default.(func() time.Time)
+	// outputtask.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	outputtask.UpdateDefaultUpdatedAt = outputtaskDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// outputtaskDescTenantID is the schema descriptor for tenant_id field.
+	outputtaskDescTenantID := outputtaskMixinFields1[0].Descriptor()
+	// outputtask.DefaultTenantID holds the default value on creation for the tenant_id field.
+	outputtask.DefaultTenantID = outputtaskDescTenantID.Default.(uint64)
+	// outputtaskDescStatus is the schema descriptor for status field.
+	outputtaskDescStatus := outputtaskMixinFields2[0].Descriptor()
+	// outputtask.DefaultStatus holds the default value on creation for the status field.
+	outputtask.DefaultStatus = outputtaskDescStatus.Default.(uint8)
+	// outputtaskDescTaskName is the schema descriptor for task_name field.
+	outputtaskDescTaskName := outputtaskFields[0].Descriptor()
+	// outputtask.TaskNameValidator is a validator for the "task_name" field. It is called by the builders before save.
+	outputtask.TaskNameValidator = func() func(string) error {
+		validators := outputtaskDescTaskName.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(task_name string) error {
+			for _, fn := range fns {
+				if err := fn(task_name); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// outputtaskDescTaskType is the schema descriptor for task_type field.
+	outputtaskDescTaskType := outputtaskFields[1].Descriptor()
+	// outputtask.DefaultTaskType holds the default value on creation for the task_type field.
+	outputtask.DefaultTaskType = outputtaskDescTaskType.Default.(string)
+	// outputtask.TaskTypeValidator is a validator for the "task_type" field. It is called by the builders before save.
+	outputtask.TaskTypeValidator = outputtaskDescTaskType.Validators[0].(func(string) error)
+	// outputtaskDescOutputTarget is the schema descriptor for output_target field.
+	outputtaskDescOutputTarget := outputtaskFields[2].Descriptor()
+	// outputtask.OutputTargetValidator is a validator for the "output_target" field. It is called by the builders before save.
+	outputtask.OutputTargetValidator = func() func(string) error {
+		validators := outputtaskDescOutputTarget.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(output_target string) error {
+			for _, fn := range fns {
+				if err := fn(output_target); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// outputtaskDescTaskStatus is the schema descriptor for task_status field.
+	outputtaskDescTaskStatus := outputtaskFields[4].Descriptor()
+	// outputtask.DefaultTaskStatus holds the default value on creation for the task_status field.
+	outputtask.DefaultTaskStatus = outputtaskDescTaskStatus.Default.(string)
+	// outputtask.TaskStatusValidator is a validator for the "task_status" field. It is called by the builders before save.
+	outputtask.TaskStatusValidator = outputtaskDescTaskStatus.Validators[0].(func(string) error)
+	// outputtaskDescTotalRecords is the schema descriptor for total_records field.
+	outputtaskDescTotalRecords := outputtaskFields[9].Descriptor()
+	// outputtask.DefaultTotalRecords holds the default value on creation for the total_records field.
+	outputtask.DefaultTotalRecords = outputtaskDescTotalRecords.Default.(int64)
+	// outputtaskDescProcessedRecords is the schema descriptor for processed_records field.
+	outputtaskDescProcessedRecords := outputtaskFields[10].Descriptor()
+	// outputtask.DefaultProcessedRecords holds the default value on creation for the processed_records field.
+	outputtask.DefaultProcessedRecords = outputtaskDescProcessedRecords.Default.(int64)
+	// outputtaskDescSuccessRecords is the schema descriptor for success_records field.
+	outputtaskDescSuccessRecords := outputtaskFields[11].Descriptor()
+	// outputtask.DefaultSuccessRecords holds the default value on creation for the success_records field.
+	outputtask.DefaultSuccessRecords = outputtaskDescSuccessRecords.Default.(int64)
+	// outputtaskDescFailedRecords is the schema descriptor for failed_records field.
+	outputtaskDescFailedRecords := outputtaskFields[12].Descriptor()
+	// outputtask.DefaultFailedRecords holds the default value on creation for the failed_records field.
+	outputtask.DefaultFailedRecords = outputtaskDescFailedRecords.Default.(int64)
+	tasklogMixin := schema.TaskLog{}.Mixin()
+	tasklogMixinFields0 := tasklogMixin[0].Fields()
+	_ = tasklogMixinFields0
+	tasklogMixinFields1 := tasklogMixin[1].Fields()
+	_ = tasklogMixinFields1
+	tasklogFields := schema.TaskLog{}.Fields()
+	_ = tasklogFields
+	// tasklogDescCreatedAt is the schema descriptor for created_at field.
+	tasklogDescCreatedAt := tasklogMixinFields0[1].Descriptor()
+	// tasklog.DefaultCreatedAt holds the default value on creation for the created_at field.
+	tasklog.DefaultCreatedAt = tasklogDescCreatedAt.Default.(func() time.Time)
+	// tasklogDescUpdatedAt is the schema descriptor for updated_at field.
+	tasklogDescUpdatedAt := tasklogMixinFields0[2].Descriptor()
+	// tasklog.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	tasklog.DefaultUpdatedAt = tasklogDescUpdatedAt.Default.(func() time.Time)
+	// tasklog.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	tasklog.UpdateDefaultUpdatedAt = tasklogDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// tasklogDescTenantID is the schema descriptor for tenant_id field.
+	tasklogDescTenantID := tasklogMixinFields1[0].Descriptor()
+	// tasklog.DefaultTenantID holds the default value on creation for the tenant_id field.
+	tasklog.DefaultTenantID = tasklogDescTenantID.Default.(uint64)
+	// tasklogDescTaskType is the schema descriptor for task_type field.
+	tasklogDescTaskType := tasklogFields[0].Descriptor()
+	// tasklog.TaskTypeValidator is a validator for the "task_type" field. It is called by the builders before save.
+	tasklog.TaskTypeValidator = func() func(string) error {
+		validators := tasklogDescTaskType.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(task_type string) error {
+			for _, fn := range fns {
+				if err := fn(task_type); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// tasklogDescLogLevel is the schema descriptor for log_level field.
+	tasklogDescLogLevel := tasklogFields[2].Descriptor()
+	// tasklog.DefaultLogLevel holds the default value on creation for the log_level field.
+	tasklog.DefaultLogLevel = tasklogDescLogLevel.Default.(string)
+	// tasklog.LogLevelValidator is a validator for the "log_level" field. It is called by the builders before save.
+	tasklog.LogLevelValidator = tasklogDescLogLevel.Validators[0].(func(string) error)
+	workermetricsMixin := schema.WorkerMetrics{}.Mixin()
+	workermetricsMixinFields0 := workermetricsMixin[0].Fields()
+	_ = workermetricsMixinFields0
+	workermetricsFields := schema.WorkerMetrics{}.Fields()
+	_ = workermetricsFields
+	// workermetricsDescCreatedAt is the schema descriptor for created_at field.
+	workermetricsDescCreatedAt := workermetricsMixinFields0[1].Descriptor()
+	// workermetrics.DefaultCreatedAt holds the default value on creation for the created_at field.
+	workermetrics.DefaultCreatedAt = workermetricsDescCreatedAt.Default.(func() time.Time)
+	// workermetricsDescUpdatedAt is the schema descriptor for updated_at field.
+	workermetricsDescUpdatedAt := workermetricsMixinFields0[2].Descriptor()
+	// workermetrics.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	workermetrics.DefaultUpdatedAt = workermetricsDescUpdatedAt.Default.(func() time.Time)
+	// workermetrics.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	workermetrics.UpdateDefaultUpdatedAt = workermetricsDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// workermetricsDescWorkerID is the schema descriptor for worker_id field.
+	workermetricsDescWorkerID := workermetricsFields[0].Descriptor()
+	// workermetrics.WorkerIDValidator is a validator for the "worker_id" field. It is called by the builders before save.
+	workermetrics.WorkerIDValidator = func() func(string) error {
+		validators := workermetricsDescWorkerID.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(worker_id string) error {
+			for _, fn := range fns {
+				if err := fn(worker_id); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// workermetricsDescWorkerName is the schema descriptor for worker_name field.
+	workermetricsDescWorkerName := workermetricsFields[1].Descriptor()
+	// workermetrics.WorkerNameValidator is a validator for the "worker_name" field. It is called by the builders before save.
+	workermetrics.WorkerNameValidator = func() func(string) error {
+		validators := workermetricsDescWorkerName.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(worker_name string) error {
+			for _, fn := range fns {
+				if err := fn(worker_name); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// workermetricsDescWorkerStatus is the schema descriptor for worker_status field.
+	workermetricsDescWorkerStatus := workermetricsFields[2].Descriptor()
+	// workermetrics.DefaultWorkerStatus holds the default value on creation for the worker_status field.
+	workermetrics.DefaultWorkerStatus = workermetricsDescWorkerStatus.Default.(string)
+	// workermetrics.WorkerStatusValidator is a validator for the "worker_status" field. It is called by the builders before save.
+	workermetrics.WorkerStatusValidator = workermetricsDescWorkerStatus.Validators[0].(func(string) error)
+	// workermetricsDescCurrentTasks is the schema descriptor for current_tasks field.
+	workermetricsDescCurrentTasks := workermetricsFields[3].Descriptor()
+	// workermetrics.DefaultCurrentTasks holds the default value on creation for the current_tasks field.
+	workermetrics.DefaultCurrentTasks = workermetricsDescCurrentTasks.Default.(int)
+	// workermetricsDescTotalTasks is the schema descriptor for total_tasks field.
+	workermetricsDescTotalTasks := workermetricsFields[4].Descriptor()
+	// workermetrics.DefaultTotalTasks holds the default value on creation for the total_tasks field.
+	workermetrics.DefaultTotalTasks = workermetricsDescTotalTasks.Default.(int)
+	// workermetricsDescSuccessTasks is the schema descriptor for success_tasks field.
+	workermetricsDescSuccessTasks := workermetricsFields[5].Descriptor()
+	// workermetrics.DefaultSuccessTasks holds the default value on creation for the success_tasks field.
+	workermetrics.DefaultSuccessTasks = workermetricsDescSuccessTasks.Default.(int)
+	// workermetricsDescFailedTasks is the schema descriptor for failed_tasks field.
+	workermetricsDescFailedTasks := workermetricsFields[6].Descriptor()
+	// workermetrics.DefaultFailedTasks holds the default value on creation for the failed_tasks field.
+	workermetrics.DefaultFailedTasks = workermetricsDescFailedTasks.Default.(int)
+	// workermetricsDescCPUUsage is the schema descriptor for cpu_usage field.
+	workermetricsDescCPUUsage := workermetricsFields[7].Descriptor()
+	// workermetrics.DefaultCPUUsage holds the default value on creation for the cpu_usage field.
+	workermetrics.DefaultCPUUsage = workermetricsDescCPUUsage.Default.(float64)
+	// workermetricsDescMemoryUsage is the schema descriptor for memory_usage field.
+	workermetricsDescMemoryUsage := workermetricsFields[8].Descriptor()
+	// workermetrics.DefaultMemoryUsage holds the default value on creation for the memory_usage field.
+	workermetrics.DefaultMemoryUsage = workermetricsDescMemoryUsage.Default.(float64)
+}

@@ -1,14 +1,14 @@
 # Custom configuration | 独立配置
 # Service name | 项目名称
-SERVICE=Cmdb
+SERVICE=Io
 # Service name in specific style | 项目经过style格式化的名称
-SERVICE_STYLE=cmdb
+SERVICE_STYLE=io
 # Service name in lowercase | 项目名称全小写格式
-SERVICE_LOWER=cmdb
+SERVICE_LOWER=io
 # Service name in snake format | 项目名称下划线格式
-SERVICE_SNAKE=cmdb
+SERVICE_SNAKE=io
 # Service name in snake format | 项目名称短杠格式
-SERVICE_DASH=cmdb
+SERVICE_DASH=io
 
 # The project version, if you don't use git, you should set it manually | 项目版本，如果不使用git请手动设置
 VERSION=$(shell git describe --tags --always)
@@ -24,7 +24,7 @@ PROJECT_BUILD_SUFFIX=rpc
 
 
 # Ent enabled features | Ent 启用的官方特性
-ENT_FEATURE=sql/execquery,intercept
+ENT_FEATURE=sql/execquery,intercept,sql/modifier
 
 
 # The arch of the build | 构建的架构

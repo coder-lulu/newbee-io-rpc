@@ -2,15 +2,15 @@ package dberrorhandler
 
 import (
 	"context"
-	"github.com/zeromicro/go-zero/core/errorx"
 	"strings"
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"github.com/coder-lulu/newbee-common/msg/logmsg"
+	"github.com/coder-lulu/newbee-common/v2/msg/logmsg"
+	"github.com/coder-lulu/newbee-common/v2/errors"
 
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent"
-	"github.com/coder-lulu/newbee-common/i18n"
+	"github.com/coder-lulu/newbee-io-rpc/ent"
+	"github.com/coder-lulu/newbee-common/v2/i18n"
 )
 
 // DefaultEntError returns errors dealing with default functions.
@@ -29,19 +29,19 @@ func DefaultEntError(logger logx.Logger, err error, detail any) error {
 		switch {
 		case ent.IsNotFound(err):
 			logger.Errorw(err.Error(), logx.Field("detail", detail))
-			return errorx.NewInvalidArgumentError(i18n.TargetNotFound)
+			return errors.NotFound(i18n.TargetNotFound)
 		case ent.IsConstraintError(err):
 			logger.Errorw(err.Error(), logx.Field("detail", detail))
-			return errorx.NewInvalidArgumentError(i18n.ConstraintError)
+			return errors.Validation(i18n.ConstraintError)
 		case ent.IsValidationError(err):
 			logger.Errorw(err.Error(), logx.Field("detail", detail))
-			return errorx.NewInvalidArgumentError(i18n.ValidationError)
+			return errors.Validation(i18n.ValidationError)
 		case ent.IsNotSingular(err):
 			logger.Errorw(err.Error(), logx.Field("detail", detail))
-			return errorx.NewInvalidArgumentError(i18n.NotSingularError)
+			return errors.Validation(i18n.NotSingularError)
 		default:
 			logger.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return errorx.NewInternalError(i18n.DatabaseError)
+			return errors.DatabaseWithCause(i18n.DatabaseError, err)
 		}
 	}
 	return err
@@ -63,19 +63,19 @@ func DefaultEntErrorWithContext(ctx context.Context, logger logx.Logger, err err
 		switch {
 		case ent.IsNotFound(err):
 			logger.Errorw(err.Error(), logx.Field("detail", detail))
-			return errorx.NewInvalidArgumentError(i18n.TargetNotFound)
+			return errors.NotFound(i18n.TargetNotFound)
 		case ent.IsConstraintError(err):
 			logger.Errorw(err.Error(), logx.Field("detail", detail))
-			return errorx.NewInvalidArgumentError(i18n.ConstraintError)
+			return errors.Validation(i18n.ConstraintError)
 		case ent.IsValidationError(err):
 			logger.Errorw(err.Error(), logx.Field("detail", detail))
-			return errorx.NewInvalidArgumentError(i18n.ValidationError)
+			return errors.Validation(i18n.ValidationError)
 		case ent.IsNotSingular(err):
 			logger.Errorw(err.Error(), logx.Field("detail", detail))
-			return errorx.NewInvalidArgumentError(i18n.NotSingularError)
+			return errors.Validation(i18n.NotSingularError)
 		default:
 			logger.Errorw(logmsg.DatabaseError, logx.Field("detail", err.Error()))
-			return errorx.NewInternalError(i18n.DatabaseError)
+			return errors.DatabaseWithCause(i18n.DatabaseError, err)
 		}
 	}
 	return err
@@ -104,10 +104,10 @@ func handleUUIDNullError(logger logx.Logger, err error, detail any) error {
 	if fieldName == "updated_by" {
 		logger.Errorw("updated_by field contains null value, this should be fixed by regenerating ent code with .Nillable()",
 			logx.Field("suggestion", "regenerate ent code"))
-		return errorx.NewInternalError("数据完整性问题：updated_by字段包含空值，请联系管理员修复")
+		return errors.Internal("数据完整性问题：updated_by字段包含空值，请联系管理员修复")
 	}
 
-	return errorx.NewInternalError("数据完整性问题：UUID字段包含空值")
+	return errors.Internal("数据完整性问题：UUID字段包含空值")
 }
 
 // handleUUIDNullErrorWithContext 处理UUID空值错误（带上下文）
@@ -124,10 +124,10 @@ func handleUUIDNullErrorWithContext(ctx context.Context, logger logx.Logger, err
 	if fieldName == "updated_by" {
 		logx.WithContext(ctx).Errorw("updated_by field contains null value, this should be fixed by regenerating ent code with .Nillable()",
 			logx.Field("suggestion", "regenerate ent code"))
-		return errorx.NewInternalError("数据完整性问题：updated_by字段包含空值，请联系管理员修复")
+		return errors.Internal("数据完整性问题：updated_by字段包含空值，请联系管理员修复")
 	}
 
-	return errorx.NewInternalError("数据完整性问题：UUID字段包含空值")
+	return errors.Internal("数据完整性问题：UUID字段包含空值")
 }
 
 // extractFieldNameFromError 从错误信息中提取字段名
@@ -160,7 +160,7 @@ func handleUniqueValidationError(logger logx.Logger, err error, detail any) erro
 		logx.Field("error", err.Error()))
 
 	// 返回更友好的错误信息
-	return errorx.NewInvalidArgumentError(err.Error())
+	return errors.Validation(err.Error())
 }
 
 // handleUniqueValidationErrorWithContext 处理唯一性校验错误（带上下文）
@@ -170,5 +170,5 @@ func handleUniqueValidationErrorWithContext(ctx context.Context, logger logx.Log
 		logx.Field("error", err.Error()))
 
 	// 返回更友好的错误信息
-	return errorx.NewInvalidArgumentError(err.Error())
+	return errors.Validation(err.Error())
 }

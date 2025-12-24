@@ -14,76 +14,32 @@ import (
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
-	// Attribute is the client for interacting with the Attribute builders.
-	Attribute *AttributeClient
-	// ChoiceFloat is the client for interacting with the ChoiceFloat builders.
-	ChoiceFloat *ChoiceFloatClient
-	// ChoiceInteger is the client for interacting with the ChoiceInteger builders.
-	ChoiceInteger *ChoiceIntegerClient
-	// ChoiceText is the client for interacting with the ChoiceText builders.
-	ChoiceText *ChoiceTextClient
-	// CiApprovalFlow is the client for interacting with the CiApprovalFlow builders.
-	CiApprovalFlow *CiApprovalFlowClient
-	// CiLifecycleState is the client for interacting with the CiLifecycleState builders.
-	CiLifecycleState *CiLifecycleStateClient
-	// CiOperation is the client for interacting with the CiOperation builders.
-	CiOperation *CiOperationClient
-	// CiPermission is the client for interacting with the CiPermission builders.
-	CiPermission *CiPermissionClient
-	// CiRecords is the client for interacting with the CiRecords builders.
-	CiRecords *CiRecordsClient
-	// CiRelation is the client for interacting with the CiRelation builders.
-	CiRelation *CiRelationClient
-	// CiType is the client for interacting with the CiType builders.
-	CiType *CiTypeClient
-	// CiTypeAttribute is the client for interacting with the CiTypeAttribute builders.
-	CiTypeAttribute *CiTypeAttributeClient
-	// CiTypeAttributeGroup is the client for interacting with the CiTypeAttributeGroup builders.
-	CiTypeAttributeGroup *CiTypeAttributeGroupClient
-	// CiTypeAttributeGroupItem is the client for interacting with the CiTypeAttributeGroupItem builders.
-	CiTypeAttributeGroupItem *CiTypeAttributeGroupItemClient
-	// CiTypeGroup is the client for interacting with the CiTypeGroup builders.
-	CiTypeGroup *CiTypeGroupClient
-	// CiTypeGroupItem is the client for interacting with the CiTypeGroupItem builders.
-	CiTypeGroupItem *CiTypeGroupItemClient
-	// CiTypeInheritance is the client for interacting with the CiTypeInheritance builders.
-	CiTypeInheritance *CiTypeInheritanceClient
-	// CiTypeRelation is the client for interacting with the CiTypeRelation builders.
-	CiTypeRelation *CiTypeRelationClient
-	// Cis is the client for interacting with the Cis builders.
-	Cis *CisClient
-	// ImportError is the client for interacting with the ImportError builders.
-	ImportError *ImportErrorClient
-	// ImportRecord is the client for interacting with the ImportRecord builders.
-	ImportRecord *ImportRecordClient
-	// ImportTask is the client for interacting with the ImportTask builders.
-	ImportTask *ImportTaskClient
-	// ImportTemplate is the client for interacting with the ImportTemplate builders.
-	ImportTemplate *ImportTemplateClient
-	// PermissionCache is the client for interacting with the PermissionCache builders.
-	PermissionCache *PermissionCacheClient
-	// PermissionDataFilter is the client for interacting with the PermissionDataFilter builders.
-	PermissionDataFilter *PermissionDataFilterClient
-	// PermissionFieldMask is the client for interacting with the PermissionFieldMask builders.
-	PermissionFieldMask *PermissionFieldMaskClient
-	// PermissionOperation is the client for interacting with the PermissionOperation builders.
-	PermissionOperation *PermissionOperationClient
-	// PermissionTemplate is the client for interacting with the PermissionTemplate builders.
-	PermissionTemplate *PermissionTemplateClient
-	// RelationType is the client for interacting with the RelationType builders.
-	RelationType *RelationTypeClient
-	// ValueDatetime is the client for interacting with the ValueDatetime builders.
-	ValueDatetime *ValueDatetimeClient
-	// ValueFloat is the client for interacting with the ValueFloat builders.
-	ValueFloat *ValueFloatClient
-	// ValueIndexText is the client for interacting with the ValueIndexText builders.
-	ValueIndexText *ValueIndexTextClient
-	// ValueInteger is the client for interacting with the ValueInteger builders.
-	ValueInteger *ValueIntegerClient
-	// ValueJSON is the client for interacting with the ValueJSON builders.
-	ValueJSON *ValueJSONClient
-	// ValueText is the client for interacting with the ValueText builders.
-	ValueText *ValueTextClient
+	// CronTask is the client for interacting with the CronTask builders.
+	CronTask *CronTaskClient
+	// DataTarget is the client for interacting with the DataTarget builders.
+	DataTarget *DataTargetClient
+	// DiscoveryPool is the client for interacting with the DiscoveryPool builders.
+	DiscoveryPool *DiscoveryPoolClient
+	// DiscoveryProviderSchema is the client for interacting with the DiscoveryProviderSchema builders.
+	DiscoveryProviderSchema *DiscoveryProviderSchemaClient
+	// DiscoveryTemplate is the client for interacting with the DiscoveryTemplate builders.
+	DiscoveryTemplate *DiscoveryTemplateClient
+	// DlqMessage is the client for interacting with the DlqMessage builders.
+	DlqMessage *DlqMessageClient
+	// FieldMapping is the client for interacting with the FieldMapping builders.
+	FieldMapping *FieldMappingClient
+	// InputTask is the client for interacting with the InputTask builders.
+	InputTask *InputTaskClient
+	// MappingLog is the client for interacting with the MappingLog builders.
+	MappingLog *MappingLogClient
+	// OutboxMessage is the client for interacting with the OutboxMessage builders.
+	OutboxMessage *OutboxMessageClient
+	// OutputTask is the client for interacting with the OutputTask builders.
+	OutputTask *OutputTaskClient
+	// TaskLog is the client for interacting with the TaskLog builders.
+	TaskLog *TaskLogClient
+	// WorkerMetrics is the client for interacting with the WorkerMetrics builders.
+	WorkerMetrics *WorkerMetricsClient
 
 	// lazily loaded.
 	client     *Client
@@ -215,41 +171,19 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
-	tx.Attribute = NewAttributeClient(tx.config)
-	tx.ChoiceFloat = NewChoiceFloatClient(tx.config)
-	tx.ChoiceInteger = NewChoiceIntegerClient(tx.config)
-	tx.ChoiceText = NewChoiceTextClient(tx.config)
-	tx.CiApprovalFlow = NewCiApprovalFlowClient(tx.config)
-	tx.CiLifecycleState = NewCiLifecycleStateClient(tx.config)
-	tx.CiOperation = NewCiOperationClient(tx.config)
-	tx.CiPermission = NewCiPermissionClient(tx.config)
-	tx.CiRecords = NewCiRecordsClient(tx.config)
-	tx.CiRelation = NewCiRelationClient(tx.config)
-	tx.CiType = NewCiTypeClient(tx.config)
-	tx.CiTypeAttribute = NewCiTypeAttributeClient(tx.config)
-	tx.CiTypeAttributeGroup = NewCiTypeAttributeGroupClient(tx.config)
-	tx.CiTypeAttributeGroupItem = NewCiTypeAttributeGroupItemClient(tx.config)
-	tx.CiTypeGroup = NewCiTypeGroupClient(tx.config)
-	tx.CiTypeGroupItem = NewCiTypeGroupItemClient(tx.config)
-	tx.CiTypeInheritance = NewCiTypeInheritanceClient(tx.config)
-	tx.CiTypeRelation = NewCiTypeRelationClient(tx.config)
-	tx.Cis = NewCisClient(tx.config)
-	tx.ImportError = NewImportErrorClient(tx.config)
-	tx.ImportRecord = NewImportRecordClient(tx.config)
-	tx.ImportTask = NewImportTaskClient(tx.config)
-	tx.ImportTemplate = NewImportTemplateClient(tx.config)
-	tx.PermissionCache = NewPermissionCacheClient(tx.config)
-	tx.PermissionDataFilter = NewPermissionDataFilterClient(tx.config)
-	tx.PermissionFieldMask = NewPermissionFieldMaskClient(tx.config)
-	tx.PermissionOperation = NewPermissionOperationClient(tx.config)
-	tx.PermissionTemplate = NewPermissionTemplateClient(tx.config)
-	tx.RelationType = NewRelationTypeClient(tx.config)
-	tx.ValueDatetime = NewValueDatetimeClient(tx.config)
-	tx.ValueFloat = NewValueFloatClient(tx.config)
-	tx.ValueIndexText = NewValueIndexTextClient(tx.config)
-	tx.ValueInteger = NewValueIntegerClient(tx.config)
-	tx.ValueJSON = NewValueJSONClient(tx.config)
-	tx.ValueText = NewValueTextClient(tx.config)
+	tx.CronTask = NewCronTaskClient(tx.config)
+	tx.DataTarget = NewDataTargetClient(tx.config)
+	tx.DiscoveryPool = NewDiscoveryPoolClient(tx.config)
+	tx.DiscoveryProviderSchema = NewDiscoveryProviderSchemaClient(tx.config)
+	tx.DiscoveryTemplate = NewDiscoveryTemplateClient(tx.config)
+	tx.DlqMessage = NewDlqMessageClient(tx.config)
+	tx.FieldMapping = NewFieldMappingClient(tx.config)
+	tx.InputTask = NewInputTaskClient(tx.config)
+	tx.MappingLog = NewMappingLogClient(tx.config)
+	tx.OutboxMessage = NewOutboxMessageClient(tx.config)
+	tx.OutputTask = NewOutputTaskClient(tx.config)
+	tx.TaskLog = NewTaskLogClient(tx.config)
+	tx.WorkerMetrics = NewWorkerMetricsClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.
@@ -259,7 +193,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: Attribute.QueryXXX(), the query will be executed
+// applies a query, for example: CronTask.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.

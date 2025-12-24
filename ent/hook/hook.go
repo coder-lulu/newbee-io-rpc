@@ -6,427 +6,163 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent"
+	"github.com/coder-lulu/newbee-io-rpc/ent"
 )
 
-// The AttributeFunc type is an adapter to allow the use of ordinary
-// function as Attribute mutator.
-type AttributeFunc func(context.Context, *ent.AttributeMutation) (ent.Value, error)
+// The CronTaskFunc type is an adapter to allow the use of ordinary
+// function as CronTask mutator.
+type CronTaskFunc func(context.Context, *ent.CronTaskMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f AttributeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.AttributeMutation); ok {
+func (f CronTaskFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.CronTaskMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AttributeMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CronTaskMutation", m)
 }
 
-// The ChoiceFloatFunc type is an adapter to allow the use of ordinary
-// function as ChoiceFloat mutator.
-type ChoiceFloatFunc func(context.Context, *ent.ChoiceFloatMutation) (ent.Value, error)
+// The DataTargetFunc type is an adapter to allow the use of ordinary
+// function as DataTarget mutator.
+type DataTargetFunc func(context.Context, *ent.DataTargetMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f ChoiceFloatFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ChoiceFloatMutation); ok {
+func (f DataTargetFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.DataTargetMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ChoiceFloatMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DataTargetMutation", m)
 }
 
-// The ChoiceIntegerFunc type is an adapter to allow the use of ordinary
-// function as ChoiceInteger mutator.
-type ChoiceIntegerFunc func(context.Context, *ent.ChoiceIntegerMutation) (ent.Value, error)
+// The DiscoveryPoolFunc type is an adapter to allow the use of ordinary
+// function as DiscoveryPool mutator.
+type DiscoveryPoolFunc func(context.Context, *ent.DiscoveryPoolMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f ChoiceIntegerFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ChoiceIntegerMutation); ok {
+func (f DiscoveryPoolFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.DiscoveryPoolMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ChoiceIntegerMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DiscoveryPoolMutation", m)
 }
 
-// The ChoiceTextFunc type is an adapter to allow the use of ordinary
-// function as ChoiceText mutator.
-type ChoiceTextFunc func(context.Context, *ent.ChoiceTextMutation) (ent.Value, error)
+// The DiscoveryProviderSchemaFunc type is an adapter to allow the use of ordinary
+// function as DiscoveryProviderSchema mutator.
+type DiscoveryProviderSchemaFunc func(context.Context, *ent.DiscoveryProviderSchemaMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f ChoiceTextFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ChoiceTextMutation); ok {
+func (f DiscoveryProviderSchemaFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.DiscoveryProviderSchemaMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ChoiceTextMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DiscoveryProviderSchemaMutation", m)
 }
 
-// The CiApprovalFlowFunc type is an adapter to allow the use of ordinary
-// function as CiApprovalFlow mutator.
-type CiApprovalFlowFunc func(context.Context, *ent.CiApprovalFlowMutation) (ent.Value, error)
+// The DiscoveryTemplateFunc type is an adapter to allow the use of ordinary
+// function as DiscoveryTemplate mutator.
+type DiscoveryTemplateFunc func(context.Context, *ent.DiscoveryTemplateMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f CiApprovalFlowFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiApprovalFlowMutation); ok {
+func (f DiscoveryTemplateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.DiscoveryTemplateMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiApprovalFlowMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DiscoveryTemplateMutation", m)
 }
 
-// The CiLifecycleStateFunc type is an adapter to allow the use of ordinary
-// function as CiLifecycleState mutator.
-type CiLifecycleStateFunc func(context.Context, *ent.CiLifecycleStateMutation) (ent.Value, error)
+// The DlqMessageFunc type is an adapter to allow the use of ordinary
+// function as DlqMessage mutator.
+type DlqMessageFunc func(context.Context, *ent.DlqMessageMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f CiLifecycleStateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiLifecycleStateMutation); ok {
+func (f DlqMessageFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.DlqMessageMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiLifecycleStateMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DlqMessageMutation", m)
 }
 
-// The CiOperationFunc type is an adapter to allow the use of ordinary
-// function as CiOperation mutator.
-type CiOperationFunc func(context.Context, *ent.CiOperationMutation) (ent.Value, error)
+// The FieldMappingFunc type is an adapter to allow the use of ordinary
+// function as FieldMapping mutator.
+type FieldMappingFunc func(context.Context, *ent.FieldMappingMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f CiOperationFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiOperationMutation); ok {
+func (f FieldMappingFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.FieldMappingMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiOperationMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.FieldMappingMutation", m)
 }
 
-// The CiPermissionFunc type is an adapter to allow the use of ordinary
-// function as CiPermission mutator.
-type CiPermissionFunc func(context.Context, *ent.CiPermissionMutation) (ent.Value, error)
+// The InputTaskFunc type is an adapter to allow the use of ordinary
+// function as InputTask mutator.
+type InputTaskFunc func(context.Context, *ent.InputTaskMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f CiPermissionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiPermissionMutation); ok {
+func (f InputTaskFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.InputTaskMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiPermissionMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.InputTaskMutation", m)
 }
 
-// The CiRecordsFunc type is an adapter to allow the use of ordinary
-// function as CiRecords mutator.
-type CiRecordsFunc func(context.Context, *ent.CiRecordsMutation) (ent.Value, error)
+// The MappingLogFunc type is an adapter to allow the use of ordinary
+// function as MappingLog mutator.
+type MappingLogFunc func(context.Context, *ent.MappingLogMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f CiRecordsFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiRecordsMutation); ok {
+func (f MappingLogFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.MappingLogMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiRecordsMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MappingLogMutation", m)
 }
 
-// The CiRelationFunc type is an adapter to allow the use of ordinary
-// function as CiRelation mutator.
-type CiRelationFunc func(context.Context, *ent.CiRelationMutation) (ent.Value, error)
+// The OutboxMessageFunc type is an adapter to allow the use of ordinary
+// function as OutboxMessage mutator.
+type OutboxMessageFunc func(context.Context, *ent.OutboxMessageMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f CiRelationFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiRelationMutation); ok {
+func (f OutboxMessageFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.OutboxMessageMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiRelationMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.OutboxMessageMutation", m)
 }
 
-// The CiTypeFunc type is an adapter to allow the use of ordinary
-// function as CiType mutator.
-type CiTypeFunc func(context.Context, *ent.CiTypeMutation) (ent.Value, error)
+// The OutputTaskFunc type is an adapter to allow the use of ordinary
+// function as OutputTask mutator.
+type OutputTaskFunc func(context.Context, *ent.OutputTaskMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f CiTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiTypeMutation); ok {
+func (f OutputTaskFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.OutputTaskMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiTypeMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.OutputTaskMutation", m)
 }
 
-// The CiTypeAttributeFunc type is an adapter to allow the use of ordinary
-// function as CiTypeAttribute mutator.
-type CiTypeAttributeFunc func(context.Context, *ent.CiTypeAttributeMutation) (ent.Value, error)
+// The TaskLogFunc type is an adapter to allow the use of ordinary
+// function as TaskLog mutator.
+type TaskLogFunc func(context.Context, *ent.TaskLogMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f CiTypeAttributeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiTypeAttributeMutation); ok {
+func (f TaskLogFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.TaskLogMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiTypeAttributeMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.TaskLogMutation", m)
 }
 
-// The CiTypeAttributeGroupFunc type is an adapter to allow the use of ordinary
-// function as CiTypeAttributeGroup mutator.
-type CiTypeAttributeGroupFunc func(context.Context, *ent.CiTypeAttributeGroupMutation) (ent.Value, error)
+// The WorkerMetricsFunc type is an adapter to allow the use of ordinary
+// function as WorkerMetrics mutator.
+type WorkerMetricsFunc func(context.Context, *ent.WorkerMetricsMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f CiTypeAttributeGroupFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiTypeAttributeGroupMutation); ok {
+func (f WorkerMetricsFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.WorkerMetricsMutation); ok {
 		return f(ctx, mv)
 	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiTypeAttributeGroupMutation", m)
-}
-
-// The CiTypeAttributeGroupItemFunc type is an adapter to allow the use of ordinary
-// function as CiTypeAttributeGroupItem mutator.
-type CiTypeAttributeGroupItemFunc func(context.Context, *ent.CiTypeAttributeGroupItemMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f CiTypeAttributeGroupItemFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiTypeAttributeGroupItemMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiTypeAttributeGroupItemMutation", m)
-}
-
-// The CiTypeGroupFunc type is an adapter to allow the use of ordinary
-// function as CiTypeGroup mutator.
-type CiTypeGroupFunc func(context.Context, *ent.CiTypeGroupMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f CiTypeGroupFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiTypeGroupMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiTypeGroupMutation", m)
-}
-
-// The CiTypeGroupItemFunc type is an adapter to allow the use of ordinary
-// function as CiTypeGroupItem mutator.
-type CiTypeGroupItemFunc func(context.Context, *ent.CiTypeGroupItemMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f CiTypeGroupItemFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiTypeGroupItemMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiTypeGroupItemMutation", m)
-}
-
-// The CiTypeInheritanceFunc type is an adapter to allow the use of ordinary
-// function as CiTypeInheritance mutator.
-type CiTypeInheritanceFunc func(context.Context, *ent.CiTypeInheritanceMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f CiTypeInheritanceFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiTypeInheritanceMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiTypeInheritanceMutation", m)
-}
-
-// The CiTypeRelationFunc type is an adapter to allow the use of ordinary
-// function as CiTypeRelation mutator.
-type CiTypeRelationFunc func(context.Context, *ent.CiTypeRelationMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f CiTypeRelationFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CiTypeRelationMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiTypeRelationMutation", m)
-}
-
-// The CisFunc type is an adapter to allow the use of ordinary
-// function as Cis mutator.
-type CisFunc func(context.Context, *ent.CisMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f CisFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.CisMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CisMutation", m)
-}
-
-// The ImportErrorFunc type is an adapter to allow the use of ordinary
-// function as ImportError mutator.
-type ImportErrorFunc func(context.Context, *ent.ImportErrorMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ImportErrorFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ImportErrorMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ImportErrorMutation", m)
-}
-
-// The ImportRecordFunc type is an adapter to allow the use of ordinary
-// function as ImportRecord mutator.
-type ImportRecordFunc func(context.Context, *ent.ImportRecordMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ImportRecordFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ImportRecordMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ImportRecordMutation", m)
-}
-
-// The ImportTaskFunc type is an adapter to allow the use of ordinary
-// function as ImportTask mutator.
-type ImportTaskFunc func(context.Context, *ent.ImportTaskMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ImportTaskFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ImportTaskMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ImportTaskMutation", m)
-}
-
-// The ImportTemplateFunc type is an adapter to allow the use of ordinary
-// function as ImportTemplate mutator.
-type ImportTemplateFunc func(context.Context, *ent.ImportTemplateMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ImportTemplateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ImportTemplateMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ImportTemplateMutation", m)
-}
-
-// The PermissionCacheFunc type is an adapter to allow the use of ordinary
-// function as PermissionCache mutator.
-type PermissionCacheFunc func(context.Context, *ent.PermissionCacheMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f PermissionCacheFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.PermissionCacheMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PermissionCacheMutation", m)
-}
-
-// The PermissionDataFilterFunc type is an adapter to allow the use of ordinary
-// function as PermissionDataFilter mutator.
-type PermissionDataFilterFunc func(context.Context, *ent.PermissionDataFilterMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f PermissionDataFilterFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.PermissionDataFilterMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PermissionDataFilterMutation", m)
-}
-
-// The PermissionFieldMaskFunc type is an adapter to allow the use of ordinary
-// function as PermissionFieldMask mutator.
-type PermissionFieldMaskFunc func(context.Context, *ent.PermissionFieldMaskMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f PermissionFieldMaskFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.PermissionFieldMaskMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PermissionFieldMaskMutation", m)
-}
-
-// The PermissionOperationFunc type is an adapter to allow the use of ordinary
-// function as PermissionOperation mutator.
-type PermissionOperationFunc func(context.Context, *ent.PermissionOperationMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f PermissionOperationFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.PermissionOperationMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PermissionOperationMutation", m)
-}
-
-// The PermissionTemplateFunc type is an adapter to allow the use of ordinary
-// function as PermissionTemplate mutator.
-type PermissionTemplateFunc func(context.Context, *ent.PermissionTemplateMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f PermissionTemplateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.PermissionTemplateMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PermissionTemplateMutation", m)
-}
-
-// The RelationTypeFunc type is an adapter to allow the use of ordinary
-// function as RelationType mutator.
-type RelationTypeFunc func(context.Context, *ent.RelationTypeMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f RelationTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.RelationTypeMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.RelationTypeMutation", m)
-}
-
-// The ValueDatetimeFunc type is an adapter to allow the use of ordinary
-// function as ValueDatetime mutator.
-type ValueDatetimeFunc func(context.Context, *ent.ValueDatetimeMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ValueDatetimeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ValueDatetimeMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ValueDatetimeMutation", m)
-}
-
-// The ValueFloatFunc type is an adapter to allow the use of ordinary
-// function as ValueFloat mutator.
-type ValueFloatFunc func(context.Context, *ent.ValueFloatMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ValueFloatFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ValueFloatMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ValueFloatMutation", m)
-}
-
-// The ValueIndexTextFunc type is an adapter to allow the use of ordinary
-// function as ValueIndexText mutator.
-type ValueIndexTextFunc func(context.Context, *ent.ValueIndexTextMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ValueIndexTextFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ValueIndexTextMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ValueIndexTextMutation", m)
-}
-
-// The ValueIntegerFunc type is an adapter to allow the use of ordinary
-// function as ValueInteger mutator.
-type ValueIntegerFunc func(context.Context, *ent.ValueIntegerMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ValueIntegerFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ValueIntegerMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ValueIntegerMutation", m)
-}
-
-// The ValueJSONFunc type is an adapter to allow the use of ordinary
-// function as ValueJSON mutator.
-type ValueJSONFunc func(context.Context, *ent.ValueJSONMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ValueJSONFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ValueJSONMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ValueJSONMutation", m)
-}
-
-// The ValueTextFunc type is an adapter to allow the use of ordinary
-// function as ValueText mutator.
-type ValueTextFunc func(context.Context, *ent.ValueTextMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f ValueTextFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.ValueTextMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ValueTextMutation", m)
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.WorkerMetricsMutation", m)
 }
 
 // Condition is a hook condition function.

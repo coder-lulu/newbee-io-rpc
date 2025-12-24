@@ -3,31 +3,14 @@
 package ent
 
 import (
-	"encoding/json"
 	"time"
 
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/attribute"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/ciapprovalflow"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cilifecyclestate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cioperation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cipermission"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cirecords"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importerror"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importrecord"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importtask"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importtemplate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissioncache"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissiondatafilter"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissionfieldmask"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissiontemplate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/relationtype"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/schema"
-	"github.com/coder-lulu/newbee-common/utils/validator"
-	uuid "github.com/gofrs/uuid/v5"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoveryproviderschema"
+	"github.com/coder-lulu/newbee-io-rpc/ent/dlqmessage"
 )
 
 // set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilUpdatedAt(value *time.Time) *AttributeUpdate {
+func (_m *CronTaskUpdate) SetNotNilUpdatedAt(value *time.Time) *CronTaskUpdate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -35,7 +18,7 @@ func (_m *AttributeUpdate) SetNotNilUpdatedAt(value *time.Time) *AttributeUpdate
 }
 
 // set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilUpdatedAt(value *time.Time) *AttributeUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CronTaskUpdateOne {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -43,7 +26,7 @@ func (_m *AttributeUpdateOne) SetNotNilUpdatedAt(value *time.Time) *AttributeUpd
 }
 
 // set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilUpdatedAt(value *time.Time) *AttributeCreate {
+func (_m *CronTaskCreate) SetNotNilUpdatedAt(value *time.Time) *CronTaskCreate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -51,1519 +34,7 @@ func (_m *AttributeCreate) SetNotNilUpdatedAt(value *time.Time) *AttributeCreate
 }
 
 // set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilDeletedAt(value *time.Time) *AttributeUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilDeletedAt(value *time.Time) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilDeletedAt(value *time.Time) *AttributeCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilDepartmentID(value *uint64) *AttributeUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilDepartmentID(value *uint64) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilDepartmentID(value *uint64) *AttributeCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilName(value *string) *AttributeUpdate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilName(value *string) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilName(value *string) *AttributeCreate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilAlias(value *string) *AttributeUpdate {
-	if value != nil {
-		return _m.SetAlias(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilAlias(value *string) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetAlias(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilAlias(value *string) *AttributeCreate {
-	if value != nil {
-		return _m.SetAlias(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilValueType(value *attribute.ValueType) *AttributeUpdate {
-	if value != nil {
-		return _m.SetValueType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilValueType(value *attribute.ValueType) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetValueType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilValueType(value *attribute.ValueType) *AttributeCreate {
-	if value != nil {
-		return _m.SetValueType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilIsChoice(value *bool) *AttributeUpdate {
-	if value != nil {
-		return _m.SetIsChoice(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilIsChoice(value *bool) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsChoice(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilIsChoice(value *bool) *AttributeCreate {
-	if value != nil {
-		return _m.SetIsChoice(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilIsList(value *bool) *AttributeUpdate {
-	if value != nil {
-		return _m.SetIsList(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilIsList(value *bool) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsList(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilIsList(value *bool) *AttributeCreate {
-	if value != nil {
-		return _m.SetIsList(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilCreatedBy(value *uuid.UUID) *AttributeUpdate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilCreatedBy(value *uuid.UUID) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilCreatedBy(value *uuid.UUID) *AttributeCreate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilIsComputed(value *bool) *AttributeUpdate {
-	if value != nil {
-		return _m.SetIsComputed(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilIsComputed(value *bool) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsComputed(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilIsComputed(value *bool) *AttributeCreate {
-	if value != nil {
-		return _m.SetIsComputed(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilChoiceWebHook(value *schema.AttributeChoiceWebHookS) *AttributeUpdate {
-	if value != nil {
-		return _m.SetChoiceWebHook(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilChoiceWebHook(value *schema.AttributeChoiceWebHookS) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetChoiceWebHook(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilChoiceWebHook(value *schema.AttributeChoiceWebHookS) *AttributeCreate {
-	if value != nil {
-		return _m.SetChoiceWebHook(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilOption(value *schema.AttributeOptionS) *AttributeUpdate {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilOption(value *schema.AttributeOptionS) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilOption(value *schema.AttributeOptionS) *AttributeCreate {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilIsPassword(value *bool) *AttributeUpdate {
-	if value != nil {
-		return _m.SetIsPassword(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilIsPassword(value *bool) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsPassword(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilIsPassword(value *bool) *AttributeCreate {
-	if value != nil {
-		return _m.SetIsPassword(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilComputeScript(value *string) *AttributeUpdate {
-	if value != nil {
-		return _m.SetComputeScript(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilComputeScript(value *string) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetComputeScript(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilComputeScript(value *string) *AttributeCreate {
-	if value != nil {
-		return _m.SetComputeScript(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilComputeExpr(value *string) *AttributeUpdate {
-	if value != nil {
-		return _m.SetComputeExpr(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilComputeExpr(value *string) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetComputeExpr(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilComputeExpr(value *string) *AttributeCreate {
-	if value != nil {
-		return _m.SetComputeExpr(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilIsSortable(value *bool) *AttributeUpdate {
-	if value != nil {
-		return _m.SetIsSortable(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilIsSortable(value *bool) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsSortable(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilIsSortable(value *bool) *AttributeCreate {
-	if value != nil {
-		return _m.SetIsSortable(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilDefault(value *schema.AttributeDefaultValueS) *AttributeUpdate {
-	if value != nil {
-		return _m.SetDefault(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilDefault(value *schema.AttributeDefaultValueS) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetDefault(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilDefault(value *schema.AttributeDefaultValueS) *AttributeCreate {
-	if value != nil {
-		return _m.SetDefault(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilIsDynamic(value *bool) *AttributeUpdate {
-	if value != nil {
-		return _m.SetIsDynamic(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilIsDynamic(value *bool) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsDynamic(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilIsDynamic(value *bool) *AttributeCreate {
-	if value != nil {
-		return _m.SetIsDynamic(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilIsReference(value *bool) *AttributeUpdate {
-	if value != nil {
-		return _m.SetIsReference(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilIsReference(value *bool) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsReference(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilIsReference(value *bool) *AttributeCreate {
-	if value != nil {
-		return _m.SetIsReference(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilReferenceTypeID(value *uint64) *AttributeUpdate {
-	if value != nil {
-		return _m.SetReferenceTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilReferenceTypeID(value *uint64) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetReferenceTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilReferenceTypeID(value *uint64) *AttributeCreate {
-	if value != nil {
-		return _m.SetReferenceTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilChoiceOther(value *schema.AttributeChoiceOtherS) *AttributeUpdate {
-	if value != nil {
-		return _m.SetChoiceOther(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilChoiceOther(value *schema.AttributeChoiceOtherS) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetChoiceOther(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilChoiceOther(value *schema.AttributeChoiceOtherS) *AttributeCreate {
-	if value != nil {
-		return _m.SetChoiceOther(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdate) SetNotNilValidatorRules(value []validator.ValidationRule) *AttributeUpdate {
-	if value != nil {
-		return _m.SetValidatorRules(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeUpdateOne) SetNotNilValidatorRules(value []validator.ValidationRule) *AttributeUpdateOne {
-	if value != nil {
-		return _m.SetValidatorRules(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *AttributeCreate) SetNotNilValidatorRules(value []validator.ValidationRule) *AttributeCreate {
-	if value != nil {
-		return _m.SetValidatorRules(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdate) SetNotNilUpdatedAt(value *time.Time) *ChoiceFloatUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ChoiceFloatUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatCreate) SetNotNilUpdatedAt(value *time.Time) *ChoiceFloatCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdate) SetNotNilDeletedAt(value *time.Time) *ChoiceFloatUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdateOne) SetNotNilDeletedAt(value *time.Time) *ChoiceFloatUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatCreate) SetNotNilDeletedAt(value *time.Time) *ChoiceFloatCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdate) SetNotNilDepartmentID(value *uint64) *ChoiceFloatUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdateOne) SetNotNilDepartmentID(value *uint64) *ChoiceFloatUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatCreate) SetNotNilDepartmentID(value *uint64) *ChoiceFloatCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdate) SetNotNilAttrID(value *uint64) *ChoiceFloatUpdate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdateOne) SetNotNilAttrID(value *uint64) *ChoiceFloatUpdateOne {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatCreate) SetNotNilAttrID(value *uint64) *ChoiceFloatCreate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdate) SetNotNilValue(value *float64) *ChoiceFloatUpdate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdateOne) SetNotNilValue(value *float64) *ChoiceFloatUpdateOne {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatCreate) SetNotNilValue(value *float64) *ChoiceFloatCreate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdate) SetNotNilOption(value *schema.ChoiceItemMetaS) *ChoiceFloatUpdate {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatUpdateOne) SetNotNilOption(value *schema.ChoiceItemMetaS) *ChoiceFloatUpdateOne {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceFloatCreate) SetNotNilOption(value *schema.ChoiceItemMetaS) *ChoiceFloatCreate {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdate) SetNotNilUpdatedAt(value *time.Time) *ChoiceIntegerUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ChoiceIntegerUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerCreate) SetNotNilUpdatedAt(value *time.Time) *ChoiceIntegerCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdate) SetNotNilDeletedAt(value *time.Time) *ChoiceIntegerUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdateOne) SetNotNilDeletedAt(value *time.Time) *ChoiceIntegerUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerCreate) SetNotNilDeletedAt(value *time.Time) *ChoiceIntegerCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdate) SetNotNilDepartmentID(value *uint64) *ChoiceIntegerUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdateOne) SetNotNilDepartmentID(value *uint64) *ChoiceIntegerUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerCreate) SetNotNilDepartmentID(value *uint64) *ChoiceIntegerCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdate) SetNotNilAttrID(value *uint64) *ChoiceIntegerUpdate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdateOne) SetNotNilAttrID(value *uint64) *ChoiceIntegerUpdateOne {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerCreate) SetNotNilAttrID(value *uint64) *ChoiceIntegerCreate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdate) SetNotNilValue(value *int) *ChoiceIntegerUpdate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdateOne) SetNotNilValue(value *int) *ChoiceIntegerUpdateOne {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerCreate) SetNotNilValue(value *int) *ChoiceIntegerCreate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdate) SetNotNilOption(value *schema.ChoiceItemMetaS) *ChoiceIntegerUpdate {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerUpdateOne) SetNotNilOption(value *schema.ChoiceItemMetaS) *ChoiceIntegerUpdateOne {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceIntegerCreate) SetNotNilOption(value *schema.ChoiceItemMetaS) *ChoiceIntegerCreate {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdate) SetNotNilUpdatedAt(value *time.Time) *ChoiceTextUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ChoiceTextUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextCreate) SetNotNilUpdatedAt(value *time.Time) *ChoiceTextCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdate) SetNotNilDeletedAt(value *time.Time) *ChoiceTextUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdateOne) SetNotNilDeletedAt(value *time.Time) *ChoiceTextUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextCreate) SetNotNilDeletedAt(value *time.Time) *ChoiceTextCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdate) SetNotNilDepartmentID(value *uint64) *ChoiceTextUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdateOne) SetNotNilDepartmentID(value *uint64) *ChoiceTextUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextCreate) SetNotNilDepartmentID(value *uint64) *ChoiceTextCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdate) SetNotNilAttrID(value *uint64) *ChoiceTextUpdate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdateOne) SetNotNilAttrID(value *uint64) *ChoiceTextUpdateOne {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextCreate) SetNotNilAttrID(value *uint64) *ChoiceTextCreate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdate) SetNotNilValue(value *string) *ChoiceTextUpdate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdateOne) SetNotNilValue(value *string) *ChoiceTextUpdateOne {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextCreate) SetNotNilValue(value *string) *ChoiceTextCreate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdate) SetNotNilOption(value *schema.ChoiceItemMetaS) *ChoiceTextUpdate {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextUpdateOne) SetNotNilOption(value *schema.ChoiceItemMetaS) *ChoiceTextUpdateOne {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ChoiceTextCreate) SetNotNilOption(value *schema.ChoiceItemMetaS) *ChoiceTextCreate {
-	if value != nil {
-		return _m.SetOption(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilUpdatedAt(value *time.Time) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilUpdatedAt(value *time.Time) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilDepartmentID(value *uint64) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilDepartmentID(value *uint64) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilDepartmentID(value *uint64) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilFlowID(value *string) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetFlowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilFlowID(value *string) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetFlowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilFlowID(value *string) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetFlowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilFlowName(value *string) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetFlowName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilFlowName(value *string) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetFlowName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilFlowName(value *string) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetFlowName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilFlowCode(value *string) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetFlowCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilFlowCode(value *string) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetFlowCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilFlowCode(value *string) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetFlowCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilFlowDescription(value *string) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetFlowDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilFlowDescription(value *string) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetFlowDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilFlowDescription(value *string) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetFlowDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilScopeType(value *ciapprovalflow.ScopeType) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetScopeType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilScopeType(value *ciapprovalflow.ScopeType) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetScopeType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilScopeType(value *ciapprovalflow.ScopeType) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetScopeType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilScopeConfig(value *map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetScopeConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilScopeConfig(value *map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetScopeConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilScopeConfig(value *map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetScopeConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilTriggerConditions(value *map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetTriggerConditions(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilTriggerConditions(value *map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetTriggerConditions(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilTriggerConditions(value *map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetTriggerConditions(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilFlowType(value *ciapprovalflow.FlowType) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetFlowType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilFlowType(value *ciapprovalflow.FlowType) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetFlowType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilFlowType(value *ciapprovalflow.FlowType) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetFlowType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilApprovalStages(value []map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetApprovalStages(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilApprovalStages(value []map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetApprovalStages(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilApprovalStages(value []map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetApprovalStages(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilTotalStages(value *int) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetTotalStages(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilTotalStages(value *int) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetTotalStages(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilTotalStages(value *int) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetTotalStages(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilAllowSkipStages(value *bool) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetAllowSkipStages(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilAllowSkipStages(value *bool) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetAllowSkipStages(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilAllowSkipStages(value *bool) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetAllowSkipStages(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilAllowRollback(value *bool) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetAllowRollback(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilAllowRollback(value *bool) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetAllowRollback(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilAllowRollback(value *bool) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetAllowRollback(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilApproverConfig(value *map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetApproverConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilApproverConfig(value *map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetApproverConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilApproverConfig(value *map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetApproverConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilFallbackApprovers(value []map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetFallbackApprovers(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilFallbackApprovers(value []map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetFallbackApprovers(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilFallbackApprovers(value []map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetFallbackApprovers(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilRequireAllApprovers(value *bool) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetRequireAllApprovers(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilRequireAllApprovers(value *bool) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetRequireAllApprovers(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilRequireAllApprovers(value *bool) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetRequireAllApprovers(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilTimeoutHours(value *int) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetTimeoutHours(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilTimeoutHours(value *int) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetTimeoutHours(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilTimeoutHours(value *int) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetTimeoutHours(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilStageTimeouts(value *map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetStageTimeouts(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilStageTimeouts(value *map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetStageTimeouts(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilStageTimeouts(value *map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetStageTimeouts(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilTimeoutAction(value *ciapprovalflow.TimeoutAction) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetTimeoutAction(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilTimeoutAction(value *ciapprovalflow.TimeoutAction) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetTimeoutAction(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilTimeoutAction(value *ciapprovalflow.TimeoutAction) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetTimeoutAction(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilNotificationConfig(value *map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetNotificationConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilNotificationConfig(value *map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetNotificationConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilNotificationConfig(value *map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetNotificationConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilNotifyOnSubmit(value *bool) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetNotifyOnSubmit(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilNotifyOnSubmit(value *bool) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetNotifyOnSubmit(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilNotifyOnSubmit(value *bool) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetNotifyOnSubmit(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilNotifyOnApprove(value *bool) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetNotifyOnApprove(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilNotifyOnApprove(value *bool) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetNotifyOnApprove(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilNotifyOnApprove(value *bool) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetNotifyOnApprove(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilNotifyOnReject(value *bool) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetNotifyOnReject(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilNotifyOnReject(value *bool) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetNotifyOnReject(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilNotifyOnReject(value *bool) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetNotifyOnReject(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilStatus(value *ciapprovalflow.Status) *CiApprovalFlowUpdate {
+func (_m *CronTaskUpdate) SetNotNilStatus(value *uint8) *CronTaskUpdate {
 	if value != nil {
 		return _m.SetStatus(*value)
 	}
@@ -1571,7 +42,7 @@ func (_m *CiApprovalFlowUpdate) SetNotNilStatus(value *ciapprovalflow.Status) *C
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilStatus(value *ciapprovalflow.Status) *CiApprovalFlowUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilStatus(value *uint8) *CronTaskUpdateOne {
 	if value != nil {
 		return _m.SetStatus(*value)
 	}
@@ -1579,7 +50,7 @@ func (_m *CiApprovalFlowUpdateOne) SetNotNilStatus(value *ciapprovalflow.Status)
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilStatus(value *ciapprovalflow.Status) *CiApprovalFlowCreate {
+func (_m *CronTaskCreate) SetNotNilStatus(value *uint8) *CronTaskCreate {
 	if value != nil {
 		return _m.SetStatus(*value)
 	}
@@ -1587,8119 +58,199 @@ func (_m *CiApprovalFlowCreate) SetNotNilStatus(value *ciapprovalflow.Status) *C
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilStatusReason(value *string) *CiApprovalFlowUpdate {
+func (_m *CronTaskUpdate) SetNotNilTaskName(value *string) *CronTaskUpdate {
 	if value != nil {
-		return _m.SetStatusReason(*value)
+		return _m.SetTaskName(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilStatusReason(value *string) *CiApprovalFlowUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilTaskName(value *string) *CronTaskUpdateOne {
 	if value != nil {
-		return _m.SetStatusReason(*value)
+		return _m.SetTaskName(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilStatusReason(value *string) *CiApprovalFlowCreate {
+func (_m *CronTaskCreate) SetNotNilTaskName(value *string) *CronTaskCreate {
 	if value != nil {
-		return _m.SetStatusReason(*value)
+		return _m.SetTaskName(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilVersion(value *string) *CiApprovalFlowUpdate {
+func (_m *CronTaskUpdate) SetNotNilCronExpression(value *string) *CronTaskUpdate {
 	if value != nil {
-		return _m.SetVersion(*value)
+		return _m.SetCronExpression(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilVersion(value *string) *CiApprovalFlowUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilCronExpression(value *string) *CronTaskUpdateOne {
 	if value != nil {
-		return _m.SetVersion(*value)
+		return _m.SetCronExpression(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilVersion(value *string) *CiApprovalFlowCreate {
+func (_m *CronTaskCreate) SetNotNilCronExpression(value *string) *CronTaskCreate {
 	if value != nil {
-		return _m.SetVersion(*value)
+		return _m.SetCronExpression(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilParentFlowID(value *string) *CiApprovalFlowUpdate {
+func (_m *CronTaskUpdate) SetNotNilInputSource(value *string) *CronTaskUpdate {
 	if value != nil {
-		return _m.SetParentFlowID(*value)
+		return _m.SetInputSource(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilParentFlowID(value *string) *CiApprovalFlowUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilInputSource(value *string) *CronTaskUpdateOne {
 	if value != nil {
-		return _m.SetParentFlowID(*value)
+		return _m.SetInputSource(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilParentFlowID(value *string) *CiApprovalFlowCreate {
+func (_m *CronTaskCreate) SetNotNilInputSource(value *string) *CronTaskCreate {
 	if value != nil {
-		return _m.SetParentFlowID(*value)
+		return _m.SetInputSource(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilIsDefault(value *bool) *CiApprovalFlowUpdate {
+func (_m *CronTaskUpdate) SetNotNilSourceConfig(value *string) *CronTaskUpdate {
 	if value != nil {
-		return _m.SetIsDefault(*value)
+		return _m.SetSourceConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilIsDefault(value *bool) *CiApprovalFlowUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilSourceConfig(value *string) *CronTaskUpdateOne {
 	if value != nil {
-		return _m.SetIsDefault(*value)
+		return _m.SetSourceConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilIsDefault(value *bool) *CiApprovalFlowCreate {
+func (_m *CronTaskCreate) SetNotNilSourceConfig(value *string) *CronTaskCreate {
 	if value != nil {
-		return _m.SetIsDefault(*value)
+		return _m.SetSourceConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilUsageCount(value *int) *CiApprovalFlowUpdate {
+func (_m *CronTaskUpdate) SetNotNilEnabled(value *bool) *CronTaskUpdate {
 	if value != nil {
-		return _m.SetUsageCount(*value)
+		return _m.SetEnabled(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilUsageCount(value *int) *CiApprovalFlowUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilEnabled(value *bool) *CronTaskUpdateOne {
 	if value != nil {
-		return _m.SetUsageCount(*value)
+		return _m.SetEnabled(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilUsageCount(value *int) *CiApprovalFlowCreate {
+func (_m *CronTaskCreate) SetNotNilEnabled(value *bool) *CronTaskCreate {
 	if value != nil {
-		return _m.SetUsageCount(*value)
+		return _m.SetEnabled(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilApprovalRate(value *int) *CiApprovalFlowUpdate {
+func (_m *CronTaskUpdate) SetNotNilNextRunTime(value *time.Time) *CronTaskUpdate {
 	if value != nil {
-		return _m.SetApprovalRate(*value)
+		return _m.SetNextRunTime(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilApprovalRate(value *int) *CiApprovalFlowUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilNextRunTime(value *time.Time) *CronTaskUpdateOne {
 	if value != nil {
-		return _m.SetApprovalRate(*value)
+		return _m.SetNextRunTime(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilApprovalRate(value *int) *CiApprovalFlowCreate {
+func (_m *CronTaskCreate) SetNotNilNextRunTime(value *time.Time) *CronTaskCreate {
 	if value != nil {
-		return _m.SetApprovalRate(*value)
+		return _m.SetNextRunTime(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilAvgApprovalTime(value *float64) *CiApprovalFlowUpdate {
+func (_m *CronTaskUpdate) SetNotNilLastRunTime(value *time.Time) *CronTaskUpdate {
 	if value != nil {
-		return _m.SetAvgApprovalTime(*value)
+		return _m.SetLastRunTime(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilAvgApprovalTime(value *float64) *CiApprovalFlowUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilLastRunTime(value *time.Time) *CronTaskUpdateOne {
 	if value != nil {
-		return _m.SetAvgApprovalTime(*value)
+		return _m.SetLastRunTime(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilAvgApprovalTime(value *float64) *CiApprovalFlowCreate {
+func (_m *CronTaskCreate) SetNotNilLastRunTime(value *time.Time) *CronTaskCreate {
 	if value != nil {
-		return _m.SetAvgApprovalTime(*value)
+		return _m.SetLastRunTime(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilLastUsedAt(value *time.Time) *CiApprovalFlowUpdate {
+func (_m *CronTaskUpdate) SetNotNilExecutionCount(value *int) *CronTaskUpdate {
 	if value != nil {
-		return _m.SetLastUsedAt(*value)
+		return _m.SetExecutionCount(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilLastUsedAt(value *time.Time) *CiApprovalFlowUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilExecutionCount(value *int) *CronTaskUpdateOne {
 	if value != nil {
-		return _m.SetLastUsedAt(*value)
+		return _m.SetExecutionCount(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilLastUsedAt(value *time.Time) *CiApprovalFlowCreate {
+func (_m *CronTaskCreate) SetNotNilExecutionCount(value *int) *CronTaskCreate {
 	if value != nil {
-		return _m.SetLastUsedAt(*value)
+		return _m.SetExecutionCount(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilCreatedBy(value *uuid.UUID) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilCreatedBy(value *uuid.UUID) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilCreatedBy(value *uuid.UUID) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilCreatedByName(value *string) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetCreatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilCreatedByName(value *string) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetCreatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilCreatedByName(value *string) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetCreatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilUpdatedBy(value *uuid.UUID) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetUpdatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilUpdatedBy(value *uuid.UUID) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilUpdatedBy(value *uuid.UUID) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetUpdatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilUpdatedByName(value *string) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetUpdatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilUpdatedByName(value *string) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilUpdatedByName(value *string) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetUpdatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilPublishedAt(value *time.Time) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetPublishedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilPublishedAt(value *time.Time) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetPublishedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilPublishedAt(value *time.Time) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetPublishedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilPublishedBy(value *uuid.UUID) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetPublishedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilPublishedBy(value *uuid.UUID) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetPublishedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilPublishedBy(value *uuid.UUID) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetPublishedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilCustomFields(value *map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetCustomFields(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilCustomFields(value *map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetCustomFields(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilCustomFields(value *map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetCustomFields(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilIntegrationConfig(value *map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetIntegrationConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilIntegrationConfig(value *map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetIntegrationConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilIntegrationConfig(value *map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetIntegrationConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilMetadata(value *map[string]interface{}) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilMetadata(value *map[string]interface{}) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilMetadata(value *map[string]interface{}) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilTags(value []string) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilTags(value []string) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilTags(value []string) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdate) SetNotNilComments(value *string) *CiApprovalFlowUpdate {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowUpdateOne) SetNotNilComments(value *string) *CiApprovalFlowUpdateOne {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiApprovalFlowCreate) SetNotNilComments(value *string) *CiApprovalFlowCreate {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilUpdatedAt(value *time.Time) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilUpdatedAt(value *time.Time) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilDepartmentID(value *uint64) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilDepartmentID(value *uint64) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilDepartmentID(value *uint64) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilStateID(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetStateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilStateID(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetStateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilStateID(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetStateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilStateName(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetStateName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilStateName(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetStateName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilStateName(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetStateName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilStateCode(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetStateCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilStateCode(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetStateCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilStateCode(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetStateCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilStateDescription(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetStateDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilStateDescription(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetStateDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilStateDescription(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetStateDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilCiID(value *uint64) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilCiID(value *uint64) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilCiID(value *uint64) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilCiTypeID(value *uint64) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilCiTypeID(value *uint64) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilCiTypeID(value *uint64) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilStateType(value *cilifecyclestate.StateType) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetStateType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilStateType(value *cilifecyclestate.StateType) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetStateType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilStateType(value *cilifecyclestate.StateType) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetStateType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilStateCategory(value *cilifecyclestate.StateCategory) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetStateCategory(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilStateCategory(value *cilifecyclestate.StateCategory) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetStateCategory(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilStateCategory(value *cilifecyclestate.StateCategory) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetStateCategory(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilStateLevel(value *int) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetStateLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilStateLevel(value *int) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetStateLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilStateLevel(value *int) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetStateLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilAllowedTransitions(value []string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetAllowedTransitions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilAllowedTransitions(value []string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetAllowedTransitions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilAllowedTransitions(value []string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetAllowedTransitions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilTransitionConditions(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetTransitionConditions(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilTransitionConditions(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetTransitionConditions(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilTransitionConditions(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetTransitionConditions(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilAutoTransitionRules(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetAutoTransitionRules(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilAutoTransitionRules(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetAutoTransitionRules(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilAutoTransitionRules(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetAutoTransitionRules(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilEnteredAt(value *time.Time) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetEnteredAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilEnteredAt(value *time.Time) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetEnteredAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilEnteredAt(value *time.Time) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetEnteredAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilExpectedExitAt(value *time.Time) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetExpectedExitAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilExpectedExitAt(value *time.Time) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetExpectedExitAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilExpectedExitAt(value *time.Time) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetExpectedExitAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilActualExitAt(value *time.Time) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetActualExitAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilActualExitAt(value *time.Time) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetActualExitAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilActualExitAt(value *time.Time) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetActualExitAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilDurationLimitHours(value *int) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetDurationLimitHours(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilDurationLimitHours(value *int) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetDurationLimitHours(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilDurationLimitHours(value *int) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetDurationLimitHours(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilIsTimeout(value *bool) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetIsTimeout(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilIsTimeout(value *bool) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetIsTimeout(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilIsTimeout(value *bool) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetIsTimeout(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilTimeoutAt(value *time.Time) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetTimeoutAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilTimeoutAt(value *time.Time) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetTimeoutAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilTimeoutAt(value *time.Time) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetTimeoutAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilTriggerType(value *cilifecyclestate.TriggerType) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetTriggerType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilTriggerType(value *cilifecyclestate.TriggerType) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetTriggerType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilTriggerType(value *cilifecyclestate.TriggerType) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetTriggerType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilTriggerSource(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetTriggerSource(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilTriggerSource(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetTriggerSource(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilTriggerSource(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetTriggerSource(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilTriggerContext(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetTriggerContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilTriggerContext(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetTriggerContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilTriggerContext(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetTriggerContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilTriggeredBy(value *uuid.UUID) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetTriggeredBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilTriggeredBy(value *uuid.UUID) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetTriggeredBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilTriggeredBy(value *uuid.UUID) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetTriggeredBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilTriggeredByName(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetTriggeredByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilTriggeredByName(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetTriggeredByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilTriggeredByName(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetTriggeredByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilStateData(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetStateData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilStateData(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetStateData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilStateData(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetStateData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilStateConfig(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetStateConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilStateConfig(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetStateConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilStateConfig(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetStateConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilValidationRules(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetValidationRules(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilValidationRules(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetValidationRules(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilValidationRules(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetValidationRules(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilRequiredPermissions(value []string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetRequiredPermissions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilRequiredPermissions(value []string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetRequiredPermissions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilRequiredPermissions(value []string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetRequiredPermissions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilGrantedPermissions(value []string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetGrantedPermissions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilGrantedPermissions(value []string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetGrantedPermissions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilGrantedPermissions(value []string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetGrantedPermissions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilRestrictedOperations(value []string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetRestrictedOperations(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilRestrictedOperations(value []string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetRestrictedOperations(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilRestrictedOperations(value []string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetRestrictedOperations(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilNotificationConfig(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetNotificationConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilNotificationConfig(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetNotificationConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilNotificationConfig(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetNotificationConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilReminderConfig(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetReminderConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilReminderConfig(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetReminderConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilReminderConfig(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetReminderConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilLastNotificationAt(value *time.Time) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetLastNotificationAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilLastNotificationAt(value *time.Time) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetLastNotificationAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilLastNotificationAt(value *time.Time) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetLastNotificationAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilNotificationCount(value *int) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetNotificationCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilNotificationCount(value *int) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetNotificationCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilNotificationCount(value *int) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetNotificationCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilRequireApproval(value *bool) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetRequireApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilRequireApproval(value *bool) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetRequireApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilRequireApproval(value *bool) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetRequireApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilApprovalFlowID(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetApprovalFlowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilApprovalFlowID(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetApprovalFlowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilApprovalFlowID(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetApprovalFlowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilApprovalStatus(value *cilifecyclestate.ApprovalStatus) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetApprovalStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilApprovalStatus(value *cilifecyclestate.ApprovalStatus) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetApprovalStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilApprovalStatus(value *cilifecyclestate.ApprovalStatus) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetApprovalStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilApproverID(value *uuid.UUID) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetApproverID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilApproverID(value *uuid.UUID) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetApproverID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilApproverID(value *uuid.UUID) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetApproverID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilApproverName(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetApproverName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilApproverName(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetApproverName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilApproverName(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetApproverName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilApprovedAt(value *time.Time) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilApprovedAt(value *time.Time) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilApprovedAt(value *time.Time) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilApprovalComment(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetApprovalComment(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilApprovalComment(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetApprovalComment(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilApprovalComment(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetApprovalComment(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilHasError(value *bool) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetHasError(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilHasError(value *bool) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetHasError(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilHasError(value *bool) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetHasError(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilErrorMessage(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilErrorMessage(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilErrorMessage(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilErrorDetails(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetErrorDetails(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilErrorDetails(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetErrorDetails(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilErrorDetails(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetErrorDetails(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilRetryCount(value *int) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetRetryCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilRetryCount(value *int) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetRetryCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilRetryCount(value *int) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetRetryCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilLastRetryAt(value *time.Time) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetLastRetryAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilLastRetryAt(value *time.Time) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetLastRetryAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilLastRetryAt(value *time.Time) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetLastRetryAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilProcessingDuration(value *int) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetProcessingDuration(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilProcessingDuration(value *int) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetProcessingDuration(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilProcessingDuration(value *int) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetProcessingDuration(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilPerformanceMetrics(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetPerformanceMetrics(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilPerformanceMetrics(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetPerformanceMetrics(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilPerformanceMetrics(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetPerformanceMetrics(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilResourceUsage(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetResourceUsage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilResourceUsage(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetResourceUsage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilResourceUsage(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetResourceUsage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilParentStateID(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetParentStateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilParentStateID(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetParentStateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilParentStateID(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetParentStateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilChildStateIds(value []string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetChildStateIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilChildStateIds(value []string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetChildStateIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilChildStateIds(value []string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetChildStateIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilRelatedOperationID(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetRelatedOperationID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilRelatedOperationID(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetRelatedOperationID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilRelatedOperationID(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetRelatedOperationID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilVersion(value *int) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetVersion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilVersion(value *int) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetVersion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilVersion(value *int) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetVersion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilChangeHistory(value []map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetChangeHistory(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilChangeHistory(value []map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetChangeHistory(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilChangeHistory(value []map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetChangeHistory(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilIsRollback(value *bool) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetIsRollback(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilIsRollback(value *bool) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetIsRollback(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilIsRollback(value *bool) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetIsRollback(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilRollbackFromStateID(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetRollbackFromStateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilRollbackFromStateID(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetRollbackFromStateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilRollbackFromStateID(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetRollbackFromStateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilIsMilestone(value *bool) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetIsMilestone(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilIsMilestone(value *bool) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetIsMilestone(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilIsMilestone(value *bool) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetIsMilestone(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilIsCritical(value *bool) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetIsCritical(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilIsCritical(value *bool) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetIsCritical(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilIsCritical(value *bool) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetIsCritical(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilIsReversible(value *bool) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetIsReversible(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilIsReversible(value *bool) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetIsReversible(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilIsReversible(value *bool) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetIsReversible(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilIsFinal(value *bool) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetIsFinal(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilIsFinal(value *bool) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetIsFinal(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilIsFinal(value *bool) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetIsFinal(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilCustomAttributes(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetCustomAttributes(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilCustomAttributes(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetCustomAttributes(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilCustomAttributes(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetCustomAttributes(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilIntegrationData(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetIntegrationData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilIntegrationData(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetIntegrationData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilIntegrationData(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetIntegrationData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilMetadata(value *map[string]interface{}) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilMetadata(value *map[string]interface{}) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilMetadata(value *map[string]interface{}) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilTags(value []string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilTags(value []string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilTags(value []string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilComments(value *string) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilComments(value *string) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilComments(value *string) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilCreatedBy(value *uuid.UUID) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilCreatedBy(value *uuid.UUID) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilCreatedBy(value *uuid.UUID) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdate) SetNotNilUpdatedBy(value *uuid.UUID) *CiLifecycleStateUpdate {
-	if value != nil {
-		return _m.SetUpdatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateUpdateOne) SetNotNilUpdatedBy(value *uuid.UUID) *CiLifecycleStateUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiLifecycleStateCreate) SetNotNilUpdatedBy(value *uuid.UUID) *CiLifecycleStateCreate {
-	if value != nil {
-		return _m.SetUpdatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilUpdatedAt(value *time.Time) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilUpdatedAt(value *time.Time) *CiOperationCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilDepartmentID(value *uint64) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilDepartmentID(value *uint64) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilDepartmentID(value *uint64) *CiOperationCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperationID(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperationID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperationID(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperationID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperationID(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperationID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperationType(value *cioperation.OperationType) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperationType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperationType(value *cioperation.OperationType) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperationType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperationType(value *cioperation.OperationType) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperationType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperationStatus(value *cioperation.OperationStatus) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperationStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperationStatus(value *cioperation.OperationStatus) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperationStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperationStatus(value *cioperation.OperationStatus) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperationStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilCiID(value *uint64) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilCiID(value *uint64) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilCiID(value *uint64) *CiOperationCreate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilCiTypeID(value *uint64) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilCiTypeID(value *uint64) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilCiTypeID(value *uint64) *CiOperationCreate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperatorID(value *uuid.UUID) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperatorID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperatorID(value *uuid.UUID) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperatorID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperatorID(value *uuid.UUID) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperatorID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperatorName(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperatorName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperatorName(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperatorName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperatorName(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperatorName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperatorRole(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperatorRole(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperatorRole(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperatorRole(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperatorRole(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperatorRole(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperatorDepartment(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperatorDepartment(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperatorDepartment(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperatorDepartment(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperatorDepartment(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperatorDepartment(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperationSource(value *cioperation.OperationSource) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperationSource(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperationSource(value *cioperation.OperationSource) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperationSource(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperationSource(value *cioperation.OperationSource) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperationSource(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilSourceDetail(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetSourceDetail(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilSourceDetail(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetSourceDetail(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilSourceDetail(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetSourceDetail(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperationReason(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperationReason(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperationReason(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperationReason(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperationReason(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperationReason(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilOperationContext(value *map[string]interface{}) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetOperationContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilOperationContext(value *map[string]interface{}) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperationContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilOperationContext(value *map[string]interface{}) *CiOperationCreate {
-	if value != nil {
-		return _m.SetOperationContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilDataBefore(value *map[string]interface{}) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetDataBefore(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilDataBefore(value *map[string]interface{}) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetDataBefore(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilDataBefore(value *map[string]interface{}) *CiOperationCreate {
-	if value != nil {
-		return _m.SetDataBefore(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilDataAfter(value *map[string]interface{}) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetDataAfter(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilDataAfter(value *map[string]interface{}) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetDataAfter(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilDataAfter(value *map[string]interface{}) *CiOperationCreate {
-	if value != nil {
-		return _m.SetDataAfter(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilAffectedAttributes(value []uint64) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetAffectedAttributes(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilAffectedAttributes(value []uint64) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetAffectedAttributes(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilAffectedAttributes(value []uint64) *CiOperationCreate {
-	if value != nil {
-		return _m.SetAffectedAttributes(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilBatchCiIds(value []uint64) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetBatchCiIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilBatchCiIds(value []uint64) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetBatchCiIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilBatchCiIds(value []uint64) *CiOperationCreate {
-	if value != nil {
-		return _m.SetBatchCiIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilBatchTotal(value *int) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetBatchTotal(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilBatchTotal(value *int) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetBatchTotal(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilBatchTotal(value *int) *CiOperationCreate {
-	if value != nil {
-		return _m.SetBatchTotal(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilBatchSuccess(value *int) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetBatchSuccess(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilBatchSuccess(value *int) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetBatchSuccess(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilBatchSuccess(value *int) *CiOperationCreate {
-	if value != nil {
-		return _m.SetBatchSuccess(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilBatchFailed(value *int) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetBatchFailed(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilBatchFailed(value *int) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetBatchFailed(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilBatchFailed(value *int) *CiOperationCreate {
-	if value != nil {
-		return _m.SetBatchFailed(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilRequireApproval(value *bool) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetRequireApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilRequireApproval(value *bool) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetRequireApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilRequireApproval(value *bool) *CiOperationCreate {
-	if value != nil {
-		return _m.SetRequireApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilApprovalFlowID(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetApprovalFlowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilApprovalFlowID(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetApprovalFlowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilApprovalFlowID(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetApprovalFlowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilApproverID(value *uuid.UUID) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetApproverID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilApproverID(value *uuid.UUID) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetApproverID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilApproverID(value *uuid.UUID) *CiOperationCreate {
-	if value != nil {
-		return _m.SetApproverID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilApproverName(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetApproverName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilApproverName(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetApproverName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilApproverName(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetApproverName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilApprovedAt(value *time.Time) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilApprovedAt(value *time.Time) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilApprovedAt(value *time.Time) *CiOperationCreate {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilApprovalComment(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetApprovalComment(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilApprovalComment(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetApprovalComment(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilApprovalComment(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetApprovalComment(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilStartedAt(value *time.Time) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetStartedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilStartedAt(value *time.Time) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetStartedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilStartedAt(value *time.Time) *CiOperationCreate {
-	if value != nil {
-		return _m.SetStartedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilCompletedAt(value *time.Time) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetCompletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilCompletedAt(value *time.Time) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetCompletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilCompletedAt(value *time.Time) *CiOperationCreate {
-	if value != nil {
-		return _m.SetCompletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilExecutionDuration(value *int) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetExecutionDuration(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilExecutionDuration(value *int) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetExecutionDuration(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilExecutionDuration(value *int) *CiOperationCreate {
-	if value != nil {
-		return _m.SetExecutionDuration(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilExecutionResult(value *map[string]interface{}) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetExecutionResult(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilExecutionResult(value *map[string]interface{}) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetExecutionResult(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilExecutionResult(value *map[string]interface{}) *CiOperationCreate {
-	if value != nil {
-		return _m.SetExecutionResult(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilErrorMessage(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilErrorMessage(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilErrorMessage(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilErrorDetails(value *map[string]interface{}) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetErrorDetails(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilErrorDetails(value *map[string]interface{}) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetErrorDetails(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilErrorDetails(value *map[string]interface{}) *CiOperationCreate {
-	if value != nil {
-		return _m.SetErrorDetails(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilLifecycleStage(value *cioperation.LifecycleStage) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetLifecycleStage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilLifecycleStage(value *cioperation.LifecycleStage) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetLifecycleStage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilLifecycleStage(value *cioperation.LifecycleStage) *CiOperationCreate {
-	if value != nil {
-		return _m.SetLifecycleStage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilExpiresAt(value *time.Time) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetExpiresAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilExpiresAt(value *time.Time) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetExpiresAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilExpiresAt(value *time.Time) *CiOperationCreate {
-	if value != nil {
-		return _m.SetExpiresAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilRequiredPermissions(value []string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetRequiredPermissions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilRequiredPermissions(value []string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetRequiredPermissions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilRequiredPermissions(value []string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetRequiredPermissions(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilPermissionCheckResult(value *map[string]interface{}) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetPermissionCheckResult(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilPermissionCheckResult(value *map[string]interface{}) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetPermissionCheckResult(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilPermissionCheckResult(value *map[string]interface{}) *CiOperationCreate {
-	if value != nil {
-		return _m.SetPermissionCheckResult(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilIsSensitive(value *bool) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetIsSensitive(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilIsSensitive(value *bool) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetIsSensitive(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilIsSensitive(value *bool) *CiOperationCreate {
-	if value != nil {
-		return _m.SetIsSensitive(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilParentOperationID(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetParentOperationID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilParentOperationID(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetParentOperationID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilParentOperationID(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetParentOperationID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilChildOperationIds(value []string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetChildOperationIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilChildOperationIds(value []string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetChildOperationIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilChildOperationIds(value []string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetChildOperationIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilTransactionID(value *string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetTransactionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilTransactionID(value *string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetTransactionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilTransactionID(value *string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetTransactionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilMetadata(value *map[string]interface{}) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilMetadata(value *map[string]interface{}) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilMetadata(value *map[string]interface{}) *CiOperationCreate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdate) SetNotNilTags(value []string) *CiOperationUpdate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationUpdateOne) SetNotNilTags(value []string) *CiOperationUpdateOne {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiOperationCreate) SetNotNilTags(value []string) *CiOperationCreate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilUpdatedAt(value *time.Time) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilUpdatedAt(value *time.Time) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilDepartmentID(value *uint64) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilDepartmentID(value *uint64) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilDepartmentID(value *uint64) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilPermissionID(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilPermissionID(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilPermissionID(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilScopeType(value *cipermission.ScopeType) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetScopeType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilScopeType(value *cipermission.ScopeType) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetScopeType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilScopeType(value *cipermission.ScopeType) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetScopeType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilScopeTargetType(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetScopeTargetType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilScopeTargetType(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetScopeTargetType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilScopeTargetType(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetScopeTargetType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilScopeTargetID(value *uint64) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetScopeTargetID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilScopeTargetID(value *uint64) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetScopeTargetID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilScopeTargetID(value *uint64) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetScopeTargetID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilScopeFieldName(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetScopeFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilScopeFieldName(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetScopeFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilScopeFieldName(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetScopeFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilSubjectType(value *cipermission.SubjectType) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetSubjectType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilSubjectType(value *cipermission.SubjectType) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetSubjectType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilSubjectType(value *cipermission.SubjectType) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetSubjectType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilSubjectID(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetSubjectID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilSubjectID(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetSubjectID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilSubjectID(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetSubjectID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilSubjectName(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetSubjectName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilSubjectName(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetSubjectName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilSubjectName(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetSubjectName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilPermissionType(value *cipermission.PermissionType) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetPermissionType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilPermissionType(value *cipermission.PermissionType) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetPermissionType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilPermissionType(value *cipermission.PermissionType) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetPermissionType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilPermissionLevel(value *cipermission.PermissionLevel) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetPermissionLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilPermissionLevel(value *cipermission.PermissionLevel) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetPermissionLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilPermissionLevel(value *cipermission.PermissionLevel) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetPermissionLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilOperationsMask(value *uint64) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetOperationsMask(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilOperationsMask(value *uint64) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetOperationsMask(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilOperationsMask(value *uint64) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetOperationsMask(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilEffectiveFrom(value *time.Time) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetEffectiveFrom(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilEffectiveFrom(value *time.Time) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetEffectiveFrom(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilEffectiveFrom(value *time.Time) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetEffectiveFrom(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilEffectiveTo(value *time.Time) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetEffectiveTo(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilEffectiveTo(value *time.Time) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetEffectiveTo(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilEffectiveTo(value *time.Time) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetEffectiveTo(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilIsTemporary(value *bool) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetIsTemporary(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilIsTemporary(value *bool) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetIsTemporary(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilIsTemporary(value *bool) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetIsTemporary(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilPriority(value *int) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetPriority(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilPriority(value *int) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetPriority(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilPriority(value *int) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetPriority(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilStatus(value *cipermission.Status) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilStatus(value *cipermission.Status) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilStatus(value *cipermission.Status) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilParentPermissionID(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetParentPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilParentPermissionID(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetParentPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilParentPermissionID(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetParentPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilInheritable(value *bool) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetInheritable(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilInheritable(value *bool) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetInheritable(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilInheritable(value *bool) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetInheritable(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilRequireApproval(value *bool) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetRequireApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilRequireApproval(value *bool) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetRequireApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilRequireApproval(value *bool) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetRequireApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilRequireMfa(value *bool) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetRequireMfa(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilRequireMfa(value *bool) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetRequireMfa(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilRequireMfa(value *bool) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetRequireMfa(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilRiskLevel(value *cipermission.RiskLevel) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetRiskLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilRiskLevel(value *cipermission.RiskLevel) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetRiskLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilRiskLevel(value *cipermission.RiskLevel) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetRiskLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilUsageCount(value *int) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetUsageCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilUsageCount(value *int) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetUsageCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilUsageCount(value *int) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetUsageCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilLastUsedAt(value *time.Time) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetLastUsedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilLastUsedAt(value *time.Time) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetLastUsedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilLastUsedAt(value *time.Time) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetLastUsedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilCreatedBy(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilCreatedBy(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilCreatedBy(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilUpdatedBy(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetUpdatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilUpdatedBy(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilUpdatedBy(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetUpdatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilDescription(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilDescription(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilDescription(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdate) SetNotNilComments(value *string) *CiPermissionUpdate {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionUpdateOne) SetNotNilComments(value *string) *CiPermissionUpdateOne {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiPermissionCreate) SetNotNilComments(value *string) *CiPermissionCreate {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilUpdatedAt(value *time.Time) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilUpdatedAt(value *time.Time) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilDepartmentID(value *uint64) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilDepartmentID(value *uint64) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilDepartmentID(value *uint64) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilCiID(value *uint64) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilCiID(value *uint64) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilCiID(value *uint64) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilCiTypeID(value *uint64) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilCiTypeID(value *uint64) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilCiTypeID(value *uint64) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilCiTypeName(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetCiTypeName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilCiTypeName(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetCiTypeName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilCiTypeName(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetCiTypeName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilCiUniqueKey(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetCiUniqueKey(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilCiUniqueKey(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetCiUniqueKey(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilCiUniqueKey(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetCiUniqueKey(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilOperationType(value *cirecords.OperationType) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetOperationType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilOperationType(value *cirecords.OperationType) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetOperationType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilOperationType(value *cirecords.OperationType) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetOperationType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilOperationTime(value *time.Time) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetOperationTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilOperationTime(value *time.Time) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetOperationTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilOperationTime(value *time.Time) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetOperationTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilOperationUserID(value *uuid.UUID) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetOperationUserID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilOperationUserID(value *uuid.UUID) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetOperationUserID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilOperationUserID(value *uuid.UUID) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetOperationUserID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilOperationUserName(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetOperationUserName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilOperationUserName(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetOperationUserName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilOperationUserName(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetOperationUserName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilSourceType(value *cirecords.SourceType) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetSourceType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilSourceType(value *cirecords.SourceType) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetSourceType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilSourceType(value *cirecords.SourceType) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetSourceType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilSourceID(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetSourceID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilSourceID(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetSourceID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilSourceID(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetSourceID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilSourceDescription(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetSourceDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilSourceDescription(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetSourceDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilSourceDescription(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetSourceDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilBeforeData(value *map[string]interface{}) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetBeforeData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilBeforeData(value *map[string]interface{}) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetBeforeData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilBeforeData(value *map[string]interface{}) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetBeforeData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilAfterData(value *map[string]interface{}) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetAfterData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilAfterData(value *map[string]interface{}) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetAfterData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilAfterData(value *map[string]interface{}) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetAfterData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilChangedFields(value []string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetChangedFields(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilChangedFields(value []string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetChangedFields(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilChangedFields(value []string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetChangedFields(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilChangeSummary(value *map[string]interface{}) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetChangeSummary(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilChangeSummary(value *map[string]interface{}) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetChangeSummary(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilChangeSummary(value *map[string]interface{}) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetChangeSummary(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilChangeReason(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetChangeReason(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilChangeReason(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetChangeReason(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilChangeReason(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetChangeReason(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilDescription(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilDescription(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilDescription(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilComments(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilComments(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilComments(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetComments(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilVersionNumber(value *int) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetVersionNumber(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilVersionNumber(value *int) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetVersionNumber(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilVersionNumber(value *int) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetVersionNumber(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilRevisionID(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetRevisionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilRevisionID(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetRevisionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilRevisionID(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetRevisionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilClientIP(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetClientIP(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilClientIP(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetClientIP(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilClientIP(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetClientIP(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilUserAgent(value *string) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetUserAgent(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilUserAgent(value *string) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetUserAgent(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilUserAgent(value *string) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetUserAgent(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilRequestContext(value *map[string]interface{}) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetRequestContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilRequestContext(value *map[string]interface{}) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetRequestContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilRequestContext(value *map[string]interface{}) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetRequestContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilAffectedRelations(value *int) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetAffectedRelations(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilAffectedRelations(value *int) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetAffectedRelations(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilAffectedRelations(value *int) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetAffectedRelations(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilAffectedRelationIds(value []uint64) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetAffectedRelationIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilAffectedRelationIds(value []uint64) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetAffectedRelationIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilAffectedRelationIds(value []uint64) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetAffectedRelationIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilCascadeChanges(value *bool) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetCascadeChanges(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilCascadeChanges(value *bool) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetCascadeChanges(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilCascadeChanges(value *bool) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetCascadeChanges(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilIsMajorChange(value *bool) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetIsMajorChange(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilIsMajorChange(value *bool) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetIsMajorChange(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilIsMajorChange(value *bool) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetIsMajorChange(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilRequiresApproval(value *bool) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetRequiresApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilRequiresApproval(value *bool) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetRequiresApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilRequiresApproval(value *bool) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetRequiresApproval(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilApprovalStatus(value *cirecords.ApprovalStatus) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetApprovalStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilApprovalStatus(value *cirecords.ApprovalStatus) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetApprovalStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilApprovalStatus(value *cirecords.ApprovalStatus) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetApprovalStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilApprovedBy(value *uuid.UUID) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetApprovedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilApprovedBy(value *uuid.UUID) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetApprovedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilApprovedBy(value *uuid.UUID) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetApprovedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdate) SetNotNilApprovedAt(value *time.Time) *CiRecordsUpdate {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsUpdateOne) SetNotNilApprovedAt(value *time.Time) *CiRecordsUpdateOne {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRecordsCreate) SetNotNilApprovedAt(value *time.Time) *CiRecordsCreate {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdate) SetNotNilUpdatedAt(value *time.Time) *CiRelationUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiRelationUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationCreate) SetNotNilUpdatedAt(value *time.Time) *CiRelationCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdate) SetNotNilDeletedAt(value *time.Time) *CiRelationUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdateOne) SetNotNilDeletedAt(value *time.Time) *CiRelationUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationCreate) SetNotNilDeletedAt(value *time.Time) *CiRelationCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdate) SetNotNilDepartmentID(value *uint64) *CiRelationUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdateOne) SetNotNilDepartmentID(value *uint64) *CiRelationUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationCreate) SetNotNilDepartmentID(value *uint64) *CiRelationCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdate) SetNotNilFirstCiID(value *uint64) *CiRelationUpdate {
-	if value != nil {
-		return _m.SetFirstCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdateOne) SetNotNilFirstCiID(value *uint64) *CiRelationUpdateOne {
-	if value != nil {
-		return _m.SetFirstCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationCreate) SetNotNilFirstCiID(value *uint64) *CiRelationCreate {
-	if value != nil {
-		return _m.SetFirstCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdate) SetNotNilSecondCiID(value *uint64) *CiRelationUpdate {
-	if value != nil {
-		return _m.SetSecondCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdateOne) SetNotNilSecondCiID(value *uint64) *CiRelationUpdateOne {
-	if value != nil {
-		return _m.SetSecondCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationCreate) SetNotNilSecondCiID(value *uint64) *CiRelationCreate {
-	if value != nil {
-		return _m.SetSecondCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdate) SetNotNilRelationTypeID(value *uint64) *CiRelationUpdate {
-	if value != nil {
-		return _m.SetRelationTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdateOne) SetNotNilRelationTypeID(value *uint64) *CiRelationUpdateOne {
-	if value != nil {
-		return _m.SetRelationTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationCreate) SetNotNilRelationTypeID(value *uint64) *CiRelationCreate {
-	if value != nil {
-		return _m.SetRelationTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdate) SetNotNilMore(value *uint64) *CiRelationUpdate {
-	if value != nil {
-		return _m.SetMore(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdateOne) SetNotNilMore(value *uint64) *CiRelationUpdateOne {
-	if value != nil {
-		return _m.SetMore(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationCreate) SetNotNilMore(value *uint64) *CiRelationCreate {
-	if value != nil {
-		return _m.SetMore(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdate) SetNotNilSource(value *string) *CiRelationUpdate {
-	if value != nil {
-		return _m.SetSource(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdateOne) SetNotNilSource(value *string) *CiRelationUpdateOne {
-	if value != nil {
-		return _m.SetSource(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationCreate) SetNotNilSource(value *string) *CiRelationCreate {
-	if value != nil {
-		return _m.SetSource(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdate) SetNotNilAncestorIds(value *string) *CiRelationUpdate {
-	if value != nil {
-		return _m.SetAncestorIds(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationUpdateOne) SetNotNilAncestorIds(value *string) *CiRelationUpdateOne {
-	if value != nil {
-		return _m.SetAncestorIds(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiRelationCreate) SetNotNilAncestorIds(value *string) *CiRelationCreate {
-	if value != nil {
-		return _m.SetAncestorIds(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilUpdatedAt(value *time.Time) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilUpdatedAt(value *time.Time) *CiTypeCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilStatus(value *uint8) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilStatus(value *uint8) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilStatus(value *uint8) *CiTypeCreate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilSort(value *uint32) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilSort(value *uint32) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilSort(value *uint32) *CiTypeCreate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilDeletedAt(value *time.Time) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilDeletedAt(value *time.Time) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilDeletedAt(value *time.Time) *CiTypeCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilDepartmentID(value *uint64) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilDepartmentID(value *uint64) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilDepartmentID(value *uint64) *CiTypeCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilName(value *string) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilName(value *string) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilName(value *string) *CiTypeCreate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilAlias(value *string) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetAlias(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilAlias(value *string) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetAlias(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilAlias(value *string) *CiTypeCreate {
-	if value != nil {
-		return _m.SetAlias(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilUniqueID(value *uint64) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetUniqueID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilUniqueID(value *uint64) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetUniqueID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilUniqueID(value *uint64) *CiTypeCreate {
-	if value != nil {
-		return _m.SetUniqueID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilIsInherited(value *bool) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetIsInherited(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilIsInherited(value *bool) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetIsInherited(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilIsInherited(value *bool) *CiTypeCreate {
-	if value != nil {
-		return _m.SetIsInherited(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilCreatedBy(value *uuid.UUID) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilCreatedBy(value *uuid.UUID) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilCreatedBy(value *uuid.UUID) *CiTypeCreate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilIcon(value *string) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetIcon(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilIcon(value *string) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetIcon(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilIcon(value *string) *CiTypeCreate {
-	if value != nil {
-		return _m.SetIcon(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilDefaultOrderAttrID(value *uint64) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetDefaultOrderAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilDefaultOrderAttrID(value *uint64) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetDefaultOrderAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilDefaultOrderAttrID(value *uint64) *CiTypeCreate {
-	if value != nil {
-		return _m.SetDefaultOrderAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilShowID(value *uint64) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetShowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilShowID(value *uint64) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetShowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilShowID(value *uint64) *CiTypeCreate {
-	if value != nil {
-		return _m.SetShowID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdate) SetNotNilUniqueConst(value []schema.CiTypeUniqueConstS) *CiTypeUpdate {
-	if value != nil {
-		return _m.SetUniqueConst(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeUpdateOne) SetNotNilUniqueConst(value []schema.CiTypeUniqueConstS) *CiTypeUpdateOne {
-	if value != nil {
-		return _m.SetUniqueConst(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeCreate) SetNotNilUniqueConst(value []schema.CiTypeUniqueConstS) *CiTypeCreate {
-	if value != nil {
-		return _m.SetUniqueConst(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilUpdatedAt(value *time.Time) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilUpdatedAt(value *time.Time) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilDeletedAt(value *time.Time) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilDeletedAt(value *time.Time) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilDeletedAt(value *time.Time) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilSort(value *uint32) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilSort(value *uint32) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilSort(value *uint32) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilDepartmentID(value *uint64) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilDepartmentID(value *uint64) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilDepartmentID(value *uint64) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilTypeID(value *uint64) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilTypeID(value *uint64) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilTypeID(value *uint64) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilAttrID(value *uint64) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilAttrID(value *uint64) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilAttrID(value *uint64) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilIsRequired(value *bool) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetIsRequired(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilIsRequired(value *bool) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsRequired(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilIsRequired(value *bool) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetIsRequired(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilIsUnique(value *bool) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetIsUnique(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilIsUnique(value *bool) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsUnique(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilIsUnique(value *bool) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetIsUnique(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilIsList(value *bool) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetIsList(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilIsList(value *bool) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsList(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilIsList(value *bool) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetIsList(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilListShow(value *bool) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetListShow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilListShow(value *bool) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetListShow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilListShow(value *bool) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetListShow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilDetailShow(value *bool) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetDetailShow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilDetailShow(value *bool) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetDetailShow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilDetailShow(value *bool) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetDetailShow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdate) SetNotNilIsEdit(value *bool) *CiTypeAttributeUpdate {
-	if value != nil {
-		return _m.SetIsEdit(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeUpdateOne) SetNotNilIsEdit(value *bool) *CiTypeAttributeUpdateOne {
-	if value != nil {
-		return _m.SetIsEdit(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeCreate) SetNotNilIsEdit(value *bool) *CiTypeAttributeCreate {
-	if value != nil {
-		return _m.SetIsEdit(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdate) SetNotNilUpdatedAt(value *time.Time) *CiTypeAttributeGroupUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiTypeAttributeGroupUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupCreate) SetNotNilUpdatedAt(value *time.Time) *CiTypeAttributeGroupCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdate) SetNotNilDeletedAt(value *time.Time) *CiTypeAttributeGroupUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdateOne) SetNotNilDeletedAt(value *time.Time) *CiTypeAttributeGroupUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupCreate) SetNotNilDeletedAt(value *time.Time) *CiTypeAttributeGroupCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdate) SetNotNilSort(value *uint32) *CiTypeAttributeGroupUpdate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdateOne) SetNotNilSort(value *uint32) *CiTypeAttributeGroupUpdateOne {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupCreate) SetNotNilSort(value *uint32) *CiTypeAttributeGroupCreate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdate) SetNotNilDepartmentID(value *uint64) *CiTypeAttributeGroupUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdateOne) SetNotNilDepartmentID(value *uint64) *CiTypeAttributeGroupUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupCreate) SetNotNilDepartmentID(value *uint64) *CiTypeAttributeGroupCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdate) SetNotNilName(value *string) *CiTypeAttributeGroupUpdate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdateOne) SetNotNilName(value *string) *CiTypeAttributeGroupUpdateOne {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupCreate) SetNotNilName(value *string) *CiTypeAttributeGroupCreate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdate) SetNotNilTypeID(value *uint64) *CiTypeAttributeGroupUpdate {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupUpdateOne) SetNotNilTypeID(value *uint64) *CiTypeAttributeGroupUpdateOne {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupCreate) SetNotNilTypeID(value *uint64) *CiTypeAttributeGroupCreate {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdate) SetNotNilUpdatedAt(value *time.Time) *CiTypeAttributeGroupItemUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiTypeAttributeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemCreate) SetNotNilUpdatedAt(value *time.Time) *CiTypeAttributeGroupItemCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdate) SetNotNilDeletedAt(value *time.Time) *CiTypeAttributeGroupItemUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdateOne) SetNotNilDeletedAt(value *time.Time) *CiTypeAttributeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemCreate) SetNotNilDeletedAt(value *time.Time) *CiTypeAttributeGroupItemCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdate) SetNotNilSort(value *uint32) *CiTypeAttributeGroupItemUpdate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdateOne) SetNotNilSort(value *uint32) *CiTypeAttributeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemCreate) SetNotNilSort(value *uint32) *CiTypeAttributeGroupItemCreate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdate) SetNotNilDepartmentID(value *uint64) *CiTypeAttributeGroupItemUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdateOne) SetNotNilDepartmentID(value *uint64) *CiTypeAttributeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemCreate) SetNotNilDepartmentID(value *uint64) *CiTypeAttributeGroupItemCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdate) SetNotNilGroupID(value *uint64) *CiTypeAttributeGroupItemUpdate {
-	if value != nil {
-		return _m.SetGroupID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdateOne) SetNotNilGroupID(value *uint64) *CiTypeAttributeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetGroupID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemCreate) SetNotNilGroupID(value *uint64) *CiTypeAttributeGroupItemCreate {
-	if value != nil {
-		return _m.SetGroupID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdate) SetNotNilAttrID(value *uint64) *CiTypeAttributeGroupItemUpdate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemUpdateOne) SetNotNilAttrID(value *uint64) *CiTypeAttributeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeAttributeGroupItemCreate) SetNotNilAttrID(value *uint64) *CiTypeAttributeGroupItemCreate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdate) SetNotNilUpdatedAt(value *time.Time) *CiTypeGroupUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiTypeGroupUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupCreate) SetNotNilUpdatedAt(value *time.Time) *CiTypeGroupCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdate) SetNotNilSort(value *uint32) *CiTypeGroupUpdate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdateOne) SetNotNilSort(value *uint32) *CiTypeGroupUpdateOne {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupCreate) SetNotNilSort(value *uint32) *CiTypeGroupCreate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdate) SetNotNilDepartmentID(value *uint64) *CiTypeGroupUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdateOne) SetNotNilDepartmentID(value *uint64) *CiTypeGroupUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupCreate) SetNotNilDepartmentID(value *uint64) *CiTypeGroupCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdate) SetNotNilDeletedAt(value *time.Time) *CiTypeGroupUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdateOne) SetNotNilDeletedAt(value *time.Time) *CiTypeGroupUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupCreate) SetNotNilDeletedAt(value *time.Time) *CiTypeGroupCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdate) SetNotNilName(value *string) *CiTypeGroupUpdate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdateOne) SetNotNilName(value *string) *CiTypeGroupUpdateOne {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupCreate) SetNotNilName(value *string) *CiTypeGroupCreate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdate) SetNotNilDescription(value *string) *CiTypeGroupUpdate {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdateOne) SetNotNilDescription(value *string) *CiTypeGroupUpdateOne {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupCreate) SetNotNilDescription(value *string) *CiTypeGroupCreate {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdate) SetNotNilIcon(value *string) *CiTypeGroupUpdate {
-	if value != nil {
-		return _m.SetIcon(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupUpdateOne) SetNotNilIcon(value *string) *CiTypeGroupUpdateOne {
-	if value != nil {
-		return _m.SetIcon(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupCreate) SetNotNilIcon(value *string) *CiTypeGroupCreate {
-	if value != nil {
-		return _m.SetIcon(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdate) SetNotNilUpdatedAt(value *time.Time) *CiTypeGroupItemUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiTypeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemCreate) SetNotNilUpdatedAt(value *time.Time) *CiTypeGroupItemCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdate) SetNotNilDeletedAt(value *time.Time) *CiTypeGroupItemUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdateOne) SetNotNilDeletedAt(value *time.Time) *CiTypeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemCreate) SetNotNilDeletedAt(value *time.Time) *CiTypeGroupItemCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdate) SetNotNilSort(value *uint32) *CiTypeGroupItemUpdate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdateOne) SetNotNilSort(value *uint32) *CiTypeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemCreate) SetNotNilSort(value *uint32) *CiTypeGroupItemCreate {
-	if value != nil {
-		return _m.SetSort(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdate) SetNotNilDepartmentID(value *uint64) *CiTypeGroupItemUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdateOne) SetNotNilDepartmentID(value *uint64) *CiTypeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemCreate) SetNotNilDepartmentID(value *uint64) *CiTypeGroupItemCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdate) SetNotNilGroupID(value *uint64) *CiTypeGroupItemUpdate {
-	if value != nil {
-		return _m.SetGroupID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdateOne) SetNotNilGroupID(value *uint64) *CiTypeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetGroupID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemCreate) SetNotNilGroupID(value *uint64) *CiTypeGroupItemCreate {
-	if value != nil {
-		return _m.SetGroupID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdate) SetNotNilTypeID(value *uint64) *CiTypeGroupItemUpdate {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemUpdateOne) SetNotNilTypeID(value *uint64) *CiTypeGroupItemUpdateOne {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeGroupItemCreate) SetNotNilTypeID(value *uint64) *CiTypeGroupItemCreate {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdate) SetNotNilUpdatedAt(value *time.Time) *CiTypeInheritanceUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiTypeInheritanceUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceCreate) SetNotNilUpdatedAt(value *time.Time) *CiTypeInheritanceCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdate) SetNotNilDeletedAt(value *time.Time) *CiTypeInheritanceUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdateOne) SetNotNilDeletedAt(value *time.Time) *CiTypeInheritanceUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceCreate) SetNotNilDeletedAt(value *time.Time) *CiTypeInheritanceCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdate) SetNotNilDepartmentID(value *uint64) *CiTypeInheritanceUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdateOne) SetNotNilDepartmentID(value *uint64) *CiTypeInheritanceUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceCreate) SetNotNilDepartmentID(value *uint64) *CiTypeInheritanceCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdate) SetNotNilParentID(value *uint64) *CiTypeInheritanceUpdate {
-	if value != nil {
-		return _m.SetParentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdateOne) SetNotNilParentID(value *uint64) *CiTypeInheritanceUpdateOne {
-	if value != nil {
-		return _m.SetParentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceCreate) SetNotNilParentID(value *uint64) *CiTypeInheritanceCreate {
-	if value != nil {
-		return _m.SetParentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdate) SetNotNilChildID(value *uint64) *CiTypeInheritanceUpdate {
-	if value != nil {
-		return _m.SetChildID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceUpdateOne) SetNotNilChildID(value *uint64) *CiTypeInheritanceUpdateOne {
-	if value != nil {
-		return _m.SetChildID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeInheritanceCreate) SetNotNilChildID(value *uint64) *CiTypeInheritanceCreate {
-	if value != nil {
-		return _m.SetChildID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilUpdatedAt(value *time.Time) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilUpdatedAt(value *time.Time) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilDeletedAt(value *time.Time) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilDeletedAt(value *time.Time) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilDeletedAt(value *time.Time) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilParentID(value *uint64) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetParentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilParentID(value *uint64) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetParentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilParentID(value *uint64) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetParentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilChildID(value *uint64) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetChildID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilChildID(value *uint64) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetChildID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilChildID(value *uint64) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetChildID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilRelationTypeID(value *uint64) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetRelationTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilRelationTypeID(value *uint64) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetRelationTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilRelationTypeID(value *uint64) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetRelationTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilConstraint(value *string) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetConstraint(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilConstraint(value *string) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetConstraint(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilConstraint(value *string) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetConstraint(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilParentAttrID(value *uint64) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetParentAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilParentAttrID(value *uint64) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetParentAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilParentAttrID(value *uint64) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetParentAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilChildAttrID(value *uint64) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetChildAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilChildAttrID(value *uint64) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetChildAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilChildAttrID(value *uint64) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetChildAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilParentAttrIds(value []uint64) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetParentAttrIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilParentAttrIds(value []uint64) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetParentAttrIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilParentAttrIds(value []uint64) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetParentAttrIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdate) SetNotNilChildAttrIds(value []uint64) *CiTypeRelationUpdate {
-	if value != nil {
-		return _m.SetChildAttrIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationUpdateOne) SetNotNilChildAttrIds(value []uint64) *CiTypeRelationUpdateOne {
-	if value != nil {
-		return _m.SetChildAttrIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CiTypeRelationCreate) SetNotNilChildAttrIds(value []uint64) *CiTypeRelationCreate {
-	if value != nil {
-		return _m.SetChildAttrIds(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdate) SetNotNilUpdatedAt(value *time.Time) *CisUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CisUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisCreate) SetNotNilUpdatedAt(value *time.Time) *CisCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdate) SetNotNilDeletedAt(value *time.Time) *CisUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdateOne) SetNotNilDeletedAt(value *time.Time) *CisUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisCreate) SetNotNilDeletedAt(value *time.Time) *CisCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdate) SetNotNilDepartmentID(value *uint64) *CisUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdateOne) SetNotNilDepartmentID(value *uint64) *CisUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisCreate) SetNotNilDepartmentID(value *uint64) *CisCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdate) SetNotNilTypeID(value *uint64) *CisUpdate {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdateOne) SetNotNilTypeID(value *uint64) *CisUpdateOne {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisCreate) SetNotNilTypeID(value *uint64) *CisCreate {
-	if value != nil {
-		return _m.SetTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdate) SetNotNilStatus(value *uint32) *CisUpdate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdateOne) SetNotNilStatus(value *uint32) *CisUpdateOne {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisCreate) SetNotNilStatus(value *uint32) *CisCreate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdate) SetNotNilCreatedBy(value *uuid.UUID) *CisUpdate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdateOne) SetNotNilCreatedBy(value *uuid.UUID) *CisUpdateOne {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisCreate) SetNotNilCreatedBy(value *uuid.UUID) *CisCreate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdate) SetNotNilTags(value []schema.CiTag) *CisUpdate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdateOne) SetNotNilTags(value []schema.CiTag) *CisUpdateOne {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisCreate) SetNotNilTags(value []schema.CiTag) *CisCreate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdate) SetNotNilMetadata(value *map[string]interface{}) *CisUpdate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdateOne) SetNotNilMetadata(value *map[string]interface{}) *CisUpdateOne {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisCreate) SetNotNilMetadata(value *map[string]interface{}) *CisCreate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdate) SetNotNilCustomFields(value *map[string]interface{}) *CisUpdate {
-	if value != nil {
-		return _m.SetCustomFields(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisUpdateOne) SetNotNilCustomFields(value *map[string]interface{}) *CisUpdateOne {
-	if value != nil {
-		return _m.SetCustomFields(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *CisCreate) SetNotNilCustomFields(value *map[string]interface{}) *CisCreate {
-	if value != nil {
-		return _m.SetCustomFields(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilUpdatedAt(value *time.Time) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilUpdatedAt(value *time.Time) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilDeletedAt(value *time.Time) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilDeletedAt(value *time.Time) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilDeletedAt(value *time.Time) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilDepartmentID(value *uint64) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilDepartmentID(value *uint64) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilDepartmentID(value *uint64) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilTaskID(value *uint64) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetTaskID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilTaskID(value *uint64) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetTaskID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilTaskID(value *uint64) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetTaskID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilRecordID(value *uint64) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetRecordID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilRecordID(value *uint64) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetRecordID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilRecordID(value *uint64) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetRecordID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilBatchID(value *string) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetBatchID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilBatchID(value *string) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetBatchID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilBatchID(value *string) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetBatchID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilErrorCode(value *string) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetErrorCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilErrorCode(value *string) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetErrorCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilErrorCode(value *string) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetErrorCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilErrorTitle(value *string) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetErrorTitle(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilErrorTitle(value *string) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetErrorTitle(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilErrorTitle(value *string) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetErrorTitle(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilErrorMessage(value *string) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilErrorMessage(value *string) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilErrorMessage(value *string) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilErrorDetails(value *string) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetErrorDetails(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilErrorDetails(value *string) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetErrorDetails(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilErrorDetails(value *string) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetErrorDetails(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilErrorType(value *importerror.ErrorType) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetErrorType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilErrorType(value *importerror.ErrorType) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetErrorType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilErrorType(value *importerror.ErrorType) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetErrorType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilSeverity(value *importerror.Severity) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetSeverity(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilSeverity(value *importerror.Severity) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetSeverity(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilSeverity(value *importerror.Severity) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetSeverity(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilRowNumber(value *int) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetRowNumber(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilRowNumber(value *int) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetRowNumber(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilRowNumber(value *int) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetRowNumber(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilFieldName(value *string) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilFieldName(value *string) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilFieldName(value *string) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilSheetName(value *string) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetSheetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilSheetName(value *string) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetSheetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilSheetName(value *string) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetSheetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilInputData(value *map[string]interface{}) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetInputData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilInputData(value *map[string]interface{}) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetInputData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilInputData(value *map[string]interface{}) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetInputData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilErrorContext(value *map[string]interface{}) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetErrorContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilErrorContext(value *map[string]interface{}) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetErrorContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilErrorContext(value *map[string]interface{}) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetErrorContext(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilSuggestion(value *string) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetSuggestion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilSuggestion(value *string) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetSuggestion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilSuggestion(value *string) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetSuggestion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilStatus(value *importerror.Status) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilStatus(value *importerror.Status) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilStatus(value *importerror.Status) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilResolvedBy(value *string) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetResolvedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilResolvedBy(value *string) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetResolvedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilResolvedBy(value *string) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetResolvedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdate) SetNotNilResolvedAt(value *time.Time) *ImportErrorUpdate {
-	if value != nil {
-		return _m.SetResolvedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorUpdateOne) SetNotNilResolvedAt(value *time.Time) *ImportErrorUpdateOne {
-	if value != nil {
-		return _m.SetResolvedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportErrorCreate) SetNotNilResolvedAt(value *time.Time) *ImportErrorCreate {
-	if value != nil {
-		return _m.SetResolvedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilUpdatedAt(value *time.Time) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilUpdatedAt(value *time.Time) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilDeletedAt(value *time.Time) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilDeletedAt(value *time.Time) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilDeletedAt(value *time.Time) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilDepartmentID(value *uint64) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilDepartmentID(value *uint64) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilDepartmentID(value *uint64) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilTaskID(value *uint64) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetTaskID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilTaskID(value *uint64) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetTaskID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilTaskID(value *uint64) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetTaskID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilBatchID(value *string) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetBatchID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilBatchID(value *string) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetBatchID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilBatchID(value *string) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetBatchID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilRowNumber(value *int) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetRowNumber(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilRowNumber(value *int) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetRowNumber(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilRowNumber(value *int) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetRowNumber(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilSheetName(value *string) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetSheetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilSheetName(value *string) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetSheetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilSheetName(value *string) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetSheetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilStatus(value *importrecord.Status) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilStatus(value *importrecord.Status) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilStatus(value *importrecord.Status) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilImportAction(value *importrecord.ImportAction) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetImportAction(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilImportAction(value *importrecord.ImportAction) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetImportAction(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilImportAction(value *importrecord.ImportAction) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetImportAction(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilRawData(value *map[string]interface{}) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetRawData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilRawData(value *map[string]interface{}) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetRawData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilRawData(value *map[string]interface{}) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetRawData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilFinalData(value *map[string]interface{}) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetFinalData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilFinalData(value *map[string]interface{}) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetFinalData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilFinalData(value *map[string]interface{}) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetFinalData(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilCiID(value *uint64) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilCiID(value *uint64) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilCiID(value *uint64) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilCiTypeID(value *uint64) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilCiTypeID(value *uint64) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilCiTypeID(value *uint64) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilCiUniqueKey(value *string) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetCiUniqueKey(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilCiUniqueKey(value *string) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetCiUniqueKey(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilCiUniqueKey(value *string) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetCiUniqueKey(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilErrorMessage(value *string) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilErrorMessage(value *string) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilErrorMessage(value *string) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilErrorCode(value *string) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetErrorCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilErrorCode(value *string) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetErrorCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilErrorCode(value *string) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetErrorCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilErrorType(value *importrecord.ErrorType) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetErrorType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilErrorType(value *importrecord.ErrorType) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetErrorType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilErrorType(value *importrecord.ErrorType) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetErrorType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilStartTime(value *time.Time) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetStartTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilStartTime(value *time.Time) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetStartTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilStartTime(value *time.Time) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetStartTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilEndTime(value *time.Time) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetEndTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilEndTime(value *time.Time) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetEndTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilEndTime(value *time.Time) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetEndTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilRetryCount(value *int) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetRetryCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilRetryCount(value *int) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetRetryCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilRetryCount(value *int) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetRetryCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdate) SetNotNilMaxRetries(value *int) *ImportRecordUpdate {
-	if value != nil {
-		return _m.SetMaxRetries(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordUpdateOne) SetNotNilMaxRetries(value *int) *ImportRecordUpdateOne {
-	if value != nil {
-		return _m.SetMaxRetries(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportRecordCreate) SetNotNilMaxRetries(value *int) *ImportRecordCreate {
-	if value != nil {
-		return _m.SetMaxRetries(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilUpdatedAt(value *time.Time) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilUpdatedAt(value *time.Time) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilDeletedAt(value *time.Time) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilDeletedAt(value *time.Time) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilDeletedAt(value *time.Time) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilDepartmentID(value *uint64) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilDepartmentID(value *uint64) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilDepartmentID(value *uint64) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilTaskID(value *string) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetTaskID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilTaskID(value *string) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetTaskID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilTaskID(value *string) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetTaskID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilName(value *string) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilName(value *string) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilName(value *string) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilDescription(value *string) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilDescription(value *string) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilDescription(value *string) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilType(value *importtask.Type) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilType(value *importtask.Type) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilType(value *importtask.Type) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilStatus(value *importtask.Status) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilStatus(value *importtask.Status) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilStatus(value *importtask.Status) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilPriority(value *importtask.Priority) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetPriority(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilPriority(value *importtask.Priority) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetPriority(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilPriority(value *importtask.Priority) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetPriority(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilSourcePath(value *string) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetSourcePath(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilSourcePath(value *string) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetSourcePath(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilSourcePath(value *string) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetSourcePath(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilSourceFormat(value *string) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetSourceFormat(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilSourceFormat(value *string) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetSourceFormat(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilSourceFormat(value *string) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetSourceFormat(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilSourceSize(value *int64) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetSourceSize(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilSourceSize(value *int64) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetSourceSize(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilSourceSize(value *int64) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetSourceSize(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilTemplateID(value *uint64) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetTemplateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilTemplateID(value *uint64) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetTemplateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilTemplateID(value *uint64) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetTemplateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilMappingConfig(value *map[string]interface{}) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetMappingConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilMappingConfig(value *map[string]interface{}) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetMappingConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilMappingConfig(value *map[string]interface{}) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetMappingConfig(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilBatchSize(value *int) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetBatchSize(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilBatchSize(value *int) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetBatchSize(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilBatchSize(value *int) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetBatchSize(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilMaxErrors(value *int) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetMaxErrors(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilMaxErrors(value *int) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetMaxErrors(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilMaxErrors(value *int) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetMaxErrors(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilDryRun(value *bool) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetDryRun(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilDryRun(value *bool) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetDryRun(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilDryRun(value *bool) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetDryRun(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilTotalCount(value *int) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetTotalCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilTotalCount(value *int) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetTotalCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilTotalCount(value *int) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetTotalCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilProcessedCount(value *int) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetProcessedCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilProcessedCount(value *int) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetProcessedCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilProcessedCount(value *int) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetProcessedCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilSuccessCount(value *int) *ImportTaskUpdate {
+func (_m *CronTaskUpdate) SetNotNilSuccessCount(value *int) *CronTaskUpdate {
 	if value != nil {
 		return _m.SetSuccessCount(*value)
 	}
@@ -9707,7 +258,7 @@ func (_m *ImportTaskUpdate) SetNotNilSuccessCount(value *int) *ImportTaskUpdate 
 }
 
 // set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilSuccessCount(value *int) *ImportTaskUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilSuccessCount(value *int) *CronTaskUpdateOne {
 	if value != nil {
 		return _m.SetSuccessCount(*value)
 	}
@@ -9715,7 +266,7 @@ func (_m *ImportTaskUpdateOne) SetNotNilSuccessCount(value *int) *ImportTaskUpda
 }
 
 // set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilSuccessCount(value *int) *ImportTaskCreate {
+func (_m *CronTaskCreate) SetNotNilSuccessCount(value *int) *CronTaskCreate {
 	if value != nil {
 		return _m.SetSuccessCount(*value)
 	}
@@ -9723,343 +274,31 @@ func (_m *ImportTaskCreate) SetNotNilSuccessCount(value *int) *ImportTaskCreate 
 }
 
 // set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilFailedCount(value *int) *ImportTaskUpdate {
+func (_m *CronTaskUpdate) SetNotNilFailureCount(value *int) *CronTaskUpdate {
 	if value != nil {
-		return _m.SetFailedCount(*value)
+		return _m.SetFailureCount(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilFailedCount(value *int) *ImportTaskUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilFailureCount(value *int) *CronTaskUpdateOne {
 	if value != nil {
-		return _m.SetFailedCount(*value)
+		return _m.SetFailureCount(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilFailedCount(value *int) *ImportTaskCreate {
+func (_m *CronTaskCreate) SetNotNilFailureCount(value *int) *CronTaskCreate {
 	if value != nil {
-		return _m.SetFailedCount(*value)
+		return _m.SetFailureCount(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilProgressPercentage(value *float64) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetProgressPercentage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilProgressPercentage(value *float64) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetProgressPercentage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilProgressPercentage(value *float64) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetProgressPercentage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilStartTime(value *time.Time) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetStartTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilStartTime(value *time.Time) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetStartTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilStartTime(value *time.Time) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetStartTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilEndTime(value *time.Time) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetEndTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilEndTime(value *time.Time) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetEndTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilEndTime(value *time.Time) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetEndTime(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilErrorMessage(value *string) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilErrorMessage(value *string) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilErrorMessage(value *string) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetErrorMessage(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilResultFilePath(value *string) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetResultFilePath(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilResultFilePath(value *string) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetResultFilePath(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilResultFilePath(value *string) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetResultFilePath(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilCreatedBy(value *uuid.UUID) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilCreatedBy(value *uuid.UUID) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilCreatedBy(value *uuid.UUID) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdate) SetNotNilCreatedByName(value *string) *ImportTaskUpdate {
-	if value != nil {
-		return _m.SetCreatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskUpdateOne) SetNotNilCreatedByName(value *string) *ImportTaskUpdateOne {
-	if value != nil {
-		return _m.SetCreatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTaskCreate) SetNotNilCreatedByName(value *string) *ImportTaskCreate {
-	if value != nil {
-		return _m.SetCreatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilUpdatedAt(value *time.Time) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilUpdatedAt(value *time.Time) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilStatus(value *uint8) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilStatus(value *uint8) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilStatus(value *uint8) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetStatus(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilDeletedAt(value *time.Time) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilDeletedAt(value *time.Time) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilDeletedAt(value *time.Time) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilDepartmentID(value *uint64) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilDepartmentID(value *uint64) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilDepartmentID(value *uint64) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetDepartmentID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilName(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilName(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilName(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilCode(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilCode(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilCode(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilDescription(value *string) *ImportTemplateUpdate {
+func (_m *CronTaskUpdate) SetNotNilDescription(value *string) *CronTaskUpdate {
 	if value != nil {
 		return _m.SetDescription(*value)
 	}
@@ -10067,7 +306,7 @@ func (_m *ImportTemplateUpdate) SetNotNilDescription(value *string) *ImportTempl
 }
 
 // set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilDescription(value *string) *ImportTemplateUpdateOne {
+func (_m *CronTaskUpdateOne) SetNotNilDescription(value *string) *CronTaskUpdateOne {
 	if value != nil {
 		return _m.SetDescription(*value)
 	}
@@ -10075,7 +314,7 @@ func (_m *ImportTemplateUpdateOne) SetNotNilDescription(value *string) *ImportTe
 }
 
 // set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilDescription(value *string) *ImportTemplateCreate {
+func (_m *CronTaskCreate) SetNotNilDescription(value *string) *CronTaskCreate {
 	if value != nil {
 		return _m.SetDescription(*value)
 	}
@@ -10083,1087 +322,7 @@ func (_m *ImportTemplateCreate) SetNotNilDescription(value *string) *ImportTempl
 }
 
 // set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilVersion(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetVersion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilVersion(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetVersion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilVersion(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetVersion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilType(value *importtemplate.Type) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilType(value *importtemplate.Type) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilType(value *importtemplate.Type) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilImportMode(value *importtemplate.ImportMode) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetImportMode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilImportMode(value *importtemplate.ImportMode) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetImportMode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilImportMode(value *importtemplate.ImportMode) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetImportMode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilCiTypeID(value *uint64) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilCiTypeID(value *uint64) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilCiTypeID(value *uint64) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetCiTypeID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilCiTypeName(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetCiTypeName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilCiTypeName(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetCiTypeName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilCiTypeName(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetCiTypeName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilAutoCreateCiType(value *bool) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetAutoCreateCiType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilAutoCreateCiType(value *bool) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetAutoCreateCiType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilAutoCreateCiType(value *bool) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetAutoCreateCiType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilFieldMappings(value []schema.FieldMappingConfig) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetFieldMappings(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilFieldMappings(value []schema.FieldMappingConfig) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetFieldMappings(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilFieldMappings(value []schema.FieldMappingConfig) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetFieldMappings(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilHeaderMappings(value *map[string]string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetHeaderMappings(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilHeaderMappings(value *map[string]string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetHeaderMappings(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilHeaderMappings(value *map[string]string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetHeaderMappings(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilDefaultValues(value *map[string]interface{}) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetDefaultValues(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilDefaultValues(value *map[string]interface{}) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetDefaultValues(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilDefaultValues(value *map[string]interface{}) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetDefaultValues(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilComputedFields(value []schema.ComputedFieldConfig) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetComputedFields(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilComputedFields(value []schema.ComputedFieldConfig) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetComputedFields(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilComputedFields(value []schema.ComputedFieldConfig) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetComputedFields(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilDataTransformations(value []schema.DataTransformationConfig) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetDataTransformations(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilDataTransformations(value []schema.DataTransformationConfig) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetDataTransformations(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilDataTransformations(value []schema.DataTransformationConfig) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetDataTransformations(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilDataFilters(value []schema.DataFilterConfig) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetDataFilters(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilDataFilters(value []schema.DataFilterConfig) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetDataFilters(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilDataFilters(value []schema.DataFilterConfig) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetDataFilters(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilDataCleaners(value []schema.DataCleanerConfig) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetDataCleaners(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilDataCleaners(value []schema.DataCleanerConfig) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetDataCleaners(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilDataCleaners(value []schema.DataCleanerConfig) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetDataCleaners(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilExcelSheetName(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetExcelSheetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilExcelSheetName(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetExcelSheetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilExcelSheetName(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetExcelSheetName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilExcelHeaderRow(value *int) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetExcelHeaderRow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilExcelHeaderRow(value *int) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetExcelHeaderRow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilExcelHeaderRow(value *int) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetExcelHeaderRow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilExcelDataStartRow(value *int) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetExcelDataStartRow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilExcelDataStartRow(value *int) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetExcelDataStartRow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilExcelDataStartRow(value *int) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetExcelDataStartRow(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilExcelColumnMappings(value *map[string]string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetExcelColumnMappings(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilExcelColumnMappings(value *map[string]string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetExcelColumnMappings(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilExcelColumnMappings(value *map[string]string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetExcelColumnMappings(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilAPIEndpoint(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetAPIEndpoint(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilAPIEndpoint(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetAPIEndpoint(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilAPIEndpoint(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetAPIEndpoint(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilAPIMethod(value *importtemplate.APIMethod) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetAPIMethod(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilAPIMethod(value *importtemplate.APIMethod) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetAPIMethod(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilAPIMethod(value *importtemplate.APIMethod) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetAPIMethod(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilAPIHeaders(value *map[string]string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetAPIHeaders(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilAPIHeaders(value *map[string]string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetAPIHeaders(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilAPIHeaders(value *map[string]string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetAPIHeaders(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilAPIParams(value *map[string]interface{}) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetAPIParams(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilAPIParams(value *map[string]interface{}) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetAPIParams(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilAPIParams(value *map[string]interface{}) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetAPIParams(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilAPIResponsePath(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetAPIResponsePath(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilAPIResponsePath(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetAPIResponsePath(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilAPIResponsePath(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetAPIResponsePath(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilMaxErrors(value *int) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetMaxErrors(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilMaxErrors(value *int) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetMaxErrors(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilMaxErrors(value *int) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetMaxErrors(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilStopOnFirstError(value *bool) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetStopOnFirstError(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilStopOnFirstError(value *bool) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetStopOnFirstError(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilStopOnFirstError(value *bool) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetStopOnFirstError(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilSkipInvalidRows(value *bool) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetSkipInvalidRows(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilSkipInvalidRows(value *bool) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetSkipInvalidRows(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilSkipInvalidRows(value *bool) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetSkipInvalidRows(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilErrorHandlingMode(value *importtemplate.ErrorHandlingMode) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetErrorHandlingMode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilErrorHandlingMode(value *importtemplate.ErrorHandlingMode) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetErrorHandlingMode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilErrorHandlingMode(value *importtemplate.ErrorHandlingMode) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetErrorHandlingMode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilBatchSize(value *int) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetBatchSize(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilBatchSize(value *int) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetBatchSize(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilBatchSize(value *int) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetBatchSize(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilMaxParallelJobs(value *int) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetMaxParallelJobs(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilMaxParallelJobs(value *int) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetMaxParallelJobs(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilMaxParallelJobs(value *int) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetMaxParallelJobs(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilEnableTransaction(value *bool) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetEnableTransaction(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilEnableTransaction(value *bool) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetEnableTransaction(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilEnableTransaction(value *bool) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetEnableTransaction(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilTags(value []string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilTags(value []string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilTags(value []string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetTags(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilMetadata(value *map[string]interface{}) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilMetadata(value *map[string]interface{}) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilMetadata(value *map[string]interface{}) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetMetadata(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilIcon(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetIcon(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilIcon(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetIcon(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilIcon(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetIcon(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilCategory(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetCategory(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilCategory(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetCategory(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilCategory(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetCategory(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilUsageCount(value *int) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetUsageCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilUsageCount(value *int) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetUsageCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilUsageCount(value *int) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetUsageCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilSuccessCount(value *int) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetSuccessCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilSuccessCount(value *int) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetSuccessCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilSuccessCount(value *int) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetSuccessCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilErrorCount(value *int) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetErrorCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilErrorCount(value *int) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetErrorCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilErrorCount(value *int) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetErrorCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilSuccessRate(value *float64) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetSuccessRate(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilSuccessRate(value *float64) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetSuccessRate(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilSuccessRate(value *float64) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetSuccessRate(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilIsPublic(value *bool) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetIsPublic(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilIsPublic(value *bool) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetIsPublic(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilIsPublic(value *bool) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetIsPublic(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilIsSystem(value *bool) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetIsSystem(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilIsSystem(value *bool) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetIsSystem(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilIsSystem(value *bool) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetIsSystem(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilSharedWith(value []string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetSharedWith(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilSharedWith(value []string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetSharedWith(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilSharedWith(value []string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetSharedWith(value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilCreatedBy(value *uuid.UUID) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilCreatedBy(value *uuid.UUID) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilCreatedBy(value *uuid.UUID) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilCreatedByName(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetCreatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilCreatedByName(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetCreatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilCreatedByName(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetCreatedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilApprovedBy(value *uuid.UUID) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetApprovedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilApprovedBy(value *uuid.UUID) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetApprovedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilApprovedBy(value *uuid.UUID) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetApprovedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilApprovedByName(value *string) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetApprovedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilApprovedByName(value *string) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetApprovedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilApprovedByName(value *string) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetApprovedByName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdate) SetNotNilApprovedAt(value *time.Time) *ImportTemplateUpdate {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateUpdateOne) SetNotNilApprovedAt(value *time.Time) *ImportTemplateUpdateOne {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ImportTemplateCreate) SetNotNilApprovedAt(value *time.Time) *ImportTemplateCreate {
-	if value != nil {
-		return _m.SetApprovedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilUpdatedAt(value *time.Time) *PermissionCacheUpdate {
+func (_m *DataTargetUpdate) SetNotNilUpdatedAt(value *time.Time) *DataTargetUpdate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -11171,7 +330,7 @@ func (_m *PermissionCacheUpdate) SetNotNilUpdatedAt(value *time.Time) *Permissio
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilUpdatedAt(value *time.Time) *PermissionCacheUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilUpdatedAt(value *time.Time) *DataTargetUpdateOne {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -11179,7 +338,7 @@ func (_m *PermissionCacheUpdateOne) SetNotNilUpdatedAt(value *time.Time) *Permis
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilUpdatedAt(value *time.Time) *PermissionCacheCreate {
+func (_m *DataTargetCreate) SetNotNilUpdatedAt(value *time.Time) *DataTargetCreate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -11187,943 +346,199 @@ func (_m *PermissionCacheCreate) SetNotNilUpdatedAt(value *time.Time) *Permissio
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilCacheKey(value *string) *PermissionCacheUpdate {
+func (_m *DataTargetUpdate) SetNotNilStatus(value *uint8) *DataTargetUpdate {
 	if value != nil {
-		return _m.SetCacheKey(*value)
+		return _m.SetStatus(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilCacheKey(value *string) *PermissionCacheUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilStatus(value *uint8) *DataTargetUpdateOne {
 	if value != nil {
-		return _m.SetCacheKey(*value)
+		return _m.SetStatus(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilCacheKey(value *string) *PermissionCacheCreate {
+func (_m *DataTargetCreate) SetNotNilStatus(value *uint8) *DataTargetCreate {
 	if value != nil {
-		return _m.SetCacheKey(*value)
+		return _m.SetStatus(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilUserID(value *string) *PermissionCacheUpdate {
+func (_m *DataTargetUpdate) SetNotNilTargetName(value *string) *DataTargetUpdate {
 	if value != nil {
-		return _m.SetUserID(*value)
+		return _m.SetTargetName(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilUserID(value *string) *PermissionCacheUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilTargetName(value *string) *DataTargetUpdateOne {
 	if value != nil {
-		return _m.SetUserID(*value)
+		return _m.SetTargetName(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilUserID(value *string) *PermissionCacheCreate {
+func (_m *DataTargetCreate) SetNotNilTargetName(value *string) *DataTargetCreate {
 	if value != nil {
-		return _m.SetUserID(*value)
+		return _m.SetTargetName(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilResourceType(value *string) *PermissionCacheUpdate {
+func (_m *DataTargetUpdate) SetNotNilTargetCode(value *string) *DataTargetUpdate {
 	if value != nil {
-		return _m.SetResourceType(*value)
+		return _m.SetTargetCode(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilResourceType(value *string) *PermissionCacheUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilTargetCode(value *string) *DataTargetUpdateOne {
 	if value != nil {
-		return _m.SetResourceType(*value)
+		return _m.SetTargetCode(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilResourceType(value *string) *PermissionCacheCreate {
+func (_m *DataTargetCreate) SetNotNilTargetCode(value *string) *DataTargetCreate {
 	if value != nil {
-		return _m.SetResourceType(*value)
+		return _m.SetTargetCode(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilResourceID(value *string) *PermissionCacheUpdate {
+func (_m *DataTargetUpdate) SetNotNilDescription(value *string) *DataTargetUpdate {
 	if value != nil {
-		return _m.SetResourceID(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilResourceID(value *string) *PermissionCacheUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilDescription(value *string) *DataTargetUpdateOne {
 	if value != nil {
-		return _m.SetResourceID(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilResourceID(value *string) *PermissionCacheCreate {
+func (_m *DataTargetCreate) SetNotNilDescription(value *string) *DataTargetCreate {
 	if value != nil {
-		return _m.SetResourceID(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilAllowedOperations(value *uint64) *PermissionCacheUpdate {
+func (_m *DataTargetUpdate) SetNotNilTargetType(value *string) *DataTargetUpdate {
 	if value != nil {
-		return _m.SetAllowedOperations(*value)
+		return _m.SetTargetType(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilAllowedOperations(value *uint64) *PermissionCacheUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilTargetType(value *string) *DataTargetUpdateOne {
 	if value != nil {
-		return _m.SetAllowedOperations(*value)
+		return _m.SetTargetType(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilAllowedOperations(value *uint64) *PermissionCacheCreate {
+func (_m *DataTargetCreate) SetNotNilTargetType(value *string) *DataTargetCreate {
 	if value != nil {
-		return _m.SetAllowedOperations(*value)
+		return _m.SetTargetType(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilPermissionLevel(value *permissioncache.PermissionLevel) *PermissionCacheUpdate {
+func (_m *DataTargetUpdate) SetNotNilTargetSystem(value *string) *DataTargetUpdate {
 	if value != nil {
-		return _m.SetPermissionLevel(*value)
+		return _m.SetTargetSystem(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilPermissionLevel(value *permissioncache.PermissionLevel) *PermissionCacheUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilTargetSystem(value *string) *DataTargetUpdateOne {
 	if value != nil {
-		return _m.SetPermissionLevel(*value)
+		return _m.SetTargetSystem(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilPermissionLevel(value *permissioncache.PermissionLevel) *PermissionCacheCreate {
+func (_m *DataTargetCreate) SetNotNilTargetSystem(value *string) *DataTargetCreate {
 	if value != nil {
-		return _m.SetPermissionLevel(*value)
+		return _m.SetTargetSystem(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilHasDataFilters(value *bool) *PermissionCacheUpdate {
+func (_m *DataTargetUpdate) SetNotNilConnectionConfig(value *string) *DataTargetUpdate {
 	if value != nil {
-		return _m.SetHasDataFilters(*value)
+		return _m.SetConnectionConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilHasDataFilters(value *bool) *PermissionCacheUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilConnectionConfig(value *string) *DataTargetUpdateOne {
 	if value != nil {
-		return _m.SetHasDataFilters(*value)
+		return _m.SetConnectionConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilHasDataFilters(value *bool) *PermissionCacheCreate {
+func (_m *DataTargetCreate) SetNotNilConnectionConfig(value *string) *DataTargetCreate {
 	if value != nil {
-		return _m.SetHasDataFilters(*value)
+		return _m.SetConnectionConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilHasFieldMasks(value *bool) *PermissionCacheUpdate {
+func (_m *DataTargetUpdate) SetNotNilAuthConfig(value *string) *DataTargetUpdate {
 	if value != nil {
-		return _m.SetHasFieldMasks(*value)
+		return _m.SetAuthConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilHasFieldMasks(value *bool) *PermissionCacheUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilAuthConfig(value *string) *DataTargetUpdateOne {
 	if value != nil {
-		return _m.SetHasFieldMasks(*value)
+		return _m.SetAuthConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilHasFieldMasks(value *bool) *PermissionCacheCreate {
+func (_m *DataTargetCreate) SetNotNilAuthConfig(value *string) *DataTargetCreate {
 	if value != nil {
-		return _m.SetHasFieldMasks(*value)
+		return _m.SetAuthConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilCacheVersion(value *string) *PermissionCacheUpdate {
-	if value != nil {
-		return _m.SetCacheVersion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilCacheVersion(value *string) *PermissionCacheUpdateOne {
-	if value != nil {
-		return _m.SetCacheVersion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilCacheVersion(value *string) *PermissionCacheCreate {
-	if value != nil {
-		return _m.SetCacheVersion(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilExpiresAt(value *time.Time) *PermissionCacheUpdate {
-	if value != nil {
-		return _m.SetExpiresAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilExpiresAt(value *time.Time) *PermissionCacheUpdateOne {
-	if value != nil {
-		return _m.SetExpiresAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilExpiresAt(value *time.Time) *PermissionCacheCreate {
-	if value != nil {
-		return _m.SetExpiresAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilLastAccessedAt(value *time.Time) *PermissionCacheUpdate {
-	if value != nil {
-		return _m.SetLastAccessedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilLastAccessedAt(value *time.Time) *PermissionCacheUpdateOne {
-	if value != nil {
-		return _m.SetLastAccessedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilLastAccessedAt(value *time.Time) *PermissionCacheCreate {
-	if value != nil {
-		return _m.SetLastAccessedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdate) SetNotNilAccessCount(value *int) *PermissionCacheUpdate {
-	if value != nil {
-		return _m.SetAccessCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheUpdateOne) SetNotNilAccessCount(value *int) *PermissionCacheUpdateOne {
-	if value != nil {
-		return _m.SetAccessCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionCacheCreate) SetNotNilAccessCount(value *int) *PermissionCacheCreate {
-	if value != nil {
-		return _m.SetAccessCount(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdate) SetNotNilUpdatedAt(value *time.Time) *PermissionDataFilterUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdateOne) SetNotNilUpdatedAt(value *time.Time) *PermissionDataFilterUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterCreate) SetNotNilUpdatedAt(value *time.Time) *PermissionDataFilterCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdate) SetNotNilPermissionID(value *uint64) *PermissionDataFilterUpdate {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdateOne) SetNotNilPermissionID(value *uint64) *PermissionDataFilterUpdateOne {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterCreate) SetNotNilPermissionID(value *uint64) *PermissionDataFilterCreate {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdate) SetNotNilFilterGroup(value *int) *PermissionDataFilterUpdate {
-	if value != nil {
-		return _m.SetFilterGroup(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdateOne) SetNotNilFilterGroup(value *int) *PermissionDataFilterUpdateOne {
-	if value != nil {
-		return _m.SetFilterGroup(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterCreate) SetNotNilFilterGroup(value *int) *PermissionDataFilterCreate {
-	if value != nil {
-		return _m.SetFilterGroup(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdate) SetNotNilFieldName(value *string) *PermissionDataFilterUpdate {
-	if value != nil {
-		return _m.SetFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdateOne) SetNotNilFieldName(value *string) *PermissionDataFilterUpdateOne {
-	if value != nil {
-		return _m.SetFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterCreate) SetNotNilFieldName(value *string) *PermissionDataFilterCreate {
-	if value != nil {
-		return _m.SetFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdate) SetNotNilOperatorType(value *permissiondatafilter.OperatorType) *PermissionDataFilterUpdate {
-	if value != nil {
-		return _m.SetOperatorType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdateOne) SetNotNilOperatorType(value *permissiondatafilter.OperatorType) *PermissionDataFilterUpdateOne {
-	if value != nil {
-		return _m.SetOperatorType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterCreate) SetNotNilOperatorType(value *permissiondatafilter.OperatorType) *PermissionDataFilterCreate {
-	if value != nil {
-		return _m.SetOperatorType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdate) SetNotNilFilterValue(value *string) *PermissionDataFilterUpdate {
-	if value != nil {
-		return _m.SetFilterValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdateOne) SetNotNilFilterValue(value *string) *PermissionDataFilterUpdateOne {
-	if value != nil {
-		return _m.SetFilterValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterCreate) SetNotNilFilterValue(value *string) *PermissionDataFilterCreate {
-	if value != nil {
-		return _m.SetFilterValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdate) SetNotNilValueType(value *permissiondatafilter.ValueType) *PermissionDataFilterUpdate {
-	if value != nil {
-		return _m.SetValueType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterUpdateOne) SetNotNilValueType(value *permissiondatafilter.ValueType) *PermissionDataFilterUpdateOne {
-	if value != nil {
-		return _m.SetValueType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionDataFilterCreate) SetNotNilValueType(value *permissiondatafilter.ValueType) *PermissionDataFilterCreate {
-	if value != nil {
-		return _m.SetValueType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdate) SetNotNilUpdatedAt(value *time.Time) *PermissionFieldMaskUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdateOne) SetNotNilUpdatedAt(value *time.Time) *PermissionFieldMaskUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskCreate) SetNotNilUpdatedAt(value *time.Time) *PermissionFieldMaskCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdate) SetNotNilPermissionID(value *uint64) *PermissionFieldMaskUpdate {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdateOne) SetNotNilPermissionID(value *uint64) *PermissionFieldMaskUpdateOne {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskCreate) SetNotNilPermissionID(value *uint64) *PermissionFieldMaskCreate {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdate) SetNotNilFieldName(value *string) *PermissionFieldMaskUpdate {
-	if value != nil {
-		return _m.SetFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdateOne) SetNotNilFieldName(value *string) *PermissionFieldMaskUpdateOne {
-	if value != nil {
-		return _m.SetFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskCreate) SetNotNilFieldName(value *string) *PermissionFieldMaskCreate {
-	if value != nil {
-		return _m.SetFieldName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdate) SetNotNilMaskType(value *permissionfieldmask.MaskType) *PermissionFieldMaskUpdate {
-	if value != nil {
-		return _m.SetMaskType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdateOne) SetNotNilMaskType(value *permissionfieldmask.MaskType) *PermissionFieldMaskUpdateOne {
-	if value != nil {
-		return _m.SetMaskType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskCreate) SetNotNilMaskType(value *permissionfieldmask.MaskType) *PermissionFieldMaskCreate {
-	if value != nil {
-		return _m.SetMaskType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdate) SetNotNilMaskRule(value *string) *PermissionFieldMaskUpdate {
-	if value != nil {
-		return _m.SetMaskRule(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskUpdateOne) SetNotNilMaskRule(value *string) *PermissionFieldMaskUpdateOne {
-	if value != nil {
-		return _m.SetMaskRule(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionFieldMaskCreate) SetNotNilMaskRule(value *string) *PermissionFieldMaskCreate {
-	if value != nil {
-		return _m.SetMaskRule(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdate) SetNotNilUpdatedAt(value *time.Time) *PermissionOperationUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdateOne) SetNotNilUpdatedAt(value *time.Time) *PermissionOperationUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationCreate) SetNotNilUpdatedAt(value *time.Time) *PermissionOperationCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdate) SetNotNilPermissionID(value *uint64) *PermissionOperationUpdate {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdateOne) SetNotNilPermissionID(value *uint64) *PermissionOperationUpdateOne {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationCreate) SetNotNilPermissionID(value *uint64) *PermissionOperationCreate {
-	if value != nil {
-		return _m.SetPermissionID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdate) SetNotNilOperationCode(value *string) *PermissionOperationUpdate {
-	if value != nil {
-		return _m.SetOperationCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdateOne) SetNotNilOperationCode(value *string) *PermissionOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperationCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationCreate) SetNotNilOperationCode(value *string) *PermissionOperationCreate {
-	if value != nil {
-		return _m.SetOperationCode(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdate) SetNotNilOperationName(value *string) *PermissionOperationUpdate {
-	if value != nil {
-		return _m.SetOperationName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdateOne) SetNotNilOperationName(value *string) *PermissionOperationUpdateOne {
-	if value != nil {
-		return _m.SetOperationName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationCreate) SetNotNilOperationName(value *string) *PermissionOperationCreate {
-	if value != nil {
-		return _m.SetOperationName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdate) SetNotNilIsAllowed(value *bool) *PermissionOperationUpdate {
-	if value != nil {
-		return _m.SetIsAllowed(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationUpdateOne) SetNotNilIsAllowed(value *bool) *PermissionOperationUpdateOne {
-	if value != nil {
-		return _m.SetIsAllowed(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionOperationCreate) SetNotNilIsAllowed(value *bool) *PermissionOperationCreate {
-	if value != nil {
-		return _m.SetIsAllowed(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilUpdatedAt(value *time.Time) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilUpdatedAt(value *time.Time) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilUpdatedAt(value *time.Time) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetUpdatedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilTemplateID(value *string) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetTemplateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilTemplateID(value *string) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetTemplateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilTemplateID(value *string) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetTemplateID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilTemplateName(value *string) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetTemplateName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilTemplateName(value *string) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetTemplateName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilTemplateName(value *string) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetTemplateName(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilTemplateDescription(value *string) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetTemplateDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilTemplateDescription(value *string) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetTemplateDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilTemplateDescription(value *string) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetTemplateDescription(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilCategory(value *string) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetCategory(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilCategory(value *string) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetCategory(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilCategory(value *string) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetCategory(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilScopeType(value *permissiontemplate.ScopeType) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetScopeType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilScopeType(value *permissiontemplate.ScopeType) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetScopeType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilScopeType(value *permissiontemplate.ScopeType) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetScopeType(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilPermissionLevel(value *permissiontemplate.PermissionLevel) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetPermissionLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilPermissionLevel(value *permissiontemplate.PermissionLevel) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetPermissionLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilPermissionLevel(value *permissiontemplate.PermissionLevel) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetPermissionLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilOperationsMask(value *uint64) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetOperationsMask(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilOperationsMask(value *uint64) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetOperationsMask(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilOperationsMask(value *uint64) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetOperationsMask(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilRiskLevel(value *permissiontemplate.RiskLevel) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetRiskLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilRiskLevel(value *permissiontemplate.RiskLevel) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetRiskLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilRiskLevel(value *permissiontemplate.RiskLevel) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetRiskLevel(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilIsSystemTemplate(value *bool) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetIsSystemTemplate(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilIsSystemTemplate(value *bool) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetIsSystemTemplate(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilIsSystemTemplate(value *bool) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetIsSystemTemplate(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilIsActive(value *bool) *PermissionTemplateUpdate {
+func (_m *DataTargetUpdate) SetNotNilIsActive(value *bool) *DataTargetUpdate {
 	if value != nil {
 		return _m.SetIsActive(*value)
 	}
@@ -12131,7 +546,7 @@ func (_m *PermissionTemplateUpdate) SetNotNilIsActive(value *bool) *PermissionTe
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilIsActive(value *bool) *PermissionTemplateUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilIsActive(value *bool) *DataTargetUpdateOne {
 	if value != nil {
 		return _m.SetIsActive(*value)
 	}
@@ -12139,7 +554,7 @@ func (_m *PermissionTemplateUpdateOne) SetNotNilIsActive(value *bool) *Permissio
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilIsActive(value *bool) *PermissionTemplateCreate {
+func (_m *DataTargetCreate) SetNotNilIsActive(value *bool) *DataTargetCreate {
 	if value != nil {
 		return _m.SetIsActive(*value)
 	}
@@ -12147,55 +562,31 @@ func (_m *PermissionTemplateCreate) SetNotNilIsActive(value *bool) *PermissionTe
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilSortOrder(value *int) *PermissionTemplateUpdate {
+func (_m *DataTargetUpdate) SetNotNilMetadata(value *string) *DataTargetUpdate {
 	if value != nil {
-		return _m.SetSortOrder(*value)
+		return _m.SetMetadata(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilSortOrder(value *int) *PermissionTemplateUpdateOne {
+func (_m *DataTargetUpdateOne) SetNotNilMetadata(value *string) *DataTargetUpdateOne {
 	if value != nil {
-		return _m.SetSortOrder(*value)
+		return _m.SetMetadata(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilSortOrder(value *int) *PermissionTemplateCreate {
+func (_m *DataTargetCreate) SetNotNilMetadata(value *string) *DataTargetCreate {
 	if value != nil {
-		return _m.SetSortOrder(*value)
+		return _m.SetMetadata(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdate) SetNotNilCreatedBy(value *string) *PermissionTemplateUpdate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateUpdateOne) SetNotNilCreatedBy(value *string) *PermissionTemplateUpdateOne {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *PermissionTemplateCreate) SetNotNilCreatedBy(value *string) *PermissionTemplateCreate {
-	if value != nil {
-		return _m.SetCreatedBy(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *RelationTypeUpdate) SetNotNilUpdatedAt(value *time.Time) *RelationTypeUpdate {
+func (_m *DiscoveryPoolUpdate) SetNotNilUpdatedAt(value *time.Time) *DiscoveryPoolUpdate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -12203,7 +594,7 @@ func (_m *RelationTypeUpdate) SetNotNilUpdatedAt(value *time.Time) *RelationType
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdateOne) SetNotNilUpdatedAt(value *time.Time) *RelationTypeUpdateOne {
+func (_m *DiscoveryPoolUpdateOne) SetNotNilUpdatedAt(value *time.Time) *DiscoveryPoolUpdateOne {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -12211,7 +602,7 @@ func (_m *RelationTypeUpdateOne) SetNotNilUpdatedAt(value *time.Time) *RelationT
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeCreate) SetNotNilUpdatedAt(value *time.Time) *RelationTypeCreate {
+func (_m *DiscoveryPoolCreate) SetNotNilUpdatedAt(value *time.Time) *DiscoveryPoolCreate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -12219,31 +610,31 @@ func (_m *RelationTypeCreate) SetNotNilUpdatedAt(value *time.Time) *RelationType
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdate) SetNotNilDeletedAt(value *time.Time) *RelationTypeUpdate {
+func (_m *DiscoveryPoolUpdate) SetNotNilStatus(value *uint8) *DiscoveryPoolUpdate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetStatus(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdateOne) SetNotNilDeletedAt(value *time.Time) *RelationTypeUpdateOne {
+func (_m *DiscoveryPoolUpdateOne) SetNotNilStatus(value *uint8) *DiscoveryPoolUpdateOne {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetStatus(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeCreate) SetNotNilDeletedAt(value *time.Time) *RelationTypeCreate {
+func (_m *DiscoveryPoolCreate) SetNotNilStatus(value *uint8) *DiscoveryPoolCreate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetStatus(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdate) SetNotNilName(value *string) *RelationTypeUpdate {
+func (_m *DiscoveryPoolUpdate) SetNotNilName(value *string) *DiscoveryPoolUpdate {
 	if value != nil {
 		return _m.SetName(*value)
 	}
@@ -12251,7 +642,7 @@ func (_m *RelationTypeUpdate) SetNotNilName(value *string) *RelationTypeUpdate {
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdateOne) SetNotNilName(value *string) *RelationTypeUpdateOne {
+func (_m *DiscoveryPoolUpdateOne) SetNotNilName(value *string) *DiscoveryPoolUpdateOne {
 	if value != nil {
 		return _m.SetName(*value)
 	}
@@ -12259,7 +650,7 @@ func (_m *RelationTypeUpdateOne) SetNotNilName(value *string) *RelationTypeUpdat
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeCreate) SetNotNilName(value *string) *RelationTypeCreate {
+func (_m *DiscoveryPoolCreate) SetNotNilName(value *string) *DiscoveryPoolCreate {
 	if value != nil {
 		return _m.SetName(*value)
 	}
@@ -12267,31 +658,655 @@ func (_m *RelationTypeCreate) SetNotNilName(value *string) *RelationTypeCreate {
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdate) SetNotNilCode(value *string) *RelationTypeUpdate {
+func (_m *DiscoveryPoolUpdate) SetNotNilDescription(value *string) *DiscoveryPoolUpdate {
 	if value != nil {
-		return _m.SetCode(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdateOne) SetNotNilCode(value *string) *RelationTypeUpdateOne {
+func (_m *DiscoveryPoolUpdateOne) SetNotNilDescription(value *string) *DiscoveryPoolUpdateOne {
 	if value != nil {
-		return _m.SetCode(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeCreate) SetNotNilCode(value *string) *RelationTypeCreate {
+func (_m *DiscoveryPoolCreate) SetNotNilDescription(value *string) *DiscoveryPoolCreate {
 	if value != nil {
-		return _m.SetCode(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdate) SetNotNilCategory(value *relationtype.Category) *RelationTypeUpdate {
+func (_m *DiscoveryPoolUpdate) SetNotNilDiscoveryType(value *string) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetDiscoveryType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilDiscoveryType(value *string) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetDiscoveryType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilDiscoveryType(value *string) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetDiscoveryType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilPoolStatus(value *string) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetPoolStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilPoolStatus(value *string) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetPoolStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilPoolStatus(value *string) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetPoolStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilDiscoveryConfig(value *string) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetDiscoveryConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilDiscoveryConfig(value *string) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetDiscoveryConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilDiscoveryConfig(value *string) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetDiscoveryConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilSchedule(value *string) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetSchedule(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilSchedule(value *string) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetSchedule(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilSchedule(value *string) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetSchedule(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilBatchSize(value *int) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetBatchSize(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilBatchSize(value *int) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetBatchSize(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilBatchSize(value *int) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetBatchSize(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilConcurrentLimit(value *int) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetConcurrentLimit(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilConcurrentLimit(value *int) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetConcurrentLimit(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilConcurrentLimit(value *int) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetConcurrentLimit(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilMaxRetry(value *int) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetMaxRetry(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilMaxRetry(value *int) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetMaxRetry(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilMaxRetry(value *int) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetMaxRetry(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilRetryInterval(value *int) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetRetryInterval(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilRetryInterval(value *int) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetRetryInterval(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilRetryInterval(value *int) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetRetryInterval(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilFieldMapping(value *string) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetFieldMapping(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilFieldMapping(value *string) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetFieldMapping(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilFieldMapping(value *string) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetFieldMapping(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilTotalRuns(value *int64) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetTotalRuns(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilTotalRuns(value *int64) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetTotalRuns(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilTotalRuns(value *int64) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetTotalRuns(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilSuccessRuns(value *int64) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetSuccessRuns(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilSuccessRuns(value *int64) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetSuccessRuns(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilSuccessRuns(value *int64) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetSuccessRuns(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilFailedRuns(value *int64) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetFailedRuns(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilFailedRuns(value *int64) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetFailedRuns(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilFailedRuns(value *int64) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetFailedRuns(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilLastRunAt(value *time.Time) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetLastRunAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilLastRunAt(value *time.Time) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetLastRunAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilLastRunAt(value *time.Time) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetLastRunAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilLastSuccessAt(value *time.Time) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetLastSuccessAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilLastSuccessAt(value *time.Time) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetLastSuccessAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilLastSuccessAt(value *time.Time) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetLastSuccessAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilLastError(value *string) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetLastError(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilLastError(value *string) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetLastError(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilLastError(value *string) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetLastError(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilApprovalStatus(value *string) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetApprovalStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilApprovalStatus(value *string) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetApprovalStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilApprovalStatus(value *string) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetApprovalStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilApprovedBy(value *uint64) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetApprovedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilApprovedBy(value *uint64) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetApprovedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilApprovedBy(value *uint64) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetApprovedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilApprovedAt(value *time.Time) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetApprovedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilApprovedAt(value *time.Time) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetApprovedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilApprovedAt(value *time.Time) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetApprovedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilRejectionReason(value *string) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetRejectionReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilRejectionReason(value *string) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetRejectionReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilRejectionReason(value *string) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetRejectionReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdate) SetNotNilMetadata(value *string) *DiscoveryPoolUpdate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolUpdateOne) SetNotNilMetadata(value *string) *DiscoveryPoolUpdateOne {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryPoolCreate) SetNotNilMetadata(value *string) *DiscoveryPoolCreate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilUpdatedAt(value *time.Time) *DiscoveryProviderSchemaUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilUpdatedAt(value *time.Time) *DiscoveryProviderSchemaUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilUpdatedAt(value *time.Time) *DiscoveryProviderSchemaCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilStatus(value *uint8) *DiscoveryProviderSchemaUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilStatus(value *uint8) *DiscoveryProviderSchemaUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilStatus(value *uint8) *DiscoveryProviderSchemaCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilTenantID(value *uint64) *DiscoveryProviderSchemaUpdate {
+	if value != nil {
+		return _m.SetTenantID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilTenantID(value *uint64) *DiscoveryProviderSchemaUpdateOne {
+	if value != nil {
+		return _m.SetTenantID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilTenantID(value *uint64) *DiscoveryProviderSchemaCreate {
+	if value != nil {
+		return _m.SetTenantID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilDepartmentID(value *uint64) *DiscoveryProviderSchemaUpdate {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilDepartmentID(value *uint64) *DiscoveryProviderSchemaUpdateOne {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilDepartmentID(value *uint64) *DiscoveryProviderSchemaCreate {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilProviderID(value *string) *DiscoveryProviderSchemaUpdate {
+	if value != nil {
+		return _m.SetProviderID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilProviderID(value *string) *DiscoveryProviderSchemaUpdateOne {
+	if value != nil {
+		return _m.SetProviderID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilProviderID(value *string) *DiscoveryProviderSchemaCreate {
+	if value != nil {
+		return _m.SetProviderID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilProviderName(value *string) *DiscoveryProviderSchemaUpdate {
+	if value != nil {
+		return _m.SetProviderName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilProviderName(value *string) *DiscoveryProviderSchemaUpdateOne {
+	if value != nil {
+		return _m.SetProviderName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilProviderName(value *string) *DiscoveryProviderSchemaCreate {
+	if value != nil {
+		return _m.SetProviderName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilCategory(value *discoveryproviderschema.Category) *DiscoveryProviderSchemaUpdate {
 	if value != nil {
 		return _m.SetCategory(*value)
 	}
@@ -12299,7 +1314,7 @@ func (_m *RelationTypeUpdate) SetNotNilCategory(value *relationtype.Category) *R
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdateOne) SetNotNilCategory(value *relationtype.Category) *RelationTypeUpdateOne {
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilCategory(value *discoveryproviderschema.Category) *DiscoveryProviderSchemaUpdateOne {
 	if value != nil {
 		return _m.SetCategory(*value)
 	}
@@ -12307,7 +1322,7 @@ func (_m *RelationTypeUpdateOne) SetNotNilCategory(value *relationtype.Category)
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeCreate) SetNotNilCategory(value *relationtype.Category) *RelationTypeCreate {
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilCategory(value *discoveryproviderschema.Category) *DiscoveryProviderSchemaCreate {
 	if value != nil {
 		return _m.SetCategory(*value)
 	}
@@ -12315,319 +1330,199 @@ func (_m *RelationTypeCreate) SetNotNilCategory(value *relationtype.Category) *R
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdate) SetNotNilDirection(value *relationtype.Direction) *RelationTypeUpdate {
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilParameterSchema(value []interface{}) *DiscoveryProviderSchemaUpdate {
 	if value != nil {
-		return _m.SetDirection(*value)
+		return _m.SetParameterSchema(value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeUpdateOne) SetNotNilDirection(value *relationtype.Direction) *RelationTypeUpdateOne {
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilParameterSchema(value []interface{}) *DiscoveryProviderSchemaUpdateOne {
 	if value != nil {
-		return _m.SetDirection(*value)
+		return _m.SetParameterSchema(value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *RelationTypeCreate) SetNotNilDirection(value *relationtype.Direction) *RelationTypeCreate {
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilParameterSchema(value []interface{}) *DiscoveryProviderSchemaCreate {
 	if value != nil {
-		return _m.SetDirection(*value)
+		return _m.SetParameterSchema(value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdate) SetNotNilUpdatedAt(value *time.Time) *ValueDatetimeUpdate {
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilFieldSchema(value []interface{}) *DiscoveryProviderSchemaUpdate {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetFieldSchema(value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ValueDatetimeUpdateOne {
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilFieldSchema(value []interface{}) *DiscoveryProviderSchemaUpdateOne {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetFieldSchema(value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeCreate) SetNotNilUpdatedAt(value *time.Time) *ValueDatetimeCreate {
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilFieldSchema(value []interface{}) *DiscoveryProviderSchemaCreate {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetFieldSchema(value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdate) SetNotNilDeletedAt(value *time.Time) *ValueDatetimeUpdate {
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilDescription(value *string) *DiscoveryProviderSchemaUpdate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdateOne) SetNotNilDeletedAt(value *time.Time) *ValueDatetimeUpdateOne {
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilDescription(value *string) *DiscoveryProviderSchemaUpdateOne {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeCreate) SetNotNilDeletedAt(value *time.Time) *ValueDatetimeCreate {
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilDescription(value *string) *DiscoveryProviderSchemaCreate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdate) SetNotNilCiID(value *uint64) *ValueDatetimeUpdate {
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilVersion(value *string) *DiscoveryProviderSchemaUpdate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetVersion(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdateOne) SetNotNilCiID(value *uint64) *ValueDatetimeUpdateOne {
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilVersion(value *string) *DiscoveryProviderSchemaUpdateOne {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetVersion(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeCreate) SetNotNilCiID(value *uint64) *ValueDatetimeCreate {
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilVersion(value *string) *DiscoveryProviderSchemaCreate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetVersion(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdate) SetNotNilAttrID(value *uint64) *ValueDatetimeUpdate {
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilIconURL(value *string) *DiscoveryProviderSchemaUpdate {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetIconURL(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdateOne) SetNotNilAttrID(value *uint64) *ValueDatetimeUpdateOne {
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilIconURL(value *string) *DiscoveryProviderSchemaUpdateOne {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetIconURL(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeCreate) SetNotNilAttrID(value *uint64) *ValueDatetimeCreate {
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilIconURL(value *string) *DiscoveryProviderSchemaCreate {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetIconURL(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdate) SetNotNilValue(value *time.Time) *ValueDatetimeUpdate {
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilIsBuiltin(value *bool) *DiscoveryProviderSchemaUpdate {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetIsBuiltin(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdateOne) SetNotNilValue(value *time.Time) *ValueDatetimeUpdateOne {
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilIsBuiltin(value *bool) *DiscoveryProviderSchemaUpdateOne {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetIsBuiltin(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeCreate) SetNotNilValue(value *time.Time) *ValueDatetimeCreate {
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilIsBuiltin(value *bool) *DiscoveryProviderSchemaCreate {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetIsBuiltin(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdate) SetNotNilIsCover(value *bool) *ValueDatetimeUpdate {
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilExecutionMode(value *discoveryproviderschema.ExecutionMode) *DiscoveryProviderSchemaUpdate {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetExecutionMode(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeUpdateOne) SetNotNilIsCover(value *bool) *ValueDatetimeUpdateOne {
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilExecutionMode(value *discoveryproviderschema.ExecutionMode) *DiscoveryProviderSchemaUpdateOne {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetExecutionMode(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueDatetimeCreate) SetNotNilIsCover(value *bool) *ValueDatetimeCreate {
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilExecutionMode(value *discoveryproviderschema.ExecutionMode) *DiscoveryProviderSchemaCreate {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetExecutionMode(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueFloatUpdate) SetNotNilUpdatedAt(value *time.Time) *ValueFloatUpdate {
+func (_m *DiscoveryProviderSchemaUpdate) SetNotNilIsActive(value *bool) *DiscoveryProviderSchemaUpdate {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetIsActive(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueFloatUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ValueFloatUpdateOne {
+func (_m *DiscoveryProviderSchemaUpdateOne) SetNotNilIsActive(value *bool) *DiscoveryProviderSchemaUpdateOne {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetIsActive(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueFloatCreate) SetNotNilUpdatedAt(value *time.Time) *ValueFloatCreate {
+func (_m *DiscoveryProviderSchemaCreate) SetNotNilIsActive(value *bool) *DiscoveryProviderSchemaCreate {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetIsActive(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueFloatUpdate) SetNotNilDeletedAt(value *time.Time) *ValueFloatUpdate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatUpdateOne) SetNotNilDeletedAt(value *time.Time) *ValueFloatUpdateOne {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatCreate) SetNotNilDeletedAt(value *time.Time) *ValueFloatCreate {
-	if value != nil {
-		return _m.SetDeletedAt(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatUpdate) SetNotNilCiID(value *uint64) *ValueFloatUpdate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatUpdateOne) SetNotNilCiID(value *uint64) *ValueFloatUpdateOne {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatCreate) SetNotNilCiID(value *uint64) *ValueFloatCreate {
-	if value != nil {
-		return _m.SetCiID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatUpdate) SetNotNilAttrID(value *uint64) *ValueFloatUpdate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatUpdateOne) SetNotNilAttrID(value *uint64) *ValueFloatUpdateOne {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatCreate) SetNotNilAttrID(value *uint64) *ValueFloatCreate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatUpdate) SetNotNilValue(value *float64) *ValueFloatUpdate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatUpdateOne) SetNotNilValue(value *float64) *ValueFloatUpdateOne {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatCreate) SetNotNilValue(value *float64) *ValueFloatCreate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatUpdate) SetNotNilIsCover(value *bool) *ValueFloatUpdate {
-	if value != nil {
-		return _m.SetIsCover(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatUpdateOne) SetNotNilIsCover(value *bool) *ValueFloatUpdateOne {
-	if value != nil {
-		return _m.SetIsCover(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueFloatCreate) SetNotNilIsCover(value *bool) *ValueFloatCreate {
-	if value != nil {
-		return _m.SetIsCover(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdate) SetNotNilUpdatedAt(value *time.Time) *ValueIndexTextUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilUpdatedAt(value *time.Time) *DiscoveryTemplateUpdate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -12635,7 +1530,7 @@ func (_m *ValueIndexTextUpdate) SetNotNilUpdatedAt(value *time.Time) *ValueIndex
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ValueIndexTextUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilUpdatedAt(value *time.Time) *DiscoveryTemplateUpdateOne {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -12643,7 +1538,7 @@ func (_m *ValueIndexTextUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ValueIn
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextCreate) SetNotNilUpdatedAt(value *time.Time) *ValueIndexTextCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilUpdatedAt(value *time.Time) *DiscoveryTemplateCreate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -12651,415 +1546,343 @@ func (_m *ValueIndexTextCreate) SetNotNilUpdatedAt(value *time.Time) *ValueIndex
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdate) SetNotNilDeletedAt(value *time.Time) *ValueIndexTextUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilStatus(value *uint8) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetStatus(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdateOne) SetNotNilDeletedAt(value *time.Time) *ValueIndexTextUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilStatus(value *uint8) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetStatus(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextCreate) SetNotNilDeletedAt(value *time.Time) *ValueIndexTextCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilStatus(value *uint8) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetStatus(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdate) SetNotNilCiID(value *uint64) *ValueIndexTextUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilTemplateName(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetTemplateName(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdateOne) SetNotNilCiID(value *uint64) *ValueIndexTextUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilTemplateName(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetTemplateName(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextCreate) SetNotNilCiID(value *uint64) *ValueIndexTextCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilTemplateName(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetTemplateName(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdate) SetNotNilAttrID(value *uint64) *ValueIndexTextUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilTemplateCode(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetTemplateCode(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdateOne) SetNotNilAttrID(value *uint64) *ValueIndexTextUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilTemplateCode(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetTemplateCode(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextCreate) SetNotNilAttrID(value *uint64) *ValueIndexTextCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilTemplateCode(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetTemplateCode(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdate) SetNotNilValue(value *string) *ValueIndexTextUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilDescription(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdateOne) SetNotNilValue(value *string) *ValueIndexTextUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilDescription(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextCreate) SetNotNilValue(value *string) *ValueIndexTextCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilDescription(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetDescription(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdate) SetNotNilIsCover(value *bool) *ValueIndexTextUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilVersion(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetVersion(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextUpdateOne) SetNotNilIsCover(value *bool) *ValueIndexTextUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilVersion(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetVersion(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIndexTextCreate) SetNotNilIsCover(value *bool) *ValueIndexTextCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilVersion(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetVersion(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdate) SetNotNilUpdatedAt(value *time.Time) *ValueIntegerUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilTemplateType(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetTemplateType(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ValueIntegerUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilTemplateType(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetTemplateType(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerCreate) SetNotNilUpdatedAt(value *time.Time) *ValueIntegerCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilTemplateType(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetTemplateType(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdate) SetNotNilDeletedAt(value *time.Time) *ValueIntegerUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilDiscoveryConfig(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetDiscoveryConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdateOne) SetNotNilDeletedAt(value *time.Time) *ValueIntegerUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilDiscoveryConfig(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetDiscoveryConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerCreate) SetNotNilDeletedAt(value *time.Time) *ValueIntegerCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilDiscoveryConfig(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetDiscoveryConfig(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdate) SetNotNilCiID(value *uint64) *ValueIntegerUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilFieldMappingTemplates(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetFieldMappingTemplates(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdateOne) SetNotNilCiID(value *uint64) *ValueIntegerUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilFieldMappingTemplates(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetFieldMappingTemplates(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerCreate) SetNotNilCiID(value *uint64) *ValueIntegerCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilFieldMappingTemplates(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetFieldMappingTemplates(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdate) SetNotNilAttrID(value *uint64) *ValueIntegerUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilValidationRules(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetValidationRules(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdateOne) SetNotNilAttrID(value *uint64) *ValueIntegerUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilValidationRules(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetValidationRules(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerCreate) SetNotNilAttrID(value *uint64) *ValueIntegerCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilValidationRules(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetValidationRules(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdate) SetNotNilValue(value *int) *ValueIntegerUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilIsPublic(value *bool) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetIsPublic(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdateOne) SetNotNilValue(value *int) *ValueIntegerUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilIsPublic(value *bool) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetIsPublic(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerCreate) SetNotNilValue(value *int) *ValueIntegerCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilIsPublic(value *bool) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetIsPublic(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdate) SetNotNilIsCover(value *bool) *ValueIntegerUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilIsSystem(value *bool) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetIsSystem(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerUpdateOne) SetNotNilIsCover(value *bool) *ValueIntegerUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilIsSystem(value *bool) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetIsSystem(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueIntegerCreate) SetNotNilIsCover(value *bool) *ValueIntegerCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilIsSystem(value *bool) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetIsSystem(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONUpdate) SetNotNilUpdatedAt(value *time.Time) *ValueJSONUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilUsageCount(value *int64) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetUsageCount(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ValueJSONUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilUsageCount(value *int64) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetUsageCount(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONCreate) SetNotNilUpdatedAt(value *time.Time) *ValueJSONCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilUsageCount(value *int64) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetUpdatedAt(*value)
+		return _m.SetUsageCount(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONUpdate) SetNotNilDeletedAt(value *time.Time) *ValueJSONUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilTags(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetTags(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONUpdateOne) SetNotNilDeletedAt(value *time.Time) *ValueJSONUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilTags(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetTags(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONCreate) SetNotNilDeletedAt(value *time.Time) *ValueJSONCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilTags(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetTags(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONUpdate) SetNotNilCiID(value *uint64) *ValueJSONUpdate {
+func (_m *DiscoveryTemplateUpdate) SetNotNilMetadata(value *string) *DiscoveryTemplateUpdate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetMetadata(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONUpdateOne) SetNotNilCiID(value *uint64) *ValueJSONUpdateOne {
+func (_m *DiscoveryTemplateUpdateOne) SetNotNilMetadata(value *string) *DiscoveryTemplateUpdateOne {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetMetadata(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONCreate) SetNotNilCiID(value *uint64) *ValueJSONCreate {
+func (_m *DiscoveryTemplateCreate) SetNotNilMetadata(value *string) *DiscoveryTemplateCreate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetMetadata(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueJSONUpdate) SetNotNilAttrID(value *uint64) *ValueJSONUpdate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueJSONUpdateOne) SetNotNilAttrID(value *uint64) *ValueJSONUpdateOne {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueJSONCreate) SetNotNilAttrID(value *uint64) *ValueJSONCreate {
-	if value != nil {
-		return _m.SetAttrID(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueJSONUpdate) SetNotNilValue(value *json.RawMessage) *ValueJSONUpdate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueJSONUpdateOne) SetNotNilValue(value *json.RawMessage) *ValueJSONUpdateOne {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueJSONCreate) SetNotNilValue(value *json.RawMessage) *ValueJSONCreate {
-	if value != nil {
-		return _m.SetValue(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueJSONUpdate) SetNotNilIsCover(value *bool) *ValueJSONUpdate {
-	if value != nil {
-		return _m.SetIsCover(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueJSONUpdateOne) SetNotNilIsCover(value *bool) *ValueJSONUpdateOne {
-	if value != nil {
-		return _m.SetIsCover(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueJSONCreate) SetNotNilIsCover(value *bool) *ValueJSONCreate {
-	if value != nil {
-		return _m.SetIsCover(*value)
-	}
-	return _m
-}
-
-// set field if value's pointer is not nil.
-func (_m *ValueTextUpdate) SetNotNilUpdatedAt(value *time.Time) *ValueTextUpdate {
+func (_m *DlqMessageUpdate) SetNotNilUpdatedAt(value *time.Time) *DlqMessageUpdate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -13067,7 +1890,7 @@ func (_m *ValueTextUpdate) SetNotNilUpdatedAt(value *time.Time) *ValueTextUpdate
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ValueTextUpdateOne {
+func (_m *DlqMessageUpdateOne) SetNotNilUpdatedAt(value *time.Time) *DlqMessageUpdateOne {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -13075,7 +1898,7 @@ func (_m *ValueTextUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ValueTextUpd
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextCreate) SetNotNilUpdatedAt(value *time.Time) *ValueTextCreate {
+func (_m *DlqMessageCreate) SetNotNilUpdatedAt(value *time.Time) *DlqMessageCreate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)
 	}
@@ -13083,121 +1906,3193 @@ func (_m *ValueTextCreate) SetNotNilUpdatedAt(value *time.Time) *ValueTextCreate
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdate) SetNotNilDeletedAt(value *time.Time) *ValueTextUpdate {
+func (_m *DlqMessageUpdate) SetNotNilOriginalMessageID(value *uint64) *DlqMessageUpdate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetOriginalMessageID(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdateOne) SetNotNilDeletedAt(value *time.Time) *ValueTextUpdateOne {
+func (_m *DlqMessageUpdateOne) SetNotNilOriginalMessageID(value *uint64) *DlqMessageUpdateOne {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetOriginalMessageID(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextCreate) SetNotNilDeletedAt(value *time.Time) *ValueTextCreate {
+func (_m *DlqMessageCreate) SetNotNilOriginalMessageID(value *uint64) *DlqMessageCreate {
 	if value != nil {
-		return _m.SetDeletedAt(*value)
+		return _m.SetOriginalMessageID(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdate) SetNotNilCiID(value *uint64) *ValueTextUpdate {
+func (_m *DlqMessageUpdate) SetNotNilAggregateType(value *string) *DlqMessageUpdate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetAggregateType(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdateOne) SetNotNilCiID(value *uint64) *ValueTextUpdateOne {
+func (_m *DlqMessageUpdateOne) SetNotNilAggregateType(value *string) *DlqMessageUpdateOne {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetAggregateType(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextCreate) SetNotNilCiID(value *uint64) *ValueTextCreate {
+func (_m *DlqMessageCreate) SetNotNilAggregateType(value *string) *DlqMessageCreate {
 	if value != nil {
-		return _m.SetCiID(*value)
+		return _m.SetAggregateType(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdate) SetNotNilAttrID(value *uint64) *ValueTextUpdate {
+func (_m *DlqMessageUpdate) SetNotNilAggregateID(value *string) *DlqMessageUpdate {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetAggregateID(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdateOne) SetNotNilAttrID(value *uint64) *ValueTextUpdateOne {
+func (_m *DlqMessageUpdateOne) SetNotNilAggregateID(value *string) *DlqMessageUpdateOne {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetAggregateID(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextCreate) SetNotNilAttrID(value *uint64) *ValueTextCreate {
+func (_m *DlqMessageCreate) SetNotNilAggregateID(value *string) *DlqMessageCreate {
 	if value != nil {
-		return _m.SetAttrID(*value)
+		return _m.SetAggregateID(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdate) SetNotNilValue(value *string) *ValueTextUpdate {
+func (_m *DlqMessageUpdate) SetNotNilTopic(value *string) *DlqMessageUpdate {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetTopic(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdateOne) SetNotNilValue(value *string) *ValueTextUpdateOne {
+func (_m *DlqMessageUpdateOne) SetNotNilTopic(value *string) *DlqMessageUpdateOne {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetTopic(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextCreate) SetNotNilValue(value *string) *ValueTextCreate {
+func (_m *DlqMessageCreate) SetNotNilTopic(value *string) *DlqMessageCreate {
 	if value != nil {
-		return _m.SetValue(*value)
+		return _m.SetTopic(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdate) SetNotNilIsCover(value *bool) *ValueTextUpdate {
+func (_m *DlqMessageUpdate) SetNotNilMessageKey(value *string) *DlqMessageUpdate {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetMessageKey(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextUpdateOne) SetNotNilIsCover(value *bool) *ValueTextUpdateOne {
+func (_m *DlqMessageUpdateOne) SetNotNilMessageKey(value *string) *DlqMessageUpdateOne {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetMessageKey(*value)
 	}
 	return _m
 }
 
 // set field if value's pointer is not nil.
-func (_m *ValueTextCreate) SetNotNilIsCover(value *bool) *ValueTextCreate {
+func (_m *DlqMessageCreate) SetNotNilMessageKey(value *string) *DlqMessageCreate {
 	if value != nil {
-		return _m.SetIsCover(*value)
+		return _m.SetMessageKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilMessageValue(value []byte) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetMessageValue(value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilMessageValue(value []byte) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetMessageValue(value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilMessageValue(value []byte) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetMessageValue(value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilMessageHeaders(value *map[string]string) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetMessageHeaders(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilMessageHeaders(value *map[string]string) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetMessageHeaders(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilMessageHeaders(value *map[string]string) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetMessageHeaders(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilEventType(value *string) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetEventType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilEventType(value *string) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetEventType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilEventType(value *string) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetEventType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilRetryCount(value *int) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetRetryCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilRetryCount(value *int) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetRetryCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilRetryCount(value *int) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetRetryCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilFailureReason(value *string) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetFailureReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilFailureReason(value *string) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetFailureReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilFailureReason(value *string) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetFailureReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilFailedAt(value *time.Time) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetFailedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilFailedAt(value *time.Time) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetFailedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilFailedAt(value *time.Time) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetFailedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilMetadata(value *map[string]interface{}) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilMetadata(value *map[string]interface{}) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilMetadata(value *map[string]interface{}) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilStatus(value *dlqmessage.Status) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilStatus(value *dlqmessage.Status) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilStatus(value *dlqmessage.Status) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilRequeuedAt(value *time.Time) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetRequeuedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilRequeuedAt(value *time.Time) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetRequeuedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilRequeuedAt(value *time.Time) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetRequeuedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilRequeuedMessageID(value *uint64) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetRequeuedMessageID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilRequeuedMessageID(value *uint64) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetRequeuedMessageID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilRequeuedMessageID(value *uint64) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetRequeuedMessageID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilArchivedAt(value *time.Time) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetArchivedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilArchivedAt(value *time.Time) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetArchivedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilArchivedAt(value *time.Time) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetArchivedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdate) SetNotNilResolutionNotes(value *string) *DlqMessageUpdate {
+	if value != nil {
+		return _m.SetResolutionNotes(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageUpdateOne) SetNotNilResolutionNotes(value *string) *DlqMessageUpdateOne {
+	if value != nil {
+		return _m.SetResolutionNotes(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *DlqMessageCreate) SetNotNilResolutionNotes(value *string) *DlqMessageCreate {
+	if value != nil {
+		return _m.SetResolutionNotes(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilUpdatedAt(value *time.Time) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilUpdatedAt(value *time.Time) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilUpdatedAt(value *time.Time) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilStatus(value *uint8) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilStatus(value *uint8) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilStatus(value *uint8) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilMappingName(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetMappingName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilMappingName(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetMappingName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilMappingName(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetMappingName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilDescription(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilDescription(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilDescription(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilMappingType(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetMappingType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilMappingType(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetMappingType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilMappingType(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetMappingType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilIsActive(value *bool) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetIsActive(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilIsActive(value *bool) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetIsActive(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilIsActive(value *bool) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetIsActive(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilSourceField(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetSourceField(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilSourceField(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetSourceField(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilSourceField(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetSourceField(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilSourceFieldPath(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetSourceFieldPath(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilSourceFieldPath(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetSourceFieldPath(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilSourceFieldPath(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetSourceFieldPath(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilSourceDataType(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetSourceDataType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilSourceDataType(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetSourceDataType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilSourceDataType(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetSourceDataType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilSourceFormat(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetSourceFormat(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilSourceFormat(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetSourceFormat(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilSourceFormat(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetSourceFormat(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilTargetField(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetTargetField(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilTargetField(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetTargetField(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilTargetField(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetTargetField(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilTargetFieldPath(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetTargetFieldPath(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilTargetFieldPath(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetTargetFieldPath(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilTargetFieldPath(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetTargetFieldPath(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilTargetDataType(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetTargetDataType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilTargetDataType(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetTargetDataType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilTargetDataType(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetTargetDataType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilTargetFormat(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetTargetFormat(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilTargetFormat(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetTargetFormat(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilTargetFormat(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetTargetFormat(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilTransformType(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetTransformType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilTransformType(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetTransformType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilTransformType(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetTransformType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilTransformConfig(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetTransformConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilTransformConfig(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetTransformConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilTransformConfig(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetTransformConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilDefaultValue(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetDefaultValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilDefaultValue(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetDefaultValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilDefaultValue(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetDefaultValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilAllowNull(value *bool) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetAllowNull(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilAllowNull(value *bool) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetAllowNull(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilAllowNull(value *bool) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetAllowNull(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilIsRequired(value *bool) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetIsRequired(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilIsRequired(value *bool) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetIsRequired(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilIsRequired(value *bool) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetIsRequired(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilValidationRules(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetValidationRules(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilValidationRules(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetValidationRules(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilValidationRules(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetValidationRules(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilValidationRegex(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetValidationRegex(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilValidationRegex(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetValidationRegex(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilValidationRegex(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetValidationRegex(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilLookupTable(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetLookupTable(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilLookupTable(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetLookupTable(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilLookupTable(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetLookupTable(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilLookupCaseSensitive(value *bool) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetLookupCaseSensitive(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilLookupCaseSensitive(value *bool) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetLookupCaseSensitive(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilLookupCaseSensitive(value *bool) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetLookupCaseSensitive(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilConditionRules(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetConditionRules(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilConditionRules(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetConditionRules(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilConditionRules(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetConditionRules(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilPriority(value *int) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetPriority(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilPriority(value *int) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetPriority(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilPriority(value *int) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetPriority(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilSortOrder(value *int) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetSortOrder(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilSortOrder(value *int) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetSortOrder(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilSortOrder(value *int) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetSortOrder(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilDiscoveryPoolID(value *uint64) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetDiscoveryPoolID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilDiscoveryPoolID(value *uint64) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetDiscoveryPoolID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilDiscoveryPoolID(value *uint64) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetDiscoveryPoolID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilInputTaskID(value *uint64) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetInputTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilInputTaskID(value *uint64) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetInputTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilInputTaskID(value *uint64) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetInputTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilOutputTaskID(value *uint64) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetOutputTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilOutputTaskID(value *uint64) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetOutputTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilOutputTaskID(value *uint64) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetOutputTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilUsageCount(value *int64) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetUsageCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilUsageCount(value *int64) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetUsageCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilUsageCount(value *int64) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetUsageCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilSuccessCount(value *int64) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetSuccessCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilSuccessCount(value *int64) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetSuccessCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilSuccessCount(value *int64) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetSuccessCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilFailedCount(value *int64) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetFailedCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilFailedCount(value *int64) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetFailedCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilFailedCount(value *int64) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetFailedCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilLastUsedAt(value *time.Time) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetLastUsedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilLastUsedAt(value *time.Time) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetLastUsedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilLastUsedAt(value *time.Time) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetLastUsedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilLastError(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetLastError(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilLastError(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetLastError(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilLastError(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetLastError(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilLastErrorAt(value *time.Time) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetLastErrorAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilLastErrorAt(value *time.Time) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetLastErrorAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilLastErrorAt(value *time.Time) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetLastErrorAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdate) SetNotNilMetadata(value *string) *FieldMappingUpdate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingUpdateOne) SetNotNilMetadata(value *string) *FieldMappingUpdateOne {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *FieldMappingCreate) SetNotNilMetadata(value *string) *FieldMappingCreate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilUpdatedAt(value *time.Time) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilUpdatedAt(value *time.Time) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilUpdatedAt(value *time.Time) *InputTaskCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilStatus(value *uint8) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilStatus(value *uint8) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilStatus(value *uint8) *InputTaskCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilTaskName(value *string) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetTaskName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilTaskName(value *string) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetTaskName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilTaskName(value *string) *InputTaskCreate {
+	if value != nil {
+		return _m.SetTaskName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilTaskType(value *string) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetTaskType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilTaskType(value *string) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetTaskType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilTaskType(value *string) *InputTaskCreate {
+	if value != nil {
+		return _m.SetTaskType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilInputSource(value *string) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetInputSource(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilInputSource(value *string) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetInputSource(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilInputSource(value *string) *InputTaskCreate {
+	if value != nil {
+		return _m.SetInputSource(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilSourceConfig(value *string) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetSourceConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilSourceConfig(value *string) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetSourceConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilSourceConfig(value *string) *InputTaskCreate {
+	if value != nil {
+		return _m.SetSourceConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilTaskStatus(value *string) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetTaskStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilTaskStatus(value *string) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetTaskStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilTaskStatus(value *string) *InputTaskCreate {
+	if value != nil {
+		return _m.SetTaskStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilDiscoveryPoolID(value *uint64) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetDiscoveryPoolID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilDiscoveryPoolID(value *uint64) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetDiscoveryPoolID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilDiscoveryPoolID(value *uint64) *InputTaskCreate {
+	if value != nil {
+		return _m.SetDiscoveryPoolID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilScheduledAt(value *time.Time) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetScheduledAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilScheduledAt(value *time.Time) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetScheduledAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilScheduledAt(value *time.Time) *InputTaskCreate {
+	if value != nil {
+		return _m.SetScheduledAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilCronTaskID(value *uint64) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetCronTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilCronTaskID(value *uint64) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetCronTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilCronTaskID(value *uint64) *InputTaskCreate {
+	if value != nil {
+		return _m.SetCronTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilExecutionTime(value *time.Time) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetExecutionTime(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilExecutionTime(value *time.Time) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetExecutionTime(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilExecutionTime(value *time.Time) *InputTaskCreate {
+	if value != nil {
+		return _m.SetExecutionTime(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilStartedAt(value *time.Time) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetStartedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilStartedAt(value *time.Time) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetStartedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilStartedAt(value *time.Time) *InputTaskCreate {
+	if value != nil {
+		return _m.SetStartedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilCompletedAt(value *time.Time) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetCompletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilCompletedAt(value *time.Time) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetCompletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilCompletedAt(value *time.Time) *InputTaskCreate {
+	if value != nil {
+		return _m.SetCompletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilTotalRecords(value *int64) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetTotalRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilTotalRecords(value *int64) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetTotalRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilTotalRecords(value *int64) *InputTaskCreate {
+	if value != nil {
+		return _m.SetTotalRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilProcessedRecords(value *int64) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetProcessedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilProcessedRecords(value *int64) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetProcessedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilProcessedRecords(value *int64) *InputTaskCreate {
+	if value != nil {
+		return _m.SetProcessedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilSuccessRecords(value *int64) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetSuccessRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilSuccessRecords(value *int64) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetSuccessRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilSuccessRecords(value *int64) *InputTaskCreate {
+	if value != nil {
+		return _m.SetSuccessRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilFailedRecords(value *int64) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetFailedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilFailedRecords(value *int64) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetFailedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilFailedRecords(value *int64) *InputTaskCreate {
+	if value != nil {
+		return _m.SetFailedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilErrorMessage(value *string) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilErrorMessage(value *string) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilErrorMessage(value *string) *InputTaskCreate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdate) SetNotNilMetadata(value *string) *InputTaskUpdate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskUpdateOne) SetNotNilMetadata(value *string) *InputTaskUpdateOne {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *InputTaskCreate) SetNotNilMetadata(value *string) *InputTaskCreate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdate) SetNotNilUpdatedAt(value *time.Time) *MappingLogUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdateOne) SetNotNilUpdatedAt(value *time.Time) *MappingLogUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogCreate) SetNotNilUpdatedAt(value *time.Time) *MappingLogCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdate) SetNotNilFieldMappingID(value *uint64) *MappingLogUpdate {
+	if value != nil {
+		return _m.SetFieldMappingID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdateOne) SetNotNilFieldMappingID(value *uint64) *MappingLogUpdateOne {
+	if value != nil {
+		return _m.SetFieldMappingID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogCreate) SetNotNilFieldMappingID(value *uint64) *MappingLogCreate {
+	if value != nil {
+		return _m.SetFieldMappingID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdate) SetNotNilSourceValue(value *string) *MappingLogUpdate {
+	if value != nil {
+		return _m.SetSourceValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdateOne) SetNotNilSourceValue(value *string) *MappingLogUpdateOne {
+	if value != nil {
+		return _m.SetSourceValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogCreate) SetNotNilSourceValue(value *string) *MappingLogCreate {
+	if value != nil {
+		return _m.SetSourceValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdate) SetNotNilTargetValue(value *string) *MappingLogUpdate {
+	if value != nil {
+		return _m.SetTargetValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdateOne) SetNotNilTargetValue(value *string) *MappingLogUpdateOne {
+	if value != nil {
+		return _m.SetTargetValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogCreate) SetNotNilTargetValue(value *string) *MappingLogCreate {
+	if value != nil {
+		return _m.SetTargetValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdate) SetNotNilTransformStatus(value *string) *MappingLogUpdate {
+	if value != nil {
+		return _m.SetTransformStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdateOne) SetNotNilTransformStatus(value *string) *MappingLogUpdateOne {
+	if value != nil {
+		return _m.SetTransformStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogCreate) SetNotNilTransformStatus(value *string) *MappingLogCreate {
+	if value != nil {
+		return _m.SetTransformStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdate) SetNotNilErrorMessage(value *string) *MappingLogUpdate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdateOne) SetNotNilErrorMessage(value *string) *MappingLogUpdateOne {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogCreate) SetNotNilErrorMessage(value *string) *MappingLogCreate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdate) SetNotNilLoggedAt(value *time.Time) *MappingLogUpdate {
+	if value != nil {
+		return _m.SetLoggedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogUpdateOne) SetNotNilLoggedAt(value *time.Time) *MappingLogUpdateOne {
+	if value != nil {
+		return _m.SetLoggedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *MappingLogCreate) SetNotNilLoggedAt(value *time.Time) *MappingLogCreate {
+	if value != nil {
+		return _m.SetLoggedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilUpdatedAt(value *time.Time) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilUpdatedAt(value *time.Time) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilUpdatedAt(value *time.Time) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilStatus(value *uint8) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilStatus(value *uint8) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilStatus(value *uint8) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilAggregateType(value *string) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetAggregateType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilAggregateType(value *string) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetAggregateType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilAggregateType(value *string) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetAggregateType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilAggregateID(value *string) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetAggregateID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilAggregateID(value *string) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetAggregateID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilAggregateID(value *string) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetAggregateID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilTopic(value *string) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetTopic(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilTopic(value *string) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetTopic(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilTopic(value *string) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetTopic(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilMessageKey(value *string) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetMessageKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilMessageKey(value *string) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetMessageKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilMessageKey(value *string) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetMessageKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilMessageValue(value []byte) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetMessageValue(value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilMessageValue(value []byte) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetMessageValue(value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilMessageValue(value []byte) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetMessageValue(value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilMessageHeaders(value *map[string]string) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetMessageHeaders(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilMessageHeaders(value *map[string]string) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetMessageHeaders(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilMessageHeaders(value *map[string]string) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetMessageHeaders(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilEventType(value *string) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetEventType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilEventType(value *string) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetEventType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilEventType(value *string) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetEventType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilSendStatus(value *string) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetSendStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilSendStatus(value *string) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetSendStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilSendStatus(value *string) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetSendStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilRetryCount(value *int) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetRetryCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilRetryCount(value *int) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetRetryCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilRetryCount(value *int) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetRetryCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilMaxRetries(value *int) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetMaxRetries(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilMaxRetries(value *int) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetMaxRetries(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilMaxRetries(value *int) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetMaxRetries(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilSentAt(value *time.Time) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetSentAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilSentAt(value *time.Time) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetSentAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilSentAt(value *time.Time) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetSentAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilNextRetryAt(value *time.Time) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetNextRetryAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilNextRetryAt(value *time.Time) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetNextRetryAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilNextRetryAt(value *time.Time) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetNextRetryAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilErrorMessage(value *string) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilErrorMessage(value *string) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilErrorMessage(value *string) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilLastError(value *string) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetLastError(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilLastError(value *string) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetLastError(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilLastError(value *string) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetLastError(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilMetadata(value *map[string]interface{}) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilMetadata(value *map[string]interface{}) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilMetadata(value *map[string]interface{}) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdate) SetNotNilPriority(value *int) *OutboxMessageUpdate {
+	if value != nil {
+		return _m.SetPriority(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageUpdateOne) SetNotNilPriority(value *int) *OutboxMessageUpdateOne {
+	if value != nil {
+		return _m.SetPriority(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutboxMessageCreate) SetNotNilPriority(value *int) *OutboxMessageCreate {
+	if value != nil {
+		return _m.SetPriority(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilUpdatedAt(value *time.Time) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilUpdatedAt(value *time.Time) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilUpdatedAt(value *time.Time) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilStatus(value *uint8) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilStatus(value *uint8) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilStatus(value *uint8) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilTaskName(value *string) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetTaskName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilTaskName(value *string) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetTaskName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilTaskName(value *string) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetTaskName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilTaskType(value *string) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetTaskType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilTaskType(value *string) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetTaskType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilTaskType(value *string) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetTaskType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilOutputTarget(value *string) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetOutputTarget(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilOutputTarget(value *string) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetOutputTarget(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilOutputTarget(value *string) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetOutputTarget(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilTargetConfig(value *string) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetTargetConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilTargetConfig(value *string) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetTargetConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilTargetConfig(value *string) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetTargetConfig(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilTaskStatus(value *string) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetTaskStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilTaskStatus(value *string) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetTaskStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilTaskStatus(value *string) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetTaskStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilDataTargetID(value *uint64) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetDataTargetID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilDataTargetID(value *uint64) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetDataTargetID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilDataTargetID(value *uint64) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetDataTargetID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilScheduledAt(value *time.Time) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetScheduledAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilScheduledAt(value *time.Time) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetScheduledAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilScheduledAt(value *time.Time) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetScheduledAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilStartedAt(value *time.Time) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetStartedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilStartedAt(value *time.Time) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetStartedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilStartedAt(value *time.Time) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetStartedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilCompletedAt(value *time.Time) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetCompletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilCompletedAt(value *time.Time) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetCompletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilCompletedAt(value *time.Time) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetCompletedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilTotalRecords(value *int64) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetTotalRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilTotalRecords(value *int64) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetTotalRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilTotalRecords(value *int64) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetTotalRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilProcessedRecords(value *int64) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetProcessedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilProcessedRecords(value *int64) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetProcessedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilProcessedRecords(value *int64) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetProcessedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilSuccessRecords(value *int64) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetSuccessRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilSuccessRecords(value *int64) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetSuccessRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilSuccessRecords(value *int64) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetSuccessRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilFailedRecords(value *int64) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetFailedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilFailedRecords(value *int64) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetFailedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilFailedRecords(value *int64) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetFailedRecords(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilErrorMessage(value *string) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilErrorMessage(value *string) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilErrorMessage(value *string) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdate) SetNotNilMetadata(value *string) *OutputTaskUpdate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskUpdateOne) SetNotNilMetadata(value *string) *OutputTaskUpdateOne {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *OutputTaskCreate) SetNotNilMetadata(value *string) *OutputTaskCreate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdate) SetNotNilUpdatedAt(value *time.Time) *TaskLogUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdateOne) SetNotNilUpdatedAt(value *time.Time) *TaskLogUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogCreate) SetNotNilUpdatedAt(value *time.Time) *TaskLogCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdate) SetNotNilTaskType(value *string) *TaskLogUpdate {
+	if value != nil {
+		return _m.SetTaskType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdateOne) SetNotNilTaskType(value *string) *TaskLogUpdateOne {
+	if value != nil {
+		return _m.SetTaskType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogCreate) SetNotNilTaskType(value *string) *TaskLogCreate {
+	if value != nil {
+		return _m.SetTaskType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdate) SetNotNilTaskID(value *uint64) *TaskLogUpdate {
+	if value != nil {
+		return _m.SetTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdateOne) SetNotNilTaskID(value *uint64) *TaskLogUpdateOne {
+	if value != nil {
+		return _m.SetTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogCreate) SetNotNilTaskID(value *uint64) *TaskLogCreate {
+	if value != nil {
+		return _m.SetTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdate) SetNotNilLogLevel(value *string) *TaskLogUpdate {
+	if value != nil {
+		return _m.SetLogLevel(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdateOne) SetNotNilLogLevel(value *string) *TaskLogUpdateOne {
+	if value != nil {
+		return _m.SetLogLevel(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogCreate) SetNotNilLogLevel(value *string) *TaskLogCreate {
+	if value != nil {
+		return _m.SetLogLevel(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdate) SetNotNilLogMessage(value *string) *TaskLogUpdate {
+	if value != nil {
+		return _m.SetLogMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdateOne) SetNotNilLogMessage(value *string) *TaskLogUpdateOne {
+	if value != nil {
+		return _m.SetLogMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogCreate) SetNotNilLogMessage(value *string) *TaskLogCreate {
+	if value != nil {
+		return _m.SetLogMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdate) SetNotNilLogDetail(value *string) *TaskLogUpdate {
+	if value != nil {
+		return _m.SetLogDetail(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdateOne) SetNotNilLogDetail(value *string) *TaskLogUpdateOne {
+	if value != nil {
+		return _m.SetLogDetail(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogCreate) SetNotNilLogDetail(value *string) *TaskLogCreate {
+	if value != nil {
+		return _m.SetLogDetail(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdate) SetNotNilLoggedAt(value *time.Time) *TaskLogUpdate {
+	if value != nil {
+		return _m.SetLoggedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogUpdateOne) SetNotNilLoggedAt(value *time.Time) *TaskLogUpdateOne {
+	if value != nil {
+		return _m.SetLoggedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *TaskLogCreate) SetNotNilLoggedAt(value *time.Time) *TaskLogCreate {
+	if value != nil {
+		return _m.SetLoggedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilUpdatedAt(value *time.Time) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilUpdatedAt(value *time.Time) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilUpdatedAt(value *time.Time) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilWorkerID(value *string) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetWorkerID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilWorkerID(value *string) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetWorkerID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilWorkerID(value *string) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetWorkerID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilWorkerName(value *string) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetWorkerName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilWorkerName(value *string) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetWorkerName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilWorkerName(value *string) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetWorkerName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilWorkerStatus(value *string) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetWorkerStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilWorkerStatus(value *string) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetWorkerStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilWorkerStatus(value *string) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetWorkerStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilCurrentTasks(value *int) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetCurrentTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilCurrentTasks(value *int) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetCurrentTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilCurrentTasks(value *int) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetCurrentTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilTotalTasks(value *int) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetTotalTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilTotalTasks(value *int) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetTotalTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilTotalTasks(value *int) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetTotalTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilSuccessTasks(value *int) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetSuccessTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilSuccessTasks(value *int) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetSuccessTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilSuccessTasks(value *int) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetSuccessTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilFailedTasks(value *int) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetFailedTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilFailedTasks(value *int) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetFailedTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilFailedTasks(value *int) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetFailedTasks(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilCPUUsage(value *float64) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetCPUUsage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilCPUUsage(value *float64) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetCPUUsage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilCPUUsage(value *float64) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetCPUUsage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilMemoryUsage(value *float64) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetMemoryUsage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilMemoryUsage(value *float64) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetMemoryUsage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilMemoryUsage(value *float64) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetMemoryUsage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilLastHeartbeat(value *time.Time) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetLastHeartbeat(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilLastHeartbeat(value *time.Time) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetLastHeartbeat(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilLastHeartbeat(value *time.Time) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetLastHeartbeat(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdate) SetNotNilMetadata(value *string) *WorkerMetricsUpdate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsUpdateOne) SetNotNilMetadata(value *string) *WorkerMetricsUpdateOne {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *WorkerMetricsCreate) SetNotNilMetadata(value *string) *WorkerMetricsCreate {
+	if value != nil {
+		return _m.SetMetadata(*value)
 	}
 	return _m
 }

@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+// DiscoveryPool message
+
+message DiscoveryPoolInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // 发现池名称
+  optional string name = 5;
+  // 发现池描述
+  optional string description = 6;
+  // 发现类型: file, api, sdk, builtin
+  optional string discovery_type = 7;
+  // 池状态: active, inactive, error, maintain
+  optional string pool_status = 8;
+  // 发现配置JSON
+  optional string discovery_config = 9;
+  // 调度表达式
+  optional string schedule = 10;
+  // 批处理大小
+  optional int64 batch_size = 11;
+  // 并发限制
+  optional int64 concurrent_limit = 12;
+  // 最大重试次数
+  optional int64 max_retry = 13;
+  // 重试间隔(秒)
+  optional int64 retry_interval = 14;
+  // 字段映射配置JSON
+  optional string field_mapping = 15;
+  // 总执行次数
+  optional int64 total_runs = 16;
+  // 成功执行次数
+  optional int64 success_runs = 17;
+  // 失败执行次数
+  optional int64 failed_runs = 18;
+  // 最后执行时间
+  optional int64  last_run_at = 19;
+  // 最后成功时间
+  optional int64  last_success_at = 20;
+  // 最后错误信息
+  optional string last_error = 21;
+  // 审核状态: pending, approved, rejected
+  optional string approval_status = 22;
+  // 审核人ID
+  optional uint64 approved_by = 23;
+  // 审核时间
+  optional int64  approved_at = 24;
+  // 拒绝原因
+  optional string rejection_reason = 25;
+  // 扩展元数据JSON
+  optional string metadata = 26;
+}
+
+message DiscoveryPoolListResp {
+  uint64 total = 1;
+  repeated DiscoveryPoolInfo data = 2;
+}
+
+message DiscoveryPoolListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string name = 6;
+  optional string description = 7;
+  optional string discovery_type = 8;
+  optional string pool_status = 9;
+  optional string discovery_config = 10;
+  optional string schedule = 11;
+  optional int64 batch_size = 12;
+  optional int64 concurrent_limit = 13;
+  optional int64 max_retry = 14;
+  optional int64 retry_interval = 15;
+  optional string field_mapping = 16;
+  optional int64 total_runs = 17;
+  optional int64 success_runs = 18;
+  optional int64 failed_runs = 19;
+  optional int64 last_run_at = 20;
+  optional int64 last_success_at = 21;
+  optional string last_error = 22;
+  optional string approval_status = 23;
+  optional uint64 approved_by = 24;
+  optional int64 approved_at = 25;
+  optional string rejection_reason = 26;
+  optional string metadata = 27;
+}
+
+
+message DiscoveryPoolStatsResp {
+  uint64 total_pools = 1;
+  uint64 active_pools = 2;
+  uint64 running_pools = 3;
+  uint64 total_discoveries = 4;
+  uint64 successful_discoveries = 5;
+  uint64 failed_discoveries = 6;
+}
+
+service Io {
+
+  // DiscoveryPool management
+  // group: discoverypool
+  rpc createDiscoveryPool (DiscoveryPoolInfo) returns (BaseIDResp);
+  // group: discoverypool
+  rpc updateDiscoveryPool (DiscoveryPoolInfo) returns (BaseResp);
+  // group: discoverypool
+  rpc getDiscoveryPoolList (DiscoveryPoolListReq) returns (DiscoveryPoolListResp);
+  // group: discoverypool
+  rpc getDiscoveryPoolById (IDReq) returns (DiscoveryPoolInfo);
+  // group: discoverypool
+  rpc deleteDiscoveryPool (IDsReq) returns (BaseResp);
+  
+  // DiscoveryPool lifecycle operations
+  // group: discoverypool
+  rpc approveDiscoveryPool (ApprovalReq) returns (BaseResp);
+  // group: discoverypool
+  rpc enableDiscoveryPool (IDReq) returns (BaseResp);
+  // group: discoverypool
+  rpc disableDiscoveryPool (IDReq) returns (BaseResp);
+  // group: discoverypool
+  rpc triggerDiscoveryPool (IDReq) returns (BaseResp);
+  // group: discoverypool
+  rpc getDiscoveryPoolStats (Empty) returns (DiscoveryPoolStatsResp);
+
+
+}

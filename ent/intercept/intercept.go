@@ -7,43 +7,21 @@ import (
 	"fmt"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/attribute"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/choicefloat"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/choiceinteger"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/choicetext"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/ciapprovalflow"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cilifecyclestate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cioperation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cipermission"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cirecords"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cirelation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cis"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citype"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeattribute"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeattributegroup"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeattributegroupitem"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypegroup"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypegroupitem"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeinheritance"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cityperelation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importerror"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importrecord"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importtask"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importtemplate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissioncache"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissiondatafilter"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissionfieldmask"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissionoperation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissiontemplate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/predicate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/relationtype"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuedatetime"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuefloat"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valueindextext"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valueinteger"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuejson"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuetext"
+	"github.com/coder-lulu/newbee-io-rpc/ent"
+	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/datatarget"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoverypool"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoveryproviderschema"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoverytemplate"
+	"github.com/coder-lulu/newbee-io-rpc/ent/dlqmessage"
+	"github.com/coder-lulu/newbee-io-rpc/ent/fieldmapping"
+	"github.com/coder-lulu/newbee-io-rpc/ent/inputtask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/mappinglog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/outboxmessage"
+	"github.com/coder-lulu/newbee-io-rpc/ent/outputtask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/predicate"
+	"github.com/coder-lulu/newbee-io-rpc/ent/tasklog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/workermetrics"
 )
 
 // The Query interface represents an operation that queries a graph.
@@ -102,1024 +80,386 @@ func (f TraverseFunc) Traverse(ctx context.Context, q ent.Query) error {
 	return f(ctx, query)
 }
 
-// The AttributeFunc type is an adapter to allow the use of ordinary function as a Querier.
-type AttributeFunc func(context.Context, *ent.AttributeQuery) (ent.Value, error)
+// The CronTaskFunc type is an adapter to allow the use of ordinary function as a Querier.
+type CronTaskFunc func(context.Context, *ent.CronTaskQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f AttributeFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.AttributeQuery); ok {
+func (f CronTaskFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.CronTaskQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.AttributeQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CronTaskQuery", q)
 }
 
-// The TraverseAttribute type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseAttribute func(context.Context, *ent.AttributeQuery) error
+// The TraverseCronTask type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseCronTask func(context.Context, *ent.CronTaskQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseAttribute) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseCronTask) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseAttribute) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.AttributeQuery); ok {
+func (f TraverseCronTask) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CronTaskQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.AttributeQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.CronTaskQuery", q)
 }
 
-// The ChoiceFloatFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ChoiceFloatFunc func(context.Context, *ent.ChoiceFloatQuery) (ent.Value, error)
+// The DataTargetFunc type is an adapter to allow the use of ordinary function as a Querier.
+type DataTargetFunc func(context.Context, *ent.DataTargetQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f ChoiceFloatFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ChoiceFloatQuery); ok {
+func (f DataTargetFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.DataTargetQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ChoiceFloatQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.DataTargetQuery", q)
 }
 
-// The TraverseChoiceFloat type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseChoiceFloat func(context.Context, *ent.ChoiceFloatQuery) error
+// The TraverseDataTarget type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseDataTarget func(context.Context, *ent.DataTargetQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseChoiceFloat) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseDataTarget) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseChoiceFloat) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ChoiceFloatQuery); ok {
+func (f TraverseDataTarget) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.DataTargetQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ChoiceFloatQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.DataTargetQuery", q)
 }
 
-// The ChoiceIntegerFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ChoiceIntegerFunc func(context.Context, *ent.ChoiceIntegerQuery) (ent.Value, error)
+// The DiscoveryPoolFunc type is an adapter to allow the use of ordinary function as a Querier.
+type DiscoveryPoolFunc func(context.Context, *ent.DiscoveryPoolQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f ChoiceIntegerFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ChoiceIntegerQuery); ok {
+func (f DiscoveryPoolFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.DiscoveryPoolQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ChoiceIntegerQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.DiscoveryPoolQuery", q)
 }
 
-// The TraverseChoiceInteger type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseChoiceInteger func(context.Context, *ent.ChoiceIntegerQuery) error
+// The TraverseDiscoveryPool type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseDiscoveryPool func(context.Context, *ent.DiscoveryPoolQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseChoiceInteger) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseDiscoveryPool) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseChoiceInteger) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ChoiceIntegerQuery); ok {
+func (f TraverseDiscoveryPool) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.DiscoveryPoolQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ChoiceIntegerQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.DiscoveryPoolQuery", q)
 }
 
-// The ChoiceTextFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ChoiceTextFunc func(context.Context, *ent.ChoiceTextQuery) (ent.Value, error)
+// The DiscoveryProviderSchemaFunc type is an adapter to allow the use of ordinary function as a Querier.
+type DiscoveryProviderSchemaFunc func(context.Context, *ent.DiscoveryProviderSchemaQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f ChoiceTextFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ChoiceTextQuery); ok {
+func (f DiscoveryProviderSchemaFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.DiscoveryProviderSchemaQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ChoiceTextQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.DiscoveryProviderSchemaQuery", q)
 }
 
-// The TraverseChoiceText type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseChoiceText func(context.Context, *ent.ChoiceTextQuery) error
+// The TraverseDiscoveryProviderSchema type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseDiscoveryProviderSchema func(context.Context, *ent.DiscoveryProviderSchemaQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseChoiceText) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseDiscoveryProviderSchema) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseChoiceText) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ChoiceTextQuery); ok {
+func (f TraverseDiscoveryProviderSchema) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.DiscoveryProviderSchemaQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ChoiceTextQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.DiscoveryProviderSchemaQuery", q)
 }
 
-// The CiApprovalFlowFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiApprovalFlowFunc func(context.Context, *ent.CiApprovalFlowQuery) (ent.Value, error)
+// The DiscoveryTemplateFunc type is an adapter to allow the use of ordinary function as a Querier.
+type DiscoveryTemplateFunc func(context.Context, *ent.DiscoveryTemplateQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f CiApprovalFlowFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiApprovalFlowQuery); ok {
+func (f DiscoveryTemplateFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.DiscoveryTemplateQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiApprovalFlowQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.DiscoveryTemplateQuery", q)
 }
 
-// The TraverseCiApprovalFlow type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiApprovalFlow func(context.Context, *ent.CiApprovalFlowQuery) error
+// The TraverseDiscoveryTemplate type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseDiscoveryTemplate func(context.Context, *ent.DiscoveryTemplateQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiApprovalFlow) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseDiscoveryTemplate) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseCiApprovalFlow) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiApprovalFlowQuery); ok {
+func (f TraverseDiscoveryTemplate) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.DiscoveryTemplateQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiApprovalFlowQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.DiscoveryTemplateQuery", q)
 }
 
-// The CiLifecycleStateFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiLifecycleStateFunc func(context.Context, *ent.CiLifecycleStateQuery) (ent.Value, error)
+// The DlqMessageFunc type is an adapter to allow the use of ordinary function as a Querier.
+type DlqMessageFunc func(context.Context, *ent.DlqMessageQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f CiLifecycleStateFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiLifecycleStateQuery); ok {
+func (f DlqMessageFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.DlqMessageQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiLifecycleStateQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.DlqMessageQuery", q)
 }
 
-// The TraverseCiLifecycleState type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiLifecycleState func(context.Context, *ent.CiLifecycleStateQuery) error
+// The TraverseDlqMessage type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseDlqMessage func(context.Context, *ent.DlqMessageQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiLifecycleState) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseDlqMessage) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseCiLifecycleState) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiLifecycleStateQuery); ok {
+func (f TraverseDlqMessage) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.DlqMessageQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiLifecycleStateQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.DlqMessageQuery", q)
 }
 
-// The CiOperationFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiOperationFunc func(context.Context, *ent.CiOperationQuery) (ent.Value, error)
+// The FieldMappingFunc type is an adapter to allow the use of ordinary function as a Querier.
+type FieldMappingFunc func(context.Context, *ent.FieldMappingQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f CiOperationFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiOperationQuery); ok {
+func (f FieldMappingFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.FieldMappingQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiOperationQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.FieldMappingQuery", q)
 }
 
-// The TraverseCiOperation type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiOperation func(context.Context, *ent.CiOperationQuery) error
+// The TraverseFieldMapping type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseFieldMapping func(context.Context, *ent.FieldMappingQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiOperation) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseFieldMapping) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseCiOperation) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiOperationQuery); ok {
+func (f TraverseFieldMapping) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.FieldMappingQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiOperationQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.FieldMappingQuery", q)
 }
 
-// The CiPermissionFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiPermissionFunc func(context.Context, *ent.CiPermissionQuery) (ent.Value, error)
+// The InputTaskFunc type is an adapter to allow the use of ordinary function as a Querier.
+type InputTaskFunc func(context.Context, *ent.InputTaskQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f CiPermissionFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiPermissionQuery); ok {
+func (f InputTaskFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.InputTaskQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiPermissionQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.InputTaskQuery", q)
 }
 
-// The TraverseCiPermission type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiPermission func(context.Context, *ent.CiPermissionQuery) error
+// The TraverseInputTask type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseInputTask func(context.Context, *ent.InputTaskQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiPermission) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseInputTask) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseCiPermission) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiPermissionQuery); ok {
+func (f TraverseInputTask) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.InputTaskQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiPermissionQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.InputTaskQuery", q)
 }
 
-// The CiRecordsFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiRecordsFunc func(context.Context, *ent.CiRecordsQuery) (ent.Value, error)
+// The MappingLogFunc type is an adapter to allow the use of ordinary function as a Querier.
+type MappingLogFunc func(context.Context, *ent.MappingLogQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f CiRecordsFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiRecordsQuery); ok {
+func (f MappingLogFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.MappingLogQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiRecordsQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.MappingLogQuery", q)
 }
 
-// The TraverseCiRecords type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiRecords func(context.Context, *ent.CiRecordsQuery) error
+// The TraverseMappingLog type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseMappingLog func(context.Context, *ent.MappingLogQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiRecords) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseMappingLog) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseCiRecords) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiRecordsQuery); ok {
+func (f TraverseMappingLog) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.MappingLogQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiRecordsQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.MappingLogQuery", q)
 }
 
-// The CiRelationFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiRelationFunc func(context.Context, *ent.CiRelationQuery) (ent.Value, error)
+// The OutboxMessageFunc type is an adapter to allow the use of ordinary function as a Querier.
+type OutboxMessageFunc func(context.Context, *ent.OutboxMessageQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f CiRelationFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiRelationQuery); ok {
+func (f OutboxMessageFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.OutboxMessageQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiRelationQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.OutboxMessageQuery", q)
 }
 
-// The TraverseCiRelation type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiRelation func(context.Context, *ent.CiRelationQuery) error
+// The TraverseOutboxMessage type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseOutboxMessage func(context.Context, *ent.OutboxMessageQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiRelation) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseOutboxMessage) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseCiRelation) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiRelationQuery); ok {
+func (f TraverseOutboxMessage) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.OutboxMessageQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiRelationQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.OutboxMessageQuery", q)
 }
 
-// The CiTypeFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiTypeFunc func(context.Context, *ent.CiTypeQuery) (ent.Value, error)
+// The OutputTaskFunc type is an adapter to allow the use of ordinary function as a Querier.
+type OutputTaskFunc func(context.Context, *ent.OutputTaskQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f CiTypeFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiTypeQuery); ok {
+func (f OutputTaskFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.OutputTaskQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiTypeQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.OutputTaskQuery", q)
 }
 
-// The TraverseCiType type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiType func(context.Context, *ent.CiTypeQuery) error
+// The TraverseOutputTask type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseOutputTask func(context.Context, *ent.OutputTaskQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiType) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseOutputTask) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseCiType) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiTypeQuery); ok {
+func (f TraverseOutputTask) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.OutputTaskQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiTypeQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.OutputTaskQuery", q)
 }
 
-// The CiTypeAttributeFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiTypeAttributeFunc func(context.Context, *ent.CiTypeAttributeQuery) (ent.Value, error)
+// The TaskLogFunc type is an adapter to allow the use of ordinary function as a Querier.
+type TaskLogFunc func(context.Context, *ent.TaskLogQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f CiTypeAttributeFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiTypeAttributeQuery); ok {
+func (f TaskLogFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.TaskLogQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiTypeAttributeQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.TaskLogQuery", q)
 }
 
-// The TraverseCiTypeAttribute type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiTypeAttribute func(context.Context, *ent.CiTypeAttributeQuery) error
+// The TraverseTaskLog type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseTaskLog func(context.Context, *ent.TaskLogQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiTypeAttribute) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseTaskLog) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseCiTypeAttribute) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiTypeAttributeQuery); ok {
+func (f TraverseTaskLog) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.TaskLogQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiTypeAttributeQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.TaskLogQuery", q)
 }
 
-// The CiTypeAttributeGroupFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiTypeAttributeGroupFunc func(context.Context, *ent.CiTypeAttributeGroupQuery) (ent.Value, error)
+// The WorkerMetricsFunc type is an adapter to allow the use of ordinary function as a Querier.
+type WorkerMetricsFunc func(context.Context, *ent.WorkerMetricsQuery) (ent.Value, error)
 
 // Query calls f(ctx, q).
-func (f CiTypeAttributeGroupFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiTypeAttributeGroupQuery); ok {
+func (f WorkerMetricsFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.WorkerMetricsQuery); ok {
 		return f(ctx, q)
 	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiTypeAttributeGroupQuery", q)
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.WorkerMetricsQuery", q)
 }
 
-// The TraverseCiTypeAttributeGroup type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiTypeAttributeGroup func(context.Context, *ent.CiTypeAttributeGroupQuery) error
+// The TraverseWorkerMetrics type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseWorkerMetrics func(context.Context, *ent.WorkerMetricsQuery) error
 
 // Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiTypeAttributeGroup) Intercept(next ent.Querier) ent.Querier {
+func (f TraverseWorkerMetrics) Intercept(next ent.Querier) ent.Querier {
 	return next
 }
 
 // Traverse calls f(ctx, q).
-func (f TraverseCiTypeAttributeGroup) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiTypeAttributeGroupQuery); ok {
+func (f TraverseWorkerMetrics) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.WorkerMetricsQuery); ok {
 		return f(ctx, q)
 	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiTypeAttributeGroupQuery", q)
-}
-
-// The CiTypeAttributeGroupItemFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiTypeAttributeGroupItemFunc func(context.Context, *ent.CiTypeAttributeGroupItemQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f CiTypeAttributeGroupItemFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiTypeAttributeGroupItemQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiTypeAttributeGroupItemQuery", q)
-}
-
-// The TraverseCiTypeAttributeGroupItem type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiTypeAttributeGroupItem func(context.Context, *ent.CiTypeAttributeGroupItemQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiTypeAttributeGroupItem) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseCiTypeAttributeGroupItem) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiTypeAttributeGroupItemQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiTypeAttributeGroupItemQuery", q)
-}
-
-// The CiTypeGroupFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiTypeGroupFunc func(context.Context, *ent.CiTypeGroupQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f CiTypeGroupFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiTypeGroupQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiTypeGroupQuery", q)
-}
-
-// The TraverseCiTypeGroup type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiTypeGroup func(context.Context, *ent.CiTypeGroupQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiTypeGroup) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseCiTypeGroup) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiTypeGroupQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiTypeGroupQuery", q)
-}
-
-// The CiTypeGroupItemFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiTypeGroupItemFunc func(context.Context, *ent.CiTypeGroupItemQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f CiTypeGroupItemFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiTypeGroupItemQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiTypeGroupItemQuery", q)
-}
-
-// The TraverseCiTypeGroupItem type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiTypeGroupItem func(context.Context, *ent.CiTypeGroupItemQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiTypeGroupItem) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseCiTypeGroupItem) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiTypeGroupItemQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiTypeGroupItemQuery", q)
-}
-
-// The CiTypeInheritanceFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiTypeInheritanceFunc func(context.Context, *ent.CiTypeInheritanceQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f CiTypeInheritanceFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiTypeInheritanceQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiTypeInheritanceQuery", q)
-}
-
-// The TraverseCiTypeInheritance type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiTypeInheritance func(context.Context, *ent.CiTypeInheritanceQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiTypeInheritance) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseCiTypeInheritance) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiTypeInheritanceQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiTypeInheritanceQuery", q)
-}
-
-// The CiTypeRelationFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CiTypeRelationFunc func(context.Context, *ent.CiTypeRelationQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f CiTypeRelationFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CiTypeRelationQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiTypeRelationQuery", q)
-}
-
-// The TraverseCiTypeRelation type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCiTypeRelation func(context.Context, *ent.CiTypeRelationQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCiTypeRelation) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseCiTypeRelation) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CiTypeRelationQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CiTypeRelationQuery", q)
-}
-
-// The CisFunc type is an adapter to allow the use of ordinary function as a Querier.
-type CisFunc func(context.Context, *ent.CisQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f CisFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.CisQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CisQuery", q)
-}
-
-// The TraverseCis type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseCis func(context.Context, *ent.CisQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseCis) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseCis) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.CisQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.CisQuery", q)
-}
-
-// The ImportErrorFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ImportErrorFunc func(context.Context, *ent.ImportErrorQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ImportErrorFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ImportErrorQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ImportErrorQuery", q)
-}
-
-// The TraverseImportError type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseImportError func(context.Context, *ent.ImportErrorQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseImportError) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseImportError) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ImportErrorQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ImportErrorQuery", q)
-}
-
-// The ImportRecordFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ImportRecordFunc func(context.Context, *ent.ImportRecordQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ImportRecordFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ImportRecordQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ImportRecordQuery", q)
-}
-
-// The TraverseImportRecord type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseImportRecord func(context.Context, *ent.ImportRecordQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseImportRecord) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseImportRecord) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ImportRecordQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ImportRecordQuery", q)
-}
-
-// The ImportTaskFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ImportTaskFunc func(context.Context, *ent.ImportTaskQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ImportTaskFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ImportTaskQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ImportTaskQuery", q)
-}
-
-// The TraverseImportTask type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseImportTask func(context.Context, *ent.ImportTaskQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseImportTask) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseImportTask) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ImportTaskQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ImportTaskQuery", q)
-}
-
-// The ImportTemplateFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ImportTemplateFunc func(context.Context, *ent.ImportTemplateQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ImportTemplateFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ImportTemplateQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ImportTemplateQuery", q)
-}
-
-// The TraverseImportTemplate type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseImportTemplate func(context.Context, *ent.ImportTemplateQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseImportTemplate) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseImportTemplate) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ImportTemplateQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ImportTemplateQuery", q)
-}
-
-// The PermissionCacheFunc type is an adapter to allow the use of ordinary function as a Querier.
-type PermissionCacheFunc func(context.Context, *ent.PermissionCacheQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f PermissionCacheFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.PermissionCacheQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.PermissionCacheQuery", q)
-}
-
-// The TraversePermissionCache type is an adapter to allow the use of ordinary function as Traverser.
-type TraversePermissionCache func(context.Context, *ent.PermissionCacheQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraversePermissionCache) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraversePermissionCache) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.PermissionCacheQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.PermissionCacheQuery", q)
-}
-
-// The PermissionDataFilterFunc type is an adapter to allow the use of ordinary function as a Querier.
-type PermissionDataFilterFunc func(context.Context, *ent.PermissionDataFilterQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f PermissionDataFilterFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.PermissionDataFilterQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.PermissionDataFilterQuery", q)
-}
-
-// The TraversePermissionDataFilter type is an adapter to allow the use of ordinary function as Traverser.
-type TraversePermissionDataFilter func(context.Context, *ent.PermissionDataFilterQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraversePermissionDataFilter) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraversePermissionDataFilter) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.PermissionDataFilterQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.PermissionDataFilterQuery", q)
-}
-
-// The PermissionFieldMaskFunc type is an adapter to allow the use of ordinary function as a Querier.
-type PermissionFieldMaskFunc func(context.Context, *ent.PermissionFieldMaskQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f PermissionFieldMaskFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.PermissionFieldMaskQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.PermissionFieldMaskQuery", q)
-}
-
-// The TraversePermissionFieldMask type is an adapter to allow the use of ordinary function as Traverser.
-type TraversePermissionFieldMask func(context.Context, *ent.PermissionFieldMaskQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraversePermissionFieldMask) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraversePermissionFieldMask) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.PermissionFieldMaskQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.PermissionFieldMaskQuery", q)
-}
-
-// The PermissionOperationFunc type is an adapter to allow the use of ordinary function as a Querier.
-type PermissionOperationFunc func(context.Context, *ent.PermissionOperationQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f PermissionOperationFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.PermissionOperationQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.PermissionOperationQuery", q)
-}
-
-// The TraversePermissionOperation type is an adapter to allow the use of ordinary function as Traverser.
-type TraversePermissionOperation func(context.Context, *ent.PermissionOperationQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraversePermissionOperation) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraversePermissionOperation) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.PermissionOperationQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.PermissionOperationQuery", q)
-}
-
-// The PermissionTemplateFunc type is an adapter to allow the use of ordinary function as a Querier.
-type PermissionTemplateFunc func(context.Context, *ent.PermissionTemplateQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f PermissionTemplateFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.PermissionTemplateQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.PermissionTemplateQuery", q)
-}
-
-// The TraversePermissionTemplate type is an adapter to allow the use of ordinary function as Traverser.
-type TraversePermissionTemplate func(context.Context, *ent.PermissionTemplateQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraversePermissionTemplate) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraversePermissionTemplate) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.PermissionTemplateQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.PermissionTemplateQuery", q)
-}
-
-// The RelationTypeFunc type is an adapter to allow the use of ordinary function as a Querier.
-type RelationTypeFunc func(context.Context, *ent.RelationTypeQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f RelationTypeFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.RelationTypeQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.RelationTypeQuery", q)
-}
-
-// The TraverseRelationType type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseRelationType func(context.Context, *ent.RelationTypeQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseRelationType) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseRelationType) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.RelationTypeQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.RelationTypeQuery", q)
-}
-
-// The ValueDatetimeFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ValueDatetimeFunc func(context.Context, *ent.ValueDatetimeQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ValueDatetimeFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ValueDatetimeQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ValueDatetimeQuery", q)
-}
-
-// The TraverseValueDatetime type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseValueDatetime func(context.Context, *ent.ValueDatetimeQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseValueDatetime) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseValueDatetime) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ValueDatetimeQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ValueDatetimeQuery", q)
-}
-
-// The ValueFloatFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ValueFloatFunc func(context.Context, *ent.ValueFloatQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ValueFloatFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ValueFloatQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ValueFloatQuery", q)
-}
-
-// The TraverseValueFloat type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseValueFloat func(context.Context, *ent.ValueFloatQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseValueFloat) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseValueFloat) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ValueFloatQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ValueFloatQuery", q)
-}
-
-// The ValueIndexTextFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ValueIndexTextFunc func(context.Context, *ent.ValueIndexTextQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ValueIndexTextFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ValueIndexTextQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ValueIndexTextQuery", q)
-}
-
-// The TraverseValueIndexText type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseValueIndexText func(context.Context, *ent.ValueIndexTextQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseValueIndexText) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseValueIndexText) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ValueIndexTextQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ValueIndexTextQuery", q)
-}
-
-// The ValueIntegerFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ValueIntegerFunc func(context.Context, *ent.ValueIntegerQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ValueIntegerFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ValueIntegerQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ValueIntegerQuery", q)
-}
-
-// The TraverseValueInteger type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseValueInteger func(context.Context, *ent.ValueIntegerQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseValueInteger) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseValueInteger) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ValueIntegerQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ValueIntegerQuery", q)
-}
-
-// The ValueJSONFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ValueJSONFunc func(context.Context, *ent.ValueJSONQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ValueJSONFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ValueJSONQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ValueJSONQuery", q)
-}
-
-// The TraverseValueJSON type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseValueJSON func(context.Context, *ent.ValueJSONQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseValueJSON) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseValueJSON) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ValueJSONQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ValueJSONQuery", q)
-}
-
-// The ValueTextFunc type is an adapter to allow the use of ordinary function as a Querier.
-type ValueTextFunc func(context.Context, *ent.ValueTextQuery) (ent.Value, error)
-
-// Query calls f(ctx, q).
-func (f ValueTextFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
-	if q, ok := q.(*ent.ValueTextQuery); ok {
-		return f(ctx, q)
-	}
-	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ValueTextQuery", q)
-}
-
-// The TraverseValueText type is an adapter to allow the use of ordinary function as Traverser.
-type TraverseValueText func(context.Context, *ent.ValueTextQuery) error
-
-// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
-func (f TraverseValueText) Intercept(next ent.Querier) ent.Querier {
-	return next
-}
-
-// Traverse calls f(ctx, q).
-func (f TraverseValueText) Traverse(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.ValueTextQuery); ok {
-		return f(ctx, q)
-	}
-	return fmt.Errorf("unexpected query type %T. expect *ent.ValueTextQuery", q)
+	return fmt.Errorf("unexpected query type %T. expect *ent.WorkerMetricsQuery", q)
 }
 
 // NewQuery returns the generic Query interface for the given typed query.
 func NewQuery(q ent.Query) (Query, error) {
 	switch q := q.(type) {
-	case *ent.AttributeQuery:
-		return &query[*ent.AttributeQuery, predicate.Attribute, attribute.OrderOption]{typ: ent.TypeAttribute, tq: q}, nil
-	case *ent.ChoiceFloatQuery:
-		return &query[*ent.ChoiceFloatQuery, predicate.ChoiceFloat, choicefloat.OrderOption]{typ: ent.TypeChoiceFloat, tq: q}, nil
-	case *ent.ChoiceIntegerQuery:
-		return &query[*ent.ChoiceIntegerQuery, predicate.ChoiceInteger, choiceinteger.OrderOption]{typ: ent.TypeChoiceInteger, tq: q}, nil
-	case *ent.ChoiceTextQuery:
-		return &query[*ent.ChoiceTextQuery, predicate.ChoiceText, choicetext.OrderOption]{typ: ent.TypeChoiceText, tq: q}, nil
-	case *ent.CiApprovalFlowQuery:
-		return &query[*ent.CiApprovalFlowQuery, predicate.CiApprovalFlow, ciapprovalflow.OrderOption]{typ: ent.TypeCiApprovalFlow, tq: q}, nil
-	case *ent.CiLifecycleStateQuery:
-		return &query[*ent.CiLifecycleStateQuery, predicate.CiLifecycleState, cilifecyclestate.OrderOption]{typ: ent.TypeCiLifecycleState, tq: q}, nil
-	case *ent.CiOperationQuery:
-		return &query[*ent.CiOperationQuery, predicate.CiOperation, cioperation.OrderOption]{typ: ent.TypeCiOperation, tq: q}, nil
-	case *ent.CiPermissionQuery:
-		return &query[*ent.CiPermissionQuery, predicate.CiPermission, cipermission.OrderOption]{typ: ent.TypeCiPermission, tq: q}, nil
-	case *ent.CiRecordsQuery:
-		return &query[*ent.CiRecordsQuery, predicate.CiRecords, cirecords.OrderOption]{typ: ent.TypeCiRecords, tq: q}, nil
-	case *ent.CiRelationQuery:
-		return &query[*ent.CiRelationQuery, predicate.CiRelation, cirelation.OrderOption]{typ: ent.TypeCiRelation, tq: q}, nil
-	case *ent.CiTypeQuery:
-		return &query[*ent.CiTypeQuery, predicate.CiType, citype.OrderOption]{typ: ent.TypeCiType, tq: q}, nil
-	case *ent.CiTypeAttributeQuery:
-		return &query[*ent.CiTypeAttributeQuery, predicate.CiTypeAttribute, citypeattribute.OrderOption]{typ: ent.TypeCiTypeAttribute, tq: q}, nil
-	case *ent.CiTypeAttributeGroupQuery:
-		return &query[*ent.CiTypeAttributeGroupQuery, predicate.CiTypeAttributeGroup, citypeattributegroup.OrderOption]{typ: ent.TypeCiTypeAttributeGroup, tq: q}, nil
-	case *ent.CiTypeAttributeGroupItemQuery:
-		return &query[*ent.CiTypeAttributeGroupItemQuery, predicate.CiTypeAttributeGroupItem, citypeattributegroupitem.OrderOption]{typ: ent.TypeCiTypeAttributeGroupItem, tq: q}, nil
-	case *ent.CiTypeGroupQuery:
-		return &query[*ent.CiTypeGroupQuery, predicate.CiTypeGroup, citypegroup.OrderOption]{typ: ent.TypeCiTypeGroup, tq: q}, nil
-	case *ent.CiTypeGroupItemQuery:
-		return &query[*ent.CiTypeGroupItemQuery, predicate.CiTypeGroupItem, citypegroupitem.OrderOption]{typ: ent.TypeCiTypeGroupItem, tq: q}, nil
-	case *ent.CiTypeInheritanceQuery:
-		return &query[*ent.CiTypeInheritanceQuery, predicate.CiTypeInheritance, citypeinheritance.OrderOption]{typ: ent.TypeCiTypeInheritance, tq: q}, nil
-	case *ent.CiTypeRelationQuery:
-		return &query[*ent.CiTypeRelationQuery, predicate.CiTypeRelation, cityperelation.OrderOption]{typ: ent.TypeCiTypeRelation, tq: q}, nil
-	case *ent.CisQuery:
-		return &query[*ent.CisQuery, predicate.Cis, cis.OrderOption]{typ: ent.TypeCis, tq: q}, nil
-	case *ent.ImportErrorQuery:
-		return &query[*ent.ImportErrorQuery, predicate.ImportError, importerror.OrderOption]{typ: ent.TypeImportError, tq: q}, nil
-	case *ent.ImportRecordQuery:
-		return &query[*ent.ImportRecordQuery, predicate.ImportRecord, importrecord.OrderOption]{typ: ent.TypeImportRecord, tq: q}, nil
-	case *ent.ImportTaskQuery:
-		return &query[*ent.ImportTaskQuery, predicate.ImportTask, importtask.OrderOption]{typ: ent.TypeImportTask, tq: q}, nil
-	case *ent.ImportTemplateQuery:
-		return &query[*ent.ImportTemplateQuery, predicate.ImportTemplate, importtemplate.OrderOption]{typ: ent.TypeImportTemplate, tq: q}, nil
-	case *ent.PermissionCacheQuery:
-		return &query[*ent.PermissionCacheQuery, predicate.PermissionCache, permissioncache.OrderOption]{typ: ent.TypePermissionCache, tq: q}, nil
-	case *ent.PermissionDataFilterQuery:
-		return &query[*ent.PermissionDataFilterQuery, predicate.PermissionDataFilter, permissiondatafilter.OrderOption]{typ: ent.TypePermissionDataFilter, tq: q}, nil
-	case *ent.PermissionFieldMaskQuery:
-		return &query[*ent.PermissionFieldMaskQuery, predicate.PermissionFieldMask, permissionfieldmask.OrderOption]{typ: ent.TypePermissionFieldMask, tq: q}, nil
-	case *ent.PermissionOperationQuery:
-		return &query[*ent.PermissionOperationQuery, predicate.PermissionOperation, permissionoperation.OrderOption]{typ: ent.TypePermissionOperation, tq: q}, nil
-	case *ent.PermissionTemplateQuery:
-		return &query[*ent.PermissionTemplateQuery, predicate.PermissionTemplate, permissiontemplate.OrderOption]{typ: ent.TypePermissionTemplate, tq: q}, nil
-	case *ent.RelationTypeQuery:
-		return &query[*ent.RelationTypeQuery, predicate.RelationType, relationtype.OrderOption]{typ: ent.TypeRelationType, tq: q}, nil
-	case *ent.ValueDatetimeQuery:
-		return &query[*ent.ValueDatetimeQuery, predicate.ValueDatetime, valuedatetime.OrderOption]{typ: ent.TypeValueDatetime, tq: q}, nil
-	case *ent.ValueFloatQuery:
-		return &query[*ent.ValueFloatQuery, predicate.ValueFloat, valuefloat.OrderOption]{typ: ent.TypeValueFloat, tq: q}, nil
-	case *ent.ValueIndexTextQuery:
-		return &query[*ent.ValueIndexTextQuery, predicate.ValueIndexText, valueindextext.OrderOption]{typ: ent.TypeValueIndexText, tq: q}, nil
-	case *ent.ValueIntegerQuery:
-		return &query[*ent.ValueIntegerQuery, predicate.ValueInteger, valueinteger.OrderOption]{typ: ent.TypeValueInteger, tq: q}, nil
-	case *ent.ValueJSONQuery:
-		return &query[*ent.ValueJSONQuery, predicate.ValueJSON, valuejson.OrderOption]{typ: ent.TypeValueJSON, tq: q}, nil
-	case *ent.ValueTextQuery:
-		return &query[*ent.ValueTextQuery, predicate.ValueText, valuetext.OrderOption]{typ: ent.TypeValueText, tq: q}, nil
+	case *ent.CronTaskQuery:
+		return &query[*ent.CronTaskQuery, predicate.CronTask, crontask.OrderOption]{typ: ent.TypeCronTask, tq: q}, nil
+	case *ent.DataTargetQuery:
+		return &query[*ent.DataTargetQuery, predicate.DataTarget, datatarget.OrderOption]{typ: ent.TypeDataTarget, tq: q}, nil
+	case *ent.DiscoveryPoolQuery:
+		return &query[*ent.DiscoveryPoolQuery, predicate.DiscoveryPool, discoverypool.OrderOption]{typ: ent.TypeDiscoveryPool, tq: q}, nil
+	case *ent.DiscoveryProviderSchemaQuery:
+		return &query[*ent.DiscoveryProviderSchemaQuery, predicate.DiscoveryProviderSchema, discoveryproviderschema.OrderOption]{typ: ent.TypeDiscoveryProviderSchema, tq: q}, nil
+	case *ent.DiscoveryTemplateQuery:
+		return &query[*ent.DiscoveryTemplateQuery, predicate.DiscoveryTemplate, discoverytemplate.OrderOption]{typ: ent.TypeDiscoveryTemplate, tq: q}, nil
+	case *ent.DlqMessageQuery:
+		return &query[*ent.DlqMessageQuery, predicate.DlqMessage, dlqmessage.OrderOption]{typ: ent.TypeDlqMessage, tq: q}, nil
+	case *ent.FieldMappingQuery:
+		return &query[*ent.FieldMappingQuery, predicate.FieldMapping, fieldmapping.OrderOption]{typ: ent.TypeFieldMapping, tq: q}, nil
+	case *ent.InputTaskQuery:
+		return &query[*ent.InputTaskQuery, predicate.InputTask, inputtask.OrderOption]{typ: ent.TypeInputTask, tq: q}, nil
+	case *ent.MappingLogQuery:
+		return &query[*ent.MappingLogQuery, predicate.MappingLog, mappinglog.OrderOption]{typ: ent.TypeMappingLog, tq: q}, nil
+	case *ent.OutboxMessageQuery:
+		return &query[*ent.OutboxMessageQuery, predicate.OutboxMessage, outboxmessage.OrderOption]{typ: ent.TypeOutboxMessage, tq: q}, nil
+	case *ent.OutputTaskQuery:
+		return &query[*ent.OutputTaskQuery, predicate.OutputTask, outputtask.OrderOption]{typ: ent.TypeOutputTask, tq: q}, nil
+	case *ent.TaskLogQuery:
+		return &query[*ent.TaskLogQuery, predicate.TaskLog, tasklog.OrderOption]{typ: ent.TypeTaskLog, tq: q}, nil
+	case *ent.WorkerMetricsQuery:
+		return &query[*ent.WorkerMetricsQuery, predicate.WorkerMetrics, workermetrics.OrderOption]{typ: ent.TypeWorkerMetrics, tq: q}, nil
 	default:
 		return nil, fmt.Errorf("unknown query type %T", q)
 	}

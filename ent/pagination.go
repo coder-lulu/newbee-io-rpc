@@ -6,41 +6,19 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/attribute"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/choicefloat"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/choiceinteger"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/choicetext"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/ciapprovalflow"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cilifecyclestate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cioperation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cipermission"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cirecords"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cirelation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cis"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citype"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeattribute"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeattributegroup"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeattributegroupitem"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypegroup"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypegroupitem"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/citypeinheritance"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/cityperelation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importerror"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importrecord"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importtask"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/importtemplate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissioncache"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissiondatafilter"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissionfieldmask"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissionoperation"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/permissiontemplate"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/relationtype"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuedatetime"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuefloat"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valueindextext"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valueinteger"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuejson"
-	"github.com/coder-lulu/newbee-cmdb-rpc/ent/valuetext"
+	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/datatarget"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoverypool"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoveryproviderschema"
+	"github.com/coder-lulu/newbee-io-rpc/ent/discoverytemplate"
+	"github.com/coder-lulu/newbee-io-rpc/ent/dlqmessage"
+	"github.com/coder-lulu/newbee-io-rpc/ent/fieldmapping"
+	"github.com/coder-lulu/newbee-io-rpc/ent/inputtask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/mappinglog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/outboxmessage"
+	"github.com/coder-lulu/newbee-io-rpc/ent/outputtask"
+	"github.com/coder-lulu/newbee-io-rpc/ent/tasklog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/workermetrics"
 )
 
 const errInvalidPage = "INVALID_PAGE"
@@ -89,46 +67,46 @@ func (o OrderDirection) reverse() OrderDirection {
 
 const errInvalidPagination = "INVALID_PAGINATION"
 
-type AttributePager struct {
-	Order  attribute.OrderOption
-	Filter func(*AttributeQuery) (*AttributeQuery, error)
+type CronTaskPager struct {
+	Order  crontask.OrderOption
+	Filter func(*CronTaskQuery) (*CronTaskQuery, error)
 }
 
-// AttributePaginateOption enables pagination customization.
-type AttributePaginateOption func(*AttributePager)
+// CronTaskPaginateOption enables pagination customization.
+type CronTaskPaginateOption func(*CronTaskPager)
 
-// DefaultAttributeOrder is the default ordering of Attribute.
-var DefaultAttributeOrder = Desc(attribute.FieldID)
+// DefaultCronTaskOrder is the default ordering of CronTask.
+var DefaultCronTaskOrder = Desc(crontask.FieldID)
 
-func newAttributePager(opts []AttributePaginateOption) (*AttributePager, error) {
-	pager := &AttributePager{}
+func newCronTaskPager(opts []CronTaskPaginateOption) (*CronTaskPager, error) {
+	pager := &CronTaskPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultAttributeOrder
+		pager.Order = DefaultCronTaskOrder
 	}
 	return pager, nil
 }
 
-func (p *AttributePager) ApplyFilter(query *AttributeQuery) (*AttributeQuery, error) {
+func (p *CronTaskPager) ApplyFilter(query *CronTaskQuery) (*CronTaskQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// AttributePageList is Attribute PageList result.
-type AttributePageList struct {
-	List        []*Attribute `json:"list"`
+// CronTaskPageList is CronTask PageList result.
+type CronTaskPageList struct {
+	List        []*CronTask  `json:"list"`
 	PageDetails *PageDetails `json:"pageDetails"`
 }
 
-func (_m *AttributeQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...AttributePaginateOption,
-) (*AttributePageList, error) {
+func (_m *CronTaskQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CronTaskPaginateOption,
+) (*CronTaskPageList, error) {
 
-	pager, err := newAttributePager(opts)
+	pager, err := newCronTaskPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +115,7 @@ func (_m *AttributeQuery) Page(
 		return nil, err
 	}
 
-	ret := &AttributePageList{}
+	ret := &CronTaskPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -157,7 +135,7 @@ func (_m *AttributeQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultAttributeOrder)
+		_m = _m.Order(DefaultCronTaskOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -170,46 +148,46 @@ func (_m *AttributeQuery) Page(
 	return ret, nil
 }
 
-type ChoiceFloatPager struct {
-	Order  choicefloat.OrderOption
-	Filter func(*ChoiceFloatQuery) (*ChoiceFloatQuery, error)
+type DataTargetPager struct {
+	Order  datatarget.OrderOption
+	Filter func(*DataTargetQuery) (*DataTargetQuery, error)
 }
 
-// ChoiceFloatPaginateOption enables pagination customization.
-type ChoiceFloatPaginateOption func(*ChoiceFloatPager)
+// DataTargetPaginateOption enables pagination customization.
+type DataTargetPaginateOption func(*DataTargetPager)
 
-// DefaultChoiceFloatOrder is the default ordering of ChoiceFloat.
-var DefaultChoiceFloatOrder = Desc(choicefloat.FieldID)
+// DefaultDataTargetOrder is the default ordering of DataTarget.
+var DefaultDataTargetOrder = Desc(datatarget.FieldID)
 
-func newChoiceFloatPager(opts []ChoiceFloatPaginateOption) (*ChoiceFloatPager, error) {
-	pager := &ChoiceFloatPager{}
+func newDataTargetPager(opts []DataTargetPaginateOption) (*DataTargetPager, error) {
+	pager := &DataTargetPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultChoiceFloatOrder
+		pager.Order = DefaultDataTargetOrder
 	}
 	return pager, nil
 }
 
-func (p *ChoiceFloatPager) ApplyFilter(query *ChoiceFloatQuery) (*ChoiceFloatQuery, error) {
+func (p *DataTargetPager) ApplyFilter(query *DataTargetQuery) (*DataTargetQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// ChoiceFloatPageList is ChoiceFloat PageList result.
-type ChoiceFloatPageList struct {
-	List        []*ChoiceFloat `json:"list"`
-	PageDetails *PageDetails   `json:"pageDetails"`
+// DataTargetPageList is DataTarget PageList result.
+type DataTargetPageList struct {
+	List        []*DataTarget `json:"list"`
+	PageDetails *PageDetails  `json:"pageDetails"`
 }
 
-func (_m *ChoiceFloatQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ChoiceFloatPaginateOption,
-) (*ChoiceFloatPageList, error) {
+func (_m *DataTargetQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...DataTargetPaginateOption,
+) (*DataTargetPageList, error) {
 
-	pager, err := newChoiceFloatPager(opts)
+	pager, err := newDataTargetPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -218,7 +196,7 @@ func (_m *ChoiceFloatQuery) Page(
 		return nil, err
 	}
 
-	ret := &ChoiceFloatPageList{}
+	ret := &DataTargetPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -238,7 +216,7 @@ func (_m *ChoiceFloatQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultChoiceFloatOrder)
+		_m = _m.Order(DefaultDataTargetOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -251,46 +229,46 @@ func (_m *ChoiceFloatQuery) Page(
 	return ret, nil
 }
 
-type ChoiceIntegerPager struct {
-	Order  choiceinteger.OrderOption
-	Filter func(*ChoiceIntegerQuery) (*ChoiceIntegerQuery, error)
+type DiscoveryPoolPager struct {
+	Order  discoverypool.OrderOption
+	Filter func(*DiscoveryPoolQuery) (*DiscoveryPoolQuery, error)
 }
 
-// ChoiceIntegerPaginateOption enables pagination customization.
-type ChoiceIntegerPaginateOption func(*ChoiceIntegerPager)
+// DiscoveryPoolPaginateOption enables pagination customization.
+type DiscoveryPoolPaginateOption func(*DiscoveryPoolPager)
 
-// DefaultChoiceIntegerOrder is the default ordering of ChoiceInteger.
-var DefaultChoiceIntegerOrder = Desc(choiceinteger.FieldID)
+// DefaultDiscoveryPoolOrder is the default ordering of DiscoveryPool.
+var DefaultDiscoveryPoolOrder = Desc(discoverypool.FieldID)
 
-func newChoiceIntegerPager(opts []ChoiceIntegerPaginateOption) (*ChoiceIntegerPager, error) {
-	pager := &ChoiceIntegerPager{}
+func newDiscoveryPoolPager(opts []DiscoveryPoolPaginateOption) (*DiscoveryPoolPager, error) {
+	pager := &DiscoveryPoolPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultChoiceIntegerOrder
+		pager.Order = DefaultDiscoveryPoolOrder
 	}
 	return pager, nil
 }
 
-func (p *ChoiceIntegerPager) ApplyFilter(query *ChoiceIntegerQuery) (*ChoiceIntegerQuery, error) {
+func (p *DiscoveryPoolPager) ApplyFilter(query *DiscoveryPoolQuery) (*DiscoveryPoolQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// ChoiceIntegerPageList is ChoiceInteger PageList result.
-type ChoiceIntegerPageList struct {
-	List        []*ChoiceInteger `json:"list"`
+// DiscoveryPoolPageList is DiscoveryPool PageList result.
+type DiscoveryPoolPageList struct {
+	List        []*DiscoveryPool `json:"list"`
 	PageDetails *PageDetails     `json:"pageDetails"`
 }
 
-func (_m *ChoiceIntegerQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ChoiceIntegerPaginateOption,
-) (*ChoiceIntegerPageList, error) {
+func (_m *DiscoveryPoolQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...DiscoveryPoolPaginateOption,
+) (*DiscoveryPoolPageList, error) {
 
-	pager, err := newChoiceIntegerPager(opts)
+	pager, err := newDiscoveryPoolPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +277,7 @@ func (_m *ChoiceIntegerQuery) Page(
 		return nil, err
 	}
 
-	ret := &ChoiceIntegerPageList{}
+	ret := &DiscoveryPoolPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -319,7 +297,7 @@ func (_m *ChoiceIntegerQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultChoiceIntegerOrder)
+		_m = _m.Order(DefaultDiscoveryPoolOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -332,46 +310,46 @@ func (_m *ChoiceIntegerQuery) Page(
 	return ret, nil
 }
 
-type ChoiceTextPager struct {
-	Order  choicetext.OrderOption
-	Filter func(*ChoiceTextQuery) (*ChoiceTextQuery, error)
+type DiscoveryProviderSchemaPager struct {
+	Order  discoveryproviderschema.OrderOption
+	Filter func(*DiscoveryProviderSchemaQuery) (*DiscoveryProviderSchemaQuery, error)
 }
 
-// ChoiceTextPaginateOption enables pagination customization.
-type ChoiceTextPaginateOption func(*ChoiceTextPager)
+// DiscoveryProviderSchemaPaginateOption enables pagination customization.
+type DiscoveryProviderSchemaPaginateOption func(*DiscoveryProviderSchemaPager)
 
-// DefaultChoiceTextOrder is the default ordering of ChoiceText.
-var DefaultChoiceTextOrder = Desc(choicetext.FieldID)
+// DefaultDiscoveryProviderSchemaOrder is the default ordering of DiscoveryProviderSchema.
+var DefaultDiscoveryProviderSchemaOrder = Desc(discoveryproviderschema.FieldID)
 
-func newChoiceTextPager(opts []ChoiceTextPaginateOption) (*ChoiceTextPager, error) {
-	pager := &ChoiceTextPager{}
+func newDiscoveryProviderSchemaPager(opts []DiscoveryProviderSchemaPaginateOption) (*DiscoveryProviderSchemaPager, error) {
+	pager := &DiscoveryProviderSchemaPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultChoiceTextOrder
+		pager.Order = DefaultDiscoveryProviderSchemaOrder
 	}
 	return pager, nil
 }
 
-func (p *ChoiceTextPager) ApplyFilter(query *ChoiceTextQuery) (*ChoiceTextQuery, error) {
+func (p *DiscoveryProviderSchemaPager) ApplyFilter(query *DiscoveryProviderSchemaQuery) (*DiscoveryProviderSchemaQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// ChoiceTextPageList is ChoiceText PageList result.
-type ChoiceTextPageList struct {
-	List        []*ChoiceText `json:"list"`
-	PageDetails *PageDetails  `json:"pageDetails"`
+// DiscoveryProviderSchemaPageList is DiscoveryProviderSchema PageList result.
+type DiscoveryProviderSchemaPageList struct {
+	List        []*DiscoveryProviderSchema `json:"list"`
+	PageDetails *PageDetails               `json:"pageDetails"`
 }
 
-func (_m *ChoiceTextQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ChoiceTextPaginateOption,
-) (*ChoiceTextPageList, error) {
+func (_m *DiscoveryProviderSchemaQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...DiscoveryProviderSchemaPaginateOption,
+) (*DiscoveryProviderSchemaPageList, error) {
 
-	pager, err := newChoiceTextPager(opts)
+	pager, err := newDiscoveryProviderSchemaPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -380,7 +358,7 @@ func (_m *ChoiceTextQuery) Page(
 		return nil, err
 	}
 
-	ret := &ChoiceTextPageList{}
+	ret := &DiscoveryProviderSchemaPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -400,7 +378,7 @@ func (_m *ChoiceTextQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultChoiceTextOrder)
+		_m = _m.Order(DefaultDiscoveryProviderSchemaOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -413,1018 +391,46 @@ func (_m *ChoiceTextQuery) Page(
 	return ret, nil
 }
 
-type CiApprovalFlowPager struct {
-	Order  ciapprovalflow.OrderOption
-	Filter func(*CiApprovalFlowQuery) (*CiApprovalFlowQuery, error)
+type DiscoveryTemplatePager struct {
+	Order  discoverytemplate.OrderOption
+	Filter func(*DiscoveryTemplateQuery) (*DiscoveryTemplateQuery, error)
 }
 
-// CiApprovalFlowPaginateOption enables pagination customization.
-type CiApprovalFlowPaginateOption func(*CiApprovalFlowPager)
+// DiscoveryTemplatePaginateOption enables pagination customization.
+type DiscoveryTemplatePaginateOption func(*DiscoveryTemplatePager)
 
-// DefaultCiApprovalFlowOrder is the default ordering of CiApprovalFlow.
-var DefaultCiApprovalFlowOrder = Desc(ciapprovalflow.FieldID)
+// DefaultDiscoveryTemplateOrder is the default ordering of DiscoveryTemplate.
+var DefaultDiscoveryTemplateOrder = Desc(discoverytemplate.FieldID)
 
-func newCiApprovalFlowPager(opts []CiApprovalFlowPaginateOption) (*CiApprovalFlowPager, error) {
-	pager := &CiApprovalFlowPager{}
+func newDiscoveryTemplatePager(opts []DiscoveryTemplatePaginateOption) (*DiscoveryTemplatePager, error) {
+	pager := &DiscoveryTemplatePager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultCiApprovalFlowOrder
+		pager.Order = DefaultDiscoveryTemplateOrder
 	}
 	return pager, nil
 }
 
-func (p *CiApprovalFlowPager) ApplyFilter(query *CiApprovalFlowQuery) (*CiApprovalFlowQuery, error) {
+func (p *DiscoveryTemplatePager) ApplyFilter(query *DiscoveryTemplateQuery) (*DiscoveryTemplateQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// CiApprovalFlowPageList is CiApprovalFlow PageList result.
-type CiApprovalFlowPageList struct {
-	List        []*CiApprovalFlow `json:"list"`
-	PageDetails *PageDetails      `json:"pageDetails"`
-}
-
-func (_m *CiApprovalFlowQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiApprovalFlowPaginateOption,
-) (*CiApprovalFlowPageList, error) {
-
-	pager, err := newCiApprovalFlowPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiApprovalFlowPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiApprovalFlowOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiLifecycleStatePager struct {
-	Order  cilifecyclestate.OrderOption
-	Filter func(*CiLifecycleStateQuery) (*CiLifecycleStateQuery, error)
-}
-
-// CiLifecycleStatePaginateOption enables pagination customization.
-type CiLifecycleStatePaginateOption func(*CiLifecycleStatePager)
-
-// DefaultCiLifecycleStateOrder is the default ordering of CiLifecycleState.
-var DefaultCiLifecycleStateOrder = Desc(cilifecyclestate.FieldID)
-
-func newCiLifecycleStatePager(opts []CiLifecycleStatePaginateOption) (*CiLifecycleStatePager, error) {
-	pager := &CiLifecycleStatePager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiLifecycleStateOrder
-	}
-	return pager, nil
-}
-
-func (p *CiLifecycleStatePager) ApplyFilter(query *CiLifecycleStateQuery) (*CiLifecycleStateQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiLifecycleStatePageList is CiLifecycleState PageList result.
-type CiLifecycleStatePageList struct {
-	List        []*CiLifecycleState `json:"list"`
-	PageDetails *PageDetails        `json:"pageDetails"`
-}
-
-func (_m *CiLifecycleStateQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiLifecycleStatePaginateOption,
-) (*CiLifecycleStatePageList, error) {
-
-	pager, err := newCiLifecycleStatePager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiLifecycleStatePageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiLifecycleStateOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiOperationPager struct {
-	Order  cioperation.OrderOption
-	Filter func(*CiOperationQuery) (*CiOperationQuery, error)
-}
-
-// CiOperationPaginateOption enables pagination customization.
-type CiOperationPaginateOption func(*CiOperationPager)
-
-// DefaultCiOperationOrder is the default ordering of CiOperation.
-var DefaultCiOperationOrder = Desc(cioperation.FieldID)
-
-func newCiOperationPager(opts []CiOperationPaginateOption) (*CiOperationPager, error) {
-	pager := &CiOperationPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiOperationOrder
-	}
-	return pager, nil
-}
-
-func (p *CiOperationPager) ApplyFilter(query *CiOperationQuery) (*CiOperationQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiOperationPageList is CiOperation PageList result.
-type CiOperationPageList struct {
-	List        []*CiOperation `json:"list"`
-	PageDetails *PageDetails   `json:"pageDetails"`
-}
-
-func (_m *CiOperationQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiOperationPaginateOption,
-) (*CiOperationPageList, error) {
-
-	pager, err := newCiOperationPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiOperationPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiOperationOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiPermissionPager struct {
-	Order  cipermission.OrderOption
-	Filter func(*CiPermissionQuery) (*CiPermissionQuery, error)
-}
-
-// CiPermissionPaginateOption enables pagination customization.
-type CiPermissionPaginateOption func(*CiPermissionPager)
-
-// DefaultCiPermissionOrder is the default ordering of CiPermission.
-var DefaultCiPermissionOrder = Desc(cipermission.FieldID)
-
-func newCiPermissionPager(opts []CiPermissionPaginateOption) (*CiPermissionPager, error) {
-	pager := &CiPermissionPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiPermissionOrder
-	}
-	return pager, nil
-}
-
-func (p *CiPermissionPager) ApplyFilter(query *CiPermissionQuery) (*CiPermissionQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiPermissionPageList is CiPermission PageList result.
-type CiPermissionPageList struct {
-	List        []*CiPermission `json:"list"`
-	PageDetails *PageDetails    `json:"pageDetails"`
-}
-
-func (_m *CiPermissionQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiPermissionPaginateOption,
-) (*CiPermissionPageList, error) {
-
-	pager, err := newCiPermissionPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiPermissionPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiPermissionOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiRecordsPager struct {
-	Order  cirecords.OrderOption
-	Filter func(*CiRecordsQuery) (*CiRecordsQuery, error)
-}
-
-// CiRecordsPaginateOption enables pagination customization.
-type CiRecordsPaginateOption func(*CiRecordsPager)
-
-// DefaultCiRecordsOrder is the default ordering of CiRecords.
-var DefaultCiRecordsOrder = Desc(cirecords.FieldID)
-
-func newCiRecordsPager(opts []CiRecordsPaginateOption) (*CiRecordsPager, error) {
-	pager := &CiRecordsPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiRecordsOrder
-	}
-	return pager, nil
-}
-
-func (p *CiRecordsPager) ApplyFilter(query *CiRecordsQuery) (*CiRecordsQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiRecordsPageList is CiRecords PageList result.
-type CiRecordsPageList struct {
-	List        []*CiRecords `json:"list"`
-	PageDetails *PageDetails `json:"pageDetails"`
-}
-
-func (_m *CiRecordsQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiRecordsPaginateOption,
-) (*CiRecordsPageList, error) {
-
-	pager, err := newCiRecordsPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiRecordsPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiRecordsOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiRelationPager struct {
-	Order  cirelation.OrderOption
-	Filter func(*CiRelationQuery) (*CiRelationQuery, error)
-}
-
-// CiRelationPaginateOption enables pagination customization.
-type CiRelationPaginateOption func(*CiRelationPager)
-
-// DefaultCiRelationOrder is the default ordering of CiRelation.
-var DefaultCiRelationOrder = Desc(cirelation.FieldID)
-
-func newCiRelationPager(opts []CiRelationPaginateOption) (*CiRelationPager, error) {
-	pager := &CiRelationPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiRelationOrder
-	}
-	return pager, nil
-}
-
-func (p *CiRelationPager) ApplyFilter(query *CiRelationQuery) (*CiRelationQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiRelationPageList is CiRelation PageList result.
-type CiRelationPageList struct {
-	List        []*CiRelation `json:"list"`
-	PageDetails *PageDetails  `json:"pageDetails"`
-}
-
-func (_m *CiRelationQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiRelationPaginateOption,
-) (*CiRelationPageList, error) {
-
-	pager, err := newCiRelationPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiRelationPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiRelationOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiTypePager struct {
-	Order  citype.OrderOption
-	Filter func(*CiTypeQuery) (*CiTypeQuery, error)
-}
-
-// CiTypePaginateOption enables pagination customization.
-type CiTypePaginateOption func(*CiTypePager)
-
-// DefaultCiTypeOrder is the default ordering of CiType.
-var DefaultCiTypeOrder = Desc(citype.FieldID)
-
-func newCiTypePager(opts []CiTypePaginateOption) (*CiTypePager, error) {
-	pager := &CiTypePager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiTypeOrder
-	}
-	return pager, nil
-}
-
-func (p *CiTypePager) ApplyFilter(query *CiTypeQuery) (*CiTypeQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiTypePageList is CiType PageList result.
-type CiTypePageList struct {
-	List        []*CiType    `json:"list"`
-	PageDetails *PageDetails `json:"pageDetails"`
-}
-
-func (_m *CiTypeQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiTypePaginateOption,
-) (*CiTypePageList, error) {
-
-	pager, err := newCiTypePager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiTypePageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiTypeOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiTypeAttributePager struct {
-	Order  citypeattribute.OrderOption
-	Filter func(*CiTypeAttributeQuery) (*CiTypeAttributeQuery, error)
-}
-
-// CiTypeAttributePaginateOption enables pagination customization.
-type CiTypeAttributePaginateOption func(*CiTypeAttributePager)
-
-// DefaultCiTypeAttributeOrder is the default ordering of CiTypeAttribute.
-var DefaultCiTypeAttributeOrder = Desc(citypeattribute.FieldID)
-
-func newCiTypeAttributePager(opts []CiTypeAttributePaginateOption) (*CiTypeAttributePager, error) {
-	pager := &CiTypeAttributePager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiTypeAttributeOrder
-	}
-	return pager, nil
-}
-
-func (p *CiTypeAttributePager) ApplyFilter(query *CiTypeAttributeQuery) (*CiTypeAttributeQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiTypeAttributePageList is CiTypeAttribute PageList result.
-type CiTypeAttributePageList struct {
-	List        []*CiTypeAttribute `json:"list"`
-	PageDetails *PageDetails       `json:"pageDetails"`
-}
-
-func (_m *CiTypeAttributeQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiTypeAttributePaginateOption,
-) (*CiTypeAttributePageList, error) {
-
-	pager, err := newCiTypeAttributePager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiTypeAttributePageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiTypeAttributeOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiTypeAttributeGroupPager struct {
-	Order  citypeattributegroup.OrderOption
-	Filter func(*CiTypeAttributeGroupQuery) (*CiTypeAttributeGroupQuery, error)
-}
-
-// CiTypeAttributeGroupPaginateOption enables pagination customization.
-type CiTypeAttributeGroupPaginateOption func(*CiTypeAttributeGroupPager)
-
-// DefaultCiTypeAttributeGroupOrder is the default ordering of CiTypeAttributeGroup.
-var DefaultCiTypeAttributeGroupOrder = Desc(citypeattributegroup.FieldID)
-
-func newCiTypeAttributeGroupPager(opts []CiTypeAttributeGroupPaginateOption) (*CiTypeAttributeGroupPager, error) {
-	pager := &CiTypeAttributeGroupPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiTypeAttributeGroupOrder
-	}
-	return pager, nil
-}
-
-func (p *CiTypeAttributeGroupPager) ApplyFilter(query *CiTypeAttributeGroupQuery) (*CiTypeAttributeGroupQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiTypeAttributeGroupPageList is CiTypeAttributeGroup PageList result.
-type CiTypeAttributeGroupPageList struct {
-	List        []*CiTypeAttributeGroup `json:"list"`
-	PageDetails *PageDetails            `json:"pageDetails"`
-}
-
-func (_m *CiTypeAttributeGroupQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiTypeAttributeGroupPaginateOption,
-) (*CiTypeAttributeGroupPageList, error) {
-
-	pager, err := newCiTypeAttributeGroupPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiTypeAttributeGroupPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiTypeAttributeGroupOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiTypeAttributeGroupItemPager struct {
-	Order  citypeattributegroupitem.OrderOption
-	Filter func(*CiTypeAttributeGroupItemQuery) (*CiTypeAttributeGroupItemQuery, error)
-}
-
-// CiTypeAttributeGroupItemPaginateOption enables pagination customization.
-type CiTypeAttributeGroupItemPaginateOption func(*CiTypeAttributeGroupItemPager)
-
-// DefaultCiTypeAttributeGroupItemOrder is the default ordering of CiTypeAttributeGroupItem.
-var DefaultCiTypeAttributeGroupItemOrder = Desc(citypeattributegroupitem.FieldID)
-
-func newCiTypeAttributeGroupItemPager(opts []CiTypeAttributeGroupItemPaginateOption) (*CiTypeAttributeGroupItemPager, error) {
-	pager := &CiTypeAttributeGroupItemPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiTypeAttributeGroupItemOrder
-	}
-	return pager, nil
-}
-
-func (p *CiTypeAttributeGroupItemPager) ApplyFilter(query *CiTypeAttributeGroupItemQuery) (*CiTypeAttributeGroupItemQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiTypeAttributeGroupItemPageList is CiTypeAttributeGroupItem PageList result.
-type CiTypeAttributeGroupItemPageList struct {
-	List        []*CiTypeAttributeGroupItem `json:"list"`
-	PageDetails *PageDetails                `json:"pageDetails"`
-}
-
-func (_m *CiTypeAttributeGroupItemQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiTypeAttributeGroupItemPaginateOption,
-) (*CiTypeAttributeGroupItemPageList, error) {
-
-	pager, err := newCiTypeAttributeGroupItemPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiTypeAttributeGroupItemPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiTypeAttributeGroupItemOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiTypeGroupPager struct {
-	Order  citypegroup.OrderOption
-	Filter func(*CiTypeGroupQuery) (*CiTypeGroupQuery, error)
-}
-
-// CiTypeGroupPaginateOption enables pagination customization.
-type CiTypeGroupPaginateOption func(*CiTypeGroupPager)
-
-// DefaultCiTypeGroupOrder is the default ordering of CiTypeGroup.
-var DefaultCiTypeGroupOrder = Desc(citypegroup.FieldID)
-
-func newCiTypeGroupPager(opts []CiTypeGroupPaginateOption) (*CiTypeGroupPager, error) {
-	pager := &CiTypeGroupPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiTypeGroupOrder
-	}
-	return pager, nil
-}
-
-func (p *CiTypeGroupPager) ApplyFilter(query *CiTypeGroupQuery) (*CiTypeGroupQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiTypeGroupPageList is CiTypeGroup PageList result.
-type CiTypeGroupPageList struct {
-	List        []*CiTypeGroup `json:"list"`
-	PageDetails *PageDetails   `json:"pageDetails"`
-}
-
-func (_m *CiTypeGroupQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiTypeGroupPaginateOption,
-) (*CiTypeGroupPageList, error) {
-
-	pager, err := newCiTypeGroupPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiTypeGroupPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiTypeGroupOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiTypeGroupItemPager struct {
-	Order  citypegroupitem.OrderOption
-	Filter func(*CiTypeGroupItemQuery) (*CiTypeGroupItemQuery, error)
-}
-
-// CiTypeGroupItemPaginateOption enables pagination customization.
-type CiTypeGroupItemPaginateOption func(*CiTypeGroupItemPager)
-
-// DefaultCiTypeGroupItemOrder is the default ordering of CiTypeGroupItem.
-var DefaultCiTypeGroupItemOrder = Desc(citypegroupitem.FieldID)
-
-func newCiTypeGroupItemPager(opts []CiTypeGroupItemPaginateOption) (*CiTypeGroupItemPager, error) {
-	pager := &CiTypeGroupItemPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiTypeGroupItemOrder
-	}
-	return pager, nil
-}
-
-func (p *CiTypeGroupItemPager) ApplyFilter(query *CiTypeGroupItemQuery) (*CiTypeGroupItemQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiTypeGroupItemPageList is CiTypeGroupItem PageList result.
-type CiTypeGroupItemPageList struct {
-	List        []*CiTypeGroupItem `json:"list"`
-	PageDetails *PageDetails       `json:"pageDetails"`
-}
-
-func (_m *CiTypeGroupItemQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiTypeGroupItemPaginateOption,
-) (*CiTypeGroupItemPageList, error) {
-
-	pager, err := newCiTypeGroupItemPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiTypeGroupItemPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiTypeGroupItemOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CiTypeInheritancePager struct {
-	Order  citypeinheritance.OrderOption
-	Filter func(*CiTypeInheritanceQuery) (*CiTypeInheritanceQuery, error)
-}
-
-// CiTypeInheritancePaginateOption enables pagination customization.
-type CiTypeInheritancePaginateOption func(*CiTypeInheritancePager)
-
-// DefaultCiTypeInheritanceOrder is the default ordering of CiTypeInheritance.
-var DefaultCiTypeInheritanceOrder = Desc(citypeinheritance.FieldID)
-
-func newCiTypeInheritancePager(opts []CiTypeInheritancePaginateOption) (*CiTypeInheritancePager, error) {
-	pager := &CiTypeInheritancePager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCiTypeInheritanceOrder
-	}
-	return pager, nil
-}
-
-func (p *CiTypeInheritancePager) ApplyFilter(query *CiTypeInheritanceQuery) (*CiTypeInheritanceQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CiTypeInheritancePageList is CiTypeInheritance PageList result.
-type CiTypeInheritancePageList struct {
-	List        []*CiTypeInheritance `json:"list"`
+// DiscoveryTemplatePageList is DiscoveryTemplate PageList result.
+type DiscoveryTemplatePageList struct {
+	List        []*DiscoveryTemplate `json:"list"`
 	PageDetails *PageDetails         `json:"pageDetails"`
 }
 
-func (_m *CiTypeInheritanceQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiTypeInheritancePaginateOption,
-) (*CiTypeInheritancePageList, error) {
+func (_m *DiscoveryTemplateQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...DiscoveryTemplatePaginateOption,
+) (*DiscoveryTemplatePageList, error) {
 
-	pager, err := newCiTypeInheritancePager(opts)
+	pager, err := newDiscoveryTemplatePager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -1433,7 +439,7 @@ func (_m *CiTypeInheritanceQuery) Page(
 		return nil, err
 	}
 
-	ret := &CiTypeInheritancePageList{}
+	ret := &DiscoveryTemplatePageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -1453,7 +459,7 @@ func (_m *CiTypeInheritanceQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultCiTypeInheritanceOrder)
+		_m = _m.Order(DefaultDiscoveryTemplateOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -1466,370 +472,46 @@ func (_m *CiTypeInheritanceQuery) Page(
 	return ret, nil
 }
 
-type CiTypeRelationPager struct {
-	Order  cityperelation.OrderOption
-	Filter func(*CiTypeRelationQuery) (*CiTypeRelationQuery, error)
+type DlqMessagePager struct {
+	Order  dlqmessage.OrderOption
+	Filter func(*DlqMessageQuery) (*DlqMessageQuery, error)
 }
 
-// CiTypeRelationPaginateOption enables pagination customization.
-type CiTypeRelationPaginateOption func(*CiTypeRelationPager)
+// DlqMessagePaginateOption enables pagination customization.
+type DlqMessagePaginateOption func(*DlqMessagePager)
 
-// DefaultCiTypeRelationOrder is the default ordering of CiTypeRelation.
-var DefaultCiTypeRelationOrder = Desc(cityperelation.FieldID)
+// DefaultDlqMessageOrder is the default ordering of DlqMessage.
+var DefaultDlqMessageOrder = Desc(dlqmessage.FieldID)
 
-func newCiTypeRelationPager(opts []CiTypeRelationPaginateOption) (*CiTypeRelationPager, error) {
-	pager := &CiTypeRelationPager{}
+func newDlqMessagePager(opts []DlqMessagePaginateOption) (*DlqMessagePager, error) {
+	pager := &DlqMessagePager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultCiTypeRelationOrder
+		pager.Order = DefaultDlqMessageOrder
 	}
 	return pager, nil
 }
 
-func (p *CiTypeRelationPager) ApplyFilter(query *CiTypeRelationQuery) (*CiTypeRelationQuery, error) {
+func (p *DlqMessagePager) ApplyFilter(query *DlqMessageQuery) (*DlqMessageQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// CiTypeRelationPageList is CiTypeRelation PageList result.
-type CiTypeRelationPageList struct {
-	List        []*CiTypeRelation `json:"list"`
-	PageDetails *PageDetails      `json:"pageDetails"`
-}
-
-func (_m *CiTypeRelationQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiTypeRelationPaginateOption,
-) (*CiTypeRelationPageList, error) {
-
-	pager, err := newCiTypeRelationPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CiTypeRelationPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCiTypeRelationOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type CisPager struct {
-	Order  cis.OrderOption
-	Filter func(*CisQuery) (*CisQuery, error)
-}
-
-// CisPaginateOption enables pagination customization.
-type CisPaginateOption func(*CisPager)
-
-// DefaultCisOrder is the default ordering of Cis.
-var DefaultCisOrder = Desc(cis.FieldID)
-
-func newCisPager(opts []CisPaginateOption) (*CisPager, error) {
-	pager := &CisPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultCisOrder
-	}
-	return pager, nil
-}
-
-func (p *CisPager) ApplyFilter(query *CisQuery) (*CisQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// CisPageList is Cis PageList result.
-type CisPageList struct {
-	List        []*Cis       `json:"list"`
-	PageDetails *PageDetails `json:"pageDetails"`
-}
-
-func (_m *CisQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CisPaginateOption,
-) (*CisPageList, error) {
-
-	pager, err := newCisPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &CisPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultCisOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type ImportErrorPager struct {
-	Order  importerror.OrderOption
-	Filter func(*ImportErrorQuery) (*ImportErrorQuery, error)
-}
-
-// ImportErrorPaginateOption enables pagination customization.
-type ImportErrorPaginateOption func(*ImportErrorPager)
-
-// DefaultImportErrorOrder is the default ordering of ImportError.
-var DefaultImportErrorOrder = Desc(importerror.FieldID)
-
-func newImportErrorPager(opts []ImportErrorPaginateOption) (*ImportErrorPager, error) {
-	pager := &ImportErrorPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultImportErrorOrder
-	}
-	return pager, nil
-}
-
-func (p *ImportErrorPager) ApplyFilter(query *ImportErrorQuery) (*ImportErrorQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// ImportErrorPageList is ImportError PageList result.
-type ImportErrorPageList struct {
-	List        []*ImportError `json:"list"`
-	PageDetails *PageDetails   `json:"pageDetails"`
-}
-
-func (_m *ImportErrorQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ImportErrorPaginateOption,
-) (*ImportErrorPageList, error) {
-
-	pager, err := newImportErrorPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &ImportErrorPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultImportErrorOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type ImportRecordPager struct {
-	Order  importrecord.OrderOption
-	Filter func(*ImportRecordQuery) (*ImportRecordQuery, error)
-}
-
-// ImportRecordPaginateOption enables pagination customization.
-type ImportRecordPaginateOption func(*ImportRecordPager)
-
-// DefaultImportRecordOrder is the default ordering of ImportRecord.
-var DefaultImportRecordOrder = Desc(importrecord.FieldID)
-
-func newImportRecordPager(opts []ImportRecordPaginateOption) (*ImportRecordPager, error) {
-	pager := &ImportRecordPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultImportRecordOrder
-	}
-	return pager, nil
-}
-
-func (p *ImportRecordPager) ApplyFilter(query *ImportRecordQuery) (*ImportRecordQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// ImportRecordPageList is ImportRecord PageList result.
-type ImportRecordPageList struct {
-	List        []*ImportRecord `json:"list"`
-	PageDetails *PageDetails    `json:"pageDetails"`
-}
-
-func (_m *ImportRecordQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ImportRecordPaginateOption,
-) (*ImportRecordPageList, error) {
-
-	pager, err := newImportRecordPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &ImportRecordPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultImportRecordOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type ImportTaskPager struct {
-	Order  importtask.OrderOption
-	Filter func(*ImportTaskQuery) (*ImportTaskQuery, error)
-}
-
-// ImportTaskPaginateOption enables pagination customization.
-type ImportTaskPaginateOption func(*ImportTaskPager)
-
-// DefaultImportTaskOrder is the default ordering of ImportTask.
-var DefaultImportTaskOrder = Desc(importtask.FieldID)
-
-func newImportTaskPager(opts []ImportTaskPaginateOption) (*ImportTaskPager, error) {
-	pager := &ImportTaskPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultImportTaskOrder
-	}
-	return pager, nil
-}
-
-func (p *ImportTaskPager) ApplyFilter(query *ImportTaskQuery) (*ImportTaskQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// ImportTaskPageList is ImportTask PageList result.
-type ImportTaskPageList struct {
-	List        []*ImportTask `json:"list"`
+// DlqMessagePageList is DlqMessage PageList result.
+type DlqMessagePageList struct {
+	List        []*DlqMessage `json:"list"`
 	PageDetails *PageDetails  `json:"pageDetails"`
 }
 
-func (_m *ImportTaskQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ImportTaskPaginateOption,
-) (*ImportTaskPageList, error) {
+func (_m *DlqMessageQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...DlqMessagePaginateOption,
+) (*DlqMessagePageList, error) {
 
-	pager, err := newImportTaskPager(opts)
+	pager, err := newDlqMessagePager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -1838,7 +520,7 @@ func (_m *ImportTaskQuery) Page(
 		return nil, err
 	}
 
-	ret := &ImportTaskPageList{}
+	ret := &DlqMessagePageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -1858,7 +540,7 @@ func (_m *ImportTaskQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultImportTaskOrder)
+		_m = _m.Order(DefaultDlqMessageOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -1871,532 +553,46 @@ func (_m *ImportTaskQuery) Page(
 	return ret, nil
 }
 
-type ImportTemplatePager struct {
-	Order  importtemplate.OrderOption
-	Filter func(*ImportTemplateQuery) (*ImportTemplateQuery, error)
+type FieldMappingPager struct {
+	Order  fieldmapping.OrderOption
+	Filter func(*FieldMappingQuery) (*FieldMappingQuery, error)
 }
 
-// ImportTemplatePaginateOption enables pagination customization.
-type ImportTemplatePaginateOption func(*ImportTemplatePager)
+// FieldMappingPaginateOption enables pagination customization.
+type FieldMappingPaginateOption func(*FieldMappingPager)
 
-// DefaultImportTemplateOrder is the default ordering of ImportTemplate.
-var DefaultImportTemplateOrder = Desc(importtemplate.FieldID)
+// DefaultFieldMappingOrder is the default ordering of FieldMapping.
+var DefaultFieldMappingOrder = Desc(fieldmapping.FieldID)
 
-func newImportTemplatePager(opts []ImportTemplatePaginateOption) (*ImportTemplatePager, error) {
-	pager := &ImportTemplatePager{}
+func newFieldMappingPager(opts []FieldMappingPaginateOption) (*FieldMappingPager, error) {
+	pager := &FieldMappingPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultImportTemplateOrder
+		pager.Order = DefaultFieldMappingOrder
 	}
 	return pager, nil
 }
 
-func (p *ImportTemplatePager) ApplyFilter(query *ImportTemplateQuery) (*ImportTemplateQuery, error) {
+func (p *FieldMappingPager) ApplyFilter(query *FieldMappingQuery) (*FieldMappingQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// ImportTemplatePageList is ImportTemplate PageList result.
-type ImportTemplatePageList struct {
-	List        []*ImportTemplate `json:"list"`
-	PageDetails *PageDetails      `json:"pageDetails"`
-}
-
-func (_m *ImportTemplateQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ImportTemplatePaginateOption,
-) (*ImportTemplatePageList, error) {
-
-	pager, err := newImportTemplatePager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &ImportTemplatePageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultImportTemplateOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type PermissionCachePager struct {
-	Order  permissioncache.OrderOption
-	Filter func(*PermissionCacheQuery) (*PermissionCacheQuery, error)
-}
-
-// PermissionCachePaginateOption enables pagination customization.
-type PermissionCachePaginateOption func(*PermissionCachePager)
-
-// DefaultPermissionCacheOrder is the default ordering of PermissionCache.
-var DefaultPermissionCacheOrder = Desc(permissioncache.FieldID)
-
-func newPermissionCachePager(opts []PermissionCachePaginateOption) (*PermissionCachePager, error) {
-	pager := &PermissionCachePager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultPermissionCacheOrder
-	}
-	return pager, nil
-}
-
-func (p *PermissionCachePager) ApplyFilter(query *PermissionCacheQuery) (*PermissionCacheQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// PermissionCachePageList is PermissionCache PageList result.
-type PermissionCachePageList struct {
-	List        []*PermissionCache `json:"list"`
-	PageDetails *PageDetails       `json:"pageDetails"`
-}
-
-func (_m *PermissionCacheQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...PermissionCachePaginateOption,
-) (*PermissionCachePageList, error) {
-
-	pager, err := newPermissionCachePager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &PermissionCachePageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultPermissionCacheOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type PermissionDataFilterPager struct {
-	Order  permissiondatafilter.OrderOption
-	Filter func(*PermissionDataFilterQuery) (*PermissionDataFilterQuery, error)
-}
-
-// PermissionDataFilterPaginateOption enables pagination customization.
-type PermissionDataFilterPaginateOption func(*PermissionDataFilterPager)
-
-// DefaultPermissionDataFilterOrder is the default ordering of PermissionDataFilter.
-var DefaultPermissionDataFilterOrder = Desc(permissiondatafilter.FieldID)
-
-func newPermissionDataFilterPager(opts []PermissionDataFilterPaginateOption) (*PermissionDataFilterPager, error) {
-	pager := &PermissionDataFilterPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultPermissionDataFilterOrder
-	}
-	return pager, nil
-}
-
-func (p *PermissionDataFilterPager) ApplyFilter(query *PermissionDataFilterQuery) (*PermissionDataFilterQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// PermissionDataFilterPageList is PermissionDataFilter PageList result.
-type PermissionDataFilterPageList struct {
-	List        []*PermissionDataFilter `json:"list"`
-	PageDetails *PageDetails            `json:"pageDetails"`
-}
-
-func (_m *PermissionDataFilterQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...PermissionDataFilterPaginateOption,
-) (*PermissionDataFilterPageList, error) {
-
-	pager, err := newPermissionDataFilterPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &PermissionDataFilterPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultPermissionDataFilterOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type PermissionFieldMaskPager struct {
-	Order  permissionfieldmask.OrderOption
-	Filter func(*PermissionFieldMaskQuery) (*PermissionFieldMaskQuery, error)
-}
-
-// PermissionFieldMaskPaginateOption enables pagination customization.
-type PermissionFieldMaskPaginateOption func(*PermissionFieldMaskPager)
-
-// DefaultPermissionFieldMaskOrder is the default ordering of PermissionFieldMask.
-var DefaultPermissionFieldMaskOrder = Desc(permissionfieldmask.FieldID)
-
-func newPermissionFieldMaskPager(opts []PermissionFieldMaskPaginateOption) (*PermissionFieldMaskPager, error) {
-	pager := &PermissionFieldMaskPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultPermissionFieldMaskOrder
-	}
-	return pager, nil
-}
-
-func (p *PermissionFieldMaskPager) ApplyFilter(query *PermissionFieldMaskQuery) (*PermissionFieldMaskQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// PermissionFieldMaskPageList is PermissionFieldMask PageList result.
-type PermissionFieldMaskPageList struct {
-	List        []*PermissionFieldMask `json:"list"`
-	PageDetails *PageDetails           `json:"pageDetails"`
-}
-
-func (_m *PermissionFieldMaskQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...PermissionFieldMaskPaginateOption,
-) (*PermissionFieldMaskPageList, error) {
-
-	pager, err := newPermissionFieldMaskPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &PermissionFieldMaskPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultPermissionFieldMaskOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type PermissionOperationPager struct {
-	Order  permissionoperation.OrderOption
-	Filter func(*PermissionOperationQuery) (*PermissionOperationQuery, error)
-}
-
-// PermissionOperationPaginateOption enables pagination customization.
-type PermissionOperationPaginateOption func(*PermissionOperationPager)
-
-// DefaultPermissionOperationOrder is the default ordering of PermissionOperation.
-var DefaultPermissionOperationOrder = Desc(permissionoperation.FieldID)
-
-func newPermissionOperationPager(opts []PermissionOperationPaginateOption) (*PermissionOperationPager, error) {
-	pager := &PermissionOperationPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultPermissionOperationOrder
-	}
-	return pager, nil
-}
-
-func (p *PermissionOperationPager) ApplyFilter(query *PermissionOperationQuery) (*PermissionOperationQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// PermissionOperationPageList is PermissionOperation PageList result.
-type PermissionOperationPageList struct {
-	List        []*PermissionOperation `json:"list"`
-	PageDetails *PageDetails           `json:"pageDetails"`
-}
-
-func (_m *PermissionOperationQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...PermissionOperationPaginateOption,
-) (*PermissionOperationPageList, error) {
-
-	pager, err := newPermissionOperationPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &PermissionOperationPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultPermissionOperationOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type PermissionTemplatePager struct {
-	Order  permissiontemplate.OrderOption
-	Filter func(*PermissionTemplateQuery) (*PermissionTemplateQuery, error)
-}
-
-// PermissionTemplatePaginateOption enables pagination customization.
-type PermissionTemplatePaginateOption func(*PermissionTemplatePager)
-
-// DefaultPermissionTemplateOrder is the default ordering of PermissionTemplate.
-var DefaultPermissionTemplateOrder = Desc(permissiontemplate.FieldID)
-
-func newPermissionTemplatePager(opts []PermissionTemplatePaginateOption) (*PermissionTemplatePager, error) {
-	pager := &PermissionTemplatePager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultPermissionTemplateOrder
-	}
-	return pager, nil
-}
-
-func (p *PermissionTemplatePager) ApplyFilter(query *PermissionTemplateQuery) (*PermissionTemplateQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// PermissionTemplatePageList is PermissionTemplate PageList result.
-type PermissionTemplatePageList struct {
-	List        []*PermissionTemplate `json:"list"`
-	PageDetails *PageDetails          `json:"pageDetails"`
-}
-
-func (_m *PermissionTemplateQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...PermissionTemplatePaginateOption,
-) (*PermissionTemplatePageList, error) {
-
-	pager, err := newPermissionTemplatePager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &PermissionTemplatePageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultPermissionTemplateOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type RelationTypePager struct {
-	Order  relationtype.OrderOption
-	Filter func(*RelationTypeQuery) (*RelationTypeQuery, error)
-}
-
-// RelationTypePaginateOption enables pagination customization.
-type RelationTypePaginateOption func(*RelationTypePager)
-
-// DefaultRelationTypeOrder is the default ordering of RelationType.
-var DefaultRelationTypeOrder = Desc(relationtype.FieldID)
-
-func newRelationTypePager(opts []RelationTypePaginateOption) (*RelationTypePager, error) {
-	pager := &RelationTypePager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultRelationTypeOrder
-	}
-	return pager, nil
-}
-
-func (p *RelationTypePager) ApplyFilter(query *RelationTypeQuery) (*RelationTypeQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// RelationTypePageList is RelationType PageList result.
-type RelationTypePageList struct {
-	List        []*RelationType `json:"list"`
+// FieldMappingPageList is FieldMapping PageList result.
+type FieldMappingPageList struct {
+	List        []*FieldMapping `json:"list"`
 	PageDetails *PageDetails    `json:"pageDetails"`
 }
 
-func (_m *RelationTypeQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...RelationTypePaginateOption,
-) (*RelationTypePageList, error) {
+func (_m *FieldMappingQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...FieldMappingPaginateOption,
+) (*FieldMappingPageList, error) {
 
-	pager, err := newRelationTypePager(opts)
+	pager, err := newFieldMappingPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -2405,7 +601,7 @@ func (_m *RelationTypeQuery) Page(
 		return nil, err
 	}
 
-	ret := &RelationTypePageList{}
+	ret := &FieldMappingPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -2425,7 +621,7 @@ func (_m *RelationTypeQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultRelationTypeOrder)
+		_m = _m.Order(DefaultFieldMappingOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -2438,46 +634,208 @@ func (_m *RelationTypeQuery) Page(
 	return ret, nil
 }
 
-type ValueDatetimePager struct {
-	Order  valuedatetime.OrderOption
-	Filter func(*ValueDatetimeQuery) (*ValueDatetimeQuery, error)
+type InputTaskPager struct {
+	Order  inputtask.OrderOption
+	Filter func(*InputTaskQuery) (*InputTaskQuery, error)
 }
 
-// ValueDatetimePaginateOption enables pagination customization.
-type ValueDatetimePaginateOption func(*ValueDatetimePager)
+// InputTaskPaginateOption enables pagination customization.
+type InputTaskPaginateOption func(*InputTaskPager)
 
-// DefaultValueDatetimeOrder is the default ordering of ValueDatetime.
-var DefaultValueDatetimeOrder = Desc(valuedatetime.FieldID)
+// DefaultInputTaskOrder is the default ordering of InputTask.
+var DefaultInputTaskOrder = Desc(inputtask.FieldID)
 
-func newValueDatetimePager(opts []ValueDatetimePaginateOption) (*ValueDatetimePager, error) {
-	pager := &ValueDatetimePager{}
+func newInputTaskPager(opts []InputTaskPaginateOption) (*InputTaskPager, error) {
+	pager := &InputTaskPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultValueDatetimeOrder
+		pager.Order = DefaultInputTaskOrder
 	}
 	return pager, nil
 }
 
-func (p *ValueDatetimePager) ApplyFilter(query *ValueDatetimeQuery) (*ValueDatetimeQuery, error) {
+func (p *InputTaskPager) ApplyFilter(query *InputTaskQuery) (*InputTaskQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// ValueDatetimePageList is ValueDatetime PageList result.
-type ValueDatetimePageList struct {
-	List        []*ValueDatetime `json:"list"`
+// InputTaskPageList is InputTask PageList result.
+type InputTaskPageList struct {
+	List        []*InputTask `json:"list"`
+	PageDetails *PageDetails `json:"pageDetails"`
+}
+
+func (_m *InputTaskQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...InputTaskPaginateOption,
+) (*InputTaskPageList, error) {
+
+	pager, err := newInputTaskPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if _m, err = pager.ApplyFilter(_m); err != nil {
+		return nil, err
+	}
+
+	ret := &InputTaskPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := _m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		_m = _m.Order(pager.Order)
+	} else {
+		_m = _m.Order(DefaultInputTaskOrder)
+	}
+
+	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := _m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type MappingLogPager struct {
+	Order  mappinglog.OrderOption
+	Filter func(*MappingLogQuery) (*MappingLogQuery, error)
+}
+
+// MappingLogPaginateOption enables pagination customization.
+type MappingLogPaginateOption func(*MappingLogPager)
+
+// DefaultMappingLogOrder is the default ordering of MappingLog.
+var DefaultMappingLogOrder = Desc(mappinglog.FieldID)
+
+func newMappingLogPager(opts []MappingLogPaginateOption) (*MappingLogPager, error) {
+	pager := &MappingLogPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultMappingLogOrder
+	}
+	return pager, nil
+}
+
+func (p *MappingLogPager) ApplyFilter(query *MappingLogQuery) (*MappingLogQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// MappingLogPageList is MappingLog PageList result.
+type MappingLogPageList struct {
+	List        []*MappingLog `json:"list"`
+	PageDetails *PageDetails  `json:"pageDetails"`
+}
+
+func (_m *MappingLogQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...MappingLogPaginateOption,
+) (*MappingLogPageList, error) {
+
+	pager, err := newMappingLogPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if _m, err = pager.ApplyFilter(_m); err != nil {
+		return nil, err
+	}
+
+	ret := &MappingLogPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := _m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		_m = _m.Order(pager.Order)
+	} else {
+		_m = _m.Order(DefaultMappingLogOrder)
+	}
+
+	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := _m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type OutboxMessagePager struct {
+	Order  outboxmessage.OrderOption
+	Filter func(*OutboxMessageQuery) (*OutboxMessageQuery, error)
+}
+
+// OutboxMessagePaginateOption enables pagination customization.
+type OutboxMessagePaginateOption func(*OutboxMessagePager)
+
+// DefaultOutboxMessageOrder is the default ordering of OutboxMessage.
+var DefaultOutboxMessageOrder = Desc(outboxmessage.FieldID)
+
+func newOutboxMessagePager(opts []OutboxMessagePaginateOption) (*OutboxMessagePager, error) {
+	pager := &OutboxMessagePager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultOutboxMessageOrder
+	}
+	return pager, nil
+}
+
+func (p *OutboxMessagePager) ApplyFilter(query *OutboxMessageQuery) (*OutboxMessageQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// OutboxMessagePageList is OutboxMessage PageList result.
+type OutboxMessagePageList struct {
+	List        []*OutboxMessage `json:"list"`
 	PageDetails *PageDetails     `json:"pageDetails"`
 }
 
-func (_m *ValueDatetimeQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ValueDatetimePaginateOption,
-) (*ValueDatetimePageList, error) {
+func (_m *OutboxMessageQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...OutboxMessagePaginateOption,
+) (*OutboxMessagePageList, error) {
 
-	pager, err := newValueDatetimePager(opts)
+	pager, err := newOutboxMessagePager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -2486,7 +844,7 @@ func (_m *ValueDatetimeQuery) Page(
 		return nil, err
 	}
 
-	ret := &ValueDatetimePageList{}
+	ret := &OutboxMessagePageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -2506,7 +864,7 @@ func (_m *ValueDatetimeQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultValueDatetimeOrder)
+		_m = _m.Order(DefaultOutboxMessageOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -2519,46 +877,46 @@ func (_m *ValueDatetimeQuery) Page(
 	return ret, nil
 }
 
-type ValueFloatPager struct {
-	Order  valuefloat.OrderOption
-	Filter func(*ValueFloatQuery) (*ValueFloatQuery, error)
+type OutputTaskPager struct {
+	Order  outputtask.OrderOption
+	Filter func(*OutputTaskQuery) (*OutputTaskQuery, error)
 }
 
-// ValueFloatPaginateOption enables pagination customization.
-type ValueFloatPaginateOption func(*ValueFloatPager)
+// OutputTaskPaginateOption enables pagination customization.
+type OutputTaskPaginateOption func(*OutputTaskPager)
 
-// DefaultValueFloatOrder is the default ordering of ValueFloat.
-var DefaultValueFloatOrder = Desc(valuefloat.FieldID)
+// DefaultOutputTaskOrder is the default ordering of OutputTask.
+var DefaultOutputTaskOrder = Desc(outputtask.FieldID)
 
-func newValueFloatPager(opts []ValueFloatPaginateOption) (*ValueFloatPager, error) {
-	pager := &ValueFloatPager{}
+func newOutputTaskPager(opts []OutputTaskPaginateOption) (*OutputTaskPager, error) {
+	pager := &OutputTaskPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultValueFloatOrder
+		pager.Order = DefaultOutputTaskOrder
 	}
 	return pager, nil
 }
 
-func (p *ValueFloatPager) ApplyFilter(query *ValueFloatQuery) (*ValueFloatQuery, error) {
+func (p *OutputTaskPager) ApplyFilter(query *OutputTaskQuery) (*OutputTaskQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// ValueFloatPageList is ValueFloat PageList result.
-type ValueFloatPageList struct {
-	List        []*ValueFloat `json:"list"`
+// OutputTaskPageList is OutputTask PageList result.
+type OutputTaskPageList struct {
+	List        []*OutputTask `json:"list"`
 	PageDetails *PageDetails  `json:"pageDetails"`
 }
 
-func (_m *ValueFloatQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ValueFloatPaginateOption,
-) (*ValueFloatPageList, error) {
+func (_m *OutputTaskQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...OutputTaskPaginateOption,
+) (*OutputTaskPageList, error) {
 
-	pager, err := newValueFloatPager(opts)
+	pager, err := newOutputTaskPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -2567,7 +925,7 @@ func (_m *ValueFloatQuery) Page(
 		return nil, err
 	}
 
-	ret := &ValueFloatPageList{}
+	ret := &OutputTaskPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -2587,7 +945,7 @@ func (_m *ValueFloatQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultValueFloatOrder)
+		_m = _m.Order(DefaultOutputTaskOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -2600,208 +958,46 @@ func (_m *ValueFloatQuery) Page(
 	return ret, nil
 }
 
-type ValueIndexTextPager struct {
-	Order  valueindextext.OrderOption
-	Filter func(*ValueIndexTextQuery) (*ValueIndexTextQuery, error)
+type TaskLogPager struct {
+	Order  tasklog.OrderOption
+	Filter func(*TaskLogQuery) (*TaskLogQuery, error)
 }
 
-// ValueIndexTextPaginateOption enables pagination customization.
-type ValueIndexTextPaginateOption func(*ValueIndexTextPager)
+// TaskLogPaginateOption enables pagination customization.
+type TaskLogPaginateOption func(*TaskLogPager)
 
-// DefaultValueIndexTextOrder is the default ordering of ValueIndexText.
-var DefaultValueIndexTextOrder = Desc(valueindextext.FieldID)
+// DefaultTaskLogOrder is the default ordering of TaskLog.
+var DefaultTaskLogOrder = Desc(tasklog.FieldID)
 
-func newValueIndexTextPager(opts []ValueIndexTextPaginateOption) (*ValueIndexTextPager, error) {
-	pager := &ValueIndexTextPager{}
+func newTaskLogPager(opts []TaskLogPaginateOption) (*TaskLogPager, error) {
+	pager := &TaskLogPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultValueIndexTextOrder
+		pager.Order = DefaultTaskLogOrder
 	}
 	return pager, nil
 }
 
-func (p *ValueIndexTextPager) ApplyFilter(query *ValueIndexTextQuery) (*ValueIndexTextQuery, error) {
+func (p *TaskLogPager) ApplyFilter(query *TaskLogQuery) (*TaskLogQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// ValueIndexTextPageList is ValueIndexText PageList result.
-type ValueIndexTextPageList struct {
-	List        []*ValueIndexText `json:"list"`
-	PageDetails *PageDetails      `json:"pageDetails"`
-}
-
-func (_m *ValueIndexTextQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ValueIndexTextPaginateOption,
-) (*ValueIndexTextPageList, error) {
-
-	pager, err := newValueIndexTextPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &ValueIndexTextPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultValueIndexTextOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type ValueIntegerPager struct {
-	Order  valueinteger.OrderOption
-	Filter func(*ValueIntegerQuery) (*ValueIntegerQuery, error)
-}
-
-// ValueIntegerPaginateOption enables pagination customization.
-type ValueIntegerPaginateOption func(*ValueIntegerPager)
-
-// DefaultValueIntegerOrder is the default ordering of ValueInteger.
-var DefaultValueIntegerOrder = Desc(valueinteger.FieldID)
-
-func newValueIntegerPager(opts []ValueIntegerPaginateOption) (*ValueIntegerPager, error) {
-	pager := &ValueIntegerPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultValueIntegerOrder
-	}
-	return pager, nil
-}
-
-func (p *ValueIntegerPager) ApplyFilter(query *ValueIntegerQuery) (*ValueIntegerQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// ValueIntegerPageList is ValueInteger PageList result.
-type ValueIntegerPageList struct {
-	List        []*ValueInteger `json:"list"`
-	PageDetails *PageDetails    `json:"pageDetails"`
-}
-
-func (_m *ValueIntegerQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ValueIntegerPaginateOption,
-) (*ValueIntegerPageList, error) {
-
-	pager, err := newValueIntegerPager(opts)
-	if err != nil {
-		return nil, err
-	}
-
-	if _m, err = pager.ApplyFilter(_m); err != nil {
-		return nil, err
-	}
-
-	ret := &ValueIntegerPageList{}
-
-	ret.PageDetails = &PageDetails{
-		Page: pageNum,
-		Size: pageSize,
-	}
-
-	query := _m.Clone()
-	query.ctx.Fields = nil
-	count, err := query.Count(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
-	ret.PageDetails.Total = uint64(count)
-
-	if pager.Order != nil {
-		_m = _m.Order(pager.Order)
-	} else {
-		_m = _m.Order(DefaultValueIntegerOrder)
-	}
-
-	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
-	list, err := _m.All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ret.List = list
-
-	return ret, nil
-}
-
-type ValueJSONPager struct {
-	Order  valuejson.OrderOption
-	Filter func(*ValueJSONQuery) (*ValueJSONQuery, error)
-}
-
-// ValueJSONPaginateOption enables pagination customization.
-type ValueJSONPaginateOption func(*ValueJSONPager)
-
-// DefaultValueJSONOrder is the default ordering of ValueJSON.
-var DefaultValueJSONOrder = Desc(valuejson.FieldID)
-
-func newValueJSONPager(opts []ValueJSONPaginateOption) (*ValueJSONPager, error) {
-	pager := &ValueJSONPager{}
-	for _, opt := range opts {
-		opt(pager)
-	}
-	if pager.Order == nil {
-		pager.Order = DefaultValueJSONOrder
-	}
-	return pager, nil
-}
-
-func (p *ValueJSONPager) ApplyFilter(query *ValueJSONQuery) (*ValueJSONQuery, error) {
-	if p.Filter != nil {
-		return p.Filter(query)
-	}
-	return query, nil
-}
-
-// ValueJSONPageList is ValueJSON PageList result.
-type ValueJSONPageList struct {
-	List        []*ValueJSON `json:"list"`
+// TaskLogPageList is TaskLog PageList result.
+type TaskLogPageList struct {
+	List        []*TaskLog   `json:"list"`
 	PageDetails *PageDetails `json:"pageDetails"`
 }
 
-func (_m *ValueJSONQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ValueJSONPaginateOption,
-) (*ValueJSONPageList, error) {
+func (_m *TaskLogQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...TaskLogPaginateOption,
+) (*TaskLogPageList, error) {
 
-	pager, err := newValueJSONPager(opts)
+	pager, err := newTaskLogPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -2810,7 +1006,7 @@ func (_m *ValueJSONQuery) Page(
 		return nil, err
 	}
 
-	ret := &ValueJSONPageList{}
+	ret := &TaskLogPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -2830,7 +1026,7 @@ func (_m *ValueJSONQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultValueJSONOrder)
+		_m = _m.Order(DefaultTaskLogOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
@@ -2843,46 +1039,46 @@ func (_m *ValueJSONQuery) Page(
 	return ret, nil
 }
 
-type ValueTextPager struct {
-	Order  valuetext.OrderOption
-	Filter func(*ValueTextQuery) (*ValueTextQuery, error)
+type WorkerMetricsPager struct {
+	Order  workermetrics.OrderOption
+	Filter func(*WorkerMetricsQuery) (*WorkerMetricsQuery, error)
 }
 
-// ValueTextPaginateOption enables pagination customization.
-type ValueTextPaginateOption func(*ValueTextPager)
+// WorkerMetricsPaginateOption enables pagination customization.
+type WorkerMetricsPaginateOption func(*WorkerMetricsPager)
 
-// DefaultValueTextOrder is the default ordering of ValueText.
-var DefaultValueTextOrder = Desc(valuetext.FieldID)
+// DefaultWorkerMetricsOrder is the default ordering of WorkerMetrics.
+var DefaultWorkerMetricsOrder = Desc(workermetrics.FieldID)
 
-func newValueTextPager(opts []ValueTextPaginateOption) (*ValueTextPager, error) {
-	pager := &ValueTextPager{}
+func newWorkerMetricsPager(opts []WorkerMetricsPaginateOption) (*WorkerMetricsPager, error) {
+	pager := &WorkerMetricsPager{}
 	for _, opt := range opts {
 		opt(pager)
 	}
 	if pager.Order == nil {
-		pager.Order = DefaultValueTextOrder
+		pager.Order = DefaultWorkerMetricsOrder
 	}
 	return pager, nil
 }
 
-func (p *ValueTextPager) ApplyFilter(query *ValueTextQuery) (*ValueTextQuery, error) {
+func (p *WorkerMetricsPager) ApplyFilter(query *WorkerMetricsQuery) (*WorkerMetricsQuery, error) {
 	if p.Filter != nil {
 		return p.Filter(query)
 	}
 	return query, nil
 }
 
-// ValueTextPageList is ValueText PageList result.
-type ValueTextPageList struct {
-	List        []*ValueText `json:"list"`
-	PageDetails *PageDetails `json:"pageDetails"`
+// WorkerMetricsPageList is WorkerMetrics PageList result.
+type WorkerMetricsPageList struct {
+	List        []*WorkerMetrics `json:"list"`
+	PageDetails *PageDetails     `json:"pageDetails"`
 }
 
-func (_m *ValueTextQuery) Page(
-	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ValueTextPaginateOption,
-) (*ValueTextPageList, error) {
+func (_m *WorkerMetricsQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...WorkerMetricsPaginateOption,
+) (*WorkerMetricsPageList, error) {
 
-	pager, err := newValueTextPager(opts)
+	pager, err := newWorkerMetricsPager(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -2891,7 +1087,7 @@ func (_m *ValueTextQuery) Page(
 		return nil, err
 	}
 
-	ret := &ValueTextPageList{}
+	ret := &WorkerMetricsPageList{}
 
 	ret.PageDetails = &PageDetails{
 		Page: pageNum,
@@ -2911,7 +1107,7 @@ func (_m *ValueTextQuery) Page(
 	if pager.Order != nil {
 		_m = _m.Order(pager.Order)
 	} else {
-		_m = _m.Order(DefaultValueTextOrder)
+		_m = _m.Order(DefaultWorkerMetricsOrder)
 	}
 
 	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))

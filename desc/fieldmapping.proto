@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+// FieldMapping message
+
+message FieldMappingInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // 映射名称
+  optional string mapping_name = 5;
+  // 描述
+  optional string description = 6;
+  // 映射类型: input, output, transform, validation
+  optional string mapping_type = 7;
+  // 是否启用
+  optional bool is_active = 8;
+  // 源字段名称
+  optional string source_field = 9;
+  // 源字段路径
+  optional string source_field_path = 10;
+  // 源数据类型
+  optional string source_data_type = 11;
+  // 源字段格式
+  optional string source_format = 12;
+  // 目标字段名称
+  optional string target_field = 13;
+  // 目标字段路径
+  optional string target_field_path = 14;
+  // 目标数据类型
+  optional string target_data_type = 15;
+  // 目标字段格式
+  optional string target_format = 16;
+  // 转换类型
+  optional string transform_type = 17;
+  // 转换配置JSON
+  optional string transform_config = 18;
+  // 默认值
+  optional string default_value = 19;
+  // 允许空值
+  optional bool allow_null = 20;
+  // 是否必填
+  optional bool is_required = 21;
+  // 验证规则JSON
+  optional string validation_rules = 22;
+  // 验证正则
+  optional string validation_regex = 23;
+  // 查找表JSON
+  optional string lookup_table = 24;
+  // 查找区分大小写
+  optional bool lookup_case_sensitive = 25;
+  // 条件规则JSON
+  optional string condition_rules = 26;
+  // 优先级
+  optional int64 priority = 27;
+  // 排序顺序
+  optional int64 sort_order = 28;
+  // 关联发现池ID
+  optional uint64 discovery_pool_id = 29;
+  // 关联输入任务ID
+  optional uint64 input_task_id = 30;
+  // 关联输出任务ID
+  optional uint64 output_task_id = 31;
+  // 使用次数
+  optional int64 usage_count = 32;
+  // 成功次数
+  optional int64 success_count = 33;
+  // 失败次数
+  optional int64 failed_count = 34;
+  // 最后使用时间
+  optional int64  last_used_at = 35;
+  // 最后错误信息
+  optional string last_error = 36;
+  // 最后错误时间
+  optional int64  last_error_at = 37;
+  // 扩展元数据JSON
+  optional string metadata = 38;
+}
+
+message FieldMappingListResp {
+  uint64 total = 1;
+  repeated FieldMappingInfo data = 2;
+}
+
+message FieldMappingListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string mapping_name = 6;
+  optional string description = 7;
+  optional string mapping_type = 8;
+  optional bool is_active = 9;
+  optional string source_field = 10;
+  optional string source_field_path = 11;
+  optional string source_data_type = 12;
+  optional string source_format = 13;
+  optional string target_field = 14;
+  optional string target_field_path = 15;
+  optional string target_data_type = 16;
+  optional string target_format = 17;
+  optional string transform_type = 18;
+  optional string transform_config = 19;
+  optional string default_value = 20;
+  optional bool allow_null = 21;
+  optional bool is_required = 22;
+  optional string validation_rules = 23;
+  optional string validation_regex = 24;
+  optional string lookup_table = 25;
+  optional bool lookup_case_sensitive = 26;
+  optional string condition_rules = 27;
+  optional int64 priority = 28;
+  optional int64 sort_order = 29;
+  optional uint64 discovery_pool_id = 30;
+  optional uint64 input_task_id = 31;
+  optional uint64 output_task_id = 32;
+  optional int64 usage_count = 33;
+  optional int64 success_count = 34;
+  optional int64 failed_count = 35;
+  optional int64 last_used_at = 36;
+  optional string last_error = 37;
+  optional int64 last_error_at = 38;
+  optional string metadata = 39;
+}
+
+
+service Io {
+
+  // FieldMapping management
+  // group: fieldmapping
+  rpc createFieldMapping (FieldMappingInfo) returns (BaseIDResp);
+  // group: fieldmapping
+  rpc updateFieldMapping (FieldMappingInfo) returns (BaseResp);
+  // group: fieldmapping
+  rpc getFieldMappingList (FieldMappingListReq) returns (FieldMappingListResp);
+  // group: fieldmapping
+  rpc getFieldMappingById (IDReq) returns (FieldMappingInfo);
+  // group: fieldmapping
+  rpc deleteFieldMapping (IDsReq) returns (BaseResp);
+
+
+}

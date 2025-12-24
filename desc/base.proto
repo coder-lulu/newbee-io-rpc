@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package cmdb;
-option go_package="./cmdb";
+package io;
+option go_package="./io";
 
 // base message
 message Empty {}
@@ -93,8 +93,15 @@ message BaseUUIDResp {
   string msg = 2;
 }
 
+message ApprovalReq {
+  uint64 id = 1;
+  string action = 2;  // approve, reject
+  optional string reason = 3;  // rejection reason
+  optional uint64 approved_by = 4;  // approver user id
+}
 
-service Cmdb {
+
+service Io {
   // group: base
   rpc initDatabase (Empty) returns (BaseResp);
 }

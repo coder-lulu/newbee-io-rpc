@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/coder-lulu/newbee-cmdb-rpc/internal/svc"
-	"github.com/coder-lulu/newbee-cmdb-rpc/types/cmdb"
-	"github.com/coder-lulu/newbee-common/utils/uuidx"
+	"github.com/coder-lulu/newbee-io-rpc/internal/svc"
+	"github.com/coder-lulu/newbee-io-rpc/types/cmdb"
+	"github.com/coder-lulu/newbee-common/v2/utils/uuidx"
 	"github.com/gofrs/uuid/v5"
 	"github.com/zeromicro/go-zero/core/logx"
 )

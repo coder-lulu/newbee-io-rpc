@@ -19,11 +19,6 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Cmdb_SubmitAsyncTask_FullMethodName                  = "/cmdb.Cmdb/SubmitAsyncTask"
-	Cmdb_GetTaskStatus_FullMethodName                    = "/cmdb.Cmdb/GetTaskStatus"
-	Cmdb_CancelTask_FullMethodName                       = "/cmdb.Cmdb/CancelTask"
-	Cmdb_GetTaskList_FullMethodName                      = "/cmdb.Cmdb/GetTaskList"
-	Cmdb_GetTaskStats_FullMethodName                     = "/cmdb.Cmdb/GetTaskStats"
 	Cmdb_CreateAttribute_FullMethodName                  = "/cmdb.Cmdb/createAttribute"
 	Cmdb_UpdateAttribute_FullMethodName                  = "/cmdb.Cmdb/updateAttribute"
 	Cmdb_GetAttributeList_FullMethodName                 = "/cmdb.Cmdb/getAttributeList"
@@ -56,6 +51,7 @@ const (
 	Cmdb_GetCiRelationList_FullMethodName                = "/cmdb.Cmdb/getCiRelationList"
 	Cmdb_GetCiRelationById_FullMethodName                = "/cmdb.Cmdb/getCiRelationById"
 	Cmdb_DeleteCiRelation_FullMethodName                 = "/cmdb.Cmdb/deleteCiRelation"
+	Cmdb_GetCiRelationsBatch_FullMethodName              = "/cmdb.Cmdb/getCiRelationsBatch"
 	Cmdb_CreateCis_FullMethodName                        = "/cmdb.Cmdb/createCis"
 	Cmdb_UpdateCis_FullMethodName                        = "/cmdb.Cmdb/updateCis"
 	Cmdb_GetCisList_FullMethodName                       = "/cmdb.Cmdb/getCisList"
@@ -112,6 +108,8 @@ const (
 	Cmdb_GetCiTypeRelationList_FullMethodName            = "/cmdb.Cmdb/getCiTypeRelationList"
 	Cmdb_GetCiTypeRelationById_FullMethodName            = "/cmdb.Cmdb/getCiTypeRelationById"
 	Cmdb_DeleteCiTypeRelation_FullMethodName             = "/cmdb.Cmdb/deleteCiTypeRelation"
+	Cmdb_GetCiTypeRelationDefinitions_FullMethodName     = "/cmdb.Cmdb/getCiTypeRelationDefinitions"
+	Cmdb_GetAttributeMappingConfigs_FullMethodName       = "/cmdb.Cmdb/getAttributeMappingConfigs"
 	Cmdb_CreateRelationType_FullMethodName               = "/cmdb.Cmdb/createRelationType"
 	Cmdb_UpdateRelationType_FullMethodName               = "/cmdb.Cmdb/updateRelationType"
 	Cmdb_GetRelationTypeList_FullMethodName              = "/cmdb.Cmdb/getRelationTypeList"
@@ -148,17 +146,6 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CmdbClient interface {
-	//  异步任务管理接口
-	//  group: async_task
-	SubmitAsyncTask(ctx context.Context, in *AsyncTaskReq, opts ...grpc.CallOption) (*AsyncTaskResp, error)
-	//  group: async_task
-	GetTaskStatus(ctx context.Context, in *TaskStatusReq, opts ...grpc.CallOption) (*TaskStatusResp, error)
-	//  group: async_task
-	CancelTask(ctx context.Context, in *TaskCancelReq, opts ...grpc.CallOption) (*BaseResp, error)
-	//  group: async_task
-	GetTaskList(ctx context.Context, in *TaskListReq, opts ...grpc.CallOption) (*TaskListResp, error)
-	//  group: async_task
-	GetTaskStats(ctx context.Context, in *TaskStatsReq, opts ...grpc.CallOption) (*TaskStatsResp, error)
 	// Attribute management
 	// group: attribute
 	CreateAttribute(ctx context.Context, in *AttributeInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -229,6 +216,8 @@ type CmdbClient interface {
 	GetCiRelationById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*CiRelationInfo, error)
 	// group: cirelation
 	DeleteCiRelation(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: cirelation
+	GetCiRelationsBatch(ctx context.Context, in *CiRelationBatchQueryReq, opts ...grpc.CallOption) (*CiRelationBatchQueryResp, error)
 	// Cis management
 	// group: cis
 	CreateCis(ctx context.Context, in *CisInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -350,6 +339,10 @@ type CmdbClient interface {
 	GetCiTypeRelationById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*CiTypeRelationInfo, error)
 	// group: cityperelation
 	DeleteCiTypeRelation(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: cityperelation
+	GetCiTypeRelationDefinitions(ctx context.Context, in *CiTypeRelationDefinitionReq, opts ...grpc.CallOption) (*CiTypeRelationDefinitionResp, error)
+	// group: cityperelation
+	GetAttributeMappingConfigs(ctx context.Context, in *AttributeMappingConfigReq, opts ...grpc.CallOption) (*AttributeMappingConfigResp, error)
 	// RelationType management
 	// group: relationtype
 	CreateRelationType(ctx context.Context, in *RelationTypeInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -424,56 +417,6 @@ type cmdbClient struct {
 
 func NewCmdbClient(cc grpc.ClientConnInterface) CmdbClient {
 	return &cmdbClient{cc}
-}
-
-func (c *cmdbClient) SubmitAsyncTask(ctx context.Context, in *AsyncTaskReq, opts ...grpc.CallOption) (*AsyncTaskResp, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AsyncTaskResp)
-	err := c.cc.Invoke(ctx, Cmdb_SubmitAsyncTask_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *cmdbClient) GetTaskStatus(ctx context.Context, in *TaskStatusReq, opts ...grpc.CallOption) (*TaskStatusResp, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TaskStatusResp)
-	err := c.cc.Invoke(ctx, Cmdb_GetTaskStatus_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *cmdbClient) CancelTask(ctx context.Context, in *TaskCancelReq, opts ...grpc.CallOption) (*BaseResp, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(BaseResp)
-	err := c.cc.Invoke(ctx, Cmdb_CancelTask_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *cmdbClient) GetTaskList(ctx context.Context, in *TaskListReq, opts ...grpc.CallOption) (*TaskListResp, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TaskListResp)
-	err := c.cc.Invoke(ctx, Cmdb_GetTaskList_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *cmdbClient) GetTaskStats(ctx context.Context, in *TaskStatsReq, opts ...grpc.CallOption) (*TaskStatsResp, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TaskStatsResp)
-	err := c.cc.Invoke(ctx, Cmdb_GetTaskStats_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *cmdbClient) CreateAttribute(ctx context.Context, in *AttributeInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
@@ -790,6 +733,16 @@ func (c *cmdbClient) DeleteCiRelation(ctx context.Context, in *IDsReq, opts ...g
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, Cmdb_DeleteCiRelation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cmdbClient) GetCiRelationsBatch(ctx context.Context, in *CiRelationBatchQueryReq, opts ...grpc.CallOption) (*CiRelationBatchQueryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CiRelationBatchQueryResp)
+	err := c.cc.Invoke(ctx, Cmdb_GetCiRelationsBatch_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1356,6 +1309,26 @@ func (c *cmdbClient) DeleteCiTypeRelation(ctx context.Context, in *IDsReq, opts 
 	return out, nil
 }
 
+func (c *cmdbClient) GetCiTypeRelationDefinitions(ctx context.Context, in *CiTypeRelationDefinitionReq, opts ...grpc.CallOption) (*CiTypeRelationDefinitionResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CiTypeRelationDefinitionResp)
+	err := c.cc.Invoke(ctx, Cmdb_GetCiTypeRelationDefinitions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cmdbClient) GetAttributeMappingConfigs(ctx context.Context, in *AttributeMappingConfigReq, opts ...grpc.CallOption) (*AttributeMappingConfigResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AttributeMappingConfigResp)
+	err := c.cc.Invoke(ctx, Cmdb_GetAttributeMappingConfigs_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *cmdbClient) CreateRelationType(ctx context.Context, in *RelationTypeInfo, opts ...grpc.CallOption) (*BaseIDResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BaseIDResp)
@@ -1660,17 +1633,6 @@ func (c *cmdbClient) DeleteValueText(ctx context.Context, in *IDsReq, opts ...gr
 // All implementations must embed UnimplementedCmdbServer
 // for forward compatibility.
 type CmdbServer interface {
-	//  异步任务管理接口
-	//  group: async_task
-	SubmitAsyncTask(context.Context, *AsyncTaskReq) (*AsyncTaskResp, error)
-	//  group: async_task
-	GetTaskStatus(context.Context, *TaskStatusReq) (*TaskStatusResp, error)
-	//  group: async_task
-	CancelTask(context.Context, *TaskCancelReq) (*BaseResp, error)
-	//  group: async_task
-	GetTaskList(context.Context, *TaskListReq) (*TaskListResp, error)
-	//  group: async_task
-	GetTaskStats(context.Context, *TaskStatsReq) (*TaskStatsResp, error)
 	// Attribute management
 	// group: attribute
 	CreateAttribute(context.Context, *AttributeInfo) (*BaseIDResp, error)
@@ -1741,6 +1703,8 @@ type CmdbServer interface {
 	GetCiRelationById(context.Context, *IDReq) (*CiRelationInfo, error)
 	// group: cirelation
 	DeleteCiRelation(context.Context, *IDsReq) (*BaseResp, error)
+	// group: cirelation
+	GetCiRelationsBatch(context.Context, *CiRelationBatchQueryReq) (*CiRelationBatchQueryResp, error)
 	// Cis management
 	// group: cis
 	CreateCis(context.Context, *CisInfo) (*BaseIDResp, error)
@@ -1862,6 +1826,10 @@ type CmdbServer interface {
 	GetCiTypeRelationById(context.Context, *IDReq) (*CiTypeRelationInfo, error)
 	// group: cityperelation
 	DeleteCiTypeRelation(context.Context, *IDsReq) (*BaseResp, error)
+	// group: cityperelation
+	GetCiTypeRelationDefinitions(context.Context, *CiTypeRelationDefinitionReq) (*CiTypeRelationDefinitionResp, error)
+	// group: cityperelation
+	GetAttributeMappingConfigs(context.Context, *AttributeMappingConfigReq) (*AttributeMappingConfigResp, error)
 	// RelationType management
 	// group: relationtype
 	CreateRelationType(context.Context, *RelationTypeInfo) (*BaseIDResp, error)
@@ -1938,21 +1906,6 @@ type CmdbServer interface {
 // pointer dereference when methods are called.
 type UnimplementedCmdbServer struct{}
 
-func (UnimplementedCmdbServer) SubmitAsyncTask(context.Context, *AsyncTaskReq) (*AsyncTaskResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SubmitAsyncTask not implemented")
-}
-func (UnimplementedCmdbServer) GetTaskStatus(context.Context, *TaskStatusReq) (*TaskStatusResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTaskStatus not implemented")
-}
-func (UnimplementedCmdbServer) CancelTask(context.Context, *TaskCancelReq) (*BaseResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CancelTask not implemented")
-}
-func (UnimplementedCmdbServer) GetTaskList(context.Context, *TaskListReq) (*TaskListResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTaskList not implemented")
-}
-func (UnimplementedCmdbServer) GetTaskStats(context.Context, *TaskStatsReq) (*TaskStatsResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTaskStats not implemented")
-}
 func (UnimplementedCmdbServer) CreateAttribute(context.Context, *AttributeInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAttribute not implemented")
 }
@@ -2048,6 +2001,9 @@ func (UnimplementedCmdbServer) GetCiRelationById(context.Context, *IDReq) (*CiRe
 }
 func (UnimplementedCmdbServer) DeleteCiRelation(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCiRelation not implemented")
+}
+func (UnimplementedCmdbServer) GetCiRelationsBatch(context.Context, *CiRelationBatchQueryReq) (*CiRelationBatchQueryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCiRelationsBatch not implemented")
 }
 func (UnimplementedCmdbServer) CreateCis(context.Context, *CisInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCis not implemented")
@@ -2217,6 +2173,12 @@ func (UnimplementedCmdbServer) GetCiTypeRelationById(context.Context, *IDReq) (*
 func (UnimplementedCmdbServer) DeleteCiTypeRelation(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCiTypeRelation not implemented")
 }
+func (UnimplementedCmdbServer) GetCiTypeRelationDefinitions(context.Context, *CiTypeRelationDefinitionReq) (*CiTypeRelationDefinitionResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCiTypeRelationDefinitions not implemented")
+}
+func (UnimplementedCmdbServer) GetAttributeMappingConfigs(context.Context, *AttributeMappingConfigReq) (*AttributeMappingConfigResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAttributeMappingConfigs not implemented")
+}
 func (UnimplementedCmdbServer) CreateRelationType(context.Context, *RelationTypeInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRelationType not implemented")
 }
@@ -2326,96 +2288,6 @@ func RegisterCmdbServer(s grpc.ServiceRegistrar, srv CmdbServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&Cmdb_ServiceDesc, srv)
-}
-
-func _Cmdb_SubmitAsyncTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AsyncTaskReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CmdbServer).SubmitAsyncTask(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Cmdb_SubmitAsyncTask_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CmdbServer).SubmitAsyncTask(ctx, req.(*AsyncTaskReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Cmdb_GetTaskStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TaskStatusReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CmdbServer).GetTaskStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Cmdb_GetTaskStatus_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CmdbServer).GetTaskStatus(ctx, req.(*TaskStatusReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Cmdb_CancelTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TaskCancelReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CmdbServer).CancelTask(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Cmdb_CancelTask_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CmdbServer).CancelTask(ctx, req.(*TaskCancelReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Cmdb_GetTaskList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TaskListReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CmdbServer).GetTaskList(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Cmdb_GetTaskList_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CmdbServer).GetTaskList(ctx, req.(*TaskListReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Cmdb_GetTaskStats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TaskStatsReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CmdbServer).GetTaskStats(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Cmdb_GetTaskStats_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CmdbServer).GetTaskStats(ctx, req.(*TaskStatsReq))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Cmdb_CreateAttribute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -2990,6 +2862,24 @@ func _Cmdb_DeleteCiRelation_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CmdbServer).DeleteCiRelation(ctx, req.(*IDsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Cmdb_GetCiRelationsBatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CiRelationBatchQueryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CmdbServer).GetCiRelationsBatch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Cmdb_GetCiRelationsBatch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CmdbServer).GetCiRelationsBatch(ctx, req.(*CiRelationBatchQueryReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -4002,6 +3892,42 @@ func _Cmdb_DeleteCiTypeRelation_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Cmdb_GetCiTypeRelationDefinitions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CiTypeRelationDefinitionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CmdbServer).GetCiTypeRelationDefinitions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Cmdb_GetCiTypeRelationDefinitions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CmdbServer).GetCiTypeRelationDefinitions(ctx, req.(*CiTypeRelationDefinitionReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Cmdb_GetAttributeMappingConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AttributeMappingConfigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CmdbServer).GetAttributeMappingConfigs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Cmdb_GetAttributeMappingConfigs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CmdbServer).GetAttributeMappingConfigs(ctx, req.(*AttributeMappingConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Cmdb_CreateRelationType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RelationTypeInfo)
 	if err := dec(in); err != nil {
@@ -4550,26 +4476,6 @@ var Cmdb_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CmdbServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SubmitAsyncTask",
-			Handler:    _Cmdb_SubmitAsyncTask_Handler,
-		},
-		{
-			MethodName: "GetTaskStatus",
-			Handler:    _Cmdb_GetTaskStatus_Handler,
-		},
-		{
-			MethodName: "CancelTask",
-			Handler:    _Cmdb_CancelTask_Handler,
-		},
-		{
-			MethodName: "GetTaskList",
-			Handler:    _Cmdb_GetTaskList_Handler,
-		},
-		{
-			MethodName: "GetTaskStats",
-			Handler:    _Cmdb_GetTaskStats_Handler,
-		},
-		{
 			MethodName: "createAttribute",
 			Handler:    _Cmdb_CreateAttribute_Handler,
 		},
@@ -4696,6 +4602,10 @@ var Cmdb_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteCiRelation",
 			Handler:    _Cmdb_DeleteCiRelation_Handler,
+		},
+		{
+			MethodName: "getCiRelationsBatch",
+			Handler:    _Cmdb_GetCiRelationsBatch_Handler,
 		},
 		{
 			MethodName: "createCis",
@@ -4920,6 +4830,14 @@ var Cmdb_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteCiTypeRelation",
 			Handler:    _Cmdb_DeleteCiTypeRelation_Handler,
+		},
+		{
+			MethodName: "getCiTypeRelationDefinitions",
+			Handler:    _Cmdb_GetCiTypeRelationDefinitions_Handler,
+		},
+		{
+			MethodName: "getAttributeMappingConfigs",
+			Handler:    _Cmdb_GetAttributeMappingConfigs_Handler,
 		},
 		{
 			MethodName: "createRelationType",

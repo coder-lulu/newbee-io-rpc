@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+// CronTask message
+
+message CronTaskInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // 任务名称
+  optional string task_name = 5;
+  // Cron表达式, 例如: 0 3 * * * (每天凌晨3点), 0 */6 * * * (每6小时)
+  optional string cron_expression = 6;
+  // 数据源类型, 例如: vmware_vcenter, aliyun_ecs等
+  optional string input_source = 7;
+  // 数据源配置JSON字符串
+  optional string source_config = 8;
+  // 是否启用此Cron任务
+  optional bool enabled = 9;
+  // 下次执行时间（由调度器自动更新）
+  optional int64  next_run_time = 10;
+  // 上次执行时间
+  optional int64  last_run_time = 11;
+  // 总执行次数
+  optional int64 execution_count = 12;
+  // 成功次数
+  optional int64 success_count = 13;
+  // 失败次数
+  optional int64 failure_count = 14;
+  // 任务描述信息
+  optional string description = 15;
+}
+
+message CronTaskListResp {
+  uint64 total = 1;
+  repeated CronTaskInfo data = 2;
+}
+
+message CronTaskListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string task_name = 6;
+  optional string cron_expression = 7;
+  optional string input_source = 8;
+  optional string source_config = 9;
+  optional bool enabled = 10;
+  optional int64 next_run_time = 11;
+  optional int64 last_run_time = 12;
+  optional int64 execution_count = 13;
+  optional int64 success_count = 14;
+  optional int64 failure_count = 15;
+  optional string description = 16;
+}
+
+
+service Io {
+
+  // CronTask management
+  // group: crontask
+  rpc createCronTask (CronTaskInfo) returns (BaseIDResp);
+  // group: crontask
+  rpc updateCronTask (CronTaskInfo) returns (BaseResp);
+  // group: crontask
+  rpc getCronTaskList (CronTaskListReq) returns (CronTaskListResp);
+  // group: crontask
+  rpc getCronTaskById (IDReq) returns (CronTaskInfo);
+  // group: crontask
+  rpc deleteCronTask (IDsReq) returns (BaseResp);
+
+
+}

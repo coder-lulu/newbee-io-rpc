@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+// Discovery Provider 业务接口
+
+message ProviderMetadata {
+  string id = 1;
+  string name = 2;
+  string category = 3;
+  optional string description = 4;
+  optional string version = 5;
+  optional string icon = 6;
+}
+
+message ListProvidersResp {
+  repeated ProviderMetadata data = 1;
+}
+
+message GetProviderSchemaReq {
+  string provider_id = 1;
+}
+
+message ParameterDefinition {
+  string name = 1;
+  string label = 2;
+  string type = 3;
+  bool required = 4;
+  optional string default_value = 5;
+  optional string placeholder = 6;
+  repeated string options = 7;
+  optional string description = 8;
+}
+
+message FieldDefinition {
+  string name = 1;
+  string label = 2;
+  string data_type = 3;
+  bool required = 4;
+  optional string description = 5;
+  optional string example = 6;
+}
+
+message ProviderSchemaInfo {
+  string id = 1;
+  string provider_id = 2;
+  string provider_name = 3;
+  string category = 4;
+  optional string description = 5;
+  optional string version = 6;
+  optional string icon_url = 7;
+  repeated ParameterDefinition parameter_schema = 8;
+  repeated FieldDefinition field_schema = 9;
+  bool is_active = 10;
+  bool is_builtin = 11;
+  string execution_mode = 12;
+}
+
+message GetProviderSchemaResp {
+  optional ProviderSchemaInfo data = 1;
+}
+
+message TestConnectionReq {
+  string provider_id = 1;
+  string config = 2; // JSON string
+}
+
+message TestConnectionResp {
+  bool success = 1;
+  optional string message = 2;
+}
+
+service Io {
+  // Discovery Provider 业务接口
+  // group: discoveryprovider
+  rpc listDiscoveryProviders (Empty) returns (ListProvidersResp);
+  // group: discoveryprovider
+  rpc getProviderSchema (GetProviderSchemaReq) returns (GetProviderSchemaResp);
+  // group: discoveryprovider
+  rpc testProviderConnection (TestConnectionReq) returns (TestConnectionResp);
+}

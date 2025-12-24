@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+// DataTarget message
+
+message DataTargetInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Status 1: normal 2: ban | 状态 1 正常 2 禁用
+  optional uint32 status = 4;
+  // 目标名称
+  optional string target_name = 5;
+  // 目标编码
+  optional string target_code = 6;
+  // 描述
+  optional string description = 7;
+  // 目标类型: database, api, file, mq, cache
+  optional string target_type = 8;
+  // 目标系统名称
+  optional string target_system = 9;
+  // 连接配置JSON
+  optional string connection_config = 10;
+  // 认证配置JSON
+  optional string auth_config = 11;
+  // 是否启用
+  optional bool is_active = 12;
+  // 目标Schema定义JSON
+  optional string target_schema = 13;
+  // 验证规则JSON
+  optional string validation_rules = 14;
+  // 唯一键字段列表JSON
+  optional string unique_keys = 15;
+  // 扩展元数据JSON
+  optional string metadata = 16;
+}
+
+message DataTargetListResp {
+  uint64 total = 1;
+  repeated DataTargetInfo data = 2;
+}
+
+message DataTargetListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint32 status = 5;
+  optional string target_name = 6;
+  optional string target_code = 7;
+  optional string description = 8;
+  optional string target_type = 9;
+  optional string target_system = 10;
+  optional string connection_config = 11;
+  optional string auth_config = 12;
+  optional bool is_active = 13;
+  optional string target_schema = 14;
+  optional string validation_rules = 15;
+  optional string unique_keys = 16;
+  optional string metadata = 17;
+}
+
+
+service Io {
+
+  // DataTarget management
+  // group: datatarget
+  rpc createDataTarget (DataTargetInfo) returns (BaseIDResp);
+  // group: datatarget
+  rpc updateDataTarget (DataTargetInfo) returns (BaseResp);
+  // group: datatarget
+  rpc getDataTargetList (DataTargetListReq) returns (DataTargetListResp);
+  // group: datatarget
+  rpc getDataTargetById (IDReq) returns (DataTargetInfo);
+  // group: datatarget
+  rpc deleteDataTarget (IDsReq) returns (BaseResp);
+
+
+}

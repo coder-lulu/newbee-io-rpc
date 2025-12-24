@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+// TaskLog message
+
+message TaskLogInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // 任务类型: input, output
+  optional string task_type = 4;
+  // 任务ID
+  optional uint64 task_id = 5;
+  // 日志级别
+  optional string log_level = 6;
+  // 日志消息
+  optional string log_message = 7;
+  // 详细信息JSON
+  optional string log_detail = 8;
+  // 记录时间
+  optional int64  logged_at = 9;
+}
+
+message TaskLogListResp {
+  uint64 total = 1;
+  repeated TaskLogInfo data = 2;
+}
+
+message TaskLogListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional string task_type = 5;
+  optional uint64 task_id = 6;
+  optional string log_level = 7;
+  optional string log_message = 8;
+  optional string log_detail = 9;
+  optional int64 logged_at = 10;
+}
+
+
+service Io {
+
+  // TaskLog management (read-only logs, no update)
+  // group: tasklog
+  rpc createTaskLog (TaskLogInfo) returns (BaseIDResp);
+  // group: tasklog
+  rpc getTaskLogList (TaskLogListReq) returns (TaskLogListResp);
+  // group: tasklog
+  rpc getTaskLogById (IDReq) returns (TaskLogInfo);
+  // group: tasklog
+  rpc deleteTaskLog (IDsReq) returns (BaseResp);
+
+
+}

@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+// MappingLog message
+
+message MappingLogInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // 字段映射ID
+  optional uint64 field_mapping_id = 4;
+  // 源值
+  optional string source_value = 5;
+  // 目标值
+  optional string target_value = 6;
+  // 转换状态: success, failed, skipped
+  optional string transform_status = 7;
+  // 错误信息
+  optional string error_message = 8;
+  // 记录时间
+  optional int64  logged_at = 9;
+}
+
+message MappingLogListResp {
+  uint64 total = 1;
+  repeated MappingLogInfo data = 2;
+}
+
+message MappingLogListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional uint64 field_mapping_id = 5;
+  optional string source_value = 6;
+  optional string target_value = 7;
+  optional string transform_status = 8;
+  optional string error_message = 9;
+  optional int64 logged_at = 10;
+}
+
+
+service Io {
+
+  // MappingLog management (read-only logs, no update)
+  // group: mappinglog
+  rpc createMappingLog (MappingLogInfo) returns (BaseIDResp);
+  // group: mappinglog
+  rpc getMappingLogList (MappingLogListReq) returns (MappingLogListResp);
+  // group: mappinglog
+  rpc getMappingLogById (IDReq) returns (MappingLogInfo);
+  // group: mappinglog
+  rpc deleteMappingLog (IDsReq) returns (BaseResp);
+
+
+}

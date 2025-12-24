@@ -6,107 +6,41 @@ import (
 	"entgo.io/ent/dialect/sql"
 )
 
-// Attribute is the predicate function for attribute builders.
-type Attribute func(*sql.Selector)
+// CronTask is the predicate function for crontask builders.
+type CronTask func(*sql.Selector)
 
-// ChoiceFloat is the predicate function for choicefloat builders.
-type ChoiceFloat func(*sql.Selector)
+// DataTarget is the predicate function for datatarget builders.
+type DataTarget func(*sql.Selector)
 
-// ChoiceInteger is the predicate function for choiceinteger builders.
-type ChoiceInteger func(*sql.Selector)
+// DiscoveryPool is the predicate function for discoverypool builders.
+type DiscoveryPool func(*sql.Selector)
 
-// ChoiceText is the predicate function for choicetext builders.
-type ChoiceText func(*sql.Selector)
+// DiscoveryProviderSchema is the predicate function for discoveryproviderschema builders.
+type DiscoveryProviderSchema func(*sql.Selector)
 
-// CiApprovalFlow is the predicate function for ciapprovalflow builders.
-type CiApprovalFlow func(*sql.Selector)
+// DiscoveryTemplate is the predicate function for discoverytemplate builders.
+type DiscoveryTemplate func(*sql.Selector)
 
-// CiLifecycleState is the predicate function for cilifecyclestate builders.
-type CiLifecycleState func(*sql.Selector)
+// DlqMessage is the predicate function for dlqmessage builders.
+type DlqMessage func(*sql.Selector)
 
-// CiOperation is the predicate function for cioperation builders.
-type CiOperation func(*sql.Selector)
+// FieldMapping is the predicate function for fieldmapping builders.
+type FieldMapping func(*sql.Selector)
 
-// CiPermission is the predicate function for cipermission builders.
-type CiPermission func(*sql.Selector)
+// InputTask is the predicate function for inputtask builders.
+type InputTask func(*sql.Selector)
 
-// CiRecords is the predicate function for cirecords builders.
-type CiRecords func(*sql.Selector)
+// MappingLog is the predicate function for mappinglog builders.
+type MappingLog func(*sql.Selector)
 
-// CiRelation is the predicate function for cirelation builders.
-type CiRelation func(*sql.Selector)
+// OutboxMessage is the predicate function for outboxmessage builders.
+type OutboxMessage func(*sql.Selector)
 
-// CiType is the predicate function for citype builders.
-type CiType func(*sql.Selector)
+// OutputTask is the predicate function for outputtask builders.
+type OutputTask func(*sql.Selector)
 
-// CiTypeAttribute is the predicate function for citypeattribute builders.
-type CiTypeAttribute func(*sql.Selector)
+// TaskLog is the predicate function for tasklog builders.
+type TaskLog func(*sql.Selector)
 
-// CiTypeAttributeGroup is the predicate function for citypeattributegroup builders.
-type CiTypeAttributeGroup func(*sql.Selector)
-
-// CiTypeAttributeGroupItem is the predicate function for citypeattributegroupitem builders.
-type CiTypeAttributeGroupItem func(*sql.Selector)
-
-// CiTypeGroup is the predicate function for citypegroup builders.
-type CiTypeGroup func(*sql.Selector)
-
-// CiTypeGroupItem is the predicate function for citypegroupitem builders.
-type CiTypeGroupItem func(*sql.Selector)
-
-// CiTypeInheritance is the predicate function for citypeinheritance builders.
-type CiTypeInheritance func(*sql.Selector)
-
-// CiTypeRelation is the predicate function for cityperelation builders.
-type CiTypeRelation func(*sql.Selector)
-
-// Cis is the predicate function for cis builders.
-type Cis func(*sql.Selector)
-
-// ImportError is the predicate function for importerror builders.
-type ImportError func(*sql.Selector)
-
-// ImportRecord is the predicate function for importrecord builders.
-type ImportRecord func(*sql.Selector)
-
-// ImportTask is the predicate function for importtask builders.
-type ImportTask func(*sql.Selector)
-
-// ImportTemplate is the predicate function for importtemplate builders.
-type ImportTemplate func(*sql.Selector)
-
-// PermissionCache is the predicate function for permissioncache builders.
-type PermissionCache func(*sql.Selector)
-
-// PermissionDataFilter is the predicate function for permissiondatafilter builders.
-type PermissionDataFilter func(*sql.Selector)
-
-// PermissionFieldMask is the predicate function for permissionfieldmask builders.
-type PermissionFieldMask func(*sql.Selector)
-
-// PermissionOperation is the predicate function for permissionoperation builders.
-type PermissionOperation func(*sql.Selector)
-
-// PermissionTemplate is the predicate function for permissiontemplate builders.
-type PermissionTemplate func(*sql.Selector)
-
-// RelationType is the predicate function for relationtype builders.
-type RelationType func(*sql.Selector)
-
-// ValueDatetime is the predicate function for valuedatetime builders.
-type ValueDatetime func(*sql.Selector)
-
-// ValueFloat is the predicate function for valuefloat builders.
-type ValueFloat func(*sql.Selector)
-
-// ValueIndexText is the predicate function for valueindextext builders.
-type ValueIndexText func(*sql.Selector)
-
-// ValueInteger is the predicate function for valueinteger builders.
-type ValueInteger func(*sql.Selector)
-
-// ValueJSON is the predicate function for valuejson builders.
-type ValueJSON func(*sql.Selector)
-
-// ValueText is the predicate function for valuetext builders.
-type ValueText func(*sql.Selector)
+// WorkerMetrics is the predicate function for workermetrics builders.
+type WorkerMetrics func(*sql.Selector)

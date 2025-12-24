@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+// WorkerMetrics message
+
+message WorkerMetricsInfo {
+  optional uint64 id = 1;
+  optional int64 created_at = 2;
+  optional int64 updated_at = 3;
+  // Worker ID
+  optional string worker_id = 4;
+  // Worker名称
+  optional string worker_name = 5;
+  // Worker状态: idle, busy, offline
+  optional string worker_status = 6;
+  // 当前任务数
+  optional int64 current_tasks = 7;
+  // 总任务数
+  optional int64 total_tasks = 8;
+  // 成功任务数
+  optional int64 success_tasks = 9;
+  // 失败任务数
+  optional int64 failed_tasks = 10;
+  // CPU使用率
+  optional double cpu_usage = 11;
+  // 内存使用率
+  optional double memory_usage = 12;
+  // 最后心跳时间
+  optional int64  last_heartbeat = 13;
+  // 扩展元数据JSON
+  optional string metadata = 14;
+}
+
+message WorkerMetricsListResp {
+  uint64 total = 1;
+  repeated WorkerMetricsInfo data = 2;
+}
+
+message WorkerMetricsListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  optional int64 created_at = 3;
+  optional int64 updated_at = 4;
+  optional string worker_id = 5;
+  optional string worker_name = 6;
+  optional string worker_status = 7;
+  optional int64 current_tasks = 8;
+  optional int64 total_tasks = 9;
+  optional int64 success_tasks = 10;
+  optional int64 failed_tasks = 11;
+  optional double cpu_usage = 12;
+  optional double memory_usage = 13;
+  optional int64 last_heartbeat = 14;
+  optional string metadata = 15;
+}
+
+
+service Io {
+
+  // WorkerMetrics management
+  // group: workermetrics
+  rpc createWorkerMetrics (WorkerMetricsInfo) returns (BaseIDResp);
+  // group: workermetrics
+  rpc updateWorkerMetrics (WorkerMetricsInfo) returns (BaseResp);
+  // group: workermetrics
+  rpc getWorkerMetricsList (WorkerMetricsListReq) returns (WorkerMetricsListResp);
+  // group: workermetrics
+  rpc getWorkerMetricsById (IDReq) returns (WorkerMetricsInfo);
+  // group: workermetrics
+  rpc deleteWorkerMetrics (IDsReq) returns (BaseResp);
+
+
+}
