@@ -56,7 +56,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	// 初始化Core RPC客户端 - 参考Core服务的实现模式
 	var coreRpc coreclient.Core
-	if c.CoreRpc.Endpoints != nil && len(c.CoreRpc.Endpoints) > 0 {
+	if len(c.CoreRpc.Endpoints) > 0 || c.CoreRpc.Target != "" || c.CoreRpc.Etcd.Key != "" {
 		// 创建RPC客户端，使用SystemContext拦截器支持系统级操作
 		rpcClient, err := zrpc.NewClient(c.CoreRpc, zrpc.WithUnaryClientInterceptor(hooks.SystemContextClientInterceptor()))
 		if err != nil {

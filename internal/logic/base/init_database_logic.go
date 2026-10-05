@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"entgo.io/ent/dialect/sql/schema"
+	"github.com/coder-lulu/newbee-common/v2/errors"
 	"github.com/coder-lulu/newbee-common/v2/msg/errormsg"
 	"github.com/coder-lulu/newbee-common/v2/msg/logmsg"
 	"github.com/coder-lulu/newbee-common/v2/orm/ent/hooks"
-	"github.com/coder-lulu/newbee-common/v2/errors"
 
 	"github.com/coder-lulu/newbee-io-rpc/internal/svc"
 	"github.com/coder-lulu/newbee-io-rpc/types/io"
@@ -52,7 +52,7 @@ func (l *InitDatabaseLogic) InsertInitData() error {
 	// 🔥 使用默认租户ID=1进行初始化，而不是系统级上下文(tenant_id=0)
 	// 这与Core服务保持一致，为默认租户创建初始数据
 	tenantID := uint64(1)
-	ctxWithTenant := hooks.SetTenantIDToContext(context.Background(), tenantID)
+	ctxWithTenant := hooks.SetTenantIDToContext(l.ctx, tenantID)
 
 	err := l.insertDiscoveryProviderData(ctxWithTenant, tenantID)
 	if err != nil {
@@ -60,11 +60,9 @@ func (l *InitDatabaseLogic) InsertInitData() error {
 	}
 
 	// 插入生命周期和变更历史菜单数据到Core服务
-	err = l.insertIOLifecycleMenuData(ctxWithTenant)
+	err = l.insertCoreData()
 	if err != nil {
-		logx.Errorw("Failed to insert IO lifecycle menu data, but continuing initialization",
-			logx.Field("error", err.Error()))
-		// 不返回错误，允许其他初始化继续
+		return err
 	}
 
 	logx.Infow("Unified IO database initialized successfully",

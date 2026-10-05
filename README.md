@@ -41,6 +41,12 @@ cp etc/io.yaml.example etc/io.yaml
 go run . -f etc/io.yaml
 ```
 
+## 首次数据库初始化
+
+先初始化 Core，并配置 `CoreRpc`（支持 `Endpoints`、`Target` 或 Etcd 服务发现）。在平台根目录运行 `bash init-databases.sh -s unified-io`。首次初始化创建 Ent 表及发现 Provider 基础配置，再通过 Core RPC 登记当前 API 目录和 I/O 菜单；菜单按路径或组件复用，不依赖固定父菜单 ID。默认 `superadmin` 的菜单授权合并保留，普通角色需单独授权。
+
+Core 不可用、默认角色缺失或目录登记失败会返回错误；修复后可重复初始化。初始化阶段保持 `TaskWorker.Enabled` 关闭（同时关闭任务 Worker 与调度器），在初始化完成并配置好采集目标后按需启用。请在启动 API 前完成初始化，无需导入本机数据库备份或历史菜单 SQL。
+
 ## 构建与验证
 
 在当前模块目录执行：
