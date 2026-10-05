@@ -44,6 +44,65 @@ message BaseUUIDResp {
   string msg = 2;
 }
 
+//  ConfigAuditLog 配置审计日志
+message ConfigAuditLog {
+  optional uint64 id = 1;
+  optional uint64 tenant_id = 2;
+  optional string config_key = 3;
+  optional string old_value = 4;
+  optional string new_value = 5;
+  optional string change_type = 6;
+  optional uint64 changed_by = 7;
+  optional string changed_by_name = 8;
+  optional string service_name = 9;
+  optional string category = 10;
+  optional string config_group = 11;
+  optional string change_reason = 12;
+  optional string ip_address = 13;
+  optional string user_agent = 14;
+  optional int64 old_version = 15;
+  optional int64 new_version = 16;
+  optional bool is_rollback = 17;
+  optional string rollback_from_log_id = 18;
+  optional int64 created_at = 19;
+}
+
+//  ConfigItem 配置项信息
+message ConfigItem {
+  optional uint64 id = 1;
+  optional uint64 tenant_id = 2;
+  optional string config_key = 3;
+  optional string config_value = 4;
+  optional string value_type = 5;
+  optional string category = 6;
+  optional string service_name = 7;
+  optional string description = 8;
+  optional string default_value = 9;
+  optional int64 version = 10;
+  optional uint32 status = 11;
+  optional bool is_readonly = 12;
+  optional bool is_sensitive = 13;
+  optional string scope = 14;
+  optional string config_group = 15;
+  optional int64 created_at = 16;
+  optional int64 updated_at = 17;
+}
+
+//  CreateConfigReq 创建配置请求
+message CreateConfigReq {
+  optional string config_key = 1;
+  optional string config_value = 2;
+  optional string value_type = 3;
+  optional string category = 4;
+  optional string service_name = 5;
+  optional string description = 6;
+  optional string default_value = 7;
+  optional bool is_readonly = 8;
+  optional bool is_sensitive = 9;
+  optional string scope = 10;
+  optional string config_group = 11;
+}
+
 message CronTaskInfo {
   optional uint64 id = 1;
   optional int64 created_at = 2;
@@ -153,6 +212,11 @@ message DataTargetListReq {
 message DataTargetListResp {
   uint64 total = 1;
   repeated DataTargetInfo data = 2;
+}
+
+//  DeleteConfigReq 删除配置请求
+message DeleteConfigReq {
+  optional string config_key = 1;
 }
 
 message DiscoveryPoolInfo {
@@ -504,6 +568,26 @@ message FieldMappingListResp {
   repeated FieldMappingInfo data = 2;
 }
 
+//  GetConfigHistoryReq 获取配置历史请求
+message GetConfigHistoryReq {
+  optional string config_key = 1;
+}
+
+//  GetConfigHistoryResp 获取配置历史响应
+message GetConfigHistoryResp {
+  repeated ConfigAuditLog data = 1;
+}
+
+//  GetConfigReq 获取配置请求
+message GetConfigReq {
+  optional string config_key = 1;
+}
+
+//  GetConfigResp 获取配置响应
+message GetConfigResp {
+  optional ConfigItem data = 1;
+}
+
 message GetProviderSchemaReq {
   string provider_id = 1;
 }
@@ -642,6 +726,38 @@ message InputTaskListReq {
 message InputTaskListResp {
   uint64 total = 1;
   repeated InputTaskInfo data = 2;
+}
+
+//  ListAuditLogReq 审计日志列表请求
+message ListAuditLogReq {
+  optional uint64 page = 1;
+  optional uint64 page_size = 2;
+  optional string config_key = 3;
+  optional string change_type = 4;
+  optional int64 start_time = 5;
+  optional int64 end_time = 6;
+}
+
+//  ListAuditLogResp 审计日志列表响应
+message ListAuditLogResp {
+  optional uint64 total = 1;
+  repeated ConfigAuditLog data = 2;
+}
+
+//  ListConfigReq 配置列表请求
+message ListConfigReq {
+  optional uint64 page = 1;
+  optional uint64 page_size = 2;
+  optional string service_name = 3;
+  optional string category = 4;
+  optional string config_group = 5;
+  optional string keyword = 6;
+}
+
+//  ListConfigResp 配置列表响应
+message ListConfigResp {
+  optional uint64 total = 1;
+  repeated ConfigItem data = 2;
 }
 
 message ListProvidersResp {
@@ -790,6 +906,12 @@ message ProviderSchemaInfo {
   string execution_mode = 12;
 }
 
+//  RollbackConfigReq 回滚配置请求
+message RollbackConfigReq {
+  optional uint64 audit_log_id = 1;
+  optional string change_reason = 2;
+}
+
 message TaskLogInfo {
   optional uint64 id = 1;
   optional int64 created_at = 2;
@@ -842,6 +964,13 @@ message UUIDReq {
 
 message UUIDsReq {
   repeated string ids = 1;
+}
+
+//  UpdateConfigReq 更新配置请求
+message UpdateConfigReq {
+  optional string config_key = 1;
+  optional string config_value = 2;
+  optional string change_reason = 3;
 }
 
 message WorkerMetricsInfo {
@@ -898,6 +1027,22 @@ message WorkerMetricsListResp {
 service Io {
   //  group: base
   rpc initDatabase(Empty) returns (BaseResp);
+  //  group: config
+  rpc listConfig(ListConfigReq) returns (ListConfigResp);
+  //  group: config
+  rpc getConfig(GetConfigReq) returns (GetConfigResp);
+  //  group: config
+  rpc createConfig(CreateConfigReq) returns (BaseResp);
+  //  group: config
+  rpc updateConfig(UpdateConfigReq) returns (BaseResp);
+  //  group: config
+  rpc deleteConfig(DeleteConfigReq) returns (BaseResp);
+  //  group: config
+  rpc listAuditLog(ListAuditLogReq) returns (ListAuditLogResp);
+  //  group: config
+  rpc getConfigHistory(GetConfigHistoryReq) returns (GetConfigHistoryResp);
+  //  group: config
+  rpc rollbackConfig(RollbackConfigReq) returns (BaseResp);
   //  CronTask management
   //  group: crontask
   rpc createCronTask(CronTaskInfo) returns (BaseIDResp);
@@ -909,13 +1054,6 @@ service Io {
   rpc getCronTaskById(IDReq) returns (CronTaskInfo);
   //  group: crontask
   rpc deleteCronTask(IDsReq) returns (BaseResp);
-  //  CronTask lifecycle operations
-  //  group: crontask
-  rpc enableCronTask(IDReq) returns (BaseResp);
-  //  group: crontask
-  rpc disableCronTask(IDReq) returns (BaseResp);
-  //  group: crontask
-  rpc triggerCronTaskNow(IDReq) returns (BaseIDResp);
   //  DataTarget management
   //  group: datatarget
   rpc createDataTarget(DataTargetInfo) returns (BaseIDResp);
@@ -1030,6 +1168,8 @@ service Io {
   //  group: outputtask
   rpc deleteOutputTask(IDsReq) returns (BaseResp);
   //  OutputTask lifecycle operations
+  //  group: outputtask
+  rpc approveOutputTask(ApprovalReq) returns (BaseResp);
   //  group: outputtask
   rpc startOutputTask(IDReq) returns (BaseResp);
   //  group: outputtask

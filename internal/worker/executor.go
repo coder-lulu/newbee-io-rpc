@@ -20,14 +20,16 @@ type Executor struct {
 	stateMachine     *StateMachine
 	contextManager   *ContextManager
 	providerRegistry *provider.ProviderRegistry
-	transformEngine  *transform.Engine // Transform引擎
-	db               *ent.Client       // 数据库客户端（用于查询FieldMapping）
+	transformEngine  *transform.Engine  // Transform引擎
+	outputProcessor  *OutputProcessor   // 输出处理器
+	db               *ent.Client        // 数据库客户端（用于查询FieldMapping）
 }
 
 // NewExecutor 创建任务执行器
 func NewExecutor(
 	config *ExecutorConfig,
 	db *ent.Client,
+	outputProcessor *OutputProcessor,
 	logger logx.Logger,
 ) *Executor {
 	if config == nil {
@@ -44,6 +46,7 @@ func NewExecutor(
 		contextManager:   NewContextManager(logger),
 		providerRegistry: provider.GetRegistry(),
 		transformEngine:  transformEngine,
+		outputProcessor:  outputProcessor,
 		db:               db,
 	}
 }
@@ -280,8 +283,76 @@ func (e *Executor) ExecuteOutputTask(ctx context.Context, task *ent.OutputTask, 
 		return fmt.Errorf("failed to build execution context: %w", err)
 	}
 
-	// 执行并更新状态
-	return e.ExecuteWithStateUpdate(execCtx)
+	// 1. 标记任务为运行中
+	if err := e.stateMachine.MarkTaskAsRunning(execCtx.Ctx, execCtx.TaskID, TaskTypeOutput); err != nil {
+		e.logger.Errorw(
+			"Failed to mark output task as running",
+			logx.Field("task_id", execCtx.TaskID),
+			logx.Field("error", err.Error()),
+		)
+		return err
+	}
+
+	// 2. 执行发现和转换（如果OutputTask配置了provider）
+	// 或者从关联的InputTask获取数据
+	result := e.Execute(execCtx)
+
+	// 3. 如果执行失败，标记任务失败
+	if result.Status != TaskStatusCompleted {
+		updateErr := e.stateMachine.MarkTaskAsFailed(execCtx.Ctx, execCtx.TaskID, TaskTypeOutput, result)
+		if updateErr != nil {
+			e.logger.Errorw(
+				"Failed to mark output task as failed",
+				logx.Field("task_id", execCtx.TaskID),
+				logx.Field("error", updateErr.Error()),
+			)
+		}
+		return fmt.Errorf("task execution failed: %s", result.ErrorMessage)
+	}
+
+	// 4. 调用OutputProcessor处理输出
+	if e.outputProcessor != nil {
+		e.logger.Infow(
+			"Processing output to target",
+			logx.Field("task_id", task.ID),
+			logx.Field("output_target", task.OutputTarget),
+			logx.Field("records_count", len(result.Data)),
+		)
+
+		// 将TaskResult的数据传递给OutputProcessor
+		if err := e.outputProcessor.ProcessOutput(ctx, task, result.Data); err != nil {
+			// 输出失败，标记任务失败
+			result.Status = TaskStatusFailed
+			result.ErrorMessage = fmt.Sprintf("Output processing failed: %v", err)
+			updateErr := e.stateMachine.MarkTaskAsFailed(execCtx.Ctx, execCtx.TaskID, TaskTypeOutput, result)
+			if updateErr != nil {
+				e.logger.Errorw(
+					"Failed to mark output task as failed after output error",
+					logx.Field("task_id", execCtx.TaskID),
+					logx.Field("error", updateErr.Error()),
+				)
+			}
+			return fmt.Errorf("output processing failed: %w", err)
+		}
+
+		e.logger.Infow(
+			"Output processing completed successfully",
+			logx.Field("task_id", task.ID),
+			logx.Field("output_target", task.OutputTarget),
+		)
+	}
+
+	// 5. 标记任务完成
+	if err := e.stateMachine.MarkTaskAsCompleted(execCtx.Ctx, execCtx.TaskID, TaskTypeOutput, result); err != nil {
+		e.logger.Errorw(
+			"Failed to mark output task as completed",
+			logx.Field("task_id", execCtx.TaskID),
+			logx.Field("error", err.Error()),
+		)
+		return err
+	}
+
+	return nil
 }
 
 // GetStateMachine 获取状态机（用于外部查询）

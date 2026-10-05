@@ -5,6 +5,10 @@ package ent
 import (
 	"time"
 
+	"github.com/coder-lulu/newbee-io-rpc/ent/cichangehistory"
+	"github.com/coder-lulu/newbee-io-rpc/ent/cilifecyclestate"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configauditlog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configitem"
 	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
 	"github.com/coder-lulu/newbee-io-rpc/ent/datatarget"
 	"github.com/coder-lulu/newbee-io-rpc/ent/discoverypool"
@@ -25,6 +29,502 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	cichangehistoryMixin := schema.CiChangeHistory{}.Mixin()
+	cichangehistoryMixinFields0 := cichangehistoryMixin[0].Fields()
+	_ = cichangehistoryMixinFields0
+	cichangehistoryMixinFields1 := cichangehistoryMixin[1].Fields()
+	_ = cichangehistoryMixinFields1
+	cichangehistoryFields := schema.CiChangeHistory{}.Fields()
+	_ = cichangehistoryFields
+	// cichangehistoryDescCreatedAt is the schema descriptor for created_at field.
+	cichangehistoryDescCreatedAt := cichangehistoryMixinFields0[1].Descriptor()
+	// cichangehistory.DefaultCreatedAt holds the default value on creation for the created_at field.
+	cichangehistory.DefaultCreatedAt = cichangehistoryDescCreatedAt.Default.(func() time.Time)
+	// cichangehistoryDescUpdatedAt is the schema descriptor for updated_at field.
+	cichangehistoryDescUpdatedAt := cichangehistoryMixinFields0[2].Descriptor()
+	// cichangehistory.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	cichangehistory.DefaultUpdatedAt = cichangehistoryDescUpdatedAt.Default.(func() time.Time)
+	// cichangehistory.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	cichangehistory.UpdateDefaultUpdatedAt = cichangehistoryDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// cichangehistoryDescTenantID is the schema descriptor for tenant_id field.
+	cichangehistoryDescTenantID := cichangehistoryMixinFields1[0].Descriptor()
+	// cichangehistory.DefaultTenantID holds the default value on creation for the tenant_id field.
+	cichangehistory.DefaultTenantID = cichangehistoryDescTenantID.Default.(uint64)
+	// cichangehistoryDescOperationID is the schema descriptor for operation_id field.
+	cichangehistoryDescOperationID := cichangehistoryFields[0].Descriptor()
+	// cichangehistory.OperationIDValidator is a validator for the "operation_id" field. It is called by the builders before save.
+	cichangehistory.OperationIDValidator = func() func(string) error {
+		validators := cichangehistoryDescOperationID.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(operation_id string) error {
+			for _, fn := range fns {
+				if err := fn(operation_id); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// cichangehistoryDescCiType is the schema descriptor for ci_type field.
+	cichangehistoryDescCiType := cichangehistoryFields[3].Descriptor()
+	// cichangehistory.CiTypeValidator is a validator for the "ci_type" field. It is called by the builders before save.
+	cichangehistory.CiTypeValidator = cichangehistoryDescCiType.Validators[0].(func(string) error)
+	// cichangehistoryDescOperationType is the schema descriptor for operation_type field.
+	cichangehistoryDescOperationType := cichangehistoryFields[4].Descriptor()
+	// cichangehistory.OperationTypeValidator is a validator for the "operation_type" field. It is called by the builders before save.
+	cichangehistory.OperationTypeValidator = func() func(string) error {
+		validators := cichangehistoryDescOperationType.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(operation_type string) error {
+			for _, fn := range fns {
+				if err := fn(operation_type); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// cichangehistoryDescOperationName is the schema descriptor for operation_name field.
+	cichangehistoryDescOperationName := cichangehistoryFields[5].Descriptor()
+	// cichangehistory.OperationNameValidator is a validator for the "operation_name" field. It is called by the builders before save.
+	cichangehistory.OperationNameValidator = cichangehistoryDescOperationName.Validators[0].(func(string) error)
+	// cichangehistoryDescOperatorName is the schema descriptor for operator_name field.
+	cichangehistoryDescOperatorName := cichangehistoryFields[7].Descriptor()
+	// cichangehistory.OperatorNameValidator is a validator for the "operator_name" field. It is called by the builders before save.
+	cichangehistory.OperatorNameValidator = cichangehistoryDescOperatorName.Validators[0].(func(string) error)
+	// cichangehistoryDescChangeReason is the schema descriptor for change_reason field.
+	cichangehistoryDescChangeReason := cichangehistoryFields[11].Descriptor()
+	// cichangehistory.ChangeReasonValidator is a validator for the "change_reason" field. It is called by the builders before save.
+	cichangehistory.ChangeReasonValidator = cichangehistoryDescChangeReason.Validators[0].(func(string) error)
+	// cichangehistoryDescSource is the schema descriptor for source field.
+	cichangehistoryDescSource := cichangehistoryFields[12].Descriptor()
+	// cichangehistory.SourceValidator is a validator for the "source" field. It is called by the builders before save.
+	cichangehistory.SourceValidator = cichangehistoryDescSource.Validators[0].(func(string) error)
+	// cichangehistoryDescSourceDetail is the schema descriptor for source_detail field.
+	cichangehistoryDescSourceDetail := cichangehistoryFields[13].Descriptor()
+	// cichangehistory.SourceDetailValidator is a validator for the "source_detail" field. It is called by the builders before save.
+	cichangehistory.SourceDetailValidator = cichangehistoryDescSourceDetail.Validators[0].(func(string) error)
+	// cichangehistoryDescSourceTaskID is the schema descriptor for source_task_id field.
+	cichangehistoryDescSourceTaskID := cichangehistoryFields[14].Descriptor()
+	// cichangehistory.SourceTaskIDValidator is a validator for the "source_task_id" field. It is called by the builders before save.
+	cichangehistory.SourceTaskIDValidator = cichangehistoryDescSourceTaskID.Validators[0].(func(string) error)
+	// cichangehistoryDescIPAddress is the schema descriptor for ip_address field.
+	cichangehistoryDescIPAddress := cichangehistoryFields[15].Descriptor()
+	// cichangehistory.IPAddressValidator is a validator for the "ip_address" field. It is called by the builders before save.
+	cichangehistory.IPAddressValidator = cichangehistoryDescIPAddress.Validators[0].(func(string) error)
+	// cichangehistoryDescUserAgent is the schema descriptor for user_agent field.
+	cichangehistoryDescUserAgent := cichangehistoryFields[16].Descriptor()
+	// cichangehistory.UserAgentValidator is a validator for the "user_agent" field. It is called by the builders before save.
+	cichangehistory.UserAgentValidator = cichangehistoryDescUserAgent.Validators[0].(func(string) error)
+	// cichangehistoryDescNeedsApproval is the schema descriptor for needs_approval field.
+	cichangehistoryDescNeedsApproval := cichangehistoryFields[17].Descriptor()
+	// cichangehistory.DefaultNeedsApproval holds the default value on creation for the needs_approval field.
+	cichangehistory.DefaultNeedsApproval = cichangehistoryDescNeedsApproval.Default.(bool)
+	// cichangehistoryDescApprovedByName is the schema descriptor for approved_by_name field.
+	cichangehistoryDescApprovedByName := cichangehistoryFields[20].Descriptor()
+	// cichangehistory.ApprovedByNameValidator is a validator for the "approved_by_name" field. It is called by the builders before save.
+	cichangehistory.ApprovedByNameValidator = cichangehistoryDescApprovedByName.Validators[0].(func(string) error)
+	// cichangehistoryDescApprovalComment is the schema descriptor for approval_comment field.
+	cichangehistoryDescApprovalComment := cichangehistoryFields[22].Descriptor()
+	// cichangehistory.ApprovalCommentValidator is a validator for the "approval_comment" field. It is called by the builders before save.
+	cichangehistory.ApprovalCommentValidator = cichangehistoryDescApprovalComment.Validators[0].(func(string) error)
+	// cichangehistoryDescStatus is the schema descriptor for status field.
+	cichangehistoryDescStatus := cichangehistoryFields[23].Descriptor()
+	// cichangehistory.DefaultStatus holds the default value on creation for the status field.
+	cichangehistory.DefaultStatus = cichangehistoryDescStatus.Default.(string)
+	// cichangehistory.StatusValidator is a validator for the "status" field. It is called by the builders before save.
+	cichangehistory.StatusValidator = cichangehistoryDescStatus.Validators[0].(func(string) error)
+	// cichangehistoryDescErrorMessage is the schema descriptor for error_message field.
+	cichangehistoryDescErrorMessage := cichangehistoryFields[24].Descriptor()
+	// cichangehistory.ErrorMessageValidator is a validator for the "error_message" field. It is called by the builders before save.
+	cichangehistory.ErrorMessageValidator = cichangehistoryDescErrorMessage.Validators[0].(func(string) error)
+	// cichangehistoryDescIsRollback is the schema descriptor for is_rollback field.
+	cichangehistoryDescIsRollback := cichangehistoryFields[25].Descriptor()
+	// cichangehistory.DefaultIsRollback holds the default value on creation for the is_rollback field.
+	cichangehistory.DefaultIsRollback = cichangehistoryDescIsRollback.Default.(bool)
+	// cichangehistoryDescCanRollback is the schema descriptor for can_rollback field.
+	cichangehistoryDescCanRollback := cichangehistoryFields[27].Descriptor()
+	// cichangehistory.DefaultCanRollback holds the default value on creation for the can_rollback field.
+	cichangehistory.DefaultCanRollback = cichangehistoryDescCanRollback.Default.(bool)
+	// cichangehistoryDescAffectedCount is the schema descriptor for affected_count field.
+	cichangehistoryDescAffectedCount := cichangehistoryFields[28].Descriptor()
+	// cichangehistory.DefaultAffectedCount holds the default value on creation for the affected_count field.
+	cichangehistory.DefaultAffectedCount = cichangehistoryDescAffectedCount.Default.(int)
+	// cichangehistoryDescDurationMs is the schema descriptor for duration_ms field.
+	cichangehistoryDescDurationMs := cichangehistoryFields[29].Descriptor()
+	// cichangehistory.DefaultDurationMs holds the default value on creation for the duration_ms field.
+	cichangehistory.DefaultDurationMs = cichangehistoryDescDurationMs.Default.(int)
+	cilifecyclestateMixin := schema.CiLifecycleState{}.Mixin()
+	cilifecyclestateMixinFields0 := cilifecyclestateMixin[0].Fields()
+	_ = cilifecyclestateMixinFields0
+	cilifecyclestateMixinFields1 := cilifecyclestateMixin[1].Fields()
+	_ = cilifecyclestateMixinFields1
+	cilifecyclestateFields := schema.CiLifecycleState{}.Fields()
+	_ = cilifecyclestateFields
+	// cilifecyclestateDescCreatedAt is the schema descriptor for created_at field.
+	cilifecyclestateDescCreatedAt := cilifecyclestateMixinFields0[1].Descriptor()
+	// cilifecyclestate.DefaultCreatedAt holds the default value on creation for the created_at field.
+	cilifecyclestate.DefaultCreatedAt = cilifecyclestateDescCreatedAt.Default.(func() time.Time)
+	// cilifecyclestateDescUpdatedAt is the schema descriptor for updated_at field.
+	cilifecyclestateDescUpdatedAt := cilifecyclestateMixinFields0[2].Descriptor()
+	// cilifecyclestate.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	cilifecyclestate.DefaultUpdatedAt = cilifecyclestateDescUpdatedAt.Default.(func() time.Time)
+	// cilifecyclestate.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	cilifecyclestate.UpdateDefaultUpdatedAt = cilifecyclestateDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// cilifecyclestateDescTenantID is the schema descriptor for tenant_id field.
+	cilifecyclestateDescTenantID := cilifecyclestateMixinFields1[0].Descriptor()
+	// cilifecyclestate.DefaultTenantID holds the default value on creation for the tenant_id field.
+	cilifecyclestate.DefaultTenantID = cilifecyclestateDescTenantID.Default.(uint64)
+	// cilifecyclestateDescStateID is the schema descriptor for state_id field.
+	cilifecyclestateDescStateID := cilifecyclestateFields[0].Descriptor()
+	// cilifecyclestate.StateIDValidator is a validator for the "state_id" field. It is called by the builders before save.
+	cilifecyclestate.StateIDValidator = func() func(string) error {
+		validators := cilifecyclestateDescStateID.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(state_id string) error {
+			for _, fn := range fns {
+				if err := fn(state_id); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// cilifecyclestateDescStateName is the schema descriptor for state_name field.
+	cilifecyclestateDescStateName := cilifecyclestateFields[3].Descriptor()
+	// cilifecyclestate.StateNameValidator is a validator for the "state_name" field. It is called by the builders before save.
+	cilifecyclestate.StateNameValidator = func() func(string) error {
+		validators := cilifecyclestateDescStateName.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(state_name string) error {
+			for _, fn := range fns {
+				if err := fn(state_name); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// cilifecyclestateDescStateType is the schema descriptor for state_type field.
+	cilifecyclestateDescStateType := cilifecyclestateFields[4].Descriptor()
+	// cilifecyclestate.StateTypeValidator is a validator for the "state_type" field. It is called by the builders before save.
+	cilifecyclestate.StateTypeValidator = func() func(string) error {
+		validators := cilifecyclestateDescStateType.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(state_type string) error {
+			for _, fn := range fns {
+				if err := fn(state_type); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// cilifecyclestateDescPreviousState is the schema descriptor for previous_state field.
+	cilifecyclestateDescPreviousState := cilifecyclestateFields[5].Descriptor()
+	// cilifecyclestate.PreviousStateValidator is a validator for the "previous_state" field. It is called by the builders before save.
+	cilifecyclestate.PreviousStateValidator = cilifecyclestateDescPreviousState.Validators[0].(func(string) error)
+	// cilifecyclestateDescDurationSeconds is the schema descriptor for duration_seconds field.
+	cilifecyclestateDescDurationSeconds := cilifecyclestateFields[9].Descriptor()
+	// cilifecyclestate.DefaultDurationSeconds holds the default value on creation for the duration_seconds field.
+	cilifecyclestate.DefaultDurationSeconds = cilifecyclestateDescDurationSeconds.Default.(int)
+	// cilifecyclestateDescTriggerType is the schema descriptor for trigger_type field.
+	cilifecyclestateDescTriggerType := cilifecyclestateFields[10].Descriptor()
+	// cilifecyclestate.TriggerTypeValidator is a validator for the "trigger_type" field. It is called by the builders before save.
+	cilifecyclestate.TriggerTypeValidator = func() func(string) error {
+		validators := cilifecyclestateDescTriggerType.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(trigger_type string) error {
+			for _, fn := range fns {
+				if err := fn(trigger_type); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// cilifecyclestateDescTriggeredByName is the schema descriptor for triggered_by_name field.
+	cilifecyclestateDescTriggeredByName := cilifecyclestateFields[12].Descriptor()
+	// cilifecyclestate.TriggeredByNameValidator is a validator for the "triggered_by_name" field. It is called by the builders before save.
+	cilifecyclestate.TriggeredByNameValidator = cilifecyclestateDescTriggeredByName.Validators[0].(func(string) error)
+	// cilifecyclestateDescIsTimeout is the schema descriptor for is_timeout field.
+	cilifecyclestateDescIsTimeout := cilifecyclestateFields[15].Descriptor()
+	// cilifecyclestate.DefaultIsTimeout holds the default value on creation for the is_timeout field.
+	cilifecyclestate.DefaultIsTimeout = cilifecyclestateDescIsTimeout.Default.(bool)
+	// cilifecyclestateDescHasError is the schema descriptor for has_error field.
+	cilifecyclestateDescHasError := cilifecyclestateFields[16].Descriptor()
+	// cilifecyclestate.DefaultHasError holds the default value on creation for the has_error field.
+	cilifecyclestate.DefaultHasError = cilifecyclestateDescHasError.Default.(bool)
+	// cilifecyclestateDescErrorMessage is the schema descriptor for error_message field.
+	cilifecyclestateDescErrorMessage := cilifecyclestateFields[17].Descriptor()
+	// cilifecyclestate.ErrorMessageValidator is a validator for the "error_message" field. It is called by the builders before save.
+	cilifecyclestate.ErrorMessageValidator = cilifecyclestateDescErrorMessage.Validators[0].(func(string) error)
+	// cilifecyclestateDescErrorCode is the schema descriptor for error_code field.
+	cilifecyclestateDescErrorCode := cilifecyclestateFields[18].Descriptor()
+	// cilifecyclestate.ErrorCodeValidator is a validator for the "error_code" field. It is called by the builders before save.
+	cilifecyclestate.ErrorCodeValidator = cilifecyclestateDescErrorCode.Validators[0].(func(string) error)
+	// cilifecyclestateDescOperationID is the schema descriptor for operation_id field.
+	cilifecyclestateDescOperationID := cilifecyclestateFields[19].Descriptor()
+	// cilifecyclestate.OperationIDValidator is a validator for the "operation_id" field. It is called by the builders before save.
+	cilifecyclestate.OperationIDValidator = cilifecyclestateDescOperationID.Validators[0].(func(string) error)
+	// cilifecyclestateDescChangeRecordID is the schema descriptor for change_record_id field.
+	cilifecyclestateDescChangeRecordID := cilifecyclestateFields[20].Descriptor()
+	// cilifecyclestate.ChangeRecordIDValidator is a validator for the "change_record_id" field. It is called by the builders before save.
+	cilifecyclestate.ChangeRecordIDValidator = cilifecyclestateDescChangeRecordID.Validators[0].(func(string) error)
+	// cilifecyclestateDescIsCurrent is the schema descriptor for is_current field.
+	cilifecyclestateDescIsCurrent := cilifecyclestateFields[21].Descriptor()
+	// cilifecyclestate.DefaultIsCurrent holds the default value on creation for the is_current field.
+	cilifecyclestate.DefaultIsCurrent = cilifecyclestateDescIsCurrent.Default.(bool)
+	// cilifecyclestateDescIsFinal is the schema descriptor for is_final field.
+	cilifecyclestateDescIsFinal := cilifecyclestateFields[22].Descriptor()
+	// cilifecyclestate.DefaultIsFinal holds the default value on creation for the is_final field.
+	cilifecyclestate.DefaultIsFinal = cilifecyclestateDescIsFinal.Default.(bool)
+	// cilifecyclestateDescCanRetry is the schema descriptor for can_retry field.
+	cilifecyclestateDescCanRetry := cilifecyclestateFields[23].Descriptor()
+	// cilifecyclestate.DefaultCanRetry holds the default value on creation for the can_retry field.
+	cilifecyclestate.DefaultCanRetry = cilifecyclestateDescCanRetry.Default.(bool)
+	// cilifecyclestateDescRetryCount is the schema descriptor for retry_count field.
+	cilifecyclestateDescRetryCount := cilifecyclestateFields[24].Descriptor()
+	// cilifecyclestate.DefaultRetryCount holds the default value on creation for the retry_count field.
+	cilifecyclestate.DefaultRetryCount = cilifecyclestateDescRetryCount.Default.(int)
+	// cilifecyclestateDescMaxRetryCount is the schema descriptor for max_retry_count field.
+	cilifecyclestateDescMaxRetryCount := cilifecyclestateFields[25].Descriptor()
+	// cilifecyclestate.DefaultMaxRetryCount holds the default value on creation for the max_retry_count field.
+	cilifecyclestate.DefaultMaxRetryCount = cilifecyclestateDescMaxRetryCount.Default.(int)
+	// cilifecyclestateDescComment is the schema descriptor for comment field.
+	cilifecyclestateDescComment := cilifecyclestateFields[27].Descriptor()
+	// cilifecyclestate.CommentValidator is a validator for the "comment" field. It is called by the builders before save.
+	cilifecyclestate.CommentValidator = cilifecyclestateDescComment.Validators[0].(func(string) error)
+	configauditlogMixin := schema.ConfigAuditLog{}.Mixin()
+	configauditlogMixinFields0 := configauditlogMixin[0].Fields()
+	_ = configauditlogMixinFields0
+	configauditlogMixinFields1 := configauditlogMixin[1].Fields()
+	_ = configauditlogMixinFields1
+	configauditlogFields := schema.ConfigAuditLog{}.Fields()
+	_ = configauditlogFields
+	// configauditlogDescCreatedAt is the schema descriptor for created_at field.
+	configauditlogDescCreatedAt := configauditlogMixinFields0[1].Descriptor()
+	// configauditlog.DefaultCreatedAt holds the default value on creation for the created_at field.
+	configauditlog.DefaultCreatedAt = configauditlogDescCreatedAt.Default.(func() time.Time)
+	// configauditlogDescUpdatedAt is the schema descriptor for updated_at field.
+	configauditlogDescUpdatedAt := configauditlogMixinFields0[2].Descriptor()
+	// configauditlog.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	configauditlog.DefaultUpdatedAt = configauditlogDescUpdatedAt.Default.(func() time.Time)
+	// configauditlog.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	configauditlog.UpdateDefaultUpdatedAt = configauditlogDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// configauditlogDescTenantID is the schema descriptor for tenant_id field.
+	configauditlogDescTenantID := configauditlogMixinFields1[0].Descriptor()
+	// configauditlog.DefaultTenantID holds the default value on creation for the tenant_id field.
+	configauditlog.DefaultTenantID = configauditlogDescTenantID.Default.(uint64)
+	// configauditlogDescConfigKey is the schema descriptor for config_key field.
+	configauditlogDescConfigKey := configauditlogFields[0].Descriptor()
+	// configauditlog.ConfigKeyValidator is a validator for the "config_key" field. It is called by the builders before save.
+	configauditlog.ConfigKeyValidator = func() func(string) error {
+		validators := configauditlogDescConfigKey.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(config_key string) error {
+			for _, fn := range fns {
+				if err := fn(config_key); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// configauditlogDescOldValue is the schema descriptor for old_value field.
+	configauditlogDescOldValue := configauditlogFields[1].Descriptor()
+	// configauditlog.OldValueValidator is a validator for the "old_value" field. It is called by the builders before save.
+	configauditlog.OldValueValidator = configauditlogDescOldValue.Validators[0].(func(string) error)
+	// configauditlogDescNewValue is the schema descriptor for new_value field.
+	configauditlogDescNewValue := configauditlogFields[2].Descriptor()
+	// configauditlog.NewValueValidator is a validator for the "new_value" field. It is called by the builders before save.
+	configauditlog.NewValueValidator = configauditlogDescNewValue.Validators[0].(func(string) error)
+	// configauditlogDescChangeType is the schema descriptor for change_type field.
+	configauditlogDescChangeType := configauditlogFields[3].Descriptor()
+	// configauditlog.DefaultChangeType holds the default value on creation for the change_type field.
+	configauditlog.DefaultChangeType = configauditlogDescChangeType.Default.(string)
+	// configauditlog.ChangeTypeValidator is a validator for the "change_type" field. It is called by the builders before save.
+	configauditlog.ChangeTypeValidator = configauditlogDescChangeType.Validators[0].(func(string) error)
+	// configauditlogDescChangedByName is the schema descriptor for changed_by_name field.
+	configauditlogDescChangedByName := configauditlogFields[5].Descriptor()
+	// configauditlog.ChangedByNameValidator is a validator for the "changed_by_name" field. It is called by the builders before save.
+	configauditlog.ChangedByNameValidator = configauditlogDescChangedByName.Validators[0].(func(string) error)
+	// configauditlogDescServiceName is the schema descriptor for service_name field.
+	configauditlogDescServiceName := configauditlogFields[6].Descriptor()
+	// configauditlog.ServiceNameValidator is a validator for the "service_name" field. It is called by the builders before save.
+	configauditlog.ServiceNameValidator = configauditlogDescServiceName.Validators[0].(func(string) error)
+	// configauditlogDescCategory is the schema descriptor for category field.
+	configauditlogDescCategory := configauditlogFields[7].Descriptor()
+	// configauditlog.CategoryValidator is a validator for the "category" field. It is called by the builders before save.
+	configauditlog.CategoryValidator = configauditlogDescCategory.Validators[0].(func(string) error)
+	// configauditlogDescConfigGroup is the schema descriptor for config_group field.
+	configauditlogDescConfigGroup := configauditlogFields[8].Descriptor()
+	// configauditlog.ConfigGroupValidator is a validator for the "config_group" field. It is called by the builders before save.
+	configauditlog.ConfigGroupValidator = configauditlogDescConfigGroup.Validators[0].(func(string) error)
+	// configauditlogDescChangeReason is the schema descriptor for change_reason field.
+	configauditlogDescChangeReason := configauditlogFields[9].Descriptor()
+	// configauditlog.ChangeReasonValidator is a validator for the "change_reason" field. It is called by the builders before save.
+	configauditlog.ChangeReasonValidator = configauditlogDescChangeReason.Validators[0].(func(string) error)
+	// configauditlogDescIPAddress is the schema descriptor for ip_address field.
+	configauditlogDescIPAddress := configauditlogFields[10].Descriptor()
+	// configauditlog.IPAddressValidator is a validator for the "ip_address" field. It is called by the builders before save.
+	configauditlog.IPAddressValidator = configauditlogDescIPAddress.Validators[0].(func(string) error)
+	// configauditlogDescUserAgent is the schema descriptor for user_agent field.
+	configauditlogDescUserAgent := configauditlogFields[11].Descriptor()
+	// configauditlog.UserAgentValidator is a validator for the "user_agent" field. It is called by the builders before save.
+	configauditlog.UserAgentValidator = configauditlogDescUserAgent.Validators[0].(func(string) error)
+	// configauditlogDescOldVersion is the schema descriptor for old_version field.
+	configauditlogDescOldVersion := configauditlogFields[12].Descriptor()
+	// configauditlog.DefaultOldVersion holds the default value on creation for the old_version field.
+	configauditlog.DefaultOldVersion = configauditlogDescOldVersion.Default.(int)
+	// configauditlogDescNewVersion is the schema descriptor for new_version field.
+	configauditlogDescNewVersion := configauditlogFields[13].Descriptor()
+	// configauditlog.DefaultNewVersion holds the default value on creation for the new_version field.
+	configauditlog.DefaultNewVersion = configauditlogDescNewVersion.Default.(int)
+	// configauditlogDescIsRollback is the schema descriptor for is_rollback field.
+	configauditlogDescIsRollback := configauditlogFields[14].Descriptor()
+	// configauditlog.DefaultIsRollback holds the default value on creation for the is_rollback field.
+	configauditlog.DefaultIsRollback = configauditlogDescIsRollback.Default.(bool)
+	// configauditlogDescRollbackFromLogID is the schema descriptor for rollback_from_log_id field.
+	configauditlogDescRollbackFromLogID := configauditlogFields[15].Descriptor()
+	// configauditlog.RollbackFromLogIDValidator is a validator for the "rollback_from_log_id" field. It is called by the builders before save.
+	configauditlog.RollbackFromLogIDValidator = configauditlogDescRollbackFromLogID.Validators[0].(func(string) error)
+	configitemMixin := schema.ConfigItem{}.Mixin()
+	configitemMixinFields0 := configitemMixin[0].Fields()
+	_ = configitemMixinFields0
+	configitemMixinFields1 := configitemMixin[1].Fields()
+	_ = configitemMixinFields1
+	configitemMixinFields2 := configitemMixin[2].Fields()
+	_ = configitemMixinFields2
+	configitemFields := schema.ConfigItem{}.Fields()
+	_ = configitemFields
+	// configitemDescCreatedAt is the schema descriptor for created_at field.
+	configitemDescCreatedAt := configitemMixinFields0[1].Descriptor()
+	// configitem.DefaultCreatedAt holds the default value on creation for the created_at field.
+	configitem.DefaultCreatedAt = configitemDescCreatedAt.Default.(func() time.Time)
+	// configitemDescUpdatedAt is the schema descriptor for updated_at field.
+	configitemDescUpdatedAt := configitemMixinFields0[2].Descriptor()
+	// configitem.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	configitem.DefaultUpdatedAt = configitemDescUpdatedAt.Default.(func() time.Time)
+	// configitem.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	configitem.UpdateDefaultUpdatedAt = configitemDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// configitemDescStatus is the schema descriptor for status field.
+	configitemDescStatus := configitemMixinFields1[0].Descriptor()
+	// configitem.DefaultStatus holds the default value on creation for the status field.
+	configitem.DefaultStatus = configitemDescStatus.Default.(uint8)
+	// configitemDescTenantID is the schema descriptor for tenant_id field.
+	configitemDescTenantID := configitemMixinFields2[0].Descriptor()
+	// configitem.DefaultTenantID holds the default value on creation for the tenant_id field.
+	configitem.DefaultTenantID = configitemDescTenantID.Default.(uint64)
+	// configitemDescConfigKey is the schema descriptor for config_key field.
+	configitemDescConfigKey := configitemFields[0].Descriptor()
+	// configitem.ConfigKeyValidator is a validator for the "config_key" field. It is called by the builders before save.
+	configitem.ConfigKeyValidator = func() func(string) error {
+		validators := configitemDescConfigKey.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(config_key string) error {
+			for _, fn := range fns {
+				if err := fn(config_key); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// configitemDescConfigValue is the schema descriptor for config_value field.
+	configitemDescConfigValue := configitemFields[1].Descriptor()
+	// configitem.ConfigValueValidator is a validator for the "config_value" field. It is called by the builders before save.
+	configitem.ConfigValueValidator = func() func(string) error {
+		validators := configitemDescConfigValue.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(config_value string) error {
+			for _, fn := range fns {
+				if err := fn(config_value); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// configitemDescValueType is the schema descriptor for value_type field.
+	configitemDescValueType := configitemFields[2].Descriptor()
+	// configitem.DefaultValueType holds the default value on creation for the value_type field.
+	configitem.DefaultValueType = configitemDescValueType.Default.(string)
+	// configitem.ValueTypeValidator is a validator for the "value_type" field. It is called by the builders before save.
+	configitem.ValueTypeValidator = configitemDescValueType.Validators[0].(func(string) error)
+	// configitemDescCategory is the schema descriptor for category field.
+	configitemDescCategory := configitemFields[3].Descriptor()
+	// configitem.DefaultCategory holds the default value on creation for the category field.
+	configitem.DefaultCategory = configitemDescCategory.Default.(string)
+	// configitem.CategoryValidator is a validator for the "category" field. It is called by the builders before save.
+	configitem.CategoryValidator = configitemDescCategory.Validators[0].(func(string) error)
+	// configitemDescServiceName is the schema descriptor for service_name field.
+	configitemDescServiceName := configitemFields[4].Descriptor()
+	// configitem.ServiceNameValidator is a validator for the "service_name" field. It is called by the builders before save.
+	configitem.ServiceNameValidator = configitemDescServiceName.Validators[0].(func(string) error)
+	// configitemDescDescription is the schema descriptor for description field.
+	configitemDescDescription := configitemFields[5].Descriptor()
+	// configitem.DescriptionValidator is a validator for the "description" field. It is called by the builders before save.
+	configitem.DescriptionValidator = configitemDescDescription.Validators[0].(func(string) error)
+	// configitemDescDefaultValue is the schema descriptor for default_value field.
+	configitemDescDefaultValue := configitemFields[6].Descriptor()
+	// configitem.DefaultValueValidator is a validator for the "default_value" field. It is called by the builders before save.
+	configitem.DefaultValueValidator = configitemDescDefaultValue.Validators[0].(func(string) error)
+	// configitemDescVersion is the schema descriptor for version field.
+	configitemDescVersion := configitemFields[7].Descriptor()
+	// configitem.DefaultVersion holds the default value on creation for the version field.
+	configitem.DefaultVersion = configitemDescVersion.Default.(int)
+	// configitem.VersionValidator is a validator for the "version" field. It is called by the builders before save.
+	configitem.VersionValidator = configitemDescVersion.Validators[0].(func(int) error)
+	// configitemDescIsReadonly is the schema descriptor for is_readonly field.
+	configitemDescIsReadonly := configitemFields[9].Descriptor()
+	// configitem.DefaultIsReadonly holds the default value on creation for the is_readonly field.
+	configitem.DefaultIsReadonly = configitemDescIsReadonly.Default.(bool)
+	// configitemDescIsSensitive is the schema descriptor for is_sensitive field.
+	configitemDescIsSensitive := configitemFields[10].Descriptor()
+	// configitem.DefaultIsSensitive holds the default value on creation for the is_sensitive field.
+	configitem.DefaultIsSensitive = configitemDescIsSensitive.Default.(bool)
+	// configitemDescScope is the schema descriptor for scope field.
+	configitemDescScope := configitemFields[11].Descriptor()
+	// configitem.DefaultScope holds the default value on creation for the scope field.
+	configitem.DefaultScope = configitemDescScope.Default.(string)
+	// configitem.ScopeValidator is a validator for the "scope" field. It is called by the builders before save.
+	configitem.ScopeValidator = configitemDescScope.Validators[0].(func(string) error)
+	// configitemDescConfigGroup is the schema descriptor for config_group field.
+	configitemDescConfigGroup := configitemFields[12].Descriptor()
+	// configitem.ConfigGroupValidator is a validator for the "config_group" field. It is called by the builders before save.
+	configitem.ConfigGroupValidator = configitemDescConfigGroup.Validators[0].(func(string) error)
+	// configitemDescTags is the schema descriptor for tags field.
+	configitemDescTags := configitemFields[13].Descriptor()
+	// configitem.TagsValidator is a validator for the "tags" field. It is called by the builders before save.
+	configitem.TagsValidator = configitemDescTags.Validators[0].(func(string) error)
 	crontaskMixin := schema.CronTask{}.Mixin()
 	crontaskMixinFields0 := crontaskMixin[0].Fields()
 	_ = crontaskMixinFields0

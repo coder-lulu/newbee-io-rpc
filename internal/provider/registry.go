@@ -28,15 +28,18 @@ func GetRegistry() *ProviderRegistry {
 func (r *ProviderRegistry) registerBuiltinProviders() {
 	// 文件导入提供者
 	r.Register(NewFileImportProvider())
-	
+
 	// NewBee Agent 分布式发现提供者
 	r.Register(NewNBAgentProvider())
-	
+
 	// 阿里云ECS提供者
 	r.Register(NewAliyunECSProvider())
-	
+
 	// VMware vCenter提供者
 	r.Register(NewVMwareVCenterProvider())
+
+	// SSH 主机发现提供者
+	r.Register(NewSSHProvider())
 }
 
 func (r *ProviderRegistry) Register(provider IDiscoveryProvider) {

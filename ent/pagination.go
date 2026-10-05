@@ -6,6 +6,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/coder-lulu/newbee-io-rpc/ent/cichangehistory"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configauditlog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configitem"
 	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
 	"github.com/coder-lulu/newbee-io-rpc/ent/datatarget"
 	"github.com/coder-lulu/newbee-io-rpc/ent/discoverypool"
@@ -66,6 +69,249 @@ func (o OrderDirection) reverse() OrderDirection {
 }
 
 const errInvalidPagination = "INVALID_PAGINATION"
+
+type CiChangeHistoryPager struct {
+	Order  cichangehistory.OrderOption
+	Filter func(*CiChangeHistoryQuery) (*CiChangeHistoryQuery, error)
+}
+
+// CiChangeHistoryPaginateOption enables pagination customization.
+type CiChangeHistoryPaginateOption func(*CiChangeHistoryPager)
+
+// DefaultCiChangeHistoryOrder is the default ordering of CiChangeHistory.
+var DefaultCiChangeHistoryOrder = Desc(cichangehistory.FieldID)
+
+func newCiChangeHistoryPager(opts []CiChangeHistoryPaginateOption) (*CiChangeHistoryPager, error) {
+	pager := &CiChangeHistoryPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultCiChangeHistoryOrder
+	}
+	return pager, nil
+}
+
+func (p *CiChangeHistoryPager) ApplyFilter(query *CiChangeHistoryQuery) (*CiChangeHistoryQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// CiChangeHistoryPageList is CiChangeHistory PageList result.
+type CiChangeHistoryPageList struct {
+	List        []*CiChangeHistory `json:"list"`
+	PageDetails *PageDetails       `json:"pageDetails"`
+}
+
+func (_m *CiChangeHistoryQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...CiChangeHistoryPaginateOption,
+) (*CiChangeHistoryPageList, error) {
+
+	pager, err := newCiChangeHistoryPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if _m, err = pager.ApplyFilter(_m); err != nil {
+		return nil, err
+	}
+
+	ret := &CiChangeHistoryPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := _m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		_m = _m.Order(pager.Order)
+	} else {
+		_m = _m.Order(DefaultCiChangeHistoryOrder)
+	}
+
+	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := _m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type ConfigAuditLogPager struct {
+	Order  configauditlog.OrderOption
+	Filter func(*ConfigAuditLogQuery) (*ConfigAuditLogQuery, error)
+}
+
+// ConfigAuditLogPaginateOption enables pagination customization.
+type ConfigAuditLogPaginateOption func(*ConfigAuditLogPager)
+
+// DefaultConfigAuditLogOrder is the default ordering of ConfigAuditLog.
+var DefaultConfigAuditLogOrder = Desc(configauditlog.FieldID)
+
+func newConfigAuditLogPager(opts []ConfigAuditLogPaginateOption) (*ConfigAuditLogPager, error) {
+	pager := &ConfigAuditLogPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultConfigAuditLogOrder
+	}
+	return pager, nil
+}
+
+func (p *ConfigAuditLogPager) ApplyFilter(query *ConfigAuditLogQuery) (*ConfigAuditLogQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// ConfigAuditLogPageList is ConfigAuditLog PageList result.
+type ConfigAuditLogPageList struct {
+	List        []*ConfigAuditLog `json:"list"`
+	PageDetails *PageDetails      `json:"pageDetails"`
+}
+
+func (_m *ConfigAuditLogQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ConfigAuditLogPaginateOption,
+) (*ConfigAuditLogPageList, error) {
+
+	pager, err := newConfigAuditLogPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if _m, err = pager.ApplyFilter(_m); err != nil {
+		return nil, err
+	}
+
+	ret := &ConfigAuditLogPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := _m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		_m = _m.Order(pager.Order)
+	} else {
+		_m = _m.Order(DefaultConfigAuditLogOrder)
+	}
+
+	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := _m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
+
+type ConfigItemPager struct {
+	Order  configitem.OrderOption
+	Filter func(*ConfigItemQuery) (*ConfigItemQuery, error)
+}
+
+// ConfigItemPaginateOption enables pagination customization.
+type ConfigItemPaginateOption func(*ConfigItemPager)
+
+// DefaultConfigItemOrder is the default ordering of ConfigItem.
+var DefaultConfigItemOrder = Desc(configitem.FieldID)
+
+func newConfigItemPager(opts []ConfigItemPaginateOption) (*ConfigItemPager, error) {
+	pager := &ConfigItemPager{}
+	for _, opt := range opts {
+		opt(pager)
+	}
+	if pager.Order == nil {
+		pager.Order = DefaultConfigItemOrder
+	}
+	return pager, nil
+}
+
+func (p *ConfigItemPager) ApplyFilter(query *ConfigItemQuery) (*ConfigItemQuery, error) {
+	if p.Filter != nil {
+		return p.Filter(query)
+	}
+	return query, nil
+}
+
+// ConfigItemPageList is ConfigItem PageList result.
+type ConfigItemPageList struct {
+	List        []*ConfigItem `json:"list"`
+	PageDetails *PageDetails  `json:"pageDetails"`
+}
+
+func (_m *ConfigItemQuery) Page(
+	ctx context.Context, pageNum uint64, pageSize uint64, opts ...ConfigItemPaginateOption,
+) (*ConfigItemPageList, error) {
+
+	pager, err := newConfigItemPager(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	if _m, err = pager.ApplyFilter(_m); err != nil {
+		return nil, err
+	}
+
+	ret := &ConfigItemPageList{}
+
+	ret.PageDetails = &PageDetails{
+		Page: pageNum,
+		Size: pageSize,
+	}
+
+	query := _m.Clone()
+	query.ctx.Fields = nil
+	count, err := query.Count(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ret.PageDetails.Total = uint64(count)
+
+	if pager.Order != nil {
+		_m = _m.Order(pager.Order)
+	} else {
+		_m = _m.Order(DefaultConfigItemOrder)
+	}
+
+	_m = _m.Offset(int((pageNum - 1) * pageSize)).Limit(int(pageSize))
+	list, err := _m.All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	ret.List = list
+
+	return ret, nil
+}
 
 type CronTaskPager struct {
 	Order  crontask.OrderOption

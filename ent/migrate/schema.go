@@ -9,6 +9,315 @@ import (
 )
 
 var (
+	// CiChangeHistoriesColumns holds the columns for the "ci_change_histories" table.
+	CiChangeHistoriesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "tenant_id", Type: field.TypeUint64, Default: 1},
+		{Name: "department_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "operation_id", Type: field.TypeString, Size: 100},
+		{Name: "ci_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "ci_type_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "ci_type", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "operation_type", Type: field.TypeString, Size: 50},
+		{Name: "operation_name", Type: field.TypeString, Nullable: true, Size: 200},
+		{Name: "operator_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "operator_name", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "changed_fields", Type: field.TypeString, Nullable: true, Size: 2147483647},
+		{Name: "old_values", Type: field.TypeString, Nullable: true, Size: 2147483647},
+		{Name: "new_values", Type: field.TypeString, Nullable: true, Size: 2147483647},
+		{Name: "change_reason", Type: field.TypeString, Nullable: true, Size: 500},
+		{Name: "source", Type: field.TypeString, Nullable: true, Size: 50},
+		{Name: "source_detail", Type: field.TypeString, Nullable: true, Size: 500},
+		{Name: "source_task_id", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "ip_address", Type: field.TypeString, Nullable: true, Size: 50},
+		{Name: "user_agent", Type: field.TypeString, Nullable: true, Size: 500},
+		{Name: "needs_approval", Type: field.TypeBool, Default: false},
+		{Name: "is_approved", Type: field.TypeBool, Nullable: true},
+		{Name: "approved_by", Type: field.TypeUint64, Nullable: true},
+		{Name: "approved_by_name", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "approved_at", Type: field.TypeTime, Nullable: true},
+		{Name: "approval_comment", Type: field.TypeString, Nullable: true, Size: 500},
+		{Name: "status", Type: field.TypeString, Size: 20, Default: "success"},
+		{Name: "error_message", Type: field.TypeString, Nullable: true, Size: 1000},
+		{Name: "is_rollback", Type: field.TypeBool, Default: false},
+		{Name: "rollback_from_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "can_rollback", Type: field.TypeBool, Default: true},
+		{Name: "affected_count", Type: field.TypeInt, Default: 1},
+		{Name: "duration_ms", Type: field.TypeInt, Default: 0},
+		{Name: "metadata", Type: field.TypeString, Nullable: true, Size: 2147483647},
+	}
+	// CiChangeHistoriesTable holds the schema information for the "ci_change_histories" table.
+	CiChangeHistoriesTable = &schema.Table{
+		Name:       "ci_change_histories",
+		Columns:    CiChangeHistoriesColumns,
+		PrimaryKey: []*schema.Column{CiChangeHistoriesColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "cichangehistory_tenant_id_ci_id",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[3], CiChangeHistoriesColumns[6]},
+			},
+			{
+				Name:    "cichangehistory_ci_type_id",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[7]},
+			},
+			{
+				Name:    "cichangehistory_operation_type",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[9]},
+			},
+			{
+				Name:    "cichangehistory_operator_id",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[11]},
+			},
+			{
+				Name:    "cichangehistory_created_at",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[1]},
+			},
+			{
+				Name:    "cichangehistory_status",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[28]},
+			},
+			{
+				Name:    "cichangehistory_tenant_id_ci_id_created_at",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[3], CiChangeHistoriesColumns[6], CiChangeHistoriesColumns[1]},
+			},
+			{
+				Name:    "cichangehistory_tenant_id_operation_type_created_at",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[3], CiChangeHistoriesColumns[9], CiChangeHistoriesColumns[1]},
+			},
+			{
+				Name:    "cichangehistory_operation_id",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[5]},
+			},
+			{
+				Name:    "cichangehistory_needs_approval_is_approved",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[22], CiChangeHistoriesColumns[23]},
+			},
+			{
+				Name:    "cichangehistory_source_task_id",
+				Unique:  false,
+				Columns: []*schema.Column{CiChangeHistoriesColumns[19]},
+			},
+		},
+	}
+	// CiLifecycleStatesColumns holds the columns for the "ci_lifecycle_states" table.
+	CiLifecycleStatesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "tenant_id", Type: field.TypeUint64, Default: 1},
+		{Name: "department_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "state_id", Type: field.TypeString, Unique: true, Size: 100},
+		{Name: "ci_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "ci_type_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "state_name", Type: field.TypeString, Size: 100},
+		{Name: "state_type", Type: field.TypeString, Size: 50},
+		{Name: "previous_state", Type: field.TypeString, Nullable: true, Size: 50},
+		{Name: "entered_at", Type: field.TypeTime},
+		{Name: "exited_at", Type: field.TypeTime, Nullable: true},
+		{Name: "expected_exit_at", Type: field.TypeTime, Nullable: true},
+		{Name: "duration_seconds", Type: field.TypeInt, Default: 0},
+		{Name: "trigger_type", Type: field.TypeString, Size: 50},
+		{Name: "triggered_by", Type: field.TypeUint64, Nullable: true},
+		{Name: "triggered_by_name", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "state_data", Type: field.TypeString, Nullable: true, Size: 2147483647},
+		{Name: "metadata", Type: field.TypeString, Nullable: true, Size: 2147483647},
+		{Name: "is_timeout", Type: field.TypeBool, Default: false},
+		{Name: "has_error", Type: field.TypeBool, Default: false},
+		{Name: "error_message", Type: field.TypeString, Nullable: true, Size: 1000},
+		{Name: "error_code", Type: field.TypeString, Nullable: true, Size: 50},
+		{Name: "operation_id", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "change_record_id", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "is_current", Type: field.TypeBool, Default: true},
+		{Name: "is_final", Type: field.TypeBool, Default: false},
+		{Name: "can_retry", Type: field.TypeBool, Default: false},
+		{Name: "retry_count", Type: field.TypeInt, Default: 0},
+		{Name: "max_retry_count", Type: field.TypeInt, Default: 3},
+		{Name: "last_retry_at", Type: field.TypeTime, Nullable: true},
+		{Name: "comment", Type: field.TypeString, Nullable: true, Size: 500},
+	}
+	// CiLifecycleStatesTable holds the schema information for the "ci_lifecycle_states" table.
+	CiLifecycleStatesTable = &schema.Table{
+		Name:       "ci_lifecycle_states",
+		Columns:    CiLifecycleStatesColumns,
+		PrimaryKey: []*schema.Column{CiLifecycleStatesColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "cilifecyclestate_state_id",
+				Unique:  true,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[5]},
+			},
+			{
+				Name:    "cilifecyclestate_tenant_id_ci_id_entered_at",
+				Unique:  false,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[3], CiLifecycleStatesColumns[6], CiLifecycleStatesColumns[11]},
+			},
+			{
+				Name:    "cilifecyclestate_ci_type_id",
+				Unique:  false,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[7]},
+			},
+			{
+				Name:    "cilifecyclestate_state_type",
+				Unique:  false,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[9]},
+			},
+			{
+				Name:    "cilifecyclestate_ci_id_is_current",
+				Unique:  false,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[6], CiLifecycleStatesColumns[26]},
+			},
+			{
+				Name:    "cilifecyclestate_operation_id",
+				Unique:  false,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[24]},
+			},
+			{
+				Name:    "cilifecyclestate_is_timeout_expected_exit_at",
+				Unique:  false,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[20], CiLifecycleStatesColumns[13]},
+			},
+			{
+				Name:    "cilifecyclestate_has_error",
+				Unique:  false,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[21]},
+			},
+			{
+				Name:    "cilifecyclestate_tenant_id_ci_id_is_current",
+				Unique:  false,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[3], CiLifecycleStatesColumns[6], CiLifecycleStatesColumns[26]},
+			},
+			{
+				Name:    "cilifecyclestate_tenant_id_state_type_entered_at",
+				Unique:  false,
+				Columns: []*schema.Column{CiLifecycleStatesColumns[3], CiLifecycleStatesColumns[9], CiLifecycleStatesColumns[11]},
+			},
+		},
+	}
+	// ConfigAuditLogsColumns holds the columns for the "config_audit_logs" table.
+	ConfigAuditLogsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "tenant_id", Type: field.TypeUint64, Default: 1},
+		{Name: "department_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "config_key", Type: field.TypeString, Size: 255},
+		{Name: "old_value", Type: field.TypeString, Nullable: true, Size: 4096},
+		{Name: "new_value", Type: field.TypeString, Nullable: true, Size: 4096},
+		{Name: "change_type", Type: field.TypeString, Size: 20, Default: "update"},
+		{Name: "changed_by", Type: field.TypeUint64, Nullable: true},
+		{Name: "changed_by_name", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "service_name", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "category", Type: field.TypeString, Nullable: true, Size: 50},
+		{Name: "config_group", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "change_reason", Type: field.TypeString, Nullable: true, Size: 500},
+		{Name: "ip_address", Type: field.TypeString, Nullable: true, Size: 50},
+		{Name: "user_agent", Type: field.TypeString, Nullable: true, Size: 500},
+		{Name: "old_version", Type: field.TypeInt, Nullable: true, Default: 0},
+		{Name: "new_version", Type: field.TypeInt, Nullable: true, Default: 1},
+		{Name: "is_rollback", Type: field.TypeBool, Default: false},
+		{Name: "rollback_from_log_id", Type: field.TypeString, Nullable: true, Size: 100},
+	}
+	// ConfigAuditLogsTable holds the schema information for the "config_audit_logs" table.
+	ConfigAuditLogsTable = &schema.Table{
+		Name:       "config_audit_logs",
+		Columns:    ConfigAuditLogsColumns,
+		PrimaryKey: []*schema.Column{ConfigAuditLogsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "configauditlog_tenant_id_config_key",
+				Unique:  false,
+				Columns: []*schema.Column{ConfigAuditLogsColumns[3], ConfigAuditLogsColumns[5]},
+			},
+			{
+				Name:    "configauditlog_created_at",
+				Unique:  false,
+				Columns: []*schema.Column{ConfigAuditLogsColumns[1]},
+			},
+			{
+				Name:    "configauditlog_changed_by",
+				Unique:  false,
+				Columns: []*schema.Column{ConfigAuditLogsColumns[9]},
+			},
+			{
+				Name:    "configauditlog_change_type",
+				Unique:  false,
+				Columns: []*schema.Column{ConfigAuditLogsColumns[8]},
+			},
+			{
+				Name:    "configauditlog_service_name_category",
+				Unique:  false,
+				Columns: []*schema.Column{ConfigAuditLogsColumns[11], ConfigAuditLogsColumns[12]},
+			},
+			{
+				Name:    "configauditlog_tenant_id_config_key_created_at",
+				Unique:  false,
+				Columns: []*schema.Column{ConfigAuditLogsColumns[3], ConfigAuditLogsColumns[5], ConfigAuditLogsColumns[1]},
+			},
+		},
+	}
+	// ConfigItemsColumns holds the columns for the "config_items" table.
+	ConfigItemsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint64, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "status", Type: field.TypeUint8, Nullable: true, Default: 1},
+		{Name: "tenant_id", Type: field.TypeUint64, Default: 1},
+		{Name: "department_id", Type: field.TypeUint64, Nullable: true},
+		{Name: "config_key", Type: field.TypeString, Size: 255},
+		{Name: "config_value", Type: field.TypeString, Size: 4096},
+		{Name: "value_type", Type: field.TypeString, Size: 20, Default: "string"},
+		{Name: "category", Type: field.TypeString, Size: 50, Default: "service"},
+		{Name: "service_name", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "description", Type: field.TypeString, Nullable: true, Size: 500},
+		{Name: "default_value", Type: field.TypeString, Nullable: true, Size: 4096},
+		{Name: "version", Type: field.TypeInt, Default: 1},
+		{Name: "updated_by", Type: field.TypeUint64, Nullable: true},
+		{Name: "is_readonly", Type: field.TypeBool, Default: false},
+		{Name: "is_sensitive", Type: field.TypeBool, Default: false},
+		{Name: "scope", Type: field.TypeString, Size: 50, Default: "service"},
+		{Name: "config_group", Type: field.TypeString, Nullable: true, Size: 100},
+		{Name: "tags", Type: field.TypeString, Nullable: true, Size: 500},
+	}
+	// ConfigItemsTable holds the schema information for the "config_items" table.
+	ConfigItemsTable = &schema.Table{
+		Name:       "config_items",
+		Columns:    ConfigItemsColumns,
+		PrimaryKey: []*schema.Column{ConfigItemsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "configitem_tenant_id_config_key",
+				Unique:  true,
+				Columns: []*schema.Column{ConfigItemsColumns[4], ConfigItemsColumns[6]},
+			},
+			{
+				Name:    "configitem_category_service_name",
+				Unique:  false,
+				Columns: []*schema.Column{ConfigItemsColumns[9], ConfigItemsColumns[10]},
+			},
+			{
+				Name:    "configitem_config_group",
+				Unique:  false,
+				Columns: []*schema.Column{ConfigItemsColumns[18]},
+			},
+			{
+				Name:    "configitem_status",
+				Unique:  false,
+				Columns: []*schema.Column{ConfigItemsColumns[3]},
+			},
+		},
+	}
 	// CronTasksColumns holds the columns for the "cron_tasks" table.
 	CronTasksColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint64, Increment: true},
@@ -468,6 +777,10 @@ var (
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
+		CiChangeHistoriesTable,
+		CiLifecycleStatesTable,
+		ConfigAuditLogsTable,
+		ConfigItemsTable,
 		CronTasksTable,
 		IoDataTargetsTable,
 		IoDiscoveryPoolsTable,
@@ -485,6 +798,11 @@ var (
 )
 
 func init() {
+	ConfigItemsTable.Annotation = &entsql.Annotation{
+		Table:     "config_items",
+		Charset:   "utf8mb4",
+		Collation: "utf8mb4_unicode_ci",
+	}
 	IoDataTargetsTable.Annotation = &entsql.Annotation{
 		Table: "io_data_targets",
 	}

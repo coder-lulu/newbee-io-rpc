@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/coder-lulu/newbee-io-rpc/internal/svc"
-	"github.com/coder-lulu/newbee-io-rpc/types/cmdb"
+	"github.com/coder-lulu/newbee-cmdb-rpc/types/cmdb"
 	"github.com/gofrs/uuid/v5"
 )
 

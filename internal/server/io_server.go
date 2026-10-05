@@ -7,6 +7,7 @@ import (
 	"context"
 
 	"github.com/coder-lulu/newbee-io-rpc/internal/logic/base"
+	"github.com/coder-lulu/newbee-io-rpc/internal/logic/config"
 	"github.com/coder-lulu/newbee-io-rpc/internal/logic/crontask"
 	"github.com/coder-lulu/newbee-io-rpc/internal/logic/datatarget"
 	"github.com/coder-lulu/newbee-io-rpc/internal/logic/discoverypool"
@@ -37,6 +38,46 @@ func NewIoServer(svcCtx *svc.ServiceContext) *IoServer {
 func (s *IoServer) InitDatabase(ctx context.Context, in *io.Empty) (*io.BaseResp, error) {
 	l := base.NewInitDatabaseLogic(ctx, s.svcCtx)
 	return l.InitDatabase(in)
+}
+
+func (s *IoServer) ListConfig(ctx context.Context, in *io.ListConfigReq) (*io.ListConfigResp, error) {
+	l := config.NewListConfigLogic(ctx, s.svcCtx)
+	return l.ListConfig(in)
+}
+
+func (s *IoServer) GetConfig(ctx context.Context, in *io.GetConfigReq) (*io.GetConfigResp, error) {
+	l := config.NewGetConfigLogic(ctx, s.svcCtx)
+	return l.GetConfig(in)
+}
+
+func (s *IoServer) CreateConfig(ctx context.Context, in *io.CreateConfigReq) (*io.BaseResp, error) {
+	l := config.NewCreateConfigLogic(ctx, s.svcCtx)
+	return l.CreateConfig(in)
+}
+
+func (s *IoServer) UpdateConfig(ctx context.Context, in *io.UpdateConfigReq) (*io.BaseResp, error) {
+	l := config.NewUpdateConfigLogic(ctx, s.svcCtx)
+	return l.UpdateConfig(in)
+}
+
+func (s *IoServer) DeleteConfig(ctx context.Context, in *io.DeleteConfigReq) (*io.BaseResp, error) {
+	l := config.NewDeleteConfigLogic(ctx, s.svcCtx)
+	return l.DeleteConfig(in)
+}
+
+func (s *IoServer) ListAuditLog(ctx context.Context, in *io.ListAuditLogReq) (*io.ListAuditLogResp, error) {
+	l := config.NewListAuditLogLogic(ctx, s.svcCtx)
+	return l.ListAuditLog(in)
+}
+
+func (s *IoServer) GetConfigHistory(ctx context.Context, in *io.GetConfigHistoryReq) (*io.GetConfigHistoryResp, error) {
+	l := config.NewGetConfigHistoryLogic(ctx, s.svcCtx)
+	return l.GetConfigHistory(in)
+}
+
+func (s *IoServer) RollbackConfig(ctx context.Context, in *io.RollbackConfigReq) (*io.BaseResp, error) {
+	l := config.NewRollbackConfigLogic(ctx, s.svcCtx)
+	return l.RollbackConfig(in)
 }
 
 // CronTask management
@@ -332,6 +373,11 @@ func (s *IoServer) DeleteOutputTask(ctx context.Context, in *io.IDsReq) (*io.Bas
 }
 
 // OutputTask lifecycle operations
+func (s *IoServer) ApproveOutputTask(ctx context.Context, in *io.ApprovalReq) (*io.BaseResp, error) {
+	l := outputtask.NewApproveOutputTaskLogic(ctx, s.svcCtx)
+	return l.ApproveOutputTask(in)
+}
+
 func (s *IoServer) StartOutputTask(ctx context.Context, in *io.IDReq) (*io.BaseResp, error) {
 	l := outputtask.NewStartOutputTaskLogic(ctx, s.svcCtx)
 	return l.StartOutputTask(in)

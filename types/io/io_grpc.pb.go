@@ -20,6 +20,14 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	Io_InitDatabase_FullMethodName                   = "/io.Io/initDatabase"
+	Io_ListConfig_FullMethodName                     = "/io.Io/listConfig"
+	Io_GetConfig_FullMethodName                      = "/io.Io/getConfig"
+	Io_CreateConfig_FullMethodName                   = "/io.Io/createConfig"
+	Io_UpdateConfig_FullMethodName                   = "/io.Io/updateConfig"
+	Io_DeleteConfig_FullMethodName                   = "/io.Io/deleteConfig"
+	Io_ListAuditLog_FullMethodName                   = "/io.Io/listAuditLog"
+	Io_GetConfigHistory_FullMethodName               = "/io.Io/getConfigHistory"
+	Io_RollbackConfig_FullMethodName                 = "/io.Io/rollbackConfig"
 	Io_CreateCronTask_FullMethodName                 = "/io.Io/createCronTask"
 	Io_UpdateCronTask_FullMethodName                 = "/io.Io/updateCronTask"
 	Io_GetCronTaskList_FullMethodName                = "/io.Io/getCronTaskList"
@@ -76,6 +84,7 @@ const (
 	Io_GetOutputTaskList_FullMethodName              = "/io.Io/getOutputTaskList"
 	Io_GetOutputTaskById_FullMethodName              = "/io.Io/getOutputTaskById"
 	Io_DeleteOutputTask_FullMethodName               = "/io.Io/deleteOutputTask"
+	Io_ApproveOutputTask_FullMethodName              = "/io.Io/approveOutputTask"
 	Io_StartOutputTask_FullMethodName                = "/io.Io/startOutputTask"
 	Io_PauseOutputTask_FullMethodName                = "/io.Io/pauseOutputTask"
 	Io_CancelOutputTask_FullMethodName               = "/io.Io/cancelOutputTask"
@@ -96,6 +105,22 @@ const (
 type IoClient interface {
 	// group: base
 	InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: config
+	ListConfig(ctx context.Context, in *ListConfigReq, opts ...grpc.CallOption) (*ListConfigResp, error)
+	// group: config
+	GetConfig(ctx context.Context, in *GetConfigReq, opts ...grpc.CallOption) (*GetConfigResp, error)
+	// group: config
+	CreateConfig(ctx context.Context, in *CreateConfigReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: config
+	UpdateConfig(ctx context.Context, in *UpdateConfigReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: config
+	DeleteConfig(ctx context.Context, in *DeleteConfigReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: config
+	ListAuditLog(ctx context.Context, in *ListAuditLogReq, opts ...grpc.CallOption) (*ListAuditLogResp, error)
+	// group: config
+	GetConfigHistory(ctx context.Context, in *GetConfigHistoryReq, opts ...grpc.CallOption) (*GetConfigHistoryResp, error)
+	// group: config
+	RollbackConfig(ctx context.Context, in *RollbackConfigReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// CronTask management
 	// group: crontask
 	CreateCronTask(ctx context.Context, in *CronTaskInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
@@ -222,6 +247,8 @@ type IoClient interface {
 	DeleteOutputTask(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// OutputTask lifecycle operations
 	// group: outputtask
+	ApproveOutputTask(ctx context.Context, in *ApprovalReq, opts ...grpc.CallOption) (*BaseResp, error)
+	// group: outputtask
 	StartOutputTask(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 	// group: outputtask
 	PauseOutputTask(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -261,6 +288,86 @@ func (c *ioClient) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.Cal
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BaseResp)
 	err := c.cc.Invoke(ctx, Io_InitDatabase_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ioClient) ListConfig(ctx context.Context, in *ListConfigReq, opts ...grpc.CallOption) (*ListConfigResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListConfigResp)
+	err := c.cc.Invoke(ctx, Io_ListConfig_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ioClient) GetConfig(ctx context.Context, in *GetConfigReq, opts ...grpc.CallOption) (*GetConfigResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetConfigResp)
+	err := c.cc.Invoke(ctx, Io_GetConfig_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ioClient) CreateConfig(ctx context.Context, in *CreateConfigReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Io_CreateConfig_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ioClient) UpdateConfig(ctx context.Context, in *UpdateConfigReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Io_UpdateConfig_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ioClient) DeleteConfig(ctx context.Context, in *DeleteConfigReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Io_DeleteConfig_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ioClient) ListAuditLog(ctx context.Context, in *ListAuditLogReq, opts ...grpc.CallOption) (*ListAuditLogResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListAuditLogResp)
+	err := c.cc.Invoke(ctx, Io_ListAuditLog_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ioClient) GetConfigHistory(ctx context.Context, in *GetConfigHistoryReq, opts ...grpc.CallOption) (*GetConfigHistoryResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetConfigHistoryResp)
+	err := c.cc.Invoke(ctx, Io_GetConfigHistory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ioClient) RollbackConfig(ctx context.Context, in *RollbackConfigReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Io_RollbackConfig_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -827,6 +934,16 @@ func (c *ioClient) DeleteOutputTask(ctx context.Context, in *IDsReq, opts ...grp
 	return out, nil
 }
 
+func (c *ioClient) ApproveOutputTask(ctx context.Context, in *ApprovalReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BaseResp)
+	err := c.cc.Invoke(ctx, Io_ApproveOutputTask_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *ioClient) StartOutputTask(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BaseResp)
@@ -953,6 +1070,22 @@ func (c *ioClient) DeleteWorkerMetrics(ctx context.Context, in *IDsReq, opts ...
 type IoServer interface {
 	// group: base
 	InitDatabase(context.Context, *Empty) (*BaseResp, error)
+	// group: config
+	ListConfig(context.Context, *ListConfigReq) (*ListConfigResp, error)
+	// group: config
+	GetConfig(context.Context, *GetConfigReq) (*GetConfigResp, error)
+	// group: config
+	CreateConfig(context.Context, *CreateConfigReq) (*BaseResp, error)
+	// group: config
+	UpdateConfig(context.Context, *UpdateConfigReq) (*BaseResp, error)
+	// group: config
+	DeleteConfig(context.Context, *DeleteConfigReq) (*BaseResp, error)
+	// group: config
+	ListAuditLog(context.Context, *ListAuditLogReq) (*ListAuditLogResp, error)
+	// group: config
+	GetConfigHistory(context.Context, *GetConfigHistoryReq) (*GetConfigHistoryResp, error)
+	// group: config
+	RollbackConfig(context.Context, *RollbackConfigReq) (*BaseResp, error)
 	// CronTask management
 	// group: crontask
 	CreateCronTask(context.Context, *CronTaskInfo) (*BaseIDResp, error)
@@ -1079,6 +1212,8 @@ type IoServer interface {
 	DeleteOutputTask(context.Context, *IDsReq) (*BaseResp, error)
 	// OutputTask lifecycle operations
 	// group: outputtask
+	ApproveOutputTask(context.Context, *ApprovalReq) (*BaseResp, error)
+	// group: outputtask
 	StartOutputTask(context.Context, *IDReq) (*BaseResp, error)
 	// group: outputtask
 	PauseOutputTask(context.Context, *IDReq) (*BaseResp, error)
@@ -1116,6 +1251,30 @@ type UnimplementedIoServer struct{}
 
 func (UnimplementedIoServer) InitDatabase(context.Context, *Empty) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitDatabase not implemented")
+}
+func (UnimplementedIoServer) ListConfig(context.Context, *ListConfigReq) (*ListConfigResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListConfig not implemented")
+}
+func (UnimplementedIoServer) GetConfig(context.Context, *GetConfigReq) (*GetConfigResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetConfig not implemented")
+}
+func (UnimplementedIoServer) CreateConfig(context.Context, *CreateConfigReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateConfig not implemented")
+}
+func (UnimplementedIoServer) UpdateConfig(context.Context, *UpdateConfigReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateConfig not implemented")
+}
+func (UnimplementedIoServer) DeleteConfig(context.Context, *DeleteConfigReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteConfig not implemented")
+}
+func (UnimplementedIoServer) ListAuditLog(context.Context, *ListAuditLogReq) (*ListAuditLogResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAuditLog not implemented")
+}
+func (UnimplementedIoServer) GetConfigHistory(context.Context, *GetConfigHistoryReq) (*GetConfigHistoryResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetConfigHistory not implemented")
+}
+func (UnimplementedIoServer) RollbackConfig(context.Context, *RollbackConfigReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RollbackConfig not implemented")
 }
 func (UnimplementedIoServer) CreateCronTask(context.Context, *CronTaskInfo) (*BaseIDResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCronTask not implemented")
@@ -1285,6 +1444,9 @@ func (UnimplementedIoServer) GetOutputTaskById(context.Context, *IDReq) (*Output
 func (UnimplementedIoServer) DeleteOutputTask(context.Context, *IDsReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOutputTask not implemented")
 }
+func (UnimplementedIoServer) ApproveOutputTask(context.Context, *ApprovalReq) (*BaseResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApproveOutputTask not implemented")
+}
 func (UnimplementedIoServer) StartOutputTask(context.Context, *IDReq) (*BaseResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartOutputTask not implemented")
 }
@@ -1356,6 +1518,150 @@ func _Io_InitDatabase_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(IoServer).InitDatabase(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Io_ListConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListConfigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IoServer).ListConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Io_ListConfig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IoServer).ListConfig(ctx, req.(*ListConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Io_GetConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetConfigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IoServer).GetConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Io_GetConfig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IoServer).GetConfig(ctx, req.(*GetConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Io_CreateConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateConfigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IoServer).CreateConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Io_CreateConfig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IoServer).CreateConfig(ctx, req.(*CreateConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Io_UpdateConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateConfigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IoServer).UpdateConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Io_UpdateConfig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IoServer).UpdateConfig(ctx, req.(*UpdateConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Io_DeleteConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteConfigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IoServer).DeleteConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Io_DeleteConfig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IoServer).DeleteConfig(ctx, req.(*DeleteConfigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Io_ListAuditLog_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAuditLogReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IoServer).ListAuditLog(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Io_ListAuditLog_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IoServer).ListAuditLog(ctx, req.(*ListAuditLogReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Io_GetConfigHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetConfigHistoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IoServer).GetConfigHistory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Io_GetConfigHistory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IoServer).GetConfigHistory(ctx, req.(*GetConfigHistoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Io_RollbackConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RollbackConfigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IoServer).RollbackConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Io_RollbackConfig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IoServer).RollbackConfig(ctx, req.(*RollbackConfigReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2368,6 +2674,24 @@ func _Io_DeleteOutputTask_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Io_ApproveOutputTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApprovalReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IoServer).ApproveOutputTask(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Io_ApproveOutputTask_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IoServer).ApproveOutputTask(ctx, req.(*ApprovalReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Io_StartOutputTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(IDReq)
 	if err := dec(in); err != nil {
@@ -2596,6 +2920,38 @@ var Io_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Io_InitDatabase_Handler,
 		},
 		{
+			MethodName: "listConfig",
+			Handler:    _Io_ListConfig_Handler,
+		},
+		{
+			MethodName: "getConfig",
+			Handler:    _Io_GetConfig_Handler,
+		},
+		{
+			MethodName: "createConfig",
+			Handler:    _Io_CreateConfig_Handler,
+		},
+		{
+			MethodName: "updateConfig",
+			Handler:    _Io_UpdateConfig_Handler,
+		},
+		{
+			MethodName: "deleteConfig",
+			Handler:    _Io_DeleteConfig_Handler,
+		},
+		{
+			MethodName: "listAuditLog",
+			Handler:    _Io_ListAuditLog_Handler,
+		},
+		{
+			MethodName: "getConfigHistory",
+			Handler:    _Io_GetConfigHistory_Handler,
+		},
+		{
+			MethodName: "rollbackConfig",
+			Handler:    _Io_RollbackConfig_Handler,
+		},
+		{
 			MethodName: "createCronTask",
 			Handler:    _Io_CreateCronTask_Handler,
 		},
@@ -2818,6 +3174,10 @@ var Io_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "deleteOutputTask",
 			Handler:    _Io_DeleteOutputTask_Handler,
+		},
+		{
+			MethodName: "approveOutputTask",
+			Handler:    _Io_ApproveOutputTask_Handler,
 		},
 		{
 			MethodName: "startOutputTask",

@@ -6,6 +6,18 @@ import (
 	"entgo.io/ent/dialect/sql"
 )
 
+// CiChangeHistory is the predicate function for cichangehistory builders.
+type CiChangeHistory func(*sql.Selector)
+
+// CiLifecycleState is the predicate function for cilifecyclestate builders.
+type CiLifecycleState func(*sql.Selector)
+
+// ConfigAuditLog is the predicate function for configauditlog builders.
+type ConfigAuditLog func(*sql.Selector)
+
+// ConfigItem is the predicate function for configitem builders.
+type ConfigItem func(*sql.Selector)
+
 // CronTask is the predicate function for crontask builders.
 type CronTask func(*sql.Selector)
 

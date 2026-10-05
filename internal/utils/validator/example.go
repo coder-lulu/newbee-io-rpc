@@ -3,7 +3,7 @@ package validator
 import (
 	"context"
 
-	"github.com/coder-lulu/newbee-io-rpc/types/cmdb"
+	"github.com/coder-lulu/newbee-cmdb-rpc/types/cmdb"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 

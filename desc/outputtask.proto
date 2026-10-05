@@ -85,6 +85,8 @@ service Io {
 
   // OutputTask lifecycle operations
   // group: outputtask
+  rpc approveOutputTask (ApprovalReq) returns (BaseResp);
+  // group: outputtask
   rpc startOutputTask (IDReq) returns (BaseResp);
   // group: outputtask
   rpc pauseOutputTask (IDReq) returns (BaseResp);

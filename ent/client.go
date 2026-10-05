@@ -15,6 +15,10 @@ import (
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
+	"github.com/coder-lulu/newbee-io-rpc/ent/cichangehistory"
+	"github.com/coder-lulu/newbee-io-rpc/ent/cilifecyclestate"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configauditlog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configitem"
 	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
 	"github.com/coder-lulu/newbee-io-rpc/ent/datatarget"
 	"github.com/coder-lulu/newbee-io-rpc/ent/discoverypool"
@@ -37,6 +41,14 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
+	// CiChangeHistory is the client for interacting with the CiChangeHistory builders.
+	CiChangeHistory *CiChangeHistoryClient
+	// CiLifecycleState is the client for interacting with the CiLifecycleState builders.
+	CiLifecycleState *CiLifecycleStateClient
+	// ConfigAuditLog is the client for interacting with the ConfigAuditLog builders.
+	ConfigAuditLog *ConfigAuditLogClient
+	// ConfigItem is the client for interacting with the ConfigItem builders.
+	ConfigItem *ConfigItemClient
 	// CronTask is the client for interacting with the CronTask builders.
 	CronTask *CronTaskClient
 	// DataTarget is the client for interacting with the DataTarget builders.
@@ -74,6 +86,10 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
+	c.CiChangeHistory = NewCiChangeHistoryClient(c.config)
+	c.CiLifecycleState = NewCiLifecycleStateClient(c.config)
+	c.ConfigAuditLog = NewConfigAuditLogClient(c.config)
+	c.ConfigItem = NewConfigItemClient(c.config)
 	c.CronTask = NewCronTaskClient(c.config)
 	c.DataTarget = NewDataTargetClient(c.config)
 	c.DiscoveryPool = NewDiscoveryPoolClient(c.config)
@@ -179,6 +195,10 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	return &Tx{
 		ctx:                     ctx,
 		config:                  cfg,
+		CiChangeHistory:         NewCiChangeHistoryClient(cfg),
+		CiLifecycleState:        NewCiLifecycleStateClient(cfg),
+		ConfigAuditLog:          NewConfigAuditLogClient(cfg),
+		ConfigItem:              NewConfigItemClient(cfg),
 		CronTask:                NewCronTaskClient(cfg),
 		DataTarget:              NewDataTargetClient(cfg),
 		DiscoveryPool:           NewDiscoveryPoolClient(cfg),
@@ -211,6 +231,10 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	return &Tx{
 		ctx:                     ctx,
 		config:                  cfg,
+		CiChangeHistory:         NewCiChangeHistoryClient(cfg),
+		CiLifecycleState:        NewCiLifecycleStateClient(cfg),
+		ConfigAuditLog:          NewConfigAuditLogClient(cfg),
+		ConfigItem:              NewConfigItemClient(cfg),
 		CronTask:                NewCronTaskClient(cfg),
 		DataTarget:              NewDataTargetClient(cfg),
 		DiscoveryPool:           NewDiscoveryPoolClient(cfg),
@@ -230,7 +254,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		CronTask.
+//		CiChangeHistory.
 //		Query().
 //		Count(ctx)
 func (c *Client) Debug() *Client {
@@ -253,6 +277,7 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
+		c.CiChangeHistory, c.CiLifecycleState, c.ConfigAuditLog, c.ConfigItem,
 		c.CronTask, c.DataTarget, c.DiscoveryPool, c.DiscoveryProviderSchema,
 		c.DiscoveryTemplate, c.DlqMessage, c.FieldMapping, c.InputTask, c.MappingLog,
 		c.OutboxMessage, c.OutputTask, c.TaskLog, c.WorkerMetrics,
@@ -265,6 +290,7 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
+		c.CiChangeHistory, c.CiLifecycleState, c.ConfigAuditLog, c.ConfigItem,
 		c.CronTask, c.DataTarget, c.DiscoveryPool, c.DiscoveryProviderSchema,
 		c.DiscoveryTemplate, c.DlqMessage, c.FieldMapping, c.InputTask, c.MappingLog,
 		c.OutboxMessage, c.OutputTask, c.TaskLog, c.WorkerMetrics,
@@ -276,6 +302,14 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 // Mutate implements the ent.Mutator interface.
 func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 	switch m := m.(type) {
+	case *CiChangeHistoryMutation:
+		return c.CiChangeHistory.mutate(ctx, m)
+	case *CiLifecycleStateMutation:
+		return c.CiLifecycleState.mutate(ctx, m)
+	case *ConfigAuditLogMutation:
+		return c.ConfigAuditLog.mutate(ctx, m)
+	case *ConfigItemMutation:
+		return c.ConfigItem.mutate(ctx, m)
 	case *CronTaskMutation:
 		return c.CronTask.mutate(ctx, m)
 	case *DataTargetMutation:
@@ -304,6 +338,538 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.WorkerMetrics.mutate(ctx, m)
 	default:
 		return nil, fmt.Errorf("ent: unknown mutation type %T", m)
+	}
+}
+
+// CiChangeHistoryClient is a client for the CiChangeHistory schema.
+type CiChangeHistoryClient struct {
+	config
+}
+
+// NewCiChangeHistoryClient returns a client for the CiChangeHistory from the given config.
+func NewCiChangeHistoryClient(c config) *CiChangeHistoryClient {
+	return &CiChangeHistoryClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cichangehistory.Hooks(f(g(h())))`.
+func (c *CiChangeHistoryClient) Use(hooks ...Hook) {
+	c.hooks.CiChangeHistory = append(c.hooks.CiChangeHistory, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `cichangehistory.Intercept(f(g(h())))`.
+func (c *CiChangeHistoryClient) Intercept(interceptors ...Interceptor) {
+	c.inters.CiChangeHistory = append(c.inters.CiChangeHistory, interceptors...)
+}
+
+// Create returns a builder for creating a CiChangeHistory entity.
+func (c *CiChangeHistoryClient) Create() *CiChangeHistoryCreate {
+	mutation := newCiChangeHistoryMutation(c.config, OpCreate)
+	return &CiChangeHistoryCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of CiChangeHistory entities.
+func (c *CiChangeHistoryClient) CreateBulk(builders ...*CiChangeHistoryCreate) *CiChangeHistoryCreateBulk {
+	return &CiChangeHistoryCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *CiChangeHistoryClient) MapCreateBulk(slice any, setFunc func(*CiChangeHistoryCreate, int)) *CiChangeHistoryCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &CiChangeHistoryCreateBulk{err: fmt.Errorf("calling to CiChangeHistoryClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*CiChangeHistoryCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &CiChangeHistoryCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CiChangeHistory.
+func (c *CiChangeHistoryClient) Update() *CiChangeHistoryUpdate {
+	mutation := newCiChangeHistoryMutation(c.config, OpUpdate)
+	return &CiChangeHistoryUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CiChangeHistoryClient) UpdateOne(_m *CiChangeHistory) *CiChangeHistoryUpdateOne {
+	mutation := newCiChangeHistoryMutation(c.config, OpUpdateOne, withCiChangeHistory(_m))
+	return &CiChangeHistoryUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CiChangeHistoryClient) UpdateOneID(id uint64) *CiChangeHistoryUpdateOne {
+	mutation := newCiChangeHistoryMutation(c.config, OpUpdateOne, withCiChangeHistoryID(id))
+	return &CiChangeHistoryUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CiChangeHistory.
+func (c *CiChangeHistoryClient) Delete() *CiChangeHistoryDelete {
+	mutation := newCiChangeHistoryMutation(c.config, OpDelete)
+	return &CiChangeHistoryDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *CiChangeHistoryClient) DeleteOne(_m *CiChangeHistory) *CiChangeHistoryDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *CiChangeHistoryClient) DeleteOneID(id uint64) *CiChangeHistoryDeleteOne {
+	builder := c.Delete().Where(cichangehistory.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CiChangeHistoryDeleteOne{builder}
+}
+
+// Query returns a query builder for CiChangeHistory.
+func (c *CiChangeHistoryClient) Query() *CiChangeHistoryQuery {
+	return &CiChangeHistoryQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeCiChangeHistory},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a CiChangeHistory entity by its id.
+func (c *CiChangeHistoryClient) Get(ctx context.Context, id uint64) (*CiChangeHistory, error) {
+	return c.Query().Where(cichangehistory.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CiChangeHistoryClient) GetX(ctx context.Context, id uint64) *CiChangeHistory {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CiChangeHistoryClient) Hooks() []Hook {
+	return c.hooks.CiChangeHistory
+}
+
+// Interceptors returns the client interceptors.
+func (c *CiChangeHistoryClient) Interceptors() []Interceptor {
+	return c.inters.CiChangeHistory
+}
+
+func (c *CiChangeHistoryClient) mutate(ctx context.Context, m *CiChangeHistoryMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&CiChangeHistoryCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&CiChangeHistoryUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&CiChangeHistoryUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&CiChangeHistoryDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown CiChangeHistory mutation op: %q", m.Op())
+	}
+}
+
+// CiLifecycleStateClient is a client for the CiLifecycleState schema.
+type CiLifecycleStateClient struct {
+	config
+}
+
+// NewCiLifecycleStateClient returns a client for the CiLifecycleState from the given config.
+func NewCiLifecycleStateClient(c config) *CiLifecycleStateClient {
+	return &CiLifecycleStateClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cilifecyclestate.Hooks(f(g(h())))`.
+func (c *CiLifecycleStateClient) Use(hooks ...Hook) {
+	c.hooks.CiLifecycleState = append(c.hooks.CiLifecycleState, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `cilifecyclestate.Intercept(f(g(h())))`.
+func (c *CiLifecycleStateClient) Intercept(interceptors ...Interceptor) {
+	c.inters.CiLifecycleState = append(c.inters.CiLifecycleState, interceptors...)
+}
+
+// Create returns a builder for creating a CiLifecycleState entity.
+func (c *CiLifecycleStateClient) Create() *CiLifecycleStateCreate {
+	mutation := newCiLifecycleStateMutation(c.config, OpCreate)
+	return &CiLifecycleStateCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of CiLifecycleState entities.
+func (c *CiLifecycleStateClient) CreateBulk(builders ...*CiLifecycleStateCreate) *CiLifecycleStateCreateBulk {
+	return &CiLifecycleStateCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *CiLifecycleStateClient) MapCreateBulk(slice any, setFunc func(*CiLifecycleStateCreate, int)) *CiLifecycleStateCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &CiLifecycleStateCreateBulk{err: fmt.Errorf("calling to CiLifecycleStateClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*CiLifecycleStateCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &CiLifecycleStateCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CiLifecycleState.
+func (c *CiLifecycleStateClient) Update() *CiLifecycleStateUpdate {
+	mutation := newCiLifecycleStateMutation(c.config, OpUpdate)
+	return &CiLifecycleStateUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CiLifecycleStateClient) UpdateOne(_m *CiLifecycleState) *CiLifecycleStateUpdateOne {
+	mutation := newCiLifecycleStateMutation(c.config, OpUpdateOne, withCiLifecycleState(_m))
+	return &CiLifecycleStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CiLifecycleStateClient) UpdateOneID(id uint64) *CiLifecycleStateUpdateOne {
+	mutation := newCiLifecycleStateMutation(c.config, OpUpdateOne, withCiLifecycleStateID(id))
+	return &CiLifecycleStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CiLifecycleState.
+func (c *CiLifecycleStateClient) Delete() *CiLifecycleStateDelete {
+	mutation := newCiLifecycleStateMutation(c.config, OpDelete)
+	return &CiLifecycleStateDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *CiLifecycleStateClient) DeleteOne(_m *CiLifecycleState) *CiLifecycleStateDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *CiLifecycleStateClient) DeleteOneID(id uint64) *CiLifecycleStateDeleteOne {
+	builder := c.Delete().Where(cilifecyclestate.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CiLifecycleStateDeleteOne{builder}
+}
+
+// Query returns a query builder for CiLifecycleState.
+func (c *CiLifecycleStateClient) Query() *CiLifecycleStateQuery {
+	return &CiLifecycleStateQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeCiLifecycleState},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a CiLifecycleState entity by its id.
+func (c *CiLifecycleStateClient) Get(ctx context.Context, id uint64) (*CiLifecycleState, error) {
+	return c.Query().Where(cilifecyclestate.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CiLifecycleStateClient) GetX(ctx context.Context, id uint64) *CiLifecycleState {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CiLifecycleStateClient) Hooks() []Hook {
+	return c.hooks.CiLifecycleState
+}
+
+// Interceptors returns the client interceptors.
+func (c *CiLifecycleStateClient) Interceptors() []Interceptor {
+	return c.inters.CiLifecycleState
+}
+
+func (c *CiLifecycleStateClient) mutate(ctx context.Context, m *CiLifecycleStateMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&CiLifecycleStateCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&CiLifecycleStateUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&CiLifecycleStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&CiLifecycleStateDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown CiLifecycleState mutation op: %q", m.Op())
+	}
+}
+
+// ConfigAuditLogClient is a client for the ConfigAuditLog schema.
+type ConfigAuditLogClient struct {
+	config
+}
+
+// NewConfigAuditLogClient returns a client for the ConfigAuditLog from the given config.
+func NewConfigAuditLogClient(c config) *ConfigAuditLogClient {
+	return &ConfigAuditLogClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `configauditlog.Hooks(f(g(h())))`.
+func (c *ConfigAuditLogClient) Use(hooks ...Hook) {
+	c.hooks.ConfigAuditLog = append(c.hooks.ConfigAuditLog, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `configauditlog.Intercept(f(g(h())))`.
+func (c *ConfigAuditLogClient) Intercept(interceptors ...Interceptor) {
+	c.inters.ConfigAuditLog = append(c.inters.ConfigAuditLog, interceptors...)
+}
+
+// Create returns a builder for creating a ConfigAuditLog entity.
+func (c *ConfigAuditLogClient) Create() *ConfigAuditLogCreate {
+	mutation := newConfigAuditLogMutation(c.config, OpCreate)
+	return &ConfigAuditLogCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of ConfigAuditLog entities.
+func (c *ConfigAuditLogClient) CreateBulk(builders ...*ConfigAuditLogCreate) *ConfigAuditLogCreateBulk {
+	return &ConfigAuditLogCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *ConfigAuditLogClient) MapCreateBulk(slice any, setFunc func(*ConfigAuditLogCreate, int)) *ConfigAuditLogCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &ConfigAuditLogCreateBulk{err: fmt.Errorf("calling to ConfigAuditLogClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*ConfigAuditLogCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &ConfigAuditLogCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for ConfigAuditLog.
+func (c *ConfigAuditLogClient) Update() *ConfigAuditLogUpdate {
+	mutation := newConfigAuditLogMutation(c.config, OpUpdate)
+	return &ConfigAuditLogUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ConfigAuditLogClient) UpdateOne(_m *ConfigAuditLog) *ConfigAuditLogUpdateOne {
+	mutation := newConfigAuditLogMutation(c.config, OpUpdateOne, withConfigAuditLog(_m))
+	return &ConfigAuditLogUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ConfigAuditLogClient) UpdateOneID(id uint64) *ConfigAuditLogUpdateOne {
+	mutation := newConfigAuditLogMutation(c.config, OpUpdateOne, withConfigAuditLogID(id))
+	return &ConfigAuditLogUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for ConfigAuditLog.
+func (c *ConfigAuditLogClient) Delete() *ConfigAuditLogDelete {
+	mutation := newConfigAuditLogMutation(c.config, OpDelete)
+	return &ConfigAuditLogDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *ConfigAuditLogClient) DeleteOne(_m *ConfigAuditLog) *ConfigAuditLogDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *ConfigAuditLogClient) DeleteOneID(id uint64) *ConfigAuditLogDeleteOne {
+	builder := c.Delete().Where(configauditlog.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ConfigAuditLogDeleteOne{builder}
+}
+
+// Query returns a query builder for ConfigAuditLog.
+func (c *ConfigAuditLogClient) Query() *ConfigAuditLogQuery {
+	return &ConfigAuditLogQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeConfigAuditLog},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a ConfigAuditLog entity by its id.
+func (c *ConfigAuditLogClient) Get(ctx context.Context, id uint64) (*ConfigAuditLog, error) {
+	return c.Query().Where(configauditlog.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ConfigAuditLogClient) GetX(ctx context.Context, id uint64) *ConfigAuditLog {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ConfigAuditLogClient) Hooks() []Hook {
+	return c.hooks.ConfigAuditLog
+}
+
+// Interceptors returns the client interceptors.
+func (c *ConfigAuditLogClient) Interceptors() []Interceptor {
+	return c.inters.ConfigAuditLog
+}
+
+func (c *ConfigAuditLogClient) mutate(ctx context.Context, m *ConfigAuditLogMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&ConfigAuditLogCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&ConfigAuditLogUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&ConfigAuditLogUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&ConfigAuditLogDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown ConfigAuditLog mutation op: %q", m.Op())
+	}
+}
+
+// ConfigItemClient is a client for the ConfigItem schema.
+type ConfigItemClient struct {
+	config
+}
+
+// NewConfigItemClient returns a client for the ConfigItem from the given config.
+func NewConfigItemClient(c config) *ConfigItemClient {
+	return &ConfigItemClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `configitem.Hooks(f(g(h())))`.
+func (c *ConfigItemClient) Use(hooks ...Hook) {
+	c.hooks.ConfigItem = append(c.hooks.ConfigItem, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `configitem.Intercept(f(g(h())))`.
+func (c *ConfigItemClient) Intercept(interceptors ...Interceptor) {
+	c.inters.ConfigItem = append(c.inters.ConfigItem, interceptors...)
+}
+
+// Create returns a builder for creating a ConfigItem entity.
+func (c *ConfigItemClient) Create() *ConfigItemCreate {
+	mutation := newConfigItemMutation(c.config, OpCreate)
+	return &ConfigItemCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of ConfigItem entities.
+func (c *ConfigItemClient) CreateBulk(builders ...*ConfigItemCreate) *ConfigItemCreateBulk {
+	return &ConfigItemCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *ConfigItemClient) MapCreateBulk(slice any, setFunc func(*ConfigItemCreate, int)) *ConfigItemCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &ConfigItemCreateBulk{err: fmt.Errorf("calling to ConfigItemClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*ConfigItemCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &ConfigItemCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for ConfigItem.
+func (c *ConfigItemClient) Update() *ConfigItemUpdate {
+	mutation := newConfigItemMutation(c.config, OpUpdate)
+	return &ConfigItemUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ConfigItemClient) UpdateOne(_m *ConfigItem) *ConfigItemUpdateOne {
+	mutation := newConfigItemMutation(c.config, OpUpdateOne, withConfigItem(_m))
+	return &ConfigItemUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ConfigItemClient) UpdateOneID(id uint64) *ConfigItemUpdateOne {
+	mutation := newConfigItemMutation(c.config, OpUpdateOne, withConfigItemID(id))
+	return &ConfigItemUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for ConfigItem.
+func (c *ConfigItemClient) Delete() *ConfigItemDelete {
+	mutation := newConfigItemMutation(c.config, OpDelete)
+	return &ConfigItemDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *ConfigItemClient) DeleteOne(_m *ConfigItem) *ConfigItemDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *ConfigItemClient) DeleteOneID(id uint64) *ConfigItemDeleteOne {
+	builder := c.Delete().Where(configitem.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ConfigItemDeleteOne{builder}
+}
+
+// Query returns a query builder for ConfigItem.
+func (c *ConfigItemClient) Query() *ConfigItemQuery {
+	return &ConfigItemQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeConfigItem},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a ConfigItem entity by its id.
+func (c *ConfigItemClient) Get(ctx context.Context, id uint64) (*ConfigItem, error) {
+	return c.Query().Where(configitem.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ConfigItemClient) GetX(ctx context.Context, id uint64) *ConfigItem {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ConfigItemClient) Hooks() []Hook {
+	return c.hooks.ConfigItem
+}
+
+// Interceptors returns the client interceptors.
+func (c *ConfigItemClient) Interceptors() []Interceptor {
+	return c.inters.ConfigItem
+}
+
+func (c *ConfigItemClient) mutate(ctx context.Context, m *ConfigItemMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&ConfigItemCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&ConfigItemUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&ConfigItemUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&ConfigItemDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown ConfigItem mutation op: %q", m.Op())
 	}
 }
 
@@ -2071,12 +2637,14 @@ func (c *WorkerMetricsClient) mutate(ctx context.Context, m *WorkerMetricsMutati
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		CronTask, DataTarget, DiscoveryPool, DiscoveryProviderSchema, DiscoveryTemplate,
+		CiChangeHistory, CiLifecycleState, ConfigAuditLog, ConfigItem, CronTask,
+		DataTarget, DiscoveryPool, DiscoveryProviderSchema, DiscoveryTemplate,
 		DlqMessage, FieldMapping, InputTask, MappingLog, OutboxMessage, OutputTask,
 		TaskLog, WorkerMetrics []ent.Hook
 	}
 	inters struct {
-		CronTask, DataTarget, DiscoveryPool, DiscoveryProviderSchema, DiscoveryTemplate,
+		CiChangeHistory, CiLifecycleState, ConfigAuditLog, ConfigItem, CronTask,
+		DataTarget, DiscoveryPool, DiscoveryProviderSchema, DiscoveryTemplate,
 		DlqMessage, FieldMapping, InputTask, MappingLog, OutboxMessage, OutputTask,
 		TaskLog, WorkerMetrics []ent.Interceptor
 	}

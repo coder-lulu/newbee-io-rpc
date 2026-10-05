@@ -14,6 +14,14 @@ import (
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
+	// CiChangeHistory is the client for interacting with the CiChangeHistory builders.
+	CiChangeHistory *CiChangeHistoryClient
+	// CiLifecycleState is the client for interacting with the CiLifecycleState builders.
+	CiLifecycleState *CiLifecycleStateClient
+	// ConfigAuditLog is the client for interacting with the ConfigAuditLog builders.
+	ConfigAuditLog *ConfigAuditLogClient
+	// ConfigItem is the client for interacting with the ConfigItem builders.
+	ConfigItem *ConfigItemClient
 	// CronTask is the client for interacting with the CronTask builders.
 	CronTask *CronTaskClient
 	// DataTarget is the client for interacting with the DataTarget builders.
@@ -171,6 +179,10 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
+	tx.CiChangeHistory = NewCiChangeHistoryClient(tx.config)
+	tx.CiLifecycleState = NewCiLifecycleStateClient(tx.config)
+	tx.ConfigAuditLog = NewConfigAuditLogClient(tx.config)
+	tx.ConfigItem = NewConfigItemClient(tx.config)
 	tx.CronTask = NewCronTaskClient(tx.config)
 	tx.DataTarget = NewDataTargetClient(tx.config)
 	tx.DiscoveryPool = NewDiscoveryPoolClient(tx.config)
@@ -193,7 +205,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: CronTask.QueryXXX(), the query will be executed
+// applies a query, for example: CiChangeHistory.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.

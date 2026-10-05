@@ -101,26 +101,35 @@ func (l *UpdateCronTaskLogic) UpdateCronTask(in *io.CronTaskInfo) (*io.BaseResp,
 		logx.Field("id", *in.Id))
 
 	// 6. 如果CronScheduler可用，更新调度器中的任务
-	// TODO: 集成CronScheduler
-	// if l.svcCtx.CronScheduler != nil {
-	//     // 重新查询完整的任务信息
-	//     task, err := l.svcCtx.DB.CronTask.Get(l.ctx, *in.Id)
-	//     if err != nil {
-	//         logx.Errorw("Failed to query updated task",
-	//             logx.Field("id", *in.Id),
-	//             logx.Field("error", err))
-	//     } else if task.Enabled {
-	//         // 更新调度器（先删除后添加）
-	//         if err := l.svcCtx.CronScheduler.UpdateTask(task); err != nil {
-	//             logx.Errorw("Failed to update task in CronScheduler",
-	//                 logx.Field("task_id", task.ID),
-	//                 logx.Field("error", err))
-	//         }
-	//     } else {
-	//         // 如果任务被禁用，从调度器移除
-	//         l.svcCtx.CronScheduler.RemoveTask(*in.Id)
-	//     }
-	// }
+	if l.svcCtx.CronScheduler != nil {
+		// 重新查询完整的任务信息
+		task, err := l.svcCtx.DB.CronTask.Get(l.ctx, *in.Id)
+		if err != nil {
+			logx.Errorw("Failed to query updated task",
+				logx.Field("id", *in.Id),
+				logx.Field("error", err))
+		} else if task.Enabled {
+			// 更新调度器（先删除后添加）
+			if err := l.svcCtx.CronScheduler.UpdateTask(task); err != nil {
+				logx.Errorw("Failed to update task in CronScheduler",
+					logx.Field("task_id", task.ID),
+					logx.Field("error", err))
+			} else {
+				logx.Infow("Task updated in CronScheduler successfully",
+					logx.Field("task_id", task.ID))
+			}
+		} else {
+			// 如果任务被禁用，从调度器移除
+			if err := l.svcCtx.CronScheduler.RemoveTask(*in.Id); err != nil {
+				logx.Errorw("Failed to remove disabled task from CronScheduler",
+					logx.Field("task_id", *in.Id),
+					logx.Field("error", err))
+			} else {
+				logx.Infow("Disabled task removed from CronScheduler",
+					logx.Field("task_id", *in.Id))
+			}
+		}
+	}
 
 	return &io.BaseResp{Msg: errormsg.UpdateSuccess}, nil
 }

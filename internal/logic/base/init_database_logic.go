@@ -59,6 +59,14 @@ func (l *InitDatabaseLogic) InsertInitData() error {
 		return err
 	}
 
+	// 插入生命周期和变更历史菜单数据到Core服务
+	err = l.insertIOLifecycleMenuData(ctxWithTenant)
+	if err != nil {
+		logx.Errorw("Failed to insert IO lifecycle menu data, but continuing initialization",
+			logx.Field("error", err.Error()))
+		// 不返回错误，允许其他初始化继续
+	}
+
 	logx.Infow("Unified IO database initialized successfully",
 		logx.Field("tenant_id", tenantID),
 		logx.Field("provider_count", 15))

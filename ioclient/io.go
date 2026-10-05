@@ -6,7 +6,7 @@ package ioclient
 import (
 	"context"
 
-	"github.com/coder-lulu/newbee-io-rpc/types/cmdb"
+	"github.com/coder-lulu/newbee-io-rpc/types/io"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
@@ -21,12 +21,16 @@ type (
 	BaseIDUint32Resp                = io.BaseIDUint32Resp
 	BaseResp                        = io.BaseResp
 	BaseUUIDResp                    = io.BaseUUIDResp
+	ConfigAuditLog                  = io.ConfigAuditLog
+	ConfigItem                      = io.ConfigItem
+	CreateConfigReq                 = io.CreateConfigReq
 	CronTaskInfo                    = io.CronTaskInfo
 	CronTaskListReq                 = io.CronTaskListReq
 	CronTaskListResp                = io.CronTaskListResp
 	DataTargetInfo                  = io.DataTargetInfo
 	DataTargetListReq               = io.DataTargetListReq
 	DataTargetListResp              = io.DataTargetListResp
+	DeleteConfigReq                 = io.DeleteConfigReq
 	DiscoveryPoolInfo               = io.DiscoveryPoolInfo
 	DiscoveryPoolListReq            = io.DiscoveryPoolListReq
 	DiscoveryPoolListResp           = io.DiscoveryPoolListResp
@@ -42,6 +46,10 @@ type (
 	FieldMappingInfo                = io.FieldMappingInfo
 	FieldMappingListReq             = io.FieldMappingListReq
 	FieldMappingListResp            = io.FieldMappingListResp
+	GetConfigHistoryReq             = io.GetConfigHistoryReq
+	GetConfigHistoryResp            = io.GetConfigHistoryResp
+	GetConfigReq                    = io.GetConfigReq
+	GetConfigResp                   = io.GetConfigResp
 	GetProviderSchemaReq            = io.GetProviderSchemaReq
 	GetProviderSchemaResp           = io.GetProviderSchemaResp
 	IDInt32Req                      = io.IDInt32Req
@@ -57,6 +65,10 @@ type (
 	InputTaskInfo                   = io.InputTaskInfo
 	InputTaskListReq                = io.InputTaskListReq
 	InputTaskListResp               = io.InputTaskListResp
+	ListAuditLogReq                 = io.ListAuditLogReq
+	ListAuditLogResp                = io.ListAuditLogResp
+	ListConfigReq                   = io.ListConfigReq
+	ListConfigResp                  = io.ListConfigResp
 	ListProvidersResp               = io.ListProvidersResp
 	MappingLogInfo                  = io.MappingLogInfo
 	MappingLogListReq               = io.MappingLogListReq
@@ -68,6 +80,7 @@ type (
 	ParameterDefinition             = io.ParameterDefinition
 	ProviderMetadata                = io.ProviderMetadata
 	ProviderSchemaInfo              = io.ProviderSchemaInfo
+	RollbackConfigReq               = io.RollbackConfigReq
 	TaskLogInfo                     = io.TaskLogInfo
 	TaskLogListReq                  = io.TaskLogListReq
 	TaskLogListResp                 = io.TaskLogListResp
@@ -75,12 +88,21 @@ type (
 	TestConnectionResp              = io.TestConnectionResp
 	UUIDReq                         = io.UUIDReq
 	UUIDsReq                        = io.UUIDsReq
+	UpdateConfigReq                 = io.UpdateConfigReq
 	WorkerMetricsInfo               = io.WorkerMetricsInfo
 	WorkerMetricsListReq            = io.WorkerMetricsListReq
 	WorkerMetricsListResp           = io.WorkerMetricsListResp
 
 	Io interface {
 		InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error)
+		ListConfig(ctx context.Context, in *ListConfigReq, opts ...grpc.CallOption) (*ListConfigResp, error)
+		GetConfig(ctx context.Context, in *GetConfigReq, opts ...grpc.CallOption) (*GetConfigResp, error)
+		CreateConfig(ctx context.Context, in *CreateConfigReq, opts ...grpc.CallOption) (*BaseResp, error)
+		UpdateConfig(ctx context.Context, in *UpdateConfigReq, opts ...grpc.CallOption) (*BaseResp, error)
+		DeleteConfig(ctx context.Context, in *DeleteConfigReq, opts ...grpc.CallOption) (*BaseResp, error)
+		ListAuditLog(ctx context.Context, in *ListAuditLogReq, opts ...grpc.CallOption) (*ListAuditLogResp, error)
+		GetConfigHistory(ctx context.Context, in *GetConfigHistoryReq, opts ...grpc.CallOption) (*GetConfigHistoryResp, error)
+		RollbackConfig(ctx context.Context, in *RollbackConfigReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// CronTask management
 		CreateCronTask(ctx context.Context, in *CronTaskInfo, opts ...grpc.CallOption) (*BaseIDResp, error)
 		UpdateCronTask(ctx context.Context, in *CronTaskInfo, opts ...grpc.CallOption) (*BaseResp, error)
@@ -150,6 +172,7 @@ type (
 		GetOutputTaskById(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*OutputTaskInfo, error)
 		DeleteOutputTask(ctx context.Context, in *IDsReq, opts ...grpc.CallOption) (*BaseResp, error)
 		// OutputTask lifecycle operations
+		ApproveOutputTask(ctx context.Context, in *ApprovalReq, opts ...grpc.CallOption) (*BaseResp, error)
 		StartOutputTask(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		PauseOutputTask(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
 		CancelOutputTask(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error)
@@ -180,6 +203,46 @@ func NewIo(cli zrpc.Client) Io {
 func (m *defaultIo) InitDatabase(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := io.NewIoClient(m.cli.Conn())
 	return client.InitDatabase(ctx, in, opts...)
+}
+
+func (m *defaultIo) ListConfig(ctx context.Context, in *ListConfigReq, opts ...grpc.CallOption) (*ListConfigResp, error) {
+	client := io.NewIoClient(m.cli.Conn())
+	return client.ListConfig(ctx, in, opts...)
+}
+
+func (m *defaultIo) GetConfig(ctx context.Context, in *GetConfigReq, opts ...grpc.CallOption) (*GetConfigResp, error) {
+	client := io.NewIoClient(m.cli.Conn())
+	return client.GetConfig(ctx, in, opts...)
+}
+
+func (m *defaultIo) CreateConfig(ctx context.Context, in *CreateConfigReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := io.NewIoClient(m.cli.Conn())
+	return client.CreateConfig(ctx, in, opts...)
+}
+
+func (m *defaultIo) UpdateConfig(ctx context.Context, in *UpdateConfigReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := io.NewIoClient(m.cli.Conn())
+	return client.UpdateConfig(ctx, in, opts...)
+}
+
+func (m *defaultIo) DeleteConfig(ctx context.Context, in *DeleteConfigReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := io.NewIoClient(m.cli.Conn())
+	return client.DeleteConfig(ctx, in, opts...)
+}
+
+func (m *defaultIo) ListAuditLog(ctx context.Context, in *ListAuditLogReq, opts ...grpc.CallOption) (*ListAuditLogResp, error) {
+	client := io.NewIoClient(m.cli.Conn())
+	return client.ListAuditLog(ctx, in, opts...)
+}
+
+func (m *defaultIo) GetConfigHistory(ctx context.Context, in *GetConfigHistoryReq, opts ...grpc.CallOption) (*GetConfigHistoryResp, error) {
+	client := io.NewIoClient(m.cli.Conn())
+	return client.GetConfigHistory(ctx, in, opts...)
+}
+
+func (m *defaultIo) RollbackConfig(ctx context.Context, in *RollbackConfigReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := io.NewIoClient(m.cli.Conn())
+	return client.RollbackConfig(ctx, in, opts...)
 }
 
 // CronTask management
@@ -475,6 +538,11 @@ func (m *defaultIo) DeleteOutputTask(ctx context.Context, in *IDsReq, opts ...gr
 }
 
 // OutputTask lifecycle operations
+func (m *defaultIo) ApproveOutputTask(ctx context.Context, in *ApprovalReq, opts ...grpc.CallOption) (*BaseResp, error) {
+	client := io.NewIoClient(m.cli.Conn())
+	return client.ApproveOutputTask(ctx, in, opts...)
+}
+
 func (m *defaultIo) StartOutputTask(ctx context.Context, in *IDReq, opts ...grpc.CallOption) (*BaseResp, error) {
 	client := io.NewIoClient(m.cli.Conn())
 	return client.StartOutputTask(ctx, in, opts...)

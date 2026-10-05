@@ -1,0 +1,145 @@
+# Copy this file to io.yaml and configure local values or environment variables.
+Name: io.rpc
+ListenOn: 0.0.0.0:9500
+Timeout: 30000
+Mode: dev  # 开发环境模式（启用彩色日志）
+
+# gRPC服务器配置
+ServerOptions:
+  # 启用拦截器
+  Interceptors: true
+
+# Core服务RPC连接配置
+CoreRpc:
+  Endpoints:
+    - 127.0.0.1:9100
+  Timeout: 30000  # 30秒超时，单位：毫秒
+
+# Ops-Center服务RPC连接配置
+OpsRpc:
+  Endpoints:
+    - 127.0.0.1:9600
+  Timeout: 30000  # 30秒超时，单位：毫秒
+
+# CMDB服务RPC连接配置
+CmdbRpc:
+  Endpoints:
+    - 127.0.0.1:9300
+  Timeout: 30000  # 30秒超时，单位：毫秒
+
+DatabaseConf:
+  Type: mysql
+  Host: 192.168.10.100
+  Port: 13306
+  DBName: newbee
+  Username: root # set your username
+  Password: "${UNIFIED_IO_RPC_ETC_IO_YAML_PASSWORD}"
+  MaxOpenConn: 100
+  SSLMode: disable
+  CacheTime: 5
+
+RedisConf:
+  Host: 192.168.10.100:26739
+  Pass: "123456"
+  Db: 0
+
+
+Log:
+  ServiceName: ioRpcLogger
+  Mode: console
+  Path: /home/data/logs/io/rpc
+  Encoding: json  # 保持json，由彩色Writer转换
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCoolDownMillis: 100
+
+CasbinConf:
+  ModelText: |
+    [request_definition]
+    r = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
+    [role_definition]
+    g = _, _
+    [policy_effect]
+    e = some(where (p.eft == allow))
+    [matchers]
+    m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4005
+  Path: /metrics
+
+# TaskWorker配置 - 任务拉取和处理
+TaskWorker:
+  Enabled: true                 # 是否启用TaskWorker
+  PullInterval: 10s             # 任务拉取间隔（默认10秒）
+  BatchSize: 10                 # 每次拉取任务数量（默认10）
+  MaxConcurrent: 5              # 最大并发处理任务数（默认5）
+  TaskTimeout: 5m               # 单个任务超时时间（默认5分钟）
+  StaleThreshold: 1h            # 任务stale阈值（默认1小时）
+  StaleCheckInterval: 5m        # stale任务检查间隔（默认5分钟）
+
+# Middleware Configuration: Central control for the new middleware framework
+Middleware:
+  auth:
+    accessSecret: "${UNIFIED_IO_RPC_ETC_IO_YAML_ACCESSSECRET}"
+    accessExpire: 86400 # 24 hours
+    enabled: true
+    skipPaths:
+      - /io/init/database
+      - /health
+  audit:
+    enabled: true
+    realIpHeader: X-Forwarded-For # 参考 docs/COMMON_AUDIT_MIDDLEWARE_GUIDE.md
+    captureResponseBody: true
+    skipPaths:
+      - /io/init/database
+      - /health
+  tenantCheck:
+    enabled: true
+    skipPaths:
+      - /io/init/database
+      - /health
+  dataPerm:
+    enabled: true
+    skipPaths:
+      - /io/init/database
+      - /health
+
+# 输入适配器配置
+InputAdapterConf:
+  # 健康检查配置
+  HealthCheck:
+    Enable: true
+    Interval: 30s
+    DatabaseCheck: true
+    RedisCheck: true
+    MemoryThreshold: 90
+
+  # 性能配置
+  Performance:
+    ConcurrentWorkers: 8      # 并发工作协程数
+    BatchSize: 1000          # 批处理大小
+    MemoryLimit: 100MB       # 内存限制
+    ProcessTimeout: 30s      # 处理超时
+
+  # Excel适配器配置
+  Excel:
+    MaxRows: 100000         # 最大行数
+    MaxFileSize: 50MB       # 最大文件大小
+    StreamProcess: true     # 启用流式处理
+    ChunkSize: 1MB          # 流处理块大小
+
+  # API适配器配置
+  API:
+    MaxBatchSize: 5000      # 最大批量处理数
+    Timeout: 30s           # 请求超时
+    MaxConcurrent: 16      # 最大并发连接数
+
+  # 自动发现适配器配置
+  Discovery:
+    Disabled: true         # 功能已迁移到Agent
+    MigrationGuide: "请使用Agent服务进行网络发现"

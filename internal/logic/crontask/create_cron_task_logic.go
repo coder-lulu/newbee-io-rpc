@@ -114,15 +114,17 @@ func (l *CreateCronTaskLogic) CreateCronTask(in *io.CronTaskInfo) (*io.BaseIDRes
 		logx.Field("next_run_time", result.NextRunTime.Format(time.RFC3339)))
 
 	// 8. 如果任务启用且CronScheduler可用，添加到调度器
-	// TODO: 集成CronScheduler - 在ServiceContext中初始化后启用
-	// if result.Enabled && l.svcCtx.CronScheduler != nil {
-	//     if err := l.svcCtx.CronScheduler.AddTask(result); err != nil {
-	//         logx.Errorw("Failed to add task to CronScheduler",
-	//             logx.Field("task_id", result.ID),
-	//             logx.Field("error", err))
-	//         // 不返回错误，任务已保存到数据库，可以稍后手动添加到调度器
-	//     }
-	// }
+	if result.Enabled && l.svcCtx.CronScheduler != nil {
+		if err := l.svcCtx.CronScheduler.AddTask(result); err != nil {
+			logx.Errorw("Failed to add task to CronScheduler",
+				logx.Field("task_id", result.ID),
+				logx.Field("error", err))
+			// 不返回错误，任务已保存到数据库，可以稍后手动添加到调度器
+		} else {
+			logx.Infow("Task added to CronScheduler successfully",
+				logx.Field("task_id", result.ID))
+		}
+	}
 
 	return &io.BaseIDResp{Id: result.ID, Msg: errormsg.CreateSuccess}, nil
 }

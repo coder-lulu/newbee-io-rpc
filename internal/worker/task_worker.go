@@ -10,17 +10,19 @@ import (
 	"github.com/coder-lulu/newbee-common/v2/orm/ent/hooks"
 	"github.com/coder-lulu/newbee-io-rpc/ent"
 	"github.com/coder-lulu/newbee-io-rpc/ent/inputtask"
+	"github.com/coder-lulu/newbee-io-rpc/internal/lock"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
 // TaskWorker 任务拉取和处理Worker
 type TaskWorker struct {
-	db        *ent.Client
-	config    *WorkerConfig
-	metrics   *TaskWorkerMetrics
-	running   bool
-	mu        sync.RWMutex
-	cancelCtx context.CancelFunc
+	db           *ent.Client
+	config       *WorkerConfig
+	metrics      *TaskWorkerMetrics
+	dedupManager *TaskDedupManager // 🔒 任务去重管理器（防止多实例重复处理）
+	running      bool
+	mu           sync.RWMutex
+	cancelCtx    context.CancelFunc
 }
 
 // WorkerConfig Worker配置
@@ -64,7 +66,12 @@ type TaskWorkerMetrics struct {
 }
 
 // NewTaskWorker 创建TaskWorker
-func NewTaskWorker(db *ent.Client, config *WorkerConfig) *TaskWorker {
+//
+// 参数:
+//   - db: 数据库客户端
+//   - config: Worker配置
+//   - lockManager: 分布式锁管理器（用于任务去重，可选）
+func NewTaskWorker(db *ent.Client, config *WorkerConfig, lockManager *lock.DistributedLockManager) *TaskWorker {
 	if config == nil {
 		config = DefaultWorkerConfig()
 	}
@@ -124,11 +131,21 @@ func NewTaskWorker(db *ent.Client, config *WorkerConfig) *TaskWorker {
 		config.StaleCheckInterval = 5 * time.Minute
 	}
 
+	// 🔒 创建任务去重管理器（防止多实例重复处理）
+	var dedupManager *TaskDedupManager
+	if lockManager != nil {
+		dedupManager = NewTaskDedupManager(lockManager)
+		logx.Info("TaskWorker: Task deduplication enabled with distributed lock")
+	} else {
+		logx.Info("TaskWorker: No lockManager provided, task deduplication disabled")
+	}
+
 	return &TaskWorker{
-		db:      db,
-		config:  config,
-		metrics: &TaskWorkerMetrics{},
-		running: false,
+		db:           db,
+		config:       config,
+		metrics:      &TaskWorkerMetrics{},
+		dedupManager: dedupManager,
+		running:      false,
 	}
 }
 
@@ -374,6 +391,33 @@ func (w *TaskWorker) processScheduledTasks(ctx context.Context) {
 // processTask 处理单个任务
 func (w *TaskWorker) processTask(ctx context.Context, task *ent.InputTask) {
 	defer w.decrementProcessing()
+
+	// 🔒 任务去重检查：尝试获取任务处理锁
+	// 在多实例场景下，只有一个Worker能成功获取锁并处理该任务
+	if w.dedupManager != nil {
+		acquired, unlock, err := w.dedupManager.TryAcquireTaskLock(ctx, task.ID)
+		if err != nil {
+			logx.Errorw("Failed to acquire task lock",
+				logx.Field("task_id", task.ID),
+				logx.Field("error", err))
+			// 锁获取失败，任务保持pending状态，下次可重试
+			return
+		}
+
+		if !acquired {
+			// 任务已被其他Worker抢占，跳过处理
+			logx.Infow("Task already being processed by another worker, skipping",
+				logx.Field("task_id", task.ID),
+				logx.Field("task_name", task.TaskName))
+			return
+		}
+
+		// 确保锁在函数返回时释放
+		defer unlock()
+
+		logx.Infow("Task lock acquired, proceeding with processing",
+			logx.Field("task_id", task.ID))
+	}
 
 	// 添加panic恢复机制
 	defer func() {

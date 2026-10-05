@@ -91,37 +91,40 @@ func (sm *StateMachine) updateInputTaskState(
 	newStatus TaskStatus,
 	result *TaskResult,
 ) error {
-	// 开启事务
-	tx, err := sm.db.Tx(ctx)
-	if err != nil {
-		return fmt.Errorf("failed to start transaction: %w", err)
-	}
-	defer func() {
-		if v := recover(); v != nil {
-			tx.Rollback()
-			panic(v)
+	return sm.updateTaskStateWithTransaction(ctx, taskID, newStatus, result, func(tx *ent.Tx) (string, error) {
+		// 读取当前任务
+		task, err := tx.InputTask.Get(ctx, taskID)
+		if err != nil {
+			return "", fmt.Errorf("failed to get input task: %w", err)
 		}
-	}()
 
-	// 读取当前任务
-	task, err := tx.InputTask.Get(ctx, taskID)
-	if err != nil {
-		tx.Rollback()
-		return fmt.Errorf("failed to get task: %w", err)
-	}
+		currentStatus := TaskStatus(task.TaskStatus)
 
-	// 验证状态转换
-	currentStatus := TaskStatus(task.TaskStatus)
-	if err := sm.ValidateTransition(currentStatus, newStatus); err != nil {
-		tx.Rollback()
-		return err
-	}
+		// 验证状态转换
+		if err := sm.ValidateTransition(currentStatus, newStatus); err != nil {
+			return "", err
+		}
 
-	// 构建更新操作
+		// 构建并执行更新
+		update := sm.buildInputTaskUpdate(tx, taskID, newStatus, result)
+		if err := update.Exec(ctx); err != nil {
+			return "", fmt.Errorf("failed to update input task: %w", err)
+		}
+
+		return string(currentStatus), nil
+	})
+}
+
+// buildInputTaskUpdate 构建输入任务更新操作（提取公共逻辑）
+func (sm *StateMachine) buildInputTaskUpdate(
+	tx *ent.Tx,
+	taskID uint64,
+	newStatus TaskStatus,
+	result *TaskResult,
+) *ent.InputTaskUpdateOne {
 	update := tx.InputTask.UpdateOneID(taskID).
 		SetTaskStatus(string(newStatus))
 
-	// 根据新状态更新相应字段
 	now := time.Now()
 	switch newStatus {
 	case TaskStatusRunning:
@@ -149,25 +152,7 @@ func (sm *StateMachine) updateInputTaskState(
 		}
 	}
 
-	// 执行更新
-	if err := update.Exec(ctx); err != nil {
-		tx.Rollback()
-		return fmt.Errorf("failed to update task state: %w", err)
-	}
-
-	// 提交事务
-	if err := tx.Commit(); err != nil {
-		return fmt.Errorf("failed to commit transaction: %w", err)
-	}
-
-	sm.logger.Infow(
-		"Task state updated successfully",
-		logx.Field("task_id", taskID),
-		logx.Field("old_status", currentStatus),
-		logx.Field("new_status", newStatus),
-	)
-
-	return nil
+	return update
 }
 
 // updateOutputTaskState 更新输出任务状态
@@ -177,37 +162,40 @@ func (sm *StateMachine) updateOutputTaskState(
 	newStatus TaskStatus,
 	result *TaskResult,
 ) error {
-	// 开启事务
-	tx, err := sm.db.Tx(ctx)
-	if err != nil {
-		return fmt.Errorf("failed to start transaction: %w", err)
-	}
-	defer func() {
-		if v := recover(); v != nil {
-			tx.Rollback()
-			panic(v)
+	return sm.updateTaskStateWithTransaction(ctx, taskID, newStatus, result, func(tx *ent.Tx) (string, error) {
+		// 读取当前任务
+		task, err := tx.OutputTask.Get(ctx, taskID)
+		if err != nil {
+			return "", fmt.Errorf("failed to get output task: %w", err)
 		}
-	}()
 
-	// 读取当前任务
-	task, err := tx.OutputTask.Get(ctx, taskID)
-	if err != nil {
-		tx.Rollback()
-		return fmt.Errorf("failed to get task: %w", err)
-	}
+		currentStatus := TaskStatus(task.TaskStatus)
 
-	// 验证状态转换
-	currentStatus := TaskStatus(task.TaskStatus)
-	if err := sm.ValidateTransition(currentStatus, newStatus); err != nil {
-		tx.Rollback()
-		return err
-	}
+		// 验证状态转换
+		if err := sm.ValidateTransition(currentStatus, newStatus); err != nil {
+			return "", err
+		}
 
-	// 构建更新操作
+		// 构建并执行更新
+		update := sm.buildOutputTaskUpdate(tx, taskID, newStatus, result)
+		if err := update.Exec(ctx); err != nil {
+			return "", fmt.Errorf("failed to update output task: %w", err)
+		}
+
+		return string(currentStatus), nil
+	})
+}
+
+// buildOutputTaskUpdate 构建输出任务更新操作（提取公共逻辑）
+func (sm *StateMachine) buildOutputTaskUpdate(
+	tx *ent.Tx,
+	taskID uint64,
+	newStatus TaskStatus,
+	result *TaskResult,
+) *ent.OutputTaskUpdateOne {
 	update := tx.OutputTask.UpdateOneID(taskID).
 		SetTaskStatus(string(newStatus))
 
-	// 根据新状态更新相应字段
 	now := time.Now()
 	switch newStatus {
 	case TaskStatusRunning:
@@ -235,10 +223,48 @@ func (sm *StateMachine) updateOutputTaskState(
 		}
 	}
 
-	// 执行更新
-	if err := update.Exec(ctx); err != nil {
-		tx.Rollback()
-		return fmt.Errorf("failed to update task state: %w", err)
+	return update
+}
+
+// updateTaskStateWithTransaction 通用的事务化状态更新模板方法
+//
+// 该方法提取了updateInputTaskState和updateOutputTaskState的公共事务处理逻辑，
+// 遵循DRY原则，减少代码重复
+func (sm *StateMachine) updateTaskStateWithTransaction(
+	ctx context.Context,
+	taskID uint64,
+	newStatus TaskStatus,
+	result *TaskResult,
+	updateFn func(tx *ent.Tx) (oldStatus string, err error),
+) error {
+	// 开启事务
+	tx, err := sm.db.Tx(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to start transaction: %w", err)
+	}
+
+	// 统一的事务rollback处理
+	rollback := func(err error) error {
+		if rbErr := tx.Rollback(); rbErr != nil {
+			sm.logger.Errorw("Failed to rollback transaction",
+				logx.Field("error", rbErr),
+				logx.Field("original_error", err))
+		}
+		return err
+	}
+
+	// panic恢复机制
+	defer func() {
+		if v := recover(); v != nil {
+			rollback(fmt.Errorf("panic in transaction: %v", v))
+			panic(v)
+		}
+	}()
+
+	// 执行实际的更新逻辑
+	oldStatus, err := updateFn(tx)
+	if err != nil {
+		return rollback(err)
 	}
 
 	// 提交事务
@@ -246,10 +272,11 @@ func (sm *StateMachine) updateOutputTaskState(
 		return fmt.Errorf("failed to commit transaction: %w", err)
 	}
 
+	// 记录成功日志
 	sm.logger.Infow(
 		"Task state updated successfully",
 		logx.Field("task_id", taskID),
-		logx.Field("old_status", currentStatus),
+		logx.Field("old_status", oldStatus),
 		logx.Field("new_status", newStatus),
 	)
 

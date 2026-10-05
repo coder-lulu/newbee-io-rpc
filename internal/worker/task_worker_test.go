@@ -30,7 +30,7 @@ func TestNewTaskWorker(t *testing.T) {
 	db := setupTestDB(t)
 
 	t.Run("with default config", func(t *testing.T) {
-		worker := NewTaskWorker(db, nil)
+		worker := NewTaskWorker(db, nil, nil)
 		assert.NotNil(t, worker)
 		assert.NotNil(t, worker.config)
 		assert.NotNil(t, worker.metrics)
@@ -45,7 +45,7 @@ func TestNewTaskWorker(t *testing.T) {
 			TaskTimeout:    1 * time.Minute,
 			StaleThreshold: 30 * time.Minute,
 		}
-		worker := NewTaskWorker(db, config)
+		worker := NewTaskWorker(db, config, nil)
 		assert.NotNil(t, worker)
 		assert.Equal(t, 5*time.Second, worker.config.PullInterval)
 		assert.Equal(t, 5, worker.config.BatchSize)
@@ -63,7 +63,7 @@ func TestTaskWorker_StartStop(t *testing.T) {
 		StaleThreshold:     1 * time.Hour,
 		StaleCheckInterval: 1 * time.Minute,
 	}
-	worker := NewTaskWorker(db, config)
+	worker := NewTaskWorker(db, config, nil)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -118,7 +118,7 @@ func TestTaskWorker_ProcessTasks(t *testing.T) {
 		StaleThreshold:     1 * time.Hour,
 		StaleCheckInterval: 10 * time.Minute,
 	}
-	worker := NewTaskWorker(db, config)
+	worker := NewTaskWorker(db, config, nil)
 
 	// 启动Worker
 	workerCtx, workerCancel := context.WithCancel(ctx)
@@ -194,7 +194,7 @@ func TestTaskWorker_BatchProcessing(t *testing.T) {
 		StaleThreshold:     1 * time.Hour,
 		StaleCheckInterval: 10 * time.Minute,
 	}
-	worker := NewTaskWorker(db, config)
+	worker := NewTaskWorker(db, config, nil)
 
 	// 启动Worker
 	workerCtx, workerCancel := context.WithCancel(ctx)
@@ -285,7 +285,7 @@ func TestTaskWorker_MaxConcurrent(t *testing.T) {
 		StaleThreshold:     1 * time.Hour,
 		StaleCheckInterval: 10 * time.Minute,
 	}
-	worker := NewTaskWorker(db, config)
+	worker := NewTaskWorker(db, config, nil)
 
 	// 启动Worker
 	workerCtx, workerCancel := context.WithCancel(ctx)
@@ -363,7 +363,7 @@ func TestTaskWorker_StaleTasks(t *testing.T) {
 		StaleThreshold:     1 * time.Hour, // 1小时阈值
 		StaleCheckInterval: 200 * time.Millisecond,
 	}
-	worker := NewTaskWorker(db, config)
+	worker := NewTaskWorker(db, config, nil)
 
 	// 启动Worker
 	workerCtx, workerCancel := context.WithCancel(ctx)
@@ -418,7 +418,7 @@ func TestTaskWorker_Metrics(t *testing.T) {
 		StaleThreshold:     1 * time.Hour,
 		StaleCheckInterval: 10 * time.Minute,
 	}
-	worker := NewTaskWorker(db, config)
+	worker := NewTaskWorker(db, config, nil)
 
 	// 启动Worker
 	workerCtx, workerCancel := context.WithCancel(ctx)
@@ -513,7 +513,7 @@ func TestTaskWorker_ScheduledTasks(t *testing.T) {
 		StaleThreshold:     1 * time.Hour,
 		StaleCheckInterval: 10 * time.Minute,
 	}
-	worker := NewTaskWorker(db, config)
+	worker := NewTaskWorker(db, config, nil)
 
 	// 启动Worker
 	workerCtx, workerCancel := context.WithCancel(ctx)
@@ -606,7 +606,7 @@ func TestTaskWorker_ScheduledTasksWithManualTasks(t *testing.T) {
 		StaleThreshold:     1 * time.Hour,
 		StaleCheckInterval: 10 * time.Minute,
 	}
-	worker := NewTaskWorker(db, config)
+	worker := NewTaskWorker(db, config, nil)
 
 	// 启动Worker
 	workerCtx, workerCancel := context.WithCancel(ctx)
@@ -697,7 +697,7 @@ func TestTaskWorker_ScheduledTasksMaxConcurrent(t *testing.T) {
 		StaleThreshold:     1 * time.Hour,
 		StaleCheckInterval: 10 * time.Minute,
 	}
-	worker := NewTaskWorker(db, config)
+	worker := NewTaskWorker(db, config, nil)
 
 	// 启动Worker
 	workerCtx, workerCancel := context.WithCancel(ctx)

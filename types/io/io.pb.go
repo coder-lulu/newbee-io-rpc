@@ -445,6 +445,493 @@ func (x *BaseUUIDResp) GetMsg() string {
 	return ""
 }
 
+// ConfigAuditLog 配置审计日志
+type ConfigAuditLog struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Id                *uint64                `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id"`
+	TenantId          *uint64                `protobuf:"varint,2,opt,name=tenant_id,json=tenantId,proto3,oneof" json:"tenant_id"`
+	ConfigKey         *string                `protobuf:"bytes,3,opt,name=config_key,json=configKey,proto3,oneof" json:"config_key"`
+	OldValue          *string                `protobuf:"bytes,4,opt,name=old_value,json=oldValue,proto3,oneof" json:"old_value"`
+	NewValue          *string                `protobuf:"bytes,5,opt,name=new_value,json=newValue,proto3,oneof" json:"new_value"`
+	ChangeType        *string                `protobuf:"bytes,6,opt,name=change_type,json=changeType,proto3,oneof" json:"change_type"`
+	ChangedBy         *uint64                `protobuf:"varint,7,opt,name=changed_by,json=changedBy,proto3,oneof" json:"changed_by"`
+	ChangedByName     *string                `protobuf:"bytes,8,opt,name=changed_by_name,json=changedByName,proto3,oneof" json:"changed_by_name"`
+	ServiceName       *string                `protobuf:"bytes,9,opt,name=service_name,json=serviceName,proto3,oneof" json:"service_name"`
+	Category          *string                `protobuf:"bytes,10,opt,name=category,proto3,oneof" json:"category"`
+	ConfigGroup       *string                `protobuf:"bytes,11,opt,name=config_group,json=configGroup,proto3,oneof" json:"config_group"`
+	ChangeReason      *string                `protobuf:"bytes,12,opt,name=change_reason,json=changeReason,proto3,oneof" json:"change_reason"`
+	IpAddress         *string                `protobuf:"bytes,13,opt,name=ip_address,json=ipAddress,proto3,oneof" json:"ip_address"`
+	UserAgent         *string                `protobuf:"bytes,14,opt,name=user_agent,json=userAgent,proto3,oneof" json:"user_agent"`
+	OldVersion        *int64                 `protobuf:"varint,15,opt,name=old_version,json=oldVersion,proto3,oneof" json:"old_version"`
+	NewVersion        *int64                 `protobuf:"varint,16,opt,name=new_version,json=newVersion,proto3,oneof" json:"new_version"`
+	IsRollback        *bool                  `protobuf:"varint,17,opt,name=is_rollback,json=isRollback,proto3,oneof" json:"is_rollback"`
+	RollbackFromLogId *string                `protobuf:"bytes,18,opt,name=rollback_from_log_id,json=rollbackFromLogId,proto3,oneof" json:"rollback_from_log_id"`
+	CreatedAt         *int64                 `protobuf:"varint,19,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *ConfigAuditLog) Reset() {
+	*x = ConfigAuditLog{}
+	mi := &file_io_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConfigAuditLog) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConfigAuditLog) ProtoMessage() {}
+
+func (x *ConfigAuditLog) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConfigAuditLog.ProtoReflect.Descriptor instead.
+func (*ConfigAuditLog) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ConfigAuditLog) GetId() uint64 {
+	if x != nil && x.Id != nil {
+		return *x.Id
+	}
+	return 0
+}
+
+func (x *ConfigAuditLog) GetTenantId() uint64 {
+	if x != nil && x.TenantId != nil {
+		return *x.TenantId
+	}
+	return 0
+}
+
+func (x *ConfigAuditLog) GetConfigKey() string {
+	if x != nil && x.ConfigKey != nil {
+		return *x.ConfigKey
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetOldValue() string {
+	if x != nil && x.OldValue != nil {
+		return *x.OldValue
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetNewValue() string {
+	if x != nil && x.NewValue != nil {
+		return *x.NewValue
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetChangeType() string {
+	if x != nil && x.ChangeType != nil {
+		return *x.ChangeType
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetChangedBy() uint64 {
+	if x != nil && x.ChangedBy != nil {
+		return *x.ChangedBy
+	}
+	return 0
+}
+
+func (x *ConfigAuditLog) GetChangedByName() string {
+	if x != nil && x.ChangedByName != nil {
+		return *x.ChangedByName
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetServiceName() string {
+	if x != nil && x.ServiceName != nil {
+		return *x.ServiceName
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetCategory() string {
+	if x != nil && x.Category != nil {
+		return *x.Category
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetConfigGroup() string {
+	if x != nil && x.ConfigGroup != nil {
+		return *x.ConfigGroup
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetChangeReason() string {
+	if x != nil && x.ChangeReason != nil {
+		return *x.ChangeReason
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetIpAddress() string {
+	if x != nil && x.IpAddress != nil {
+		return *x.IpAddress
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetUserAgent() string {
+	if x != nil && x.UserAgent != nil {
+		return *x.UserAgent
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetOldVersion() int64 {
+	if x != nil && x.OldVersion != nil {
+		return *x.OldVersion
+	}
+	return 0
+}
+
+func (x *ConfigAuditLog) GetNewVersion() int64 {
+	if x != nil && x.NewVersion != nil {
+		return *x.NewVersion
+	}
+	return 0
+}
+
+func (x *ConfigAuditLog) GetIsRollback() bool {
+	if x != nil && x.IsRollback != nil {
+		return *x.IsRollback
+	}
+	return false
+}
+
+func (x *ConfigAuditLog) GetRollbackFromLogId() string {
+	if x != nil && x.RollbackFromLogId != nil {
+		return *x.RollbackFromLogId
+	}
+	return ""
+}
+
+func (x *ConfigAuditLog) GetCreatedAt() int64 {
+	if x != nil && x.CreatedAt != nil {
+		return *x.CreatedAt
+	}
+	return 0
+}
+
+// ConfigItem 配置项信息
+type ConfigItem struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            *uint64                `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id"`
+	TenantId      *uint64                `protobuf:"varint,2,opt,name=tenant_id,json=tenantId,proto3,oneof" json:"tenant_id"`
+	ConfigKey     *string                `protobuf:"bytes,3,opt,name=config_key,json=configKey,proto3,oneof" json:"config_key"`
+	ConfigValue   *string                `protobuf:"bytes,4,opt,name=config_value,json=configValue,proto3,oneof" json:"config_value"`
+	ValueType     *string                `protobuf:"bytes,5,opt,name=value_type,json=valueType,proto3,oneof" json:"value_type"`
+	Category      *string                `protobuf:"bytes,6,opt,name=category,proto3,oneof" json:"category"`
+	ServiceName   *string                `protobuf:"bytes,7,opt,name=service_name,json=serviceName,proto3,oneof" json:"service_name"`
+	Description   *string                `protobuf:"bytes,8,opt,name=description,proto3,oneof" json:"description"`
+	DefaultValue  *string                `protobuf:"bytes,9,opt,name=default_value,json=defaultValue,proto3,oneof" json:"default_value"`
+	Version       *int64                 `protobuf:"varint,10,opt,name=version,proto3,oneof" json:"version"`
+	Status        *uint32                `protobuf:"varint,11,opt,name=status,proto3,oneof" json:"status"`
+	IsReadonly    *bool                  `protobuf:"varint,12,opt,name=is_readonly,json=isReadonly,proto3,oneof" json:"is_readonly"`
+	IsSensitive   *bool                  `protobuf:"varint,13,opt,name=is_sensitive,json=isSensitive,proto3,oneof" json:"is_sensitive"`
+	Scope         *string                `protobuf:"bytes,14,opt,name=scope,proto3,oneof" json:"scope"`
+	ConfigGroup   *string                `protobuf:"bytes,15,opt,name=config_group,json=configGroup,proto3,oneof" json:"config_group"`
+	CreatedAt     *int64                 `protobuf:"varint,16,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at"`
+	UpdatedAt     *int64                 `protobuf:"varint,17,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ConfigItem) Reset() {
+	*x = ConfigItem{}
+	mi := &file_io_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConfigItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConfigItem) ProtoMessage() {}
+
+func (x *ConfigItem) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConfigItem.ProtoReflect.Descriptor instead.
+func (*ConfigItem) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *ConfigItem) GetId() uint64 {
+	if x != nil && x.Id != nil {
+		return *x.Id
+	}
+	return 0
+}
+
+func (x *ConfigItem) GetTenantId() uint64 {
+	if x != nil && x.TenantId != nil {
+		return *x.TenantId
+	}
+	return 0
+}
+
+func (x *ConfigItem) GetConfigKey() string {
+	if x != nil && x.ConfigKey != nil {
+		return *x.ConfigKey
+	}
+	return ""
+}
+
+func (x *ConfigItem) GetConfigValue() string {
+	if x != nil && x.ConfigValue != nil {
+		return *x.ConfigValue
+	}
+	return ""
+}
+
+func (x *ConfigItem) GetValueType() string {
+	if x != nil && x.ValueType != nil {
+		return *x.ValueType
+	}
+	return ""
+}
+
+func (x *ConfigItem) GetCategory() string {
+	if x != nil && x.Category != nil {
+		return *x.Category
+	}
+	return ""
+}
+
+func (x *ConfigItem) GetServiceName() string {
+	if x != nil && x.ServiceName != nil {
+		return *x.ServiceName
+	}
+	return ""
+}
+
+func (x *ConfigItem) GetDescription() string {
+	if x != nil && x.Description != nil {
+		return *x.Description
+	}
+	return ""
+}
+
+func (x *ConfigItem) GetDefaultValue() string {
+	if x != nil && x.DefaultValue != nil {
+		return *x.DefaultValue
+	}
+	return ""
+}
+
+func (x *ConfigItem) GetVersion() int64 {
+	if x != nil && x.Version != nil {
+		return *x.Version
+	}
+	return 0
+}
+
+func (x *ConfigItem) GetStatus() uint32 {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return 0
+}
+
+func (x *ConfigItem) GetIsReadonly() bool {
+	if x != nil && x.IsReadonly != nil {
+		return *x.IsReadonly
+	}
+	return false
+}
+
+func (x *ConfigItem) GetIsSensitive() bool {
+	if x != nil && x.IsSensitive != nil {
+		return *x.IsSensitive
+	}
+	return false
+}
+
+func (x *ConfigItem) GetScope() string {
+	if x != nil && x.Scope != nil {
+		return *x.Scope
+	}
+	return ""
+}
+
+func (x *ConfigItem) GetConfigGroup() string {
+	if x != nil && x.ConfigGroup != nil {
+		return *x.ConfigGroup
+	}
+	return ""
+}
+
+func (x *ConfigItem) GetCreatedAt() int64 {
+	if x != nil && x.CreatedAt != nil {
+		return *x.CreatedAt
+	}
+	return 0
+}
+
+func (x *ConfigItem) GetUpdatedAt() int64 {
+	if x != nil && x.UpdatedAt != nil {
+		return *x.UpdatedAt
+	}
+	return 0
+}
+
+// CreateConfigReq 创建配置请求
+type CreateConfigReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ConfigKey     *string                `protobuf:"bytes,1,opt,name=config_key,json=configKey,proto3,oneof" json:"config_key"`
+	ConfigValue   *string                `protobuf:"bytes,2,opt,name=config_value,json=configValue,proto3,oneof" json:"config_value"`
+	ValueType     *string                `protobuf:"bytes,3,opt,name=value_type,json=valueType,proto3,oneof" json:"value_type"`
+	Category      *string                `protobuf:"bytes,4,opt,name=category,proto3,oneof" json:"category"`
+	ServiceName   *string                `protobuf:"bytes,5,opt,name=service_name,json=serviceName,proto3,oneof" json:"service_name"`
+	Description   *string                `protobuf:"bytes,6,opt,name=description,proto3,oneof" json:"description"`
+	DefaultValue  *string                `protobuf:"bytes,7,opt,name=default_value,json=defaultValue,proto3,oneof" json:"default_value"`
+	IsReadonly    *bool                  `protobuf:"varint,8,opt,name=is_readonly,json=isReadonly,proto3,oneof" json:"is_readonly"`
+	IsSensitive   *bool                  `protobuf:"varint,9,opt,name=is_sensitive,json=isSensitive,proto3,oneof" json:"is_sensitive"`
+	Scope         *string                `protobuf:"bytes,10,opt,name=scope,proto3,oneof" json:"scope"`
+	ConfigGroup   *string                `protobuf:"bytes,11,opt,name=config_group,json=configGroup,proto3,oneof" json:"config_group"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateConfigReq) Reset() {
+	*x = CreateConfigReq{}
+	mi := &file_io_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateConfigReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateConfigReq) ProtoMessage() {}
+
+func (x *CreateConfigReq) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateConfigReq.ProtoReflect.Descriptor instead.
+func (*CreateConfigReq) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *CreateConfigReq) GetConfigKey() string {
+	if x != nil && x.ConfigKey != nil {
+		return *x.ConfigKey
+	}
+	return ""
+}
+
+func (x *CreateConfigReq) GetConfigValue() string {
+	if x != nil && x.ConfigValue != nil {
+		return *x.ConfigValue
+	}
+	return ""
+}
+
+func (x *CreateConfigReq) GetValueType() string {
+	if x != nil && x.ValueType != nil {
+		return *x.ValueType
+	}
+	return ""
+}
+
+func (x *CreateConfigReq) GetCategory() string {
+	if x != nil && x.Category != nil {
+		return *x.Category
+	}
+	return ""
+}
+
+func (x *CreateConfigReq) GetServiceName() string {
+	if x != nil && x.ServiceName != nil {
+		return *x.ServiceName
+	}
+	return ""
+}
+
+func (x *CreateConfigReq) GetDescription() string {
+	if x != nil && x.Description != nil {
+		return *x.Description
+	}
+	return ""
+}
+
+func (x *CreateConfigReq) GetDefaultValue() string {
+	if x != nil && x.DefaultValue != nil {
+		return *x.DefaultValue
+	}
+	return ""
+}
+
+func (x *CreateConfigReq) GetIsReadonly() bool {
+	if x != nil && x.IsReadonly != nil {
+		return *x.IsReadonly
+	}
+	return false
+}
+
+func (x *CreateConfigReq) GetIsSensitive() bool {
+	if x != nil && x.IsSensitive != nil {
+		return *x.IsSensitive
+	}
+	return false
+}
+
+func (x *CreateConfigReq) GetScope() string {
+	if x != nil && x.Scope != nil {
+		return *x.Scope
+	}
+	return ""
+}
+
+func (x *CreateConfigReq) GetConfigGroup() string {
+	if x != nil && x.ConfigGroup != nil {
+		return *x.ConfigGroup
+	}
+	return ""
+}
+
 type CronTaskInfo struct {
 	state     protoimpl.MessageState `protogen:"open.v1"`
 	Id        *uint64                `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id"`
@@ -480,7 +967,7 @@ type CronTaskInfo struct {
 
 func (x *CronTaskInfo) Reset() {
 	*x = CronTaskInfo{}
-	mi := &file_io_proto_msgTypes[8]
+	mi := &file_io_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -492,7 +979,7 @@ func (x *CronTaskInfo) String() string {
 func (*CronTaskInfo) ProtoMessage() {}
 
 func (x *CronTaskInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[8]
+	mi := &file_io_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -505,7 +992,7 @@ func (x *CronTaskInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CronTaskInfo.ProtoReflect.Descriptor instead.
 func (*CronTaskInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{8}
+	return file_io_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *CronTaskInfo) GetId() uint64 {
@@ -637,7 +1124,7 @@ type CronTaskListReq struct {
 
 func (x *CronTaskListReq) Reset() {
 	*x = CronTaskListReq{}
-	mi := &file_io_proto_msgTypes[9]
+	mi := &file_io_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -649,7 +1136,7 @@ func (x *CronTaskListReq) String() string {
 func (*CronTaskListReq) ProtoMessage() {}
 
 func (x *CronTaskListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[9]
+	mi := &file_io_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -662,7 +1149,7 @@ func (x *CronTaskListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CronTaskListReq.ProtoReflect.Descriptor instead.
 func (*CronTaskListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{9}
+	return file_io_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *CronTaskListReq) GetPage() uint64 {
@@ -787,7 +1274,7 @@ type CronTaskListResp struct {
 
 func (x *CronTaskListResp) Reset() {
 	*x = CronTaskListResp{}
-	mi := &file_io_proto_msgTypes[10]
+	mi := &file_io_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -799,7 +1286,7 @@ func (x *CronTaskListResp) String() string {
 func (*CronTaskListResp) ProtoMessage() {}
 
 func (x *CronTaskListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[10]
+	mi := &file_io_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -812,7 +1299,7 @@ func (x *CronTaskListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CronTaskListResp.ProtoReflect.Descriptor instead.
 func (*CronTaskListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{10}
+	return file_io_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *CronTaskListResp) GetTotal() uint64 {
@@ -866,7 +1353,7 @@ type DataTargetInfo struct {
 
 func (x *DataTargetInfo) Reset() {
 	*x = DataTargetInfo{}
-	mi := &file_io_proto_msgTypes[11]
+	mi := &file_io_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -878,7 +1365,7 @@ func (x *DataTargetInfo) String() string {
 func (*DataTargetInfo) ProtoMessage() {}
 
 func (x *DataTargetInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[11]
+	mi := &file_io_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -891,7 +1378,7 @@ func (x *DataTargetInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DataTargetInfo.ProtoReflect.Descriptor instead.
 func (*DataTargetInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{11}
+	return file_io_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *DataTargetInfo) GetId() uint64 {
@@ -1031,7 +1518,7 @@ type DataTargetListReq struct {
 
 func (x *DataTargetListReq) Reset() {
 	*x = DataTargetListReq{}
-	mi := &file_io_proto_msgTypes[12]
+	mi := &file_io_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1043,7 +1530,7 @@ func (x *DataTargetListReq) String() string {
 func (*DataTargetListReq) ProtoMessage() {}
 
 func (x *DataTargetListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[12]
+	mi := &file_io_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1056,7 +1543,7 @@ func (x *DataTargetListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DataTargetListReq.ProtoReflect.Descriptor instead.
 func (*DataTargetListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{12}
+	return file_io_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *DataTargetListReq) GetPage() uint64 {
@@ -1188,7 +1675,7 @@ type DataTargetListResp struct {
 
 func (x *DataTargetListResp) Reset() {
 	*x = DataTargetListResp{}
-	mi := &file_io_proto_msgTypes[13]
+	mi := &file_io_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1200,7 +1687,7 @@ func (x *DataTargetListResp) String() string {
 func (*DataTargetListResp) ProtoMessage() {}
 
 func (x *DataTargetListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[13]
+	mi := &file_io_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1213,7 +1700,7 @@ func (x *DataTargetListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DataTargetListResp.ProtoReflect.Descriptor instead.
 func (*DataTargetListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{13}
+	return file_io_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *DataTargetListResp) GetTotal() uint64 {
@@ -1228,6 +1715,51 @@ func (x *DataTargetListResp) GetData() []*DataTargetInfo {
 		return x.Data
 	}
 	return nil
+}
+
+// DeleteConfigReq 删除配置请求
+type DeleteConfigReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ConfigKey     *string                `protobuf:"bytes,1,opt,name=config_key,json=configKey,proto3,oneof" json:"config_key"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteConfigReq) Reset() {
+	*x = DeleteConfigReq{}
+	mi := &file_io_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteConfigReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteConfigReq) ProtoMessage() {}
+
+func (x *DeleteConfigReq) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteConfigReq.ProtoReflect.Descriptor instead.
+func (*DeleteConfigReq) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *DeleteConfigReq) GetConfigKey() string {
+	if x != nil && x.ConfigKey != nil {
+		return *x.ConfigKey
+	}
+	return ""
 }
 
 type DiscoveryPoolInfo struct {
@@ -1287,7 +1819,7 @@ type DiscoveryPoolInfo struct {
 
 func (x *DiscoveryPoolInfo) Reset() {
 	*x = DiscoveryPoolInfo{}
-	mi := &file_io_proto_msgTypes[14]
+	mi := &file_io_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1299,7 +1831,7 @@ func (x *DiscoveryPoolInfo) String() string {
 func (*DiscoveryPoolInfo) ProtoMessage() {}
 
 func (x *DiscoveryPoolInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[14]
+	mi := &file_io_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1312,7 +1844,7 @@ func (x *DiscoveryPoolInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryPoolInfo.ProtoReflect.Descriptor instead.
 func (*DiscoveryPoolInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{14}
+	return file_io_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *DiscoveryPoolInfo) GetId() uint64 {
@@ -1532,7 +2064,7 @@ type DiscoveryPoolListReq struct {
 
 func (x *DiscoveryPoolListReq) Reset() {
 	*x = DiscoveryPoolListReq{}
-	mi := &file_io_proto_msgTypes[15]
+	mi := &file_io_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1544,7 +2076,7 @@ func (x *DiscoveryPoolListReq) String() string {
 func (*DiscoveryPoolListReq) ProtoMessage() {}
 
 func (x *DiscoveryPoolListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[15]
+	mi := &file_io_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1557,7 +2089,7 @@ func (x *DiscoveryPoolListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryPoolListReq.ProtoReflect.Descriptor instead.
 func (*DiscoveryPoolListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{15}
+	return file_io_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *DiscoveryPoolListReq) GetPage() uint64 {
@@ -1759,7 +2291,7 @@ type DiscoveryPoolListResp struct {
 
 func (x *DiscoveryPoolListResp) Reset() {
 	*x = DiscoveryPoolListResp{}
-	mi := &file_io_proto_msgTypes[16]
+	mi := &file_io_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1771,7 +2303,7 @@ func (x *DiscoveryPoolListResp) String() string {
 func (*DiscoveryPoolListResp) ProtoMessage() {}
 
 func (x *DiscoveryPoolListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[16]
+	mi := &file_io_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1784,7 +2316,7 @@ func (x *DiscoveryPoolListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryPoolListResp.ProtoReflect.Descriptor instead.
 func (*DiscoveryPoolListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{16}
+	return file_io_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *DiscoveryPoolListResp) GetTotal() uint64 {
@@ -1815,7 +2347,7 @@ type DiscoveryPoolStatsResp struct {
 
 func (x *DiscoveryPoolStatsResp) Reset() {
 	*x = DiscoveryPoolStatsResp{}
-	mi := &file_io_proto_msgTypes[17]
+	mi := &file_io_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1827,7 +2359,7 @@ func (x *DiscoveryPoolStatsResp) String() string {
 func (*DiscoveryPoolStatsResp) ProtoMessage() {}
 
 func (x *DiscoveryPoolStatsResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[17]
+	mi := &file_io_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1840,7 +2372,7 @@ func (x *DiscoveryPoolStatsResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryPoolStatsResp.ProtoReflect.Descriptor instead.
 func (*DiscoveryPoolStatsResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{17}
+	return file_io_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *DiscoveryPoolStatsResp) GetTotalPools() uint64 {
@@ -1920,7 +2452,7 @@ type DiscoveryProviderSchemaInfo struct {
 
 func (x *DiscoveryProviderSchemaInfo) Reset() {
 	*x = DiscoveryProviderSchemaInfo{}
-	mi := &file_io_proto_msgTypes[18]
+	mi := &file_io_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1932,7 +2464,7 @@ func (x *DiscoveryProviderSchemaInfo) String() string {
 func (*DiscoveryProviderSchemaInfo) ProtoMessage() {}
 
 func (x *DiscoveryProviderSchemaInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[18]
+	mi := &file_io_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1945,7 +2477,7 @@ func (x *DiscoveryProviderSchemaInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryProviderSchemaInfo.ProtoReflect.Descriptor instead.
 func (*DiscoveryProviderSchemaInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{18}
+	return file_io_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *DiscoveryProviderSchemaInfo) GetId() uint64 {
@@ -2077,7 +2609,7 @@ type DiscoveryProviderSchemaListReq struct {
 
 func (x *DiscoveryProviderSchemaListReq) Reset() {
 	*x = DiscoveryProviderSchemaListReq{}
-	mi := &file_io_proto_msgTypes[19]
+	mi := &file_io_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2089,7 +2621,7 @@ func (x *DiscoveryProviderSchemaListReq) String() string {
 func (*DiscoveryProviderSchemaListReq) ProtoMessage() {}
 
 func (x *DiscoveryProviderSchemaListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[19]
+	mi := &file_io_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2102,7 +2634,7 @@ func (x *DiscoveryProviderSchemaListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryProviderSchemaListReq.ProtoReflect.Descriptor instead.
 func (*DiscoveryProviderSchemaListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{19}
+	return file_io_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *DiscoveryProviderSchemaListReq) GetPage() uint64 {
@@ -2227,7 +2759,7 @@ type DiscoveryProviderSchemaListResp struct {
 
 func (x *DiscoveryProviderSchemaListResp) Reset() {
 	*x = DiscoveryProviderSchemaListResp{}
-	mi := &file_io_proto_msgTypes[20]
+	mi := &file_io_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2239,7 +2771,7 @@ func (x *DiscoveryProviderSchemaListResp) String() string {
 func (*DiscoveryProviderSchemaListResp) ProtoMessage() {}
 
 func (x *DiscoveryProviderSchemaListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[20]
+	mi := &file_io_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2252,7 +2784,7 @@ func (x *DiscoveryProviderSchemaListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryProviderSchemaListResp.ProtoReflect.Descriptor instead.
 func (*DiscoveryProviderSchemaListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{20}
+	return file_io_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *DiscoveryProviderSchemaListResp) GetTotal() uint64 {
@@ -2310,7 +2842,7 @@ type DiscoveryTemplateInfo struct {
 
 func (x *DiscoveryTemplateInfo) Reset() {
 	*x = DiscoveryTemplateInfo{}
-	mi := &file_io_proto_msgTypes[21]
+	mi := &file_io_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2322,7 +2854,7 @@ func (x *DiscoveryTemplateInfo) String() string {
 func (*DiscoveryTemplateInfo) ProtoMessage() {}
 
 func (x *DiscoveryTemplateInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[21]
+	mi := &file_io_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2335,7 +2867,7 @@ func (x *DiscoveryTemplateInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryTemplateInfo.ProtoReflect.Descriptor instead.
 func (*DiscoveryTemplateInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{21}
+	return file_io_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *DiscoveryTemplateInfo) GetId() uint64 {
@@ -2492,7 +3024,7 @@ type DiscoveryTemplateListReq struct {
 
 func (x *DiscoveryTemplateListReq) Reset() {
 	*x = DiscoveryTemplateListReq{}
-	mi := &file_io_proto_msgTypes[22]
+	mi := &file_io_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2504,7 +3036,7 @@ func (x *DiscoveryTemplateListReq) String() string {
 func (*DiscoveryTemplateListReq) ProtoMessage() {}
 
 func (x *DiscoveryTemplateListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[22]
+	mi := &file_io_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2517,7 +3049,7 @@ func (x *DiscoveryTemplateListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryTemplateListReq.ProtoReflect.Descriptor instead.
 func (*DiscoveryTemplateListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{22}
+	return file_io_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *DiscoveryTemplateListReq) GetPage() uint64 {
@@ -2663,7 +3195,7 @@ type DiscoveryTemplateListResp struct {
 
 func (x *DiscoveryTemplateListResp) Reset() {
 	*x = DiscoveryTemplateListResp{}
-	mi := &file_io_proto_msgTypes[23]
+	mi := &file_io_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2675,7 +3207,7 @@ func (x *DiscoveryTemplateListResp) String() string {
 func (*DiscoveryTemplateListResp) ProtoMessage() {}
 
 func (x *DiscoveryTemplateListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[23]
+	mi := &file_io_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2688,7 +3220,7 @@ func (x *DiscoveryTemplateListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DiscoveryTemplateListResp.ProtoReflect.Descriptor instead.
 func (*DiscoveryTemplateListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{23}
+	return file_io_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *DiscoveryTemplateListResp) GetTotal() uint64 {
@@ -2714,7 +3246,7 @@ type Empty struct {
 
 func (x *Empty) Reset() {
 	*x = Empty{}
-	mi := &file_io_proto_msgTypes[24]
+	mi := &file_io_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2726,7 +3258,7 @@ func (x *Empty) String() string {
 func (*Empty) ProtoMessage() {}
 
 func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[24]
+	mi := &file_io_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2739,7 +3271,7 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{24}
+	return file_io_proto_rawDescGZIP(), []int{28}
 }
 
 type FieldDefinition struct {
@@ -2756,7 +3288,7 @@ type FieldDefinition struct {
 
 func (x *FieldDefinition) Reset() {
 	*x = FieldDefinition{}
-	mi := &file_io_proto_msgTypes[25]
+	mi := &file_io_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2768,7 +3300,7 @@ func (x *FieldDefinition) String() string {
 func (*FieldDefinition) ProtoMessage() {}
 
 func (x *FieldDefinition) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[25]
+	mi := &file_io_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2781,7 +3313,7 @@ func (x *FieldDefinition) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FieldDefinition.ProtoReflect.Descriptor instead.
 func (*FieldDefinition) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{25}
+	return file_io_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *FieldDefinition) GetName() string {
@@ -2907,7 +3439,7 @@ type FieldMappingInfo struct {
 
 func (x *FieldMappingInfo) Reset() {
 	*x = FieldMappingInfo{}
-	mi := &file_io_proto_msgTypes[26]
+	mi := &file_io_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2919,7 +3451,7 @@ func (x *FieldMappingInfo) String() string {
 func (*FieldMappingInfo) ProtoMessage() {}
 
 func (x *FieldMappingInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[26]
+	mi := &file_io_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2932,7 +3464,7 @@ func (x *FieldMappingInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FieldMappingInfo.ProtoReflect.Descriptor instead.
 func (*FieldMappingInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{26}
+	return file_io_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *FieldMappingInfo) GetId() uint64 {
@@ -3248,7 +3780,7 @@ type FieldMappingListReq struct {
 
 func (x *FieldMappingListReq) Reset() {
 	*x = FieldMappingListReq{}
-	mi := &file_io_proto_msgTypes[27]
+	mi := &file_io_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3260,7 +3792,7 @@ func (x *FieldMappingListReq) String() string {
 func (*FieldMappingListReq) ProtoMessage() {}
 
 func (x *FieldMappingListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[27]
+	mi := &file_io_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3273,7 +3805,7 @@ func (x *FieldMappingListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FieldMappingListReq.ProtoReflect.Descriptor instead.
 func (*FieldMappingListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{27}
+	return file_io_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *FieldMappingListReq) GetPage() uint64 {
@@ -3559,7 +4091,7 @@ type FieldMappingListResp struct {
 
 func (x *FieldMappingListResp) Reset() {
 	*x = FieldMappingListResp{}
-	mi := &file_io_proto_msgTypes[28]
+	mi := &file_io_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3571,7 +4103,7 @@ func (x *FieldMappingListResp) String() string {
 func (*FieldMappingListResp) ProtoMessage() {}
 
 func (x *FieldMappingListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[28]
+	mi := &file_io_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3584,7 +4116,7 @@ func (x *FieldMappingListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FieldMappingListResp.ProtoReflect.Descriptor instead.
 func (*FieldMappingListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{28}
+	return file_io_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *FieldMappingListResp) GetTotal() uint64 {
@@ -3601,6 +4133,186 @@ func (x *FieldMappingListResp) GetData() []*FieldMappingInfo {
 	return nil
 }
 
+// GetConfigHistoryReq 获取配置历史请求
+type GetConfigHistoryReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ConfigKey     *string                `protobuf:"bytes,1,opt,name=config_key,json=configKey,proto3,oneof" json:"config_key"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetConfigHistoryReq) Reset() {
+	*x = GetConfigHistoryReq{}
+	mi := &file_io_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConfigHistoryReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConfigHistoryReq) ProtoMessage() {}
+
+func (x *GetConfigHistoryReq) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConfigHistoryReq.ProtoReflect.Descriptor instead.
+func (*GetConfigHistoryReq) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *GetConfigHistoryReq) GetConfigKey() string {
+	if x != nil && x.ConfigKey != nil {
+		return *x.ConfigKey
+	}
+	return ""
+}
+
+// GetConfigHistoryResp 获取配置历史响应
+type GetConfigHistoryResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Data          []*ConfigAuditLog      `protobuf:"bytes,1,rep,name=data,proto3" json:"data"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetConfigHistoryResp) Reset() {
+	*x = GetConfigHistoryResp{}
+	mi := &file_io_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConfigHistoryResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConfigHistoryResp) ProtoMessage() {}
+
+func (x *GetConfigHistoryResp) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConfigHistoryResp.ProtoReflect.Descriptor instead.
+func (*GetConfigHistoryResp) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *GetConfigHistoryResp) GetData() []*ConfigAuditLog {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+// GetConfigReq 获取配置请求
+type GetConfigReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ConfigKey     *string                `protobuf:"bytes,1,opt,name=config_key,json=configKey,proto3,oneof" json:"config_key"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetConfigReq) Reset() {
+	*x = GetConfigReq{}
+	mi := &file_io_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConfigReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConfigReq) ProtoMessage() {}
+
+func (x *GetConfigReq) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConfigReq.ProtoReflect.Descriptor instead.
+func (*GetConfigReq) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *GetConfigReq) GetConfigKey() string {
+	if x != nil && x.ConfigKey != nil {
+		return *x.ConfigKey
+	}
+	return ""
+}
+
+// GetConfigResp 获取配置响应
+type GetConfigResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Data          *ConfigItem            `protobuf:"bytes,1,opt,name=data,proto3,oneof" json:"data"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetConfigResp) Reset() {
+	*x = GetConfigResp{}
+	mi := &file_io_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConfigResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConfigResp) ProtoMessage() {}
+
+func (x *GetConfigResp) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConfigResp.ProtoReflect.Descriptor instead.
+func (*GetConfigResp) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *GetConfigResp) GetData() *ConfigItem {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
 type GetProviderSchemaReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ProviderId    string                 `protobuf:"bytes,1,opt,name=provider_id,json=providerId,proto3" json:"provider_id"`
@@ -3610,7 +4322,7 @@ type GetProviderSchemaReq struct {
 
 func (x *GetProviderSchemaReq) Reset() {
 	*x = GetProviderSchemaReq{}
-	mi := &file_io_proto_msgTypes[29]
+	mi := &file_io_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3622,7 +4334,7 @@ func (x *GetProviderSchemaReq) String() string {
 func (*GetProviderSchemaReq) ProtoMessage() {}
 
 func (x *GetProviderSchemaReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[29]
+	mi := &file_io_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3635,7 +4347,7 @@ func (x *GetProviderSchemaReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProviderSchemaReq.ProtoReflect.Descriptor instead.
 func (*GetProviderSchemaReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{29}
+	return file_io_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *GetProviderSchemaReq) GetProviderId() string {
@@ -3654,7 +4366,7 @@ type GetProviderSchemaResp struct {
 
 func (x *GetProviderSchemaResp) Reset() {
 	*x = GetProviderSchemaResp{}
-	mi := &file_io_proto_msgTypes[30]
+	mi := &file_io_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3666,7 +4378,7 @@ func (x *GetProviderSchemaResp) String() string {
 func (*GetProviderSchemaResp) ProtoMessage() {}
 
 func (x *GetProviderSchemaResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[30]
+	mi := &file_io_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3679,7 +4391,7 @@ func (x *GetProviderSchemaResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProviderSchemaResp.ProtoReflect.Descriptor instead.
 func (*GetProviderSchemaResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{30}
+	return file_io_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *GetProviderSchemaResp) GetData() *ProviderSchemaInfo {
@@ -3698,7 +4410,7 @@ type IDInt32Req struct {
 
 func (x *IDInt32Req) Reset() {
 	*x = IDInt32Req{}
-	mi := &file_io_proto_msgTypes[31]
+	mi := &file_io_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3710,7 +4422,7 @@ func (x *IDInt32Req) String() string {
 func (*IDInt32Req) ProtoMessage() {}
 
 func (x *IDInt32Req) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[31]
+	mi := &file_io_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3723,7 +4435,7 @@ func (x *IDInt32Req) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDInt32Req.ProtoReflect.Descriptor instead.
 func (*IDInt32Req) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{31}
+	return file_io_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *IDInt32Req) GetId() int32 {
@@ -3742,7 +4454,7 @@ type IDInt64Req struct {
 
 func (x *IDInt64Req) Reset() {
 	*x = IDInt64Req{}
-	mi := &file_io_proto_msgTypes[32]
+	mi := &file_io_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3754,7 +4466,7 @@ func (x *IDInt64Req) String() string {
 func (*IDInt64Req) ProtoMessage() {}
 
 func (x *IDInt64Req) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[32]
+	mi := &file_io_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3767,7 +4479,7 @@ func (x *IDInt64Req) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDInt64Req.ProtoReflect.Descriptor instead.
 func (*IDInt64Req) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{32}
+	return file_io_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *IDInt64Req) GetId() int64 {
@@ -3786,7 +4498,7 @@ type IDReq struct {
 
 func (x *IDReq) Reset() {
 	*x = IDReq{}
-	mi := &file_io_proto_msgTypes[33]
+	mi := &file_io_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3798,7 +4510,7 @@ func (x *IDReq) String() string {
 func (*IDReq) ProtoMessage() {}
 
 func (x *IDReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[33]
+	mi := &file_io_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3811,7 +4523,7 @@ func (x *IDReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDReq.ProtoReflect.Descriptor instead.
 func (*IDReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{33}
+	return file_io_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *IDReq) GetId() uint64 {
@@ -3830,7 +4542,7 @@ type IDStringReq struct {
 
 func (x *IDStringReq) Reset() {
 	*x = IDStringReq{}
-	mi := &file_io_proto_msgTypes[34]
+	mi := &file_io_proto_msgTypes[42]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3842,7 +4554,7 @@ func (x *IDStringReq) String() string {
 func (*IDStringReq) ProtoMessage() {}
 
 func (x *IDStringReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[34]
+	mi := &file_io_proto_msgTypes[42]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3855,7 +4567,7 @@ func (x *IDStringReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDStringReq.ProtoReflect.Descriptor instead.
 func (*IDStringReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{34}
+	return file_io_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *IDStringReq) GetId() string {
@@ -3874,7 +4586,7 @@ type IDUint32Req struct {
 
 func (x *IDUint32Req) Reset() {
 	*x = IDUint32Req{}
-	mi := &file_io_proto_msgTypes[35]
+	mi := &file_io_proto_msgTypes[43]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3886,7 +4598,7 @@ func (x *IDUint32Req) String() string {
 func (*IDUint32Req) ProtoMessage() {}
 
 func (x *IDUint32Req) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[35]
+	mi := &file_io_proto_msgTypes[43]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3899,7 +4611,7 @@ func (x *IDUint32Req) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDUint32Req.ProtoReflect.Descriptor instead.
 func (*IDUint32Req) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{35}
+	return file_io_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *IDUint32Req) GetId() uint32 {
@@ -3918,7 +4630,7 @@ type IDsInt32Req struct {
 
 func (x *IDsInt32Req) Reset() {
 	*x = IDsInt32Req{}
-	mi := &file_io_proto_msgTypes[36]
+	mi := &file_io_proto_msgTypes[44]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3930,7 +4642,7 @@ func (x *IDsInt32Req) String() string {
 func (*IDsInt32Req) ProtoMessage() {}
 
 func (x *IDsInt32Req) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[36]
+	mi := &file_io_proto_msgTypes[44]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3943,7 +4655,7 @@ func (x *IDsInt32Req) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDsInt32Req.ProtoReflect.Descriptor instead.
 func (*IDsInt32Req) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{36}
+	return file_io_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *IDsInt32Req) GetIds() []int32 {
@@ -3962,7 +4674,7 @@ type IDsInt64Req struct {
 
 func (x *IDsInt64Req) Reset() {
 	*x = IDsInt64Req{}
-	mi := &file_io_proto_msgTypes[37]
+	mi := &file_io_proto_msgTypes[45]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3974,7 +4686,7 @@ func (x *IDsInt64Req) String() string {
 func (*IDsInt64Req) ProtoMessage() {}
 
 func (x *IDsInt64Req) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[37]
+	mi := &file_io_proto_msgTypes[45]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3987,7 +4699,7 @@ func (x *IDsInt64Req) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDsInt64Req.ProtoReflect.Descriptor instead.
 func (*IDsInt64Req) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{37}
+	return file_io_proto_rawDescGZIP(), []int{45}
 }
 
 func (x *IDsInt64Req) GetIds() []int64 {
@@ -4006,7 +4718,7 @@ type IDsReq struct {
 
 func (x *IDsReq) Reset() {
 	*x = IDsReq{}
-	mi := &file_io_proto_msgTypes[38]
+	mi := &file_io_proto_msgTypes[46]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4018,7 +4730,7 @@ func (x *IDsReq) String() string {
 func (*IDsReq) ProtoMessage() {}
 
 func (x *IDsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[38]
+	mi := &file_io_proto_msgTypes[46]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4031,7 +4743,7 @@ func (x *IDsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDsReq.ProtoReflect.Descriptor instead.
 func (*IDsReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{38}
+	return file_io_proto_rawDescGZIP(), []int{46}
 }
 
 func (x *IDsReq) GetIds() []uint64 {
@@ -4050,7 +4762,7 @@ type IDsStringReq struct {
 
 func (x *IDsStringReq) Reset() {
 	*x = IDsStringReq{}
-	mi := &file_io_proto_msgTypes[39]
+	mi := &file_io_proto_msgTypes[47]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4062,7 +4774,7 @@ func (x *IDsStringReq) String() string {
 func (*IDsStringReq) ProtoMessage() {}
 
 func (x *IDsStringReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[39]
+	mi := &file_io_proto_msgTypes[47]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4075,7 +4787,7 @@ func (x *IDsStringReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDsStringReq.ProtoReflect.Descriptor instead.
 func (*IDsStringReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{39}
+	return file_io_proto_rawDescGZIP(), []int{47}
 }
 
 func (x *IDsStringReq) GetIds() []string {
@@ -4094,7 +4806,7 @@ type IDsUint32Req struct {
 
 func (x *IDsUint32Req) Reset() {
 	*x = IDsUint32Req{}
-	mi := &file_io_proto_msgTypes[40]
+	mi := &file_io_proto_msgTypes[48]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4106,7 +4818,7 @@ func (x *IDsUint32Req) String() string {
 func (*IDsUint32Req) ProtoMessage() {}
 
 func (x *IDsUint32Req) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[40]
+	mi := &file_io_proto_msgTypes[48]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4119,7 +4831,7 @@ func (x *IDsUint32Req) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IDsUint32Req.ProtoReflect.Descriptor instead.
 func (*IDsUint32Req) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{40}
+	return file_io_proto_rawDescGZIP(), []int{48}
 }
 
 func (x *IDsUint32Req) GetIds() []uint32 {
@@ -4198,7 +4910,7 @@ type InputTaskInfo struct {
 
 func (x *InputTaskInfo) Reset() {
 	*x = InputTaskInfo{}
-	mi := &file_io_proto_msgTypes[41]
+	mi := &file_io_proto_msgTypes[49]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4210,7 +4922,7 @@ func (x *InputTaskInfo) String() string {
 func (*InputTaskInfo) ProtoMessage() {}
 
 func (x *InputTaskInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[41]
+	mi := &file_io_proto_msgTypes[49]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4223,7 +4935,7 @@ func (x *InputTaskInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InputTaskInfo.ProtoReflect.Descriptor instead.
 func (*InputTaskInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{41}
+	return file_io_proto_rawDescGZIP(), []int{49}
 }
 
 func (x *InputTaskInfo) GetId() uint64 {
@@ -4478,7 +5190,7 @@ type InputTaskListReq struct {
 
 func (x *InputTaskListReq) Reset() {
 	*x = InputTaskListReq{}
-	mi := &file_io_proto_msgTypes[42]
+	mi := &file_io_proto_msgTypes[50]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4490,7 +5202,7 @@ func (x *InputTaskListReq) String() string {
 func (*InputTaskListReq) ProtoMessage() {}
 
 func (x *InputTaskListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[42]
+	mi := &file_io_proto_msgTypes[50]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4503,7 +5215,7 @@ func (x *InputTaskListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InputTaskListReq.ProtoReflect.Descriptor instead.
 func (*InputTaskListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{42}
+	return file_io_proto_rawDescGZIP(), []int{50}
 }
 
 func (x *InputTaskListReq) GetPage() uint64 {
@@ -4656,7 +5368,7 @@ type InputTaskListResp struct {
 
 func (x *InputTaskListResp) Reset() {
 	*x = InputTaskListResp{}
-	mi := &file_io_proto_msgTypes[43]
+	mi := &file_io_proto_msgTypes[51]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4668,7 +5380,7 @@ func (x *InputTaskListResp) String() string {
 func (*InputTaskListResp) ProtoMessage() {}
 
 func (x *InputTaskListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[43]
+	mi := &file_io_proto_msgTypes[51]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4681,7 +5393,7 @@ func (x *InputTaskListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InputTaskListResp.ProtoReflect.Descriptor instead.
 func (*InputTaskListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{43}
+	return file_io_proto_rawDescGZIP(), []int{51}
 }
 
 func (x *InputTaskListResp) GetTotal() uint64 {
@@ -4698,6 +5410,282 @@ func (x *InputTaskListResp) GetData() []*InputTaskInfo {
 	return nil
 }
 
+// ListAuditLogReq 审计日志列表请求
+type ListAuditLogReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Page          *uint64                `protobuf:"varint,1,opt,name=page,proto3,oneof" json:"page"`
+	PageSize      *uint64                `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3,oneof" json:"page_size"`
+	ConfigKey     *string                `protobuf:"bytes,3,opt,name=config_key,json=configKey,proto3,oneof" json:"config_key"`
+	ChangeType    *string                `protobuf:"bytes,4,opt,name=change_type,json=changeType,proto3,oneof" json:"change_type"`
+	StartTime     *int64                 `protobuf:"varint,5,opt,name=start_time,json=startTime,proto3,oneof" json:"start_time"`
+	EndTime       *int64                 `protobuf:"varint,6,opt,name=end_time,json=endTime,proto3,oneof" json:"end_time"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListAuditLogReq) Reset() {
+	*x = ListAuditLogReq{}
+	mi := &file_io_proto_msgTypes[52]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListAuditLogReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListAuditLogReq) ProtoMessage() {}
+
+func (x *ListAuditLogReq) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[52]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListAuditLogReq.ProtoReflect.Descriptor instead.
+func (*ListAuditLogReq) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{52}
+}
+
+func (x *ListAuditLogReq) GetPage() uint64 {
+	if x != nil && x.Page != nil {
+		return *x.Page
+	}
+	return 0
+}
+
+func (x *ListAuditLogReq) GetPageSize() uint64 {
+	if x != nil && x.PageSize != nil {
+		return *x.PageSize
+	}
+	return 0
+}
+
+func (x *ListAuditLogReq) GetConfigKey() string {
+	if x != nil && x.ConfigKey != nil {
+		return *x.ConfigKey
+	}
+	return ""
+}
+
+func (x *ListAuditLogReq) GetChangeType() string {
+	if x != nil && x.ChangeType != nil {
+		return *x.ChangeType
+	}
+	return ""
+}
+
+func (x *ListAuditLogReq) GetStartTime() int64 {
+	if x != nil && x.StartTime != nil {
+		return *x.StartTime
+	}
+	return 0
+}
+
+func (x *ListAuditLogReq) GetEndTime() int64 {
+	if x != nil && x.EndTime != nil {
+		return *x.EndTime
+	}
+	return 0
+}
+
+// ListAuditLogResp 审计日志列表响应
+type ListAuditLogResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Total         *uint64                `protobuf:"varint,1,opt,name=total,proto3,oneof" json:"total"`
+	Data          []*ConfigAuditLog      `protobuf:"bytes,2,rep,name=data,proto3" json:"data"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListAuditLogResp) Reset() {
+	*x = ListAuditLogResp{}
+	mi := &file_io_proto_msgTypes[53]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListAuditLogResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListAuditLogResp) ProtoMessage() {}
+
+func (x *ListAuditLogResp) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[53]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListAuditLogResp.ProtoReflect.Descriptor instead.
+func (*ListAuditLogResp) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{53}
+}
+
+func (x *ListAuditLogResp) GetTotal() uint64 {
+	if x != nil && x.Total != nil {
+		return *x.Total
+	}
+	return 0
+}
+
+func (x *ListAuditLogResp) GetData() []*ConfigAuditLog {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+// ListConfigReq 配置列表请求
+type ListConfigReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Page          *uint64                `protobuf:"varint,1,opt,name=page,proto3,oneof" json:"page"`
+	PageSize      *uint64                `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3,oneof" json:"page_size"`
+	ServiceName   *string                `protobuf:"bytes,3,opt,name=service_name,json=serviceName,proto3,oneof" json:"service_name"`
+	Category      *string                `protobuf:"bytes,4,opt,name=category,proto3,oneof" json:"category"`
+	ConfigGroup   *string                `protobuf:"bytes,5,opt,name=config_group,json=configGroup,proto3,oneof" json:"config_group"`
+	Keyword       *string                `protobuf:"bytes,6,opt,name=keyword,proto3,oneof" json:"keyword"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListConfigReq) Reset() {
+	*x = ListConfigReq{}
+	mi := &file_io_proto_msgTypes[54]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListConfigReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListConfigReq) ProtoMessage() {}
+
+func (x *ListConfigReq) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[54]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListConfigReq.ProtoReflect.Descriptor instead.
+func (*ListConfigReq) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{54}
+}
+
+func (x *ListConfigReq) GetPage() uint64 {
+	if x != nil && x.Page != nil {
+		return *x.Page
+	}
+	return 0
+}
+
+func (x *ListConfigReq) GetPageSize() uint64 {
+	if x != nil && x.PageSize != nil {
+		return *x.PageSize
+	}
+	return 0
+}
+
+func (x *ListConfigReq) GetServiceName() string {
+	if x != nil && x.ServiceName != nil {
+		return *x.ServiceName
+	}
+	return ""
+}
+
+func (x *ListConfigReq) GetCategory() string {
+	if x != nil && x.Category != nil {
+		return *x.Category
+	}
+	return ""
+}
+
+func (x *ListConfigReq) GetConfigGroup() string {
+	if x != nil && x.ConfigGroup != nil {
+		return *x.ConfigGroup
+	}
+	return ""
+}
+
+func (x *ListConfigReq) GetKeyword() string {
+	if x != nil && x.Keyword != nil {
+		return *x.Keyword
+	}
+	return ""
+}
+
+// ListConfigResp 配置列表响应
+type ListConfigResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Total         *uint64                `protobuf:"varint,1,opt,name=total,proto3,oneof" json:"total"`
+	Data          []*ConfigItem          `protobuf:"bytes,2,rep,name=data,proto3" json:"data"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListConfigResp) Reset() {
+	*x = ListConfigResp{}
+	mi := &file_io_proto_msgTypes[55]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListConfigResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListConfigResp) ProtoMessage() {}
+
+func (x *ListConfigResp) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[55]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListConfigResp.ProtoReflect.Descriptor instead.
+func (*ListConfigResp) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{55}
+}
+
+func (x *ListConfigResp) GetTotal() uint64 {
+	if x != nil && x.Total != nil {
+		return *x.Total
+	}
+	return 0
+}
+
+func (x *ListConfigResp) GetData() []*ConfigItem {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
 type ListProvidersResp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Data          []*ProviderMetadata    `protobuf:"bytes,1,rep,name=data,proto3" json:"data"`
@@ -4707,7 +5695,7 @@ type ListProvidersResp struct {
 
 func (x *ListProvidersResp) Reset() {
 	*x = ListProvidersResp{}
-	mi := &file_io_proto_msgTypes[44]
+	mi := &file_io_proto_msgTypes[56]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4719,7 +5707,7 @@ func (x *ListProvidersResp) String() string {
 func (*ListProvidersResp) ProtoMessage() {}
 
 func (x *ListProvidersResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[44]
+	mi := &file_io_proto_msgTypes[56]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4732,7 +5720,7 @@ func (x *ListProvidersResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListProvidersResp.ProtoReflect.Descriptor instead.
 func (*ListProvidersResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{44}
+	return file_io_proto_rawDescGZIP(), []int{56}
 }
 
 func (x *ListProvidersResp) GetData() []*ProviderMetadata {
@@ -4765,7 +5753,7 @@ type MappingLogInfo struct {
 
 func (x *MappingLogInfo) Reset() {
 	*x = MappingLogInfo{}
-	mi := &file_io_proto_msgTypes[45]
+	mi := &file_io_proto_msgTypes[57]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4777,7 +5765,7 @@ func (x *MappingLogInfo) String() string {
 func (*MappingLogInfo) ProtoMessage() {}
 
 func (x *MappingLogInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[45]
+	mi := &file_io_proto_msgTypes[57]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4790,7 +5778,7 @@ func (x *MappingLogInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MappingLogInfo.ProtoReflect.Descriptor instead.
 func (*MappingLogInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{45}
+	return file_io_proto_rawDescGZIP(), []int{57}
 }
 
 func (x *MappingLogInfo) GetId() uint64 {
@@ -4874,7 +5862,7 @@ type MappingLogListReq struct {
 
 func (x *MappingLogListReq) Reset() {
 	*x = MappingLogListReq{}
-	mi := &file_io_proto_msgTypes[46]
+	mi := &file_io_proto_msgTypes[58]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4886,7 +5874,7 @@ func (x *MappingLogListReq) String() string {
 func (*MappingLogListReq) ProtoMessage() {}
 
 func (x *MappingLogListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[46]
+	mi := &file_io_proto_msgTypes[58]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4899,7 +5887,7 @@ func (x *MappingLogListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MappingLogListReq.ProtoReflect.Descriptor instead.
 func (*MappingLogListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{46}
+	return file_io_proto_rawDescGZIP(), []int{58}
 }
 
 func (x *MappingLogListReq) GetPage() uint64 {
@@ -4982,7 +5970,7 @@ type MappingLogListResp struct {
 
 func (x *MappingLogListResp) Reset() {
 	*x = MappingLogListResp{}
-	mi := &file_io_proto_msgTypes[47]
+	mi := &file_io_proto_msgTypes[59]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4994,7 +5982,7 @@ func (x *MappingLogListResp) String() string {
 func (*MappingLogListResp) ProtoMessage() {}
 
 func (x *MappingLogListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[47]
+	mi := &file_io_proto_msgTypes[59]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5007,7 +5995,7 @@ func (x *MappingLogListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MappingLogListResp.ProtoReflect.Descriptor instead.
 func (*MappingLogListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{47}
+	return file_io_proto_rawDescGZIP(), []int{59}
 }
 
 func (x *MappingLogListResp) GetTotal() uint64 {
@@ -5067,7 +6055,7 @@ type OutputTaskInfo struct {
 
 func (x *OutputTaskInfo) Reset() {
 	*x = OutputTaskInfo{}
-	mi := &file_io_proto_msgTypes[48]
+	mi := &file_io_proto_msgTypes[60]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5079,7 +6067,7 @@ func (x *OutputTaskInfo) String() string {
 func (*OutputTaskInfo) ProtoMessage() {}
 
 func (x *OutputTaskInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[48]
+	mi := &file_io_proto_msgTypes[60]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5092,7 +6080,7 @@ func (x *OutputTaskInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OutputTaskInfo.ProtoReflect.Descriptor instead.
 func (*OutputTaskInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{48}
+	return file_io_proto_rawDescGZIP(), []int{60}
 }
 
 func (x *OutputTaskInfo) GetId() uint64 {
@@ -5256,7 +6244,7 @@ type OutputTaskListReq struct {
 
 func (x *OutputTaskListReq) Reset() {
 	*x = OutputTaskListReq{}
-	mi := &file_io_proto_msgTypes[49]
+	mi := &file_io_proto_msgTypes[61]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5268,7 +6256,7 @@ func (x *OutputTaskListReq) String() string {
 func (*OutputTaskListReq) ProtoMessage() {}
 
 func (x *OutputTaskListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[49]
+	mi := &file_io_proto_msgTypes[61]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5281,7 +6269,7 @@ func (x *OutputTaskListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OutputTaskListReq.ProtoReflect.Descriptor instead.
 func (*OutputTaskListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{49}
+	return file_io_proto_rawDescGZIP(), []int{61}
 }
 
 func (x *OutputTaskListReq) GetPage() uint64 {
@@ -5434,7 +6422,7 @@ type OutputTaskListResp struct {
 
 func (x *OutputTaskListResp) Reset() {
 	*x = OutputTaskListResp{}
-	mi := &file_io_proto_msgTypes[50]
+	mi := &file_io_proto_msgTypes[62]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5446,7 +6434,7 @@ func (x *OutputTaskListResp) String() string {
 func (*OutputTaskListResp) ProtoMessage() {}
 
 func (x *OutputTaskListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[50]
+	mi := &file_io_proto_msgTypes[62]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5459,7 +6447,7 @@ func (x *OutputTaskListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OutputTaskListResp.ProtoReflect.Descriptor instead.
 func (*OutputTaskListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{50}
+	return file_io_proto_rawDescGZIP(), []int{62}
 }
 
 func (x *OutputTaskListResp) GetTotal() uint64 {
@@ -5486,7 +6474,7 @@ type PageInfoReq struct {
 
 func (x *PageInfoReq) Reset() {
 	*x = PageInfoReq{}
-	mi := &file_io_proto_msgTypes[51]
+	mi := &file_io_proto_msgTypes[63]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5498,7 +6486,7 @@ func (x *PageInfoReq) String() string {
 func (*PageInfoReq) ProtoMessage() {}
 
 func (x *PageInfoReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[51]
+	mi := &file_io_proto_msgTypes[63]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5511,7 +6499,7 @@ func (x *PageInfoReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PageInfoReq.ProtoReflect.Descriptor instead.
 func (*PageInfoReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{51}
+	return file_io_proto_rawDescGZIP(), []int{63}
 }
 
 func (x *PageInfoReq) GetPage() uint64 {
@@ -5544,7 +6532,7 @@ type ParameterDefinition struct {
 
 func (x *ParameterDefinition) Reset() {
 	*x = ParameterDefinition{}
-	mi := &file_io_proto_msgTypes[52]
+	mi := &file_io_proto_msgTypes[64]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5556,7 +6544,7 @@ func (x *ParameterDefinition) String() string {
 func (*ParameterDefinition) ProtoMessage() {}
 
 func (x *ParameterDefinition) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[52]
+	mi := &file_io_proto_msgTypes[64]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5569,7 +6557,7 @@ func (x *ParameterDefinition) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ParameterDefinition.ProtoReflect.Descriptor instead.
 func (*ParameterDefinition) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{52}
+	return file_io_proto_rawDescGZIP(), []int{64}
 }
 
 func (x *ParameterDefinition) GetName() string {
@@ -5642,7 +6630,7 @@ type ProviderMetadata struct {
 
 func (x *ProviderMetadata) Reset() {
 	*x = ProviderMetadata{}
-	mi := &file_io_proto_msgTypes[53]
+	mi := &file_io_proto_msgTypes[65]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5654,7 +6642,7 @@ func (x *ProviderMetadata) String() string {
 func (*ProviderMetadata) ProtoMessage() {}
 
 func (x *ProviderMetadata) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[53]
+	mi := &file_io_proto_msgTypes[65]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5667,7 +6655,7 @@ func (x *ProviderMetadata) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProviderMetadata.ProtoReflect.Descriptor instead.
 func (*ProviderMetadata) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{53}
+	return file_io_proto_rawDescGZIP(), []int{65}
 }
 
 func (x *ProviderMetadata) GetId() string {
@@ -5732,7 +6720,7 @@ type ProviderSchemaInfo struct {
 
 func (x *ProviderSchemaInfo) Reset() {
 	*x = ProviderSchemaInfo{}
-	mi := &file_io_proto_msgTypes[54]
+	mi := &file_io_proto_msgTypes[66]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5744,7 +6732,7 @@ func (x *ProviderSchemaInfo) String() string {
 func (*ProviderSchemaInfo) ProtoMessage() {}
 
 func (x *ProviderSchemaInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[54]
+	mi := &file_io_proto_msgTypes[66]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5757,7 +6745,7 @@ func (x *ProviderSchemaInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProviderSchemaInfo.ProtoReflect.Descriptor instead.
 func (*ProviderSchemaInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{54}
+	return file_io_proto_rawDescGZIP(), []int{66}
 }
 
 func (x *ProviderSchemaInfo) GetId() string {
@@ -5844,6 +6832,59 @@ func (x *ProviderSchemaInfo) GetExecutionMode() string {
 	return ""
 }
 
+// RollbackConfigReq 回滚配置请求
+type RollbackConfigReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AuditLogId    *uint64                `protobuf:"varint,1,opt,name=audit_log_id,json=auditLogId,proto3,oneof" json:"audit_log_id"`
+	ChangeReason  *string                `protobuf:"bytes,2,opt,name=change_reason,json=changeReason,proto3,oneof" json:"change_reason"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RollbackConfigReq) Reset() {
+	*x = RollbackConfigReq{}
+	mi := &file_io_proto_msgTypes[67]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RollbackConfigReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RollbackConfigReq) ProtoMessage() {}
+
+func (x *RollbackConfigReq) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[67]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RollbackConfigReq.ProtoReflect.Descriptor instead.
+func (*RollbackConfigReq) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{67}
+}
+
+func (x *RollbackConfigReq) GetAuditLogId() uint64 {
+	if x != nil && x.AuditLogId != nil {
+		return *x.AuditLogId
+	}
+	return 0
+}
+
+func (x *RollbackConfigReq) GetChangeReason() string {
+	if x != nil && x.ChangeReason != nil {
+		return *x.ChangeReason
+	}
+	return ""
+}
+
 type TaskLogInfo struct {
 	state     protoimpl.MessageState `protogen:"open.v1"`
 	Id        *uint64                `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id"`
@@ -5867,7 +6908,7 @@ type TaskLogInfo struct {
 
 func (x *TaskLogInfo) Reset() {
 	*x = TaskLogInfo{}
-	mi := &file_io_proto_msgTypes[55]
+	mi := &file_io_proto_msgTypes[68]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5879,7 +6920,7 @@ func (x *TaskLogInfo) String() string {
 func (*TaskLogInfo) ProtoMessage() {}
 
 func (x *TaskLogInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[55]
+	mi := &file_io_proto_msgTypes[68]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5892,7 +6933,7 @@ func (x *TaskLogInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TaskLogInfo.ProtoReflect.Descriptor instead.
 func (*TaskLogInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{55}
+	return file_io_proto_rawDescGZIP(), []int{68}
 }
 
 func (x *TaskLogInfo) GetId() uint64 {
@@ -5976,7 +7017,7 @@ type TaskLogListReq struct {
 
 func (x *TaskLogListReq) Reset() {
 	*x = TaskLogListReq{}
-	mi := &file_io_proto_msgTypes[56]
+	mi := &file_io_proto_msgTypes[69]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5988,7 +7029,7 @@ func (x *TaskLogListReq) String() string {
 func (*TaskLogListReq) ProtoMessage() {}
 
 func (x *TaskLogListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[56]
+	mi := &file_io_proto_msgTypes[69]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6001,7 +7042,7 @@ func (x *TaskLogListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TaskLogListReq.ProtoReflect.Descriptor instead.
 func (*TaskLogListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{56}
+	return file_io_proto_rawDescGZIP(), []int{69}
 }
 
 func (x *TaskLogListReq) GetPage() uint64 {
@@ -6084,7 +7125,7 @@ type TaskLogListResp struct {
 
 func (x *TaskLogListResp) Reset() {
 	*x = TaskLogListResp{}
-	mi := &file_io_proto_msgTypes[57]
+	mi := &file_io_proto_msgTypes[70]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6096,7 +7137,7 @@ func (x *TaskLogListResp) String() string {
 func (*TaskLogListResp) ProtoMessage() {}
 
 func (x *TaskLogListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[57]
+	mi := &file_io_proto_msgTypes[70]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6109,7 +7150,7 @@ func (x *TaskLogListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TaskLogListResp.ProtoReflect.Descriptor instead.
 func (*TaskLogListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{57}
+	return file_io_proto_rawDescGZIP(), []int{70}
 }
 
 func (x *TaskLogListResp) GetTotal() uint64 {
@@ -6136,7 +7177,7 @@ type TestConnectionReq struct {
 
 func (x *TestConnectionReq) Reset() {
 	*x = TestConnectionReq{}
-	mi := &file_io_proto_msgTypes[58]
+	mi := &file_io_proto_msgTypes[71]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6148,7 +7189,7 @@ func (x *TestConnectionReq) String() string {
 func (*TestConnectionReq) ProtoMessage() {}
 
 func (x *TestConnectionReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[58]
+	mi := &file_io_proto_msgTypes[71]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6161,7 +7202,7 @@ func (x *TestConnectionReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TestConnectionReq.ProtoReflect.Descriptor instead.
 func (*TestConnectionReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{58}
+	return file_io_proto_rawDescGZIP(), []int{71}
 }
 
 func (x *TestConnectionReq) GetProviderId() string {
@@ -6188,7 +7229,7 @@ type TestConnectionResp struct {
 
 func (x *TestConnectionResp) Reset() {
 	*x = TestConnectionResp{}
-	mi := &file_io_proto_msgTypes[59]
+	mi := &file_io_proto_msgTypes[72]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6200,7 +7241,7 @@ func (x *TestConnectionResp) String() string {
 func (*TestConnectionResp) ProtoMessage() {}
 
 func (x *TestConnectionResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[59]
+	mi := &file_io_proto_msgTypes[72]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6213,7 +7254,7 @@ func (x *TestConnectionResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TestConnectionResp.ProtoReflect.Descriptor instead.
 func (*TestConnectionResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{59}
+	return file_io_proto_rawDescGZIP(), []int{72}
 }
 
 func (x *TestConnectionResp) GetSuccess() bool {
@@ -6239,7 +7280,7 @@ type UUIDReq struct {
 
 func (x *UUIDReq) Reset() {
 	*x = UUIDReq{}
-	mi := &file_io_proto_msgTypes[60]
+	mi := &file_io_proto_msgTypes[73]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6251,7 +7292,7 @@ func (x *UUIDReq) String() string {
 func (*UUIDReq) ProtoMessage() {}
 
 func (x *UUIDReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[60]
+	mi := &file_io_proto_msgTypes[73]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6264,7 +7305,7 @@ func (x *UUIDReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UUIDReq.ProtoReflect.Descriptor instead.
 func (*UUIDReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{60}
+	return file_io_proto_rawDescGZIP(), []int{73}
 }
 
 func (x *UUIDReq) GetId() string {
@@ -6283,7 +7324,7 @@ type UUIDsReq struct {
 
 func (x *UUIDsReq) Reset() {
 	*x = UUIDsReq{}
-	mi := &file_io_proto_msgTypes[61]
+	mi := &file_io_proto_msgTypes[74]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6295,7 +7336,7 @@ func (x *UUIDsReq) String() string {
 func (*UUIDsReq) ProtoMessage() {}
 
 func (x *UUIDsReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[61]
+	mi := &file_io_proto_msgTypes[74]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6308,7 +7349,7 @@ func (x *UUIDsReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UUIDsReq.ProtoReflect.Descriptor instead.
 func (*UUIDsReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{61}
+	return file_io_proto_rawDescGZIP(), []int{74}
 }
 
 func (x *UUIDsReq) GetIds() []string {
@@ -6316,6 +7357,67 @@ func (x *UUIDsReq) GetIds() []string {
 		return x.Ids
 	}
 	return nil
+}
+
+// UpdateConfigReq 更新配置请求
+type UpdateConfigReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ConfigKey     *string                `protobuf:"bytes,1,opt,name=config_key,json=configKey,proto3,oneof" json:"config_key"`
+	ConfigValue   *string                `protobuf:"bytes,2,opt,name=config_value,json=configValue,proto3,oneof" json:"config_value"`
+	ChangeReason  *string                `protobuf:"bytes,3,opt,name=change_reason,json=changeReason,proto3,oneof" json:"change_reason"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateConfigReq) Reset() {
+	*x = UpdateConfigReq{}
+	mi := &file_io_proto_msgTypes[75]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateConfigReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateConfigReq) ProtoMessage() {}
+
+func (x *UpdateConfigReq) ProtoReflect() protoreflect.Message {
+	mi := &file_io_proto_msgTypes[75]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateConfigReq.ProtoReflect.Descriptor instead.
+func (*UpdateConfigReq) Descriptor() ([]byte, []int) {
+	return file_io_proto_rawDescGZIP(), []int{75}
+}
+
+func (x *UpdateConfigReq) GetConfigKey() string {
+	if x != nil && x.ConfigKey != nil {
+		return *x.ConfigKey
+	}
+	return ""
+}
+
+func (x *UpdateConfigReq) GetConfigValue() string {
+	if x != nil && x.ConfigValue != nil {
+		return *x.ConfigValue
+	}
+	return ""
+}
+
+func (x *UpdateConfigReq) GetChangeReason() string {
+	if x != nil && x.ChangeReason != nil {
+		return *x.ChangeReason
+	}
+	return ""
 }
 
 type WorkerMetricsInfo struct {
@@ -6351,7 +7453,7 @@ type WorkerMetricsInfo struct {
 
 func (x *WorkerMetricsInfo) Reset() {
 	*x = WorkerMetricsInfo{}
-	mi := &file_io_proto_msgTypes[62]
+	mi := &file_io_proto_msgTypes[76]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6363,7 +7465,7 @@ func (x *WorkerMetricsInfo) String() string {
 func (*WorkerMetricsInfo) ProtoMessage() {}
 
 func (x *WorkerMetricsInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[62]
+	mi := &file_io_proto_msgTypes[76]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6376,7 +7478,7 @@ func (x *WorkerMetricsInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorkerMetricsInfo.ProtoReflect.Descriptor instead.
 func (*WorkerMetricsInfo) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{62}
+	return file_io_proto_rawDescGZIP(), []int{76}
 }
 
 func (x *WorkerMetricsInfo) GetId() uint64 {
@@ -6500,7 +7602,7 @@ type WorkerMetricsListReq struct {
 
 func (x *WorkerMetricsListReq) Reset() {
 	*x = WorkerMetricsListReq{}
-	mi := &file_io_proto_msgTypes[63]
+	mi := &file_io_proto_msgTypes[77]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6512,7 +7614,7 @@ func (x *WorkerMetricsListReq) String() string {
 func (*WorkerMetricsListReq) ProtoMessage() {}
 
 func (x *WorkerMetricsListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[63]
+	mi := &file_io_proto_msgTypes[77]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6525,7 +7627,7 @@ func (x *WorkerMetricsListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorkerMetricsListReq.ProtoReflect.Descriptor instead.
 func (*WorkerMetricsListReq) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{63}
+	return file_io_proto_rawDescGZIP(), []int{77}
 }
 
 func (x *WorkerMetricsListReq) GetPage() uint64 {
@@ -6643,7 +7745,7 @@ type WorkerMetricsListResp struct {
 
 func (x *WorkerMetricsListResp) Reset() {
 	*x = WorkerMetricsListResp{}
-	mi := &file_io_proto_msgTypes[64]
+	mi := &file_io_proto_msgTypes[78]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6655,7 +7757,7 @@ func (x *WorkerMetricsListResp) String() string {
 func (*WorkerMetricsListResp) ProtoMessage() {}
 
 func (x *WorkerMetricsListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_io_proto_msgTypes[64]
+	mi := &file_io_proto_msgTypes[78]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6668,7 +7770,7 @@ func (x *WorkerMetricsListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorkerMetricsListResp.ProtoReflect.Descriptor instead.
 func (*WorkerMetricsListResp) Descriptor() ([]byte, []int) {
-	return file_io_proto_rawDescGZIP(), []int{64}
+	return file_io_proto_rawDescGZIP(), []int{78}
 }
 
 func (x *WorkerMetricsListResp) GetTotal() uint64 {
@@ -6718,7 +7820,133 @@ const file_io_proto_rawDesc = "" +
 	"\x03msg\x18\x01 \x01(\tR\x03msg\"0\n" +
 	"\fBaseUUIDResp\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x10\n" +
-	"\x03msg\x18\x02 \x01(\tR\x03msg\"\xb1\x06\n" +
+	"\x03msg\x18\x02 \x01(\tR\x03msg\"\xff\a\n" +
+	"\x0eConfigAuditLog\x12\x13\n" +
+	"\x02id\x18\x01 \x01(\x04H\x00R\x02id\x88\x01\x01\x12 \n" +
+	"\ttenant_id\x18\x02 \x01(\x04H\x01R\btenantId\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"config_key\x18\x03 \x01(\tH\x02R\tconfigKey\x88\x01\x01\x12 \n" +
+	"\told_value\x18\x04 \x01(\tH\x03R\boldValue\x88\x01\x01\x12 \n" +
+	"\tnew_value\x18\x05 \x01(\tH\x04R\bnewValue\x88\x01\x01\x12$\n" +
+	"\vchange_type\x18\x06 \x01(\tH\x05R\n" +
+	"changeType\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"changed_by\x18\a \x01(\x04H\x06R\tchangedBy\x88\x01\x01\x12+\n" +
+	"\x0fchanged_by_name\x18\b \x01(\tH\aR\rchangedByName\x88\x01\x01\x12&\n" +
+	"\fservice_name\x18\t \x01(\tH\bR\vserviceName\x88\x01\x01\x12\x1f\n" +
+	"\bcategory\x18\n" +
+	" \x01(\tH\tR\bcategory\x88\x01\x01\x12&\n" +
+	"\fconfig_group\x18\v \x01(\tH\n" +
+	"R\vconfigGroup\x88\x01\x01\x12(\n" +
+	"\rchange_reason\x18\f \x01(\tH\vR\fchangeReason\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"ip_address\x18\r \x01(\tH\fR\tipAddress\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"user_agent\x18\x0e \x01(\tH\rR\tuserAgent\x88\x01\x01\x12$\n" +
+	"\vold_version\x18\x0f \x01(\x03H\x0eR\n" +
+	"oldVersion\x88\x01\x01\x12$\n" +
+	"\vnew_version\x18\x10 \x01(\x03H\x0fR\n" +
+	"newVersion\x88\x01\x01\x12$\n" +
+	"\vis_rollback\x18\x11 \x01(\bH\x10R\n" +
+	"isRollback\x88\x01\x01\x124\n" +
+	"\x14rollback_from_log_id\x18\x12 \x01(\tH\x11R\x11rollbackFromLogId\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"created_at\x18\x13 \x01(\x03H\x12R\tcreatedAt\x88\x01\x01B\x05\n" +
+	"\x03_idB\f\n" +
+	"\n" +
+	"_tenant_idB\r\n" +
+	"\v_config_keyB\f\n" +
+	"\n" +
+	"_old_valueB\f\n" +
+	"\n" +
+	"_new_valueB\x0e\n" +
+	"\f_change_typeB\r\n" +
+	"\v_changed_byB\x12\n" +
+	"\x10_changed_by_nameB\x0f\n" +
+	"\r_service_nameB\v\n" +
+	"\t_categoryB\x0f\n" +
+	"\r_config_groupB\x10\n" +
+	"\x0e_change_reasonB\r\n" +
+	"\v_ip_addressB\r\n" +
+	"\v_user_agentB\x0e\n" +
+	"\f_old_versionB\x0e\n" +
+	"\f_new_versionB\x0e\n" +
+	"\f_is_rollbackB\x17\n" +
+	"\x15_rollback_from_log_idB\r\n" +
+	"\v_created_at\"\xd7\x06\n" +
+	"\n" +
+	"ConfigItem\x12\x13\n" +
+	"\x02id\x18\x01 \x01(\x04H\x00R\x02id\x88\x01\x01\x12 \n" +
+	"\ttenant_id\x18\x02 \x01(\x04H\x01R\btenantId\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"config_key\x18\x03 \x01(\tH\x02R\tconfigKey\x88\x01\x01\x12&\n" +
+	"\fconfig_value\x18\x04 \x01(\tH\x03R\vconfigValue\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"value_type\x18\x05 \x01(\tH\x04R\tvalueType\x88\x01\x01\x12\x1f\n" +
+	"\bcategory\x18\x06 \x01(\tH\x05R\bcategory\x88\x01\x01\x12&\n" +
+	"\fservice_name\x18\a \x01(\tH\x06R\vserviceName\x88\x01\x01\x12%\n" +
+	"\vdescription\x18\b \x01(\tH\aR\vdescription\x88\x01\x01\x12(\n" +
+	"\rdefault_value\x18\t \x01(\tH\bR\fdefaultValue\x88\x01\x01\x12\x1d\n" +
+	"\aversion\x18\n" +
+	" \x01(\x03H\tR\aversion\x88\x01\x01\x12\x1b\n" +
+	"\x06status\x18\v \x01(\rH\n" +
+	"R\x06status\x88\x01\x01\x12$\n" +
+	"\vis_readonly\x18\f \x01(\bH\vR\n" +
+	"isReadonly\x88\x01\x01\x12&\n" +
+	"\fis_sensitive\x18\r \x01(\bH\fR\visSensitive\x88\x01\x01\x12\x19\n" +
+	"\x05scope\x18\x0e \x01(\tH\rR\x05scope\x88\x01\x01\x12&\n" +
+	"\fconfig_group\x18\x0f \x01(\tH\x0eR\vconfigGroup\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"created_at\x18\x10 \x01(\x03H\x0fR\tcreatedAt\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"updated_at\x18\x11 \x01(\x03H\x10R\tupdatedAt\x88\x01\x01B\x05\n" +
+	"\x03_idB\f\n" +
+	"\n" +
+	"_tenant_idB\r\n" +
+	"\v_config_keyB\x0f\n" +
+	"\r_config_valueB\r\n" +
+	"\v_value_typeB\v\n" +
+	"\t_categoryB\x0f\n" +
+	"\r_service_nameB\x0e\n" +
+	"\f_descriptionB\x10\n" +
+	"\x0e_default_valueB\n" +
+	"\n" +
+	"\b_versionB\t\n" +
+	"\a_statusB\x0e\n" +
+	"\f_is_readonlyB\x0f\n" +
+	"\r_is_sensitiveB\b\n" +
+	"\x06_scopeB\x0f\n" +
+	"\r_config_groupB\r\n" +
+	"\v_created_atB\r\n" +
+	"\v_updated_at\"\xd7\x04\n" +
+	"\x0fCreateConfigReq\x12\"\n" +
+	"\n" +
+	"config_key\x18\x01 \x01(\tH\x00R\tconfigKey\x88\x01\x01\x12&\n" +
+	"\fconfig_value\x18\x02 \x01(\tH\x01R\vconfigValue\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"value_type\x18\x03 \x01(\tH\x02R\tvalueType\x88\x01\x01\x12\x1f\n" +
+	"\bcategory\x18\x04 \x01(\tH\x03R\bcategory\x88\x01\x01\x12&\n" +
+	"\fservice_name\x18\x05 \x01(\tH\x04R\vserviceName\x88\x01\x01\x12%\n" +
+	"\vdescription\x18\x06 \x01(\tH\x05R\vdescription\x88\x01\x01\x12(\n" +
+	"\rdefault_value\x18\a \x01(\tH\x06R\fdefaultValue\x88\x01\x01\x12$\n" +
+	"\vis_readonly\x18\b \x01(\bH\aR\n" +
+	"isReadonly\x88\x01\x01\x12&\n" +
+	"\fis_sensitive\x18\t \x01(\bH\bR\visSensitive\x88\x01\x01\x12\x19\n" +
+	"\x05scope\x18\n" +
+	" \x01(\tH\tR\x05scope\x88\x01\x01\x12&\n" +
+	"\fconfig_group\x18\v \x01(\tH\n" +
+	"R\vconfigGroup\x88\x01\x01B\r\n" +
+	"\v_config_keyB\x0f\n" +
+	"\r_config_valueB\r\n" +
+	"\v_value_typeB\v\n" +
+	"\t_categoryB\x0f\n" +
+	"\r_service_nameB\x0e\n" +
+	"\f_descriptionB\x10\n" +
+	"\x0e_default_valueB\x0e\n" +
+	"\f_is_readonlyB\x0f\n" +
+	"\r_is_sensitiveB\b\n" +
+	"\x06_scopeB\x0f\n" +
+	"\r_config_group\"\xb1\x06\n" +
 	"\fCronTaskInfo\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x04H\x00R\x02id\x88\x01\x01\x12\"\n" +
 	"\n" +
@@ -6884,7 +8112,11 @@ const file_io_proto_rawDesc = "" +
 	"\t_metadata\"R\n" +
 	"\x12DataTargetListResp\x12\x14\n" +
 	"\x05total\x18\x01 \x01(\x04R\x05total\x12&\n" +
-	"\x04data\x18\x02 \x03(\v2\x12.io.DataTargetInfoR\x04data\"\x8d\v\n" +
+	"\x04data\x18\x02 \x03(\v2\x12.io.DataTargetInfoR\x04data\"D\n" +
+	"\x0fDeleteConfigReq\x12\"\n" +
+	"\n" +
+	"config_key\x18\x01 \x01(\tH\x00R\tconfigKey\x88\x01\x01B\r\n" +
+	"\v_config_key\"\x8d\v\n" +
 	"\x11DiscoveryPoolInfo\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x04H\x00R\x02id\x88\x01\x01\x12\"\n" +
 	"\n" +
@@ -7391,7 +8623,20 @@ const file_io_proto_rawDesc = "" +
 	"\t_metadata\"V\n" +
 	"\x14FieldMappingListResp\x12\x14\n" +
 	"\x05total\x18\x01 \x01(\x04R\x05total\x12(\n" +
-	"\x04data\x18\x02 \x03(\v2\x14.io.FieldMappingInfoR\x04data\"7\n" +
+	"\x04data\x18\x02 \x03(\v2\x14.io.FieldMappingInfoR\x04data\"H\n" +
+	"\x13GetConfigHistoryReq\x12\"\n" +
+	"\n" +
+	"config_key\x18\x01 \x01(\tH\x00R\tconfigKey\x88\x01\x01B\r\n" +
+	"\v_config_key\">\n" +
+	"\x14GetConfigHistoryResp\x12&\n" +
+	"\x04data\x18\x01 \x03(\v2\x12.io.ConfigAuditLogR\x04data\"A\n" +
+	"\fGetConfigReq\x12\"\n" +
+	"\n" +
+	"config_key\x18\x01 \x01(\tH\x00R\tconfigKey\x88\x01\x01B\r\n" +
+	"\v_config_key\"A\n" +
+	"\rGetConfigResp\x12'\n" +
+	"\x04data\x18\x01 \x01(\v2\x0e.io.ConfigItemH\x00R\x04data\x88\x01\x01B\a\n" +
+	"\x05_data\"7\n" +
 	"\x14GetProviderSchemaReq\x12\x1f\n" +
 	"\vprovider_id\x18\x01 \x01(\tR\n" +
 	"providerId\"Q\n" +
@@ -7546,7 +8791,47 @@ const file_io_proto_rawDesc = "" +
 	"\t_metadata\"P\n" +
 	"\x11InputTaskListResp\x12\x14\n" +
 	"\x05total\x18\x01 \x01(\x04R\x05total\x12%\n" +
-	"\x04data\x18\x02 \x03(\v2\x11.io.InputTaskInfoR\x04data\"=\n" +
+	"\x04data\x18\x02 \x03(\v2\x11.io.InputTaskInfoR\x04data\"\xac\x02\n" +
+	"\x0fListAuditLogReq\x12\x17\n" +
+	"\x04page\x18\x01 \x01(\x04H\x00R\x04page\x88\x01\x01\x12 \n" +
+	"\tpage_size\x18\x02 \x01(\x04H\x01R\bpageSize\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"config_key\x18\x03 \x01(\tH\x02R\tconfigKey\x88\x01\x01\x12$\n" +
+	"\vchange_type\x18\x04 \x01(\tH\x03R\n" +
+	"changeType\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"start_time\x18\x05 \x01(\x03H\x04R\tstartTime\x88\x01\x01\x12\x1e\n" +
+	"\bend_time\x18\x06 \x01(\x03H\x05R\aendTime\x88\x01\x01B\a\n" +
+	"\x05_pageB\f\n" +
+	"\n" +
+	"_page_sizeB\r\n" +
+	"\v_config_keyB\x0e\n" +
+	"\f_change_typeB\r\n" +
+	"\v_start_timeB\v\n" +
+	"\t_end_time\"_\n" +
+	"\x10ListAuditLogResp\x12\x19\n" +
+	"\x05total\x18\x01 \x01(\x04H\x00R\x05total\x88\x01\x01\x12&\n" +
+	"\x04data\x18\x02 \x03(\v2\x12.io.ConfigAuditLogR\x04dataB\b\n" +
+	"\x06_total\"\xac\x02\n" +
+	"\rListConfigReq\x12\x17\n" +
+	"\x04page\x18\x01 \x01(\x04H\x00R\x04page\x88\x01\x01\x12 \n" +
+	"\tpage_size\x18\x02 \x01(\x04H\x01R\bpageSize\x88\x01\x01\x12&\n" +
+	"\fservice_name\x18\x03 \x01(\tH\x02R\vserviceName\x88\x01\x01\x12\x1f\n" +
+	"\bcategory\x18\x04 \x01(\tH\x03R\bcategory\x88\x01\x01\x12&\n" +
+	"\fconfig_group\x18\x05 \x01(\tH\x04R\vconfigGroup\x88\x01\x01\x12\x1d\n" +
+	"\akeyword\x18\x06 \x01(\tH\x05R\akeyword\x88\x01\x01B\a\n" +
+	"\x05_pageB\f\n" +
+	"\n" +
+	"_page_sizeB\x0f\n" +
+	"\r_service_nameB\v\n" +
+	"\t_categoryB\x0f\n" +
+	"\r_config_groupB\n" +
+	"\n" +
+	"\b_keyword\"Y\n" +
+	"\x0eListConfigResp\x12\x19\n" +
+	"\x05total\x18\x01 \x01(\x04H\x00R\x05total\x88\x01\x01\x12\"\n" +
+	"\x04data\x18\x02 \x03(\v2\x0e.io.ConfigItemR\x04dataB\b\n" +
+	"\x06_total\"=\n" +
 	"\x11ListProvidersResp\x12(\n" +
 	"\x04data\x18\x01 \x03(\v2\x14.io.ProviderMetadataR\x04data\"\xf9\x03\n" +
 	"\x0eMappingLogInfo\x12\x13\n" +
@@ -7739,7 +9024,13 @@ const file_io_proto_rawDesc = "" +
 	"\f_descriptionB\n" +
 	"\n" +
 	"\b_versionB\v\n" +
-	"\t_icon_url\"\xb2\x03\n" +
+	"\t_icon_url\"\x87\x01\n" +
+	"\x11RollbackConfigReq\x12%\n" +
+	"\faudit_log_id\x18\x01 \x01(\x04H\x00R\n" +
+	"auditLogId\x88\x01\x01\x12(\n" +
+	"\rchange_reason\x18\x02 \x01(\tH\x01R\fchangeReason\x88\x01\x01B\x0f\n" +
+	"\r_audit_log_idB\x10\n" +
+	"\x0e_change_reason\"\xb2\x03\n" +
 	"\vTaskLogInfo\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x04H\x00R\x02id\x88\x01\x01\x12\"\n" +
 	"\n" +
@@ -7810,7 +9101,15 @@ const file_io_proto_rawDesc = "" +
 	"\aUUIDReq\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"\x1c\n" +
 	"\bUUIDsReq\x12\x10\n" +
-	"\x03ids\x18\x01 \x03(\tR\x03ids\"\xf4\x05\n" +
+	"\x03ids\x18\x01 \x03(\tR\x03ids\"\xb9\x01\n" +
+	"\x0fUpdateConfigReq\x12\"\n" +
+	"\n" +
+	"config_key\x18\x01 \x01(\tH\x00R\tconfigKey\x88\x01\x01\x12&\n" +
+	"\fconfig_value\x18\x02 \x01(\tH\x01R\vconfigValue\x88\x01\x01\x12(\n" +
+	"\rchange_reason\x18\x03 \x01(\tH\x02R\fchangeReason\x88\x01\x01B\r\n" +
+	"\v_config_keyB\x0f\n" +
+	"\r_config_valueB\x10\n" +
+	"\x0e_change_reason\"\xf4\x05\n" +
 	"\x11WorkerMetricsInfo\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\x04H\x00R\x02id\x88\x01\x01\x12\"\n" +
 	"\n" +
@@ -7887,9 +9186,18 @@ const file_io_proto_rawDesc = "" +
 	"\t_metadata\"X\n" +
 	"\x15WorkerMetricsListResp\x12\x14\n" +
 	"\x05total\x18\x01 \x01(\x04R\x05total\x12)\n" +
-	"\x04data\x18\x02 \x03(\v2\x15.io.WorkerMetricsInfoR\x04data2\x91\x1f\n" +
+	"\x04data\x18\x02 \x03(\v2\x15.io.WorkerMetricsInfoR\x04data2\xfe\"\n" +
 	"\x02Io\x12'\n" +
-	"\finitDatabase\x12\t.io.Empty\x1a\f.io.BaseResp\x122\n" +
+	"\finitDatabase\x12\t.io.Empty\x1a\f.io.BaseResp\x123\n" +
+	"\n" +
+	"listConfig\x12\x11.io.ListConfigReq\x1a\x12.io.ListConfigResp\x120\n" +
+	"\tgetConfig\x12\x10.io.GetConfigReq\x1a\x11.io.GetConfigResp\x121\n" +
+	"\fcreateConfig\x12\x13.io.CreateConfigReq\x1a\f.io.BaseResp\x121\n" +
+	"\fupdateConfig\x12\x13.io.UpdateConfigReq\x1a\f.io.BaseResp\x121\n" +
+	"\fdeleteConfig\x12\x13.io.DeleteConfigReq\x1a\f.io.BaseResp\x129\n" +
+	"\flistAuditLog\x12\x13.io.ListAuditLogReq\x1a\x14.io.ListAuditLogResp\x12E\n" +
+	"\x10getConfigHistory\x12\x17.io.GetConfigHistoryReq\x1a\x18.io.GetConfigHistoryResp\x125\n" +
+	"\x0erollbackConfig\x12\x15.io.RollbackConfigReq\x1a\f.io.BaseResp\x122\n" +
 	"\x0ecreateCronTask\x12\x10.io.CronTaskInfo\x1a\x0e.io.BaseIDResp\x120\n" +
 	"\x0eupdateCronTask\x12\x10.io.CronTaskInfo\x1a\f.io.BaseResp\x12<\n" +
 	"\x0fgetCronTaskList\x12\x13.io.CronTaskListReq\x1a\x14.io.CronTaskListResp\x12.\n" +
@@ -7954,7 +9262,8 @@ const file_io_proto_rawDesc = "" +
 	"\x11getOutputTaskList\x12\x15.io.OutputTaskListReq\x1a\x16.io.OutputTaskListResp\x122\n" +
 	"\x11getOutputTaskById\x12\t.io.IDReq\x1a\x12.io.OutputTaskInfo\x12,\n" +
 	"\x10deleteOutputTask\x12\n" +
-	".io.IDsReq\x1a\f.io.BaseResp\x12*\n" +
+	".io.IDsReq\x1a\f.io.BaseResp\x122\n" +
+	"\x11approveOutputTask\x12\x0f.io.ApprovalReq\x1a\f.io.BaseResp\x12*\n" +
 	"\x0fstartOutputTask\x12\t.io.IDReq\x1a\f.io.BaseResp\x12*\n" +
 	"\x0fpauseOutputTask\x12\t.io.IDReq\x1a\f.io.BaseResp\x12+\n" +
 	"\x10cancelOutputTask\x12\t.io.IDReq\x1a\f.io.BaseResp\x120\n" +
@@ -7982,7 +9291,7 @@ func file_io_proto_rawDescGZIP() []byte {
 	return file_io_proto_rawDescData
 }
 
-var file_io_proto_msgTypes = make([]protoimpl.MessageInfo, 65)
+var file_io_proto_msgTypes = make([]protoimpl.MessageInfo, 79)
 var file_io_proto_goTypes = []any{
 	(*ApprovalReq)(nil),                     // 0: io.ApprovalReq
 	(*BaseIDInt32Resp)(nil),                 // 1: io.BaseIDInt32Resp
@@ -7992,223 +9301,259 @@ var file_io_proto_goTypes = []any{
 	(*BaseIDUint32Resp)(nil),                // 5: io.BaseIDUint32Resp
 	(*BaseResp)(nil),                        // 6: io.BaseResp
 	(*BaseUUIDResp)(nil),                    // 7: io.BaseUUIDResp
-	(*CronTaskInfo)(nil),                    // 8: io.CronTaskInfo
-	(*CronTaskListReq)(nil),                 // 9: io.CronTaskListReq
-	(*CronTaskListResp)(nil),                // 10: io.CronTaskListResp
-	(*DataTargetInfo)(nil),                  // 11: io.DataTargetInfo
-	(*DataTargetListReq)(nil),               // 12: io.DataTargetListReq
-	(*DataTargetListResp)(nil),              // 13: io.DataTargetListResp
-	(*DiscoveryPoolInfo)(nil),               // 14: io.DiscoveryPoolInfo
-	(*DiscoveryPoolListReq)(nil),            // 15: io.DiscoveryPoolListReq
-	(*DiscoveryPoolListResp)(nil),           // 16: io.DiscoveryPoolListResp
-	(*DiscoveryPoolStatsResp)(nil),          // 17: io.DiscoveryPoolStatsResp
-	(*DiscoveryProviderSchemaInfo)(nil),     // 18: io.DiscoveryProviderSchemaInfo
-	(*DiscoveryProviderSchemaListReq)(nil),  // 19: io.DiscoveryProviderSchemaListReq
-	(*DiscoveryProviderSchemaListResp)(nil), // 20: io.DiscoveryProviderSchemaListResp
-	(*DiscoveryTemplateInfo)(nil),           // 21: io.DiscoveryTemplateInfo
-	(*DiscoveryTemplateListReq)(nil),        // 22: io.DiscoveryTemplateListReq
-	(*DiscoveryTemplateListResp)(nil),       // 23: io.DiscoveryTemplateListResp
-	(*Empty)(nil),                           // 24: io.Empty
-	(*FieldDefinition)(nil),                 // 25: io.FieldDefinition
-	(*FieldMappingInfo)(nil),                // 26: io.FieldMappingInfo
-	(*FieldMappingListReq)(nil),             // 27: io.FieldMappingListReq
-	(*FieldMappingListResp)(nil),            // 28: io.FieldMappingListResp
-	(*GetProviderSchemaReq)(nil),            // 29: io.GetProviderSchemaReq
-	(*GetProviderSchemaResp)(nil),           // 30: io.GetProviderSchemaResp
-	(*IDInt32Req)(nil),                      // 31: io.IDInt32Req
-	(*IDInt64Req)(nil),                      // 32: io.IDInt64Req
-	(*IDReq)(nil),                           // 33: io.IDReq
-	(*IDStringReq)(nil),                     // 34: io.IDStringReq
-	(*IDUint32Req)(nil),                     // 35: io.IDUint32Req
-	(*IDsInt32Req)(nil),                     // 36: io.IDsInt32Req
-	(*IDsInt64Req)(nil),                     // 37: io.IDsInt64Req
-	(*IDsReq)(nil),                          // 38: io.IDsReq
-	(*IDsStringReq)(nil),                    // 39: io.IDsStringReq
-	(*IDsUint32Req)(nil),                    // 40: io.IDsUint32Req
-	(*InputTaskInfo)(nil),                   // 41: io.InputTaskInfo
-	(*InputTaskListReq)(nil),                // 42: io.InputTaskListReq
-	(*InputTaskListResp)(nil),               // 43: io.InputTaskListResp
-	(*ListProvidersResp)(nil),               // 44: io.ListProvidersResp
-	(*MappingLogInfo)(nil),                  // 45: io.MappingLogInfo
-	(*MappingLogListReq)(nil),               // 46: io.MappingLogListReq
-	(*MappingLogListResp)(nil),              // 47: io.MappingLogListResp
-	(*OutputTaskInfo)(nil),                  // 48: io.OutputTaskInfo
-	(*OutputTaskListReq)(nil),               // 49: io.OutputTaskListReq
-	(*OutputTaskListResp)(nil),              // 50: io.OutputTaskListResp
-	(*PageInfoReq)(nil),                     // 51: io.PageInfoReq
-	(*ParameterDefinition)(nil),             // 52: io.ParameterDefinition
-	(*ProviderMetadata)(nil),                // 53: io.ProviderMetadata
-	(*ProviderSchemaInfo)(nil),              // 54: io.ProviderSchemaInfo
-	(*TaskLogInfo)(nil),                     // 55: io.TaskLogInfo
-	(*TaskLogListReq)(nil),                  // 56: io.TaskLogListReq
-	(*TaskLogListResp)(nil),                 // 57: io.TaskLogListResp
-	(*TestConnectionReq)(nil),               // 58: io.TestConnectionReq
-	(*TestConnectionResp)(nil),              // 59: io.TestConnectionResp
-	(*UUIDReq)(nil),                         // 60: io.UUIDReq
-	(*UUIDsReq)(nil),                        // 61: io.UUIDsReq
-	(*WorkerMetricsInfo)(nil),               // 62: io.WorkerMetricsInfo
-	(*WorkerMetricsListReq)(nil),            // 63: io.WorkerMetricsListReq
-	(*WorkerMetricsListResp)(nil),           // 64: io.WorkerMetricsListResp
+	(*ConfigAuditLog)(nil),                  // 8: io.ConfigAuditLog
+	(*ConfigItem)(nil),                      // 9: io.ConfigItem
+	(*CreateConfigReq)(nil),                 // 10: io.CreateConfigReq
+	(*CronTaskInfo)(nil),                    // 11: io.CronTaskInfo
+	(*CronTaskListReq)(nil),                 // 12: io.CronTaskListReq
+	(*CronTaskListResp)(nil),                // 13: io.CronTaskListResp
+	(*DataTargetInfo)(nil),                  // 14: io.DataTargetInfo
+	(*DataTargetListReq)(nil),               // 15: io.DataTargetListReq
+	(*DataTargetListResp)(nil),              // 16: io.DataTargetListResp
+	(*DeleteConfigReq)(nil),                 // 17: io.DeleteConfigReq
+	(*DiscoveryPoolInfo)(nil),               // 18: io.DiscoveryPoolInfo
+	(*DiscoveryPoolListReq)(nil),            // 19: io.DiscoveryPoolListReq
+	(*DiscoveryPoolListResp)(nil),           // 20: io.DiscoveryPoolListResp
+	(*DiscoveryPoolStatsResp)(nil),          // 21: io.DiscoveryPoolStatsResp
+	(*DiscoveryProviderSchemaInfo)(nil),     // 22: io.DiscoveryProviderSchemaInfo
+	(*DiscoveryProviderSchemaListReq)(nil),  // 23: io.DiscoveryProviderSchemaListReq
+	(*DiscoveryProviderSchemaListResp)(nil), // 24: io.DiscoveryProviderSchemaListResp
+	(*DiscoveryTemplateInfo)(nil),           // 25: io.DiscoveryTemplateInfo
+	(*DiscoveryTemplateListReq)(nil),        // 26: io.DiscoveryTemplateListReq
+	(*DiscoveryTemplateListResp)(nil),       // 27: io.DiscoveryTemplateListResp
+	(*Empty)(nil),                           // 28: io.Empty
+	(*FieldDefinition)(nil),                 // 29: io.FieldDefinition
+	(*FieldMappingInfo)(nil),                // 30: io.FieldMappingInfo
+	(*FieldMappingListReq)(nil),             // 31: io.FieldMappingListReq
+	(*FieldMappingListResp)(nil),            // 32: io.FieldMappingListResp
+	(*GetConfigHistoryReq)(nil),             // 33: io.GetConfigHistoryReq
+	(*GetConfigHistoryResp)(nil),            // 34: io.GetConfigHistoryResp
+	(*GetConfigReq)(nil),                    // 35: io.GetConfigReq
+	(*GetConfigResp)(nil),                   // 36: io.GetConfigResp
+	(*GetProviderSchemaReq)(nil),            // 37: io.GetProviderSchemaReq
+	(*GetProviderSchemaResp)(nil),           // 38: io.GetProviderSchemaResp
+	(*IDInt32Req)(nil),                      // 39: io.IDInt32Req
+	(*IDInt64Req)(nil),                      // 40: io.IDInt64Req
+	(*IDReq)(nil),                           // 41: io.IDReq
+	(*IDStringReq)(nil),                     // 42: io.IDStringReq
+	(*IDUint32Req)(nil),                     // 43: io.IDUint32Req
+	(*IDsInt32Req)(nil),                     // 44: io.IDsInt32Req
+	(*IDsInt64Req)(nil),                     // 45: io.IDsInt64Req
+	(*IDsReq)(nil),                          // 46: io.IDsReq
+	(*IDsStringReq)(nil),                    // 47: io.IDsStringReq
+	(*IDsUint32Req)(nil),                    // 48: io.IDsUint32Req
+	(*InputTaskInfo)(nil),                   // 49: io.InputTaskInfo
+	(*InputTaskListReq)(nil),                // 50: io.InputTaskListReq
+	(*InputTaskListResp)(nil),               // 51: io.InputTaskListResp
+	(*ListAuditLogReq)(nil),                 // 52: io.ListAuditLogReq
+	(*ListAuditLogResp)(nil),                // 53: io.ListAuditLogResp
+	(*ListConfigReq)(nil),                   // 54: io.ListConfigReq
+	(*ListConfigResp)(nil),                  // 55: io.ListConfigResp
+	(*ListProvidersResp)(nil),               // 56: io.ListProvidersResp
+	(*MappingLogInfo)(nil),                  // 57: io.MappingLogInfo
+	(*MappingLogListReq)(nil),               // 58: io.MappingLogListReq
+	(*MappingLogListResp)(nil),              // 59: io.MappingLogListResp
+	(*OutputTaskInfo)(nil),                  // 60: io.OutputTaskInfo
+	(*OutputTaskListReq)(nil),               // 61: io.OutputTaskListReq
+	(*OutputTaskListResp)(nil),              // 62: io.OutputTaskListResp
+	(*PageInfoReq)(nil),                     // 63: io.PageInfoReq
+	(*ParameterDefinition)(nil),             // 64: io.ParameterDefinition
+	(*ProviderMetadata)(nil),                // 65: io.ProviderMetadata
+	(*ProviderSchemaInfo)(nil),              // 66: io.ProviderSchemaInfo
+	(*RollbackConfigReq)(nil),               // 67: io.RollbackConfigReq
+	(*TaskLogInfo)(nil),                     // 68: io.TaskLogInfo
+	(*TaskLogListReq)(nil),                  // 69: io.TaskLogListReq
+	(*TaskLogListResp)(nil),                 // 70: io.TaskLogListResp
+	(*TestConnectionReq)(nil),               // 71: io.TestConnectionReq
+	(*TestConnectionResp)(nil),              // 72: io.TestConnectionResp
+	(*UUIDReq)(nil),                         // 73: io.UUIDReq
+	(*UUIDsReq)(nil),                        // 74: io.UUIDsReq
+	(*UpdateConfigReq)(nil),                 // 75: io.UpdateConfigReq
+	(*WorkerMetricsInfo)(nil),               // 76: io.WorkerMetricsInfo
+	(*WorkerMetricsListReq)(nil),            // 77: io.WorkerMetricsListReq
+	(*WorkerMetricsListResp)(nil),           // 78: io.WorkerMetricsListResp
 }
 var file_io_proto_depIdxs = []int32{
-	8,  // 0: io.CronTaskListResp.data:type_name -> io.CronTaskInfo
-	11, // 1: io.DataTargetListResp.data:type_name -> io.DataTargetInfo
-	14, // 2: io.DiscoveryPoolListResp.data:type_name -> io.DiscoveryPoolInfo
-	18, // 3: io.DiscoveryProviderSchemaListResp.data:type_name -> io.DiscoveryProviderSchemaInfo
-	21, // 4: io.DiscoveryTemplateListResp.data:type_name -> io.DiscoveryTemplateInfo
-	26, // 5: io.FieldMappingListResp.data:type_name -> io.FieldMappingInfo
-	54, // 6: io.GetProviderSchemaResp.data:type_name -> io.ProviderSchemaInfo
-	41, // 7: io.InputTaskListResp.data:type_name -> io.InputTaskInfo
-	53, // 8: io.ListProvidersResp.data:type_name -> io.ProviderMetadata
-	45, // 9: io.MappingLogListResp.data:type_name -> io.MappingLogInfo
-	48, // 10: io.OutputTaskListResp.data:type_name -> io.OutputTaskInfo
-	52, // 11: io.ProviderSchemaInfo.parameter_schema:type_name -> io.ParameterDefinition
-	25, // 12: io.ProviderSchemaInfo.field_schema:type_name -> io.FieldDefinition
-	55, // 13: io.TaskLogListResp.data:type_name -> io.TaskLogInfo
-	62, // 14: io.WorkerMetricsListResp.data:type_name -> io.WorkerMetricsInfo
-	24, // 15: io.Io.initDatabase:input_type -> io.Empty
-	8,  // 16: io.Io.createCronTask:input_type -> io.CronTaskInfo
-	8,  // 17: io.Io.updateCronTask:input_type -> io.CronTaskInfo
-	9,  // 18: io.Io.getCronTaskList:input_type -> io.CronTaskListReq
-	33, // 19: io.Io.getCronTaskById:input_type -> io.IDReq
-	38, // 20: io.Io.deleteCronTask:input_type -> io.IDsReq
-	11, // 21: io.Io.createDataTarget:input_type -> io.DataTargetInfo
-	11, // 22: io.Io.updateDataTarget:input_type -> io.DataTargetInfo
-	12, // 23: io.Io.getDataTargetList:input_type -> io.DataTargetListReq
-	33, // 24: io.Io.getDataTargetById:input_type -> io.IDReq
-	38, // 25: io.Io.deleteDataTarget:input_type -> io.IDsReq
-	24, // 26: io.Io.listDiscoveryProviders:input_type -> io.Empty
-	29, // 27: io.Io.getProviderSchema:input_type -> io.GetProviderSchemaReq
-	58, // 28: io.Io.testProviderConnection:input_type -> io.TestConnectionReq
-	14, // 29: io.Io.createDiscoveryPool:input_type -> io.DiscoveryPoolInfo
-	14, // 30: io.Io.updateDiscoveryPool:input_type -> io.DiscoveryPoolInfo
-	15, // 31: io.Io.getDiscoveryPoolList:input_type -> io.DiscoveryPoolListReq
-	33, // 32: io.Io.getDiscoveryPoolById:input_type -> io.IDReq
-	38, // 33: io.Io.deleteDiscoveryPool:input_type -> io.IDsReq
-	0,  // 34: io.Io.approveDiscoveryPool:input_type -> io.ApprovalReq
-	33, // 35: io.Io.enableDiscoveryPool:input_type -> io.IDReq
-	33, // 36: io.Io.disableDiscoveryPool:input_type -> io.IDReq
-	33, // 37: io.Io.triggerDiscoveryPool:input_type -> io.IDReq
-	24, // 38: io.Io.getDiscoveryPoolStats:input_type -> io.Empty
-	18, // 39: io.Io.createDiscoveryProviderSchema:input_type -> io.DiscoveryProviderSchemaInfo
-	18, // 40: io.Io.updateDiscoveryProviderSchema:input_type -> io.DiscoveryProviderSchemaInfo
-	19, // 41: io.Io.getDiscoveryProviderSchemaList:input_type -> io.DiscoveryProviderSchemaListReq
-	33, // 42: io.Io.getDiscoveryProviderSchemaById:input_type -> io.IDReq
-	38, // 43: io.Io.deleteDiscoveryProviderSchema:input_type -> io.IDsReq
-	21, // 44: io.Io.createDiscoveryTemplate:input_type -> io.DiscoveryTemplateInfo
-	21, // 45: io.Io.updateDiscoveryTemplate:input_type -> io.DiscoveryTemplateInfo
-	22, // 46: io.Io.getDiscoveryTemplateList:input_type -> io.DiscoveryTemplateListReq
-	33, // 47: io.Io.getDiscoveryTemplateById:input_type -> io.IDReq
-	38, // 48: io.Io.deleteDiscoveryTemplate:input_type -> io.IDsReq
-	26, // 49: io.Io.createFieldMapping:input_type -> io.FieldMappingInfo
-	26, // 50: io.Io.updateFieldMapping:input_type -> io.FieldMappingInfo
-	27, // 51: io.Io.getFieldMappingList:input_type -> io.FieldMappingListReq
-	33, // 52: io.Io.getFieldMappingById:input_type -> io.IDReq
-	38, // 53: io.Io.deleteFieldMapping:input_type -> io.IDsReq
-	41, // 54: io.Io.createInputTask:input_type -> io.InputTaskInfo
-	41, // 55: io.Io.updateInputTask:input_type -> io.InputTaskInfo
-	42, // 56: io.Io.getInputTaskList:input_type -> io.InputTaskListReq
-	33, // 57: io.Io.getInputTaskById:input_type -> io.IDReq
-	38, // 58: io.Io.deleteInputTask:input_type -> io.IDsReq
-	0,  // 59: io.Io.approveInputTask:input_type -> io.ApprovalReq
-	33, // 60: io.Io.startInputTask:input_type -> io.IDReq
-	33, // 61: io.Io.pauseInputTask:input_type -> io.IDReq
-	33, // 62: io.Io.cancelInputTask:input_type -> io.IDReq
-	45, // 63: io.Io.createMappingLog:input_type -> io.MappingLogInfo
-	46, // 64: io.Io.getMappingLogList:input_type -> io.MappingLogListReq
-	33, // 65: io.Io.getMappingLogById:input_type -> io.IDReq
-	38, // 66: io.Io.deleteMappingLog:input_type -> io.IDsReq
-	48, // 67: io.Io.createOutputTask:input_type -> io.OutputTaskInfo
-	48, // 68: io.Io.updateOutputTask:input_type -> io.OutputTaskInfo
-	49, // 69: io.Io.getOutputTaskList:input_type -> io.OutputTaskListReq
-	33, // 70: io.Io.getOutputTaskById:input_type -> io.IDReq
-	38, // 71: io.Io.deleteOutputTask:input_type -> io.IDsReq
-	33, // 72: io.Io.startOutputTask:input_type -> io.IDReq
-	33, // 73: io.Io.pauseOutputTask:input_type -> io.IDReq
-	33, // 74: io.Io.cancelOutputTask:input_type -> io.IDReq
-	55, // 75: io.Io.createTaskLog:input_type -> io.TaskLogInfo
-	56, // 76: io.Io.getTaskLogList:input_type -> io.TaskLogListReq
-	33, // 77: io.Io.getTaskLogById:input_type -> io.IDReq
-	38, // 78: io.Io.deleteTaskLog:input_type -> io.IDsReq
-	62, // 79: io.Io.createWorkerMetrics:input_type -> io.WorkerMetricsInfo
-	62, // 80: io.Io.updateWorkerMetrics:input_type -> io.WorkerMetricsInfo
-	63, // 81: io.Io.getWorkerMetricsList:input_type -> io.WorkerMetricsListReq
-	33, // 82: io.Io.getWorkerMetricsById:input_type -> io.IDReq
-	38, // 83: io.Io.deleteWorkerMetrics:input_type -> io.IDsReq
-	6,  // 84: io.Io.initDatabase:output_type -> io.BaseResp
-	3,  // 85: io.Io.createCronTask:output_type -> io.BaseIDResp
-	6,  // 86: io.Io.updateCronTask:output_type -> io.BaseResp
-	10, // 87: io.Io.getCronTaskList:output_type -> io.CronTaskListResp
-	8,  // 88: io.Io.getCronTaskById:output_type -> io.CronTaskInfo
-	6,  // 89: io.Io.deleteCronTask:output_type -> io.BaseResp
-	3,  // 90: io.Io.createDataTarget:output_type -> io.BaseIDResp
-	6,  // 91: io.Io.updateDataTarget:output_type -> io.BaseResp
-	13, // 92: io.Io.getDataTargetList:output_type -> io.DataTargetListResp
-	11, // 93: io.Io.getDataTargetById:output_type -> io.DataTargetInfo
-	6,  // 94: io.Io.deleteDataTarget:output_type -> io.BaseResp
-	44, // 95: io.Io.listDiscoveryProviders:output_type -> io.ListProvidersResp
-	30, // 96: io.Io.getProviderSchema:output_type -> io.GetProviderSchemaResp
-	59, // 97: io.Io.testProviderConnection:output_type -> io.TestConnectionResp
-	3,  // 98: io.Io.createDiscoveryPool:output_type -> io.BaseIDResp
-	6,  // 99: io.Io.updateDiscoveryPool:output_type -> io.BaseResp
-	16, // 100: io.Io.getDiscoveryPoolList:output_type -> io.DiscoveryPoolListResp
-	14, // 101: io.Io.getDiscoveryPoolById:output_type -> io.DiscoveryPoolInfo
-	6,  // 102: io.Io.deleteDiscoveryPool:output_type -> io.BaseResp
-	6,  // 103: io.Io.approveDiscoveryPool:output_type -> io.BaseResp
-	6,  // 104: io.Io.enableDiscoveryPool:output_type -> io.BaseResp
-	6,  // 105: io.Io.disableDiscoveryPool:output_type -> io.BaseResp
-	6,  // 106: io.Io.triggerDiscoveryPool:output_type -> io.BaseResp
-	17, // 107: io.Io.getDiscoveryPoolStats:output_type -> io.DiscoveryPoolStatsResp
-	3,  // 108: io.Io.createDiscoveryProviderSchema:output_type -> io.BaseIDResp
-	6,  // 109: io.Io.updateDiscoveryProviderSchema:output_type -> io.BaseResp
-	20, // 110: io.Io.getDiscoveryProviderSchemaList:output_type -> io.DiscoveryProviderSchemaListResp
-	18, // 111: io.Io.getDiscoveryProviderSchemaById:output_type -> io.DiscoveryProviderSchemaInfo
-	6,  // 112: io.Io.deleteDiscoveryProviderSchema:output_type -> io.BaseResp
-	3,  // 113: io.Io.createDiscoveryTemplate:output_type -> io.BaseIDResp
-	6,  // 114: io.Io.updateDiscoveryTemplate:output_type -> io.BaseResp
-	23, // 115: io.Io.getDiscoveryTemplateList:output_type -> io.DiscoveryTemplateListResp
-	21, // 116: io.Io.getDiscoveryTemplateById:output_type -> io.DiscoveryTemplateInfo
-	6,  // 117: io.Io.deleteDiscoveryTemplate:output_type -> io.BaseResp
-	3,  // 118: io.Io.createFieldMapping:output_type -> io.BaseIDResp
-	6,  // 119: io.Io.updateFieldMapping:output_type -> io.BaseResp
-	28, // 120: io.Io.getFieldMappingList:output_type -> io.FieldMappingListResp
-	26, // 121: io.Io.getFieldMappingById:output_type -> io.FieldMappingInfo
-	6,  // 122: io.Io.deleteFieldMapping:output_type -> io.BaseResp
-	3,  // 123: io.Io.createInputTask:output_type -> io.BaseIDResp
-	6,  // 124: io.Io.updateInputTask:output_type -> io.BaseResp
-	43, // 125: io.Io.getInputTaskList:output_type -> io.InputTaskListResp
-	41, // 126: io.Io.getInputTaskById:output_type -> io.InputTaskInfo
-	6,  // 127: io.Io.deleteInputTask:output_type -> io.BaseResp
-	6,  // 128: io.Io.approveInputTask:output_type -> io.BaseResp
-	6,  // 129: io.Io.startInputTask:output_type -> io.BaseResp
-	6,  // 130: io.Io.pauseInputTask:output_type -> io.BaseResp
-	6,  // 131: io.Io.cancelInputTask:output_type -> io.BaseResp
-	3,  // 132: io.Io.createMappingLog:output_type -> io.BaseIDResp
-	47, // 133: io.Io.getMappingLogList:output_type -> io.MappingLogListResp
-	45, // 134: io.Io.getMappingLogById:output_type -> io.MappingLogInfo
-	6,  // 135: io.Io.deleteMappingLog:output_type -> io.BaseResp
-	3,  // 136: io.Io.createOutputTask:output_type -> io.BaseIDResp
-	6,  // 137: io.Io.updateOutputTask:output_type -> io.BaseResp
-	50, // 138: io.Io.getOutputTaskList:output_type -> io.OutputTaskListResp
-	48, // 139: io.Io.getOutputTaskById:output_type -> io.OutputTaskInfo
-	6,  // 140: io.Io.deleteOutputTask:output_type -> io.BaseResp
-	6,  // 141: io.Io.startOutputTask:output_type -> io.BaseResp
-	6,  // 142: io.Io.pauseOutputTask:output_type -> io.BaseResp
-	6,  // 143: io.Io.cancelOutputTask:output_type -> io.BaseResp
-	3,  // 144: io.Io.createTaskLog:output_type -> io.BaseIDResp
-	57, // 145: io.Io.getTaskLogList:output_type -> io.TaskLogListResp
-	55, // 146: io.Io.getTaskLogById:output_type -> io.TaskLogInfo
-	6,  // 147: io.Io.deleteTaskLog:output_type -> io.BaseResp
-	3,  // 148: io.Io.createWorkerMetrics:output_type -> io.BaseIDResp
-	6,  // 149: io.Io.updateWorkerMetrics:output_type -> io.BaseResp
-	64, // 150: io.Io.getWorkerMetricsList:output_type -> io.WorkerMetricsListResp
-	62, // 151: io.Io.getWorkerMetricsById:output_type -> io.WorkerMetricsInfo
-	6,  // 152: io.Io.deleteWorkerMetrics:output_type -> io.BaseResp
-	84, // [84:153] is the sub-list for method output_type
-	15, // [15:84] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	11, // 0: io.CronTaskListResp.data:type_name -> io.CronTaskInfo
+	14, // 1: io.DataTargetListResp.data:type_name -> io.DataTargetInfo
+	18, // 2: io.DiscoveryPoolListResp.data:type_name -> io.DiscoveryPoolInfo
+	22, // 3: io.DiscoveryProviderSchemaListResp.data:type_name -> io.DiscoveryProviderSchemaInfo
+	25, // 4: io.DiscoveryTemplateListResp.data:type_name -> io.DiscoveryTemplateInfo
+	30, // 5: io.FieldMappingListResp.data:type_name -> io.FieldMappingInfo
+	8,  // 6: io.GetConfigHistoryResp.data:type_name -> io.ConfigAuditLog
+	9,  // 7: io.GetConfigResp.data:type_name -> io.ConfigItem
+	66, // 8: io.GetProviderSchemaResp.data:type_name -> io.ProviderSchemaInfo
+	49, // 9: io.InputTaskListResp.data:type_name -> io.InputTaskInfo
+	8,  // 10: io.ListAuditLogResp.data:type_name -> io.ConfigAuditLog
+	9,  // 11: io.ListConfigResp.data:type_name -> io.ConfigItem
+	65, // 12: io.ListProvidersResp.data:type_name -> io.ProviderMetadata
+	57, // 13: io.MappingLogListResp.data:type_name -> io.MappingLogInfo
+	60, // 14: io.OutputTaskListResp.data:type_name -> io.OutputTaskInfo
+	64, // 15: io.ProviderSchemaInfo.parameter_schema:type_name -> io.ParameterDefinition
+	29, // 16: io.ProviderSchemaInfo.field_schema:type_name -> io.FieldDefinition
+	68, // 17: io.TaskLogListResp.data:type_name -> io.TaskLogInfo
+	76, // 18: io.WorkerMetricsListResp.data:type_name -> io.WorkerMetricsInfo
+	28, // 19: io.Io.initDatabase:input_type -> io.Empty
+	54, // 20: io.Io.listConfig:input_type -> io.ListConfigReq
+	35, // 21: io.Io.getConfig:input_type -> io.GetConfigReq
+	10, // 22: io.Io.createConfig:input_type -> io.CreateConfigReq
+	75, // 23: io.Io.updateConfig:input_type -> io.UpdateConfigReq
+	17, // 24: io.Io.deleteConfig:input_type -> io.DeleteConfigReq
+	52, // 25: io.Io.listAuditLog:input_type -> io.ListAuditLogReq
+	33, // 26: io.Io.getConfigHistory:input_type -> io.GetConfigHistoryReq
+	67, // 27: io.Io.rollbackConfig:input_type -> io.RollbackConfigReq
+	11, // 28: io.Io.createCronTask:input_type -> io.CronTaskInfo
+	11, // 29: io.Io.updateCronTask:input_type -> io.CronTaskInfo
+	12, // 30: io.Io.getCronTaskList:input_type -> io.CronTaskListReq
+	41, // 31: io.Io.getCronTaskById:input_type -> io.IDReq
+	46, // 32: io.Io.deleteCronTask:input_type -> io.IDsReq
+	14, // 33: io.Io.createDataTarget:input_type -> io.DataTargetInfo
+	14, // 34: io.Io.updateDataTarget:input_type -> io.DataTargetInfo
+	15, // 35: io.Io.getDataTargetList:input_type -> io.DataTargetListReq
+	41, // 36: io.Io.getDataTargetById:input_type -> io.IDReq
+	46, // 37: io.Io.deleteDataTarget:input_type -> io.IDsReq
+	28, // 38: io.Io.listDiscoveryProviders:input_type -> io.Empty
+	37, // 39: io.Io.getProviderSchema:input_type -> io.GetProviderSchemaReq
+	71, // 40: io.Io.testProviderConnection:input_type -> io.TestConnectionReq
+	18, // 41: io.Io.createDiscoveryPool:input_type -> io.DiscoveryPoolInfo
+	18, // 42: io.Io.updateDiscoveryPool:input_type -> io.DiscoveryPoolInfo
+	19, // 43: io.Io.getDiscoveryPoolList:input_type -> io.DiscoveryPoolListReq
+	41, // 44: io.Io.getDiscoveryPoolById:input_type -> io.IDReq
+	46, // 45: io.Io.deleteDiscoveryPool:input_type -> io.IDsReq
+	0,  // 46: io.Io.approveDiscoveryPool:input_type -> io.ApprovalReq
+	41, // 47: io.Io.enableDiscoveryPool:input_type -> io.IDReq
+	41, // 48: io.Io.disableDiscoveryPool:input_type -> io.IDReq
+	41, // 49: io.Io.triggerDiscoveryPool:input_type -> io.IDReq
+	28, // 50: io.Io.getDiscoveryPoolStats:input_type -> io.Empty
+	22, // 51: io.Io.createDiscoveryProviderSchema:input_type -> io.DiscoveryProviderSchemaInfo
+	22, // 52: io.Io.updateDiscoveryProviderSchema:input_type -> io.DiscoveryProviderSchemaInfo
+	23, // 53: io.Io.getDiscoveryProviderSchemaList:input_type -> io.DiscoveryProviderSchemaListReq
+	41, // 54: io.Io.getDiscoveryProviderSchemaById:input_type -> io.IDReq
+	46, // 55: io.Io.deleteDiscoveryProviderSchema:input_type -> io.IDsReq
+	25, // 56: io.Io.createDiscoveryTemplate:input_type -> io.DiscoveryTemplateInfo
+	25, // 57: io.Io.updateDiscoveryTemplate:input_type -> io.DiscoveryTemplateInfo
+	26, // 58: io.Io.getDiscoveryTemplateList:input_type -> io.DiscoveryTemplateListReq
+	41, // 59: io.Io.getDiscoveryTemplateById:input_type -> io.IDReq
+	46, // 60: io.Io.deleteDiscoveryTemplate:input_type -> io.IDsReq
+	30, // 61: io.Io.createFieldMapping:input_type -> io.FieldMappingInfo
+	30, // 62: io.Io.updateFieldMapping:input_type -> io.FieldMappingInfo
+	31, // 63: io.Io.getFieldMappingList:input_type -> io.FieldMappingListReq
+	41, // 64: io.Io.getFieldMappingById:input_type -> io.IDReq
+	46, // 65: io.Io.deleteFieldMapping:input_type -> io.IDsReq
+	49, // 66: io.Io.createInputTask:input_type -> io.InputTaskInfo
+	49, // 67: io.Io.updateInputTask:input_type -> io.InputTaskInfo
+	50, // 68: io.Io.getInputTaskList:input_type -> io.InputTaskListReq
+	41, // 69: io.Io.getInputTaskById:input_type -> io.IDReq
+	46, // 70: io.Io.deleteInputTask:input_type -> io.IDsReq
+	0,  // 71: io.Io.approveInputTask:input_type -> io.ApprovalReq
+	41, // 72: io.Io.startInputTask:input_type -> io.IDReq
+	41, // 73: io.Io.pauseInputTask:input_type -> io.IDReq
+	41, // 74: io.Io.cancelInputTask:input_type -> io.IDReq
+	57, // 75: io.Io.createMappingLog:input_type -> io.MappingLogInfo
+	58, // 76: io.Io.getMappingLogList:input_type -> io.MappingLogListReq
+	41, // 77: io.Io.getMappingLogById:input_type -> io.IDReq
+	46, // 78: io.Io.deleteMappingLog:input_type -> io.IDsReq
+	60, // 79: io.Io.createOutputTask:input_type -> io.OutputTaskInfo
+	60, // 80: io.Io.updateOutputTask:input_type -> io.OutputTaskInfo
+	61, // 81: io.Io.getOutputTaskList:input_type -> io.OutputTaskListReq
+	41, // 82: io.Io.getOutputTaskById:input_type -> io.IDReq
+	46, // 83: io.Io.deleteOutputTask:input_type -> io.IDsReq
+	0,  // 84: io.Io.approveOutputTask:input_type -> io.ApprovalReq
+	41, // 85: io.Io.startOutputTask:input_type -> io.IDReq
+	41, // 86: io.Io.pauseOutputTask:input_type -> io.IDReq
+	41, // 87: io.Io.cancelOutputTask:input_type -> io.IDReq
+	68, // 88: io.Io.createTaskLog:input_type -> io.TaskLogInfo
+	69, // 89: io.Io.getTaskLogList:input_type -> io.TaskLogListReq
+	41, // 90: io.Io.getTaskLogById:input_type -> io.IDReq
+	46, // 91: io.Io.deleteTaskLog:input_type -> io.IDsReq
+	76, // 92: io.Io.createWorkerMetrics:input_type -> io.WorkerMetricsInfo
+	76, // 93: io.Io.updateWorkerMetrics:input_type -> io.WorkerMetricsInfo
+	77, // 94: io.Io.getWorkerMetricsList:input_type -> io.WorkerMetricsListReq
+	41, // 95: io.Io.getWorkerMetricsById:input_type -> io.IDReq
+	46, // 96: io.Io.deleteWorkerMetrics:input_type -> io.IDsReq
+	6,  // 97: io.Io.initDatabase:output_type -> io.BaseResp
+	55, // 98: io.Io.listConfig:output_type -> io.ListConfigResp
+	36, // 99: io.Io.getConfig:output_type -> io.GetConfigResp
+	6,  // 100: io.Io.createConfig:output_type -> io.BaseResp
+	6,  // 101: io.Io.updateConfig:output_type -> io.BaseResp
+	6,  // 102: io.Io.deleteConfig:output_type -> io.BaseResp
+	53, // 103: io.Io.listAuditLog:output_type -> io.ListAuditLogResp
+	34, // 104: io.Io.getConfigHistory:output_type -> io.GetConfigHistoryResp
+	6,  // 105: io.Io.rollbackConfig:output_type -> io.BaseResp
+	3,  // 106: io.Io.createCronTask:output_type -> io.BaseIDResp
+	6,  // 107: io.Io.updateCronTask:output_type -> io.BaseResp
+	13, // 108: io.Io.getCronTaskList:output_type -> io.CronTaskListResp
+	11, // 109: io.Io.getCronTaskById:output_type -> io.CronTaskInfo
+	6,  // 110: io.Io.deleteCronTask:output_type -> io.BaseResp
+	3,  // 111: io.Io.createDataTarget:output_type -> io.BaseIDResp
+	6,  // 112: io.Io.updateDataTarget:output_type -> io.BaseResp
+	16, // 113: io.Io.getDataTargetList:output_type -> io.DataTargetListResp
+	14, // 114: io.Io.getDataTargetById:output_type -> io.DataTargetInfo
+	6,  // 115: io.Io.deleteDataTarget:output_type -> io.BaseResp
+	56, // 116: io.Io.listDiscoveryProviders:output_type -> io.ListProvidersResp
+	38, // 117: io.Io.getProviderSchema:output_type -> io.GetProviderSchemaResp
+	72, // 118: io.Io.testProviderConnection:output_type -> io.TestConnectionResp
+	3,  // 119: io.Io.createDiscoveryPool:output_type -> io.BaseIDResp
+	6,  // 120: io.Io.updateDiscoveryPool:output_type -> io.BaseResp
+	20, // 121: io.Io.getDiscoveryPoolList:output_type -> io.DiscoveryPoolListResp
+	18, // 122: io.Io.getDiscoveryPoolById:output_type -> io.DiscoveryPoolInfo
+	6,  // 123: io.Io.deleteDiscoveryPool:output_type -> io.BaseResp
+	6,  // 124: io.Io.approveDiscoveryPool:output_type -> io.BaseResp
+	6,  // 125: io.Io.enableDiscoveryPool:output_type -> io.BaseResp
+	6,  // 126: io.Io.disableDiscoveryPool:output_type -> io.BaseResp
+	6,  // 127: io.Io.triggerDiscoveryPool:output_type -> io.BaseResp
+	21, // 128: io.Io.getDiscoveryPoolStats:output_type -> io.DiscoveryPoolStatsResp
+	3,  // 129: io.Io.createDiscoveryProviderSchema:output_type -> io.BaseIDResp
+	6,  // 130: io.Io.updateDiscoveryProviderSchema:output_type -> io.BaseResp
+	24, // 131: io.Io.getDiscoveryProviderSchemaList:output_type -> io.DiscoveryProviderSchemaListResp
+	22, // 132: io.Io.getDiscoveryProviderSchemaById:output_type -> io.DiscoveryProviderSchemaInfo
+	6,  // 133: io.Io.deleteDiscoveryProviderSchema:output_type -> io.BaseResp
+	3,  // 134: io.Io.createDiscoveryTemplate:output_type -> io.BaseIDResp
+	6,  // 135: io.Io.updateDiscoveryTemplate:output_type -> io.BaseResp
+	27, // 136: io.Io.getDiscoveryTemplateList:output_type -> io.DiscoveryTemplateListResp
+	25, // 137: io.Io.getDiscoveryTemplateById:output_type -> io.DiscoveryTemplateInfo
+	6,  // 138: io.Io.deleteDiscoveryTemplate:output_type -> io.BaseResp
+	3,  // 139: io.Io.createFieldMapping:output_type -> io.BaseIDResp
+	6,  // 140: io.Io.updateFieldMapping:output_type -> io.BaseResp
+	32, // 141: io.Io.getFieldMappingList:output_type -> io.FieldMappingListResp
+	30, // 142: io.Io.getFieldMappingById:output_type -> io.FieldMappingInfo
+	6,  // 143: io.Io.deleteFieldMapping:output_type -> io.BaseResp
+	3,  // 144: io.Io.createInputTask:output_type -> io.BaseIDResp
+	6,  // 145: io.Io.updateInputTask:output_type -> io.BaseResp
+	51, // 146: io.Io.getInputTaskList:output_type -> io.InputTaskListResp
+	49, // 147: io.Io.getInputTaskById:output_type -> io.InputTaskInfo
+	6,  // 148: io.Io.deleteInputTask:output_type -> io.BaseResp
+	6,  // 149: io.Io.approveInputTask:output_type -> io.BaseResp
+	6,  // 150: io.Io.startInputTask:output_type -> io.BaseResp
+	6,  // 151: io.Io.pauseInputTask:output_type -> io.BaseResp
+	6,  // 152: io.Io.cancelInputTask:output_type -> io.BaseResp
+	3,  // 153: io.Io.createMappingLog:output_type -> io.BaseIDResp
+	59, // 154: io.Io.getMappingLogList:output_type -> io.MappingLogListResp
+	57, // 155: io.Io.getMappingLogById:output_type -> io.MappingLogInfo
+	6,  // 156: io.Io.deleteMappingLog:output_type -> io.BaseResp
+	3,  // 157: io.Io.createOutputTask:output_type -> io.BaseIDResp
+	6,  // 158: io.Io.updateOutputTask:output_type -> io.BaseResp
+	62, // 159: io.Io.getOutputTaskList:output_type -> io.OutputTaskListResp
+	60, // 160: io.Io.getOutputTaskById:output_type -> io.OutputTaskInfo
+	6,  // 161: io.Io.deleteOutputTask:output_type -> io.BaseResp
+	6,  // 162: io.Io.approveOutputTask:output_type -> io.BaseResp
+	6,  // 163: io.Io.startOutputTask:output_type -> io.BaseResp
+	6,  // 164: io.Io.pauseOutputTask:output_type -> io.BaseResp
+	6,  // 165: io.Io.cancelOutputTask:output_type -> io.BaseResp
+	3,  // 166: io.Io.createTaskLog:output_type -> io.BaseIDResp
+	70, // 167: io.Io.getTaskLogList:output_type -> io.TaskLogListResp
+	68, // 168: io.Io.getTaskLogById:output_type -> io.TaskLogInfo
+	6,  // 169: io.Io.deleteTaskLog:output_type -> io.BaseResp
+	3,  // 170: io.Io.createWorkerMetrics:output_type -> io.BaseIDResp
+	6,  // 171: io.Io.updateWorkerMetrics:output_type -> io.BaseResp
+	78, // 172: io.Io.getWorkerMetricsList:output_type -> io.WorkerMetricsListResp
+	76, // 173: io.Io.getWorkerMetricsById:output_type -> io.WorkerMetricsInfo
+	6,  // 174: io.Io.deleteWorkerMetrics:output_type -> io.BaseResp
+	97, // [97:175] is the sub-list for method output_type
+	19, // [19:97] is the sub-list for method input_type
+	19, // [19:19] is the sub-list for extension type_name
+	19, // [19:19] is the sub-list for extension extendee
+	0,  // [0:19] is the sub-list for field type_name
 }
 
 func init() { file_io_proto_init() }
@@ -8219,39 +9564,52 @@ func file_io_proto_init() {
 	file_io_proto_msgTypes[0].OneofWrappers = []any{}
 	file_io_proto_msgTypes[8].OneofWrappers = []any{}
 	file_io_proto_msgTypes[9].OneofWrappers = []any{}
+	file_io_proto_msgTypes[10].OneofWrappers = []any{}
 	file_io_proto_msgTypes[11].OneofWrappers = []any{}
 	file_io_proto_msgTypes[12].OneofWrappers = []any{}
 	file_io_proto_msgTypes[14].OneofWrappers = []any{}
 	file_io_proto_msgTypes[15].OneofWrappers = []any{}
+	file_io_proto_msgTypes[17].OneofWrappers = []any{}
 	file_io_proto_msgTypes[18].OneofWrappers = []any{}
 	file_io_proto_msgTypes[19].OneofWrappers = []any{}
-	file_io_proto_msgTypes[21].OneofWrappers = []any{}
 	file_io_proto_msgTypes[22].OneofWrappers = []any{}
+	file_io_proto_msgTypes[23].OneofWrappers = []any{}
 	file_io_proto_msgTypes[25].OneofWrappers = []any{}
 	file_io_proto_msgTypes[26].OneofWrappers = []any{}
-	file_io_proto_msgTypes[27].OneofWrappers = []any{}
+	file_io_proto_msgTypes[29].OneofWrappers = []any{}
 	file_io_proto_msgTypes[30].OneofWrappers = []any{}
-	file_io_proto_msgTypes[41].OneofWrappers = []any{}
-	file_io_proto_msgTypes[42].OneofWrappers = []any{}
-	file_io_proto_msgTypes[45].OneofWrappers = []any{}
-	file_io_proto_msgTypes[46].OneofWrappers = []any{}
-	file_io_proto_msgTypes[48].OneofWrappers = []any{}
+	file_io_proto_msgTypes[31].OneofWrappers = []any{}
+	file_io_proto_msgTypes[33].OneofWrappers = []any{}
+	file_io_proto_msgTypes[35].OneofWrappers = []any{}
+	file_io_proto_msgTypes[36].OneofWrappers = []any{}
+	file_io_proto_msgTypes[38].OneofWrappers = []any{}
 	file_io_proto_msgTypes[49].OneofWrappers = []any{}
+	file_io_proto_msgTypes[50].OneofWrappers = []any{}
 	file_io_proto_msgTypes[52].OneofWrappers = []any{}
 	file_io_proto_msgTypes[53].OneofWrappers = []any{}
 	file_io_proto_msgTypes[54].OneofWrappers = []any{}
 	file_io_proto_msgTypes[55].OneofWrappers = []any{}
-	file_io_proto_msgTypes[56].OneofWrappers = []any{}
-	file_io_proto_msgTypes[59].OneofWrappers = []any{}
-	file_io_proto_msgTypes[62].OneofWrappers = []any{}
-	file_io_proto_msgTypes[63].OneofWrappers = []any{}
+	file_io_proto_msgTypes[57].OneofWrappers = []any{}
+	file_io_proto_msgTypes[58].OneofWrappers = []any{}
+	file_io_proto_msgTypes[60].OneofWrappers = []any{}
+	file_io_proto_msgTypes[61].OneofWrappers = []any{}
+	file_io_proto_msgTypes[64].OneofWrappers = []any{}
+	file_io_proto_msgTypes[65].OneofWrappers = []any{}
+	file_io_proto_msgTypes[66].OneofWrappers = []any{}
+	file_io_proto_msgTypes[67].OneofWrappers = []any{}
+	file_io_proto_msgTypes[68].OneofWrappers = []any{}
+	file_io_proto_msgTypes[69].OneofWrappers = []any{}
+	file_io_proto_msgTypes[72].OneofWrappers = []any{}
+	file_io_proto_msgTypes[75].OneofWrappers = []any{}
+	file_io_proto_msgTypes[76].OneofWrappers = []any{}
+	file_io_proto_msgTypes[77].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_io_proto_rawDesc), len(file_io_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   65,
+			NumMessages:   79,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -8,6 +8,10 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/coder-lulu/newbee-io-rpc/ent"
+	"github.com/coder-lulu/newbee-io-rpc/ent/cichangehistory"
+	"github.com/coder-lulu/newbee-io-rpc/ent/cilifecyclestate"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configauditlog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configitem"
 	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
 	"github.com/coder-lulu/newbee-io-rpc/ent/datatarget"
 	"github.com/coder-lulu/newbee-io-rpc/ent/discoverypool"
@@ -78,6 +82,114 @@ func (f TraverseFunc) Traverse(ctx context.Context, q ent.Query) error {
 		return err
 	}
 	return f(ctx, query)
+}
+
+// The CiChangeHistoryFunc type is an adapter to allow the use of ordinary function as a Querier.
+type CiChangeHistoryFunc func(context.Context, *ent.CiChangeHistoryQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f CiChangeHistoryFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.CiChangeHistoryQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiChangeHistoryQuery", q)
+}
+
+// The TraverseCiChangeHistory type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseCiChangeHistory func(context.Context, *ent.CiChangeHistoryQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseCiChangeHistory) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseCiChangeHistory) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CiChangeHistoryQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.CiChangeHistoryQuery", q)
+}
+
+// The CiLifecycleStateFunc type is an adapter to allow the use of ordinary function as a Querier.
+type CiLifecycleStateFunc func(context.Context, *ent.CiLifecycleStateQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f CiLifecycleStateFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.CiLifecycleStateQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.CiLifecycleStateQuery", q)
+}
+
+// The TraverseCiLifecycleState type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseCiLifecycleState func(context.Context, *ent.CiLifecycleStateQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseCiLifecycleState) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseCiLifecycleState) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CiLifecycleStateQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.CiLifecycleStateQuery", q)
+}
+
+// The ConfigAuditLogFunc type is an adapter to allow the use of ordinary function as a Querier.
+type ConfigAuditLogFunc func(context.Context, *ent.ConfigAuditLogQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f ConfigAuditLogFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.ConfigAuditLogQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ConfigAuditLogQuery", q)
+}
+
+// The TraverseConfigAuditLog type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseConfigAuditLog func(context.Context, *ent.ConfigAuditLogQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseConfigAuditLog) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseConfigAuditLog) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.ConfigAuditLogQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.ConfigAuditLogQuery", q)
+}
+
+// The ConfigItemFunc type is an adapter to allow the use of ordinary function as a Querier.
+type ConfigItemFunc func(context.Context, *ent.ConfigItemQuery) (ent.Value, error)
+
+// Query calls f(ctx, q).
+func (f ConfigItemFunc) Query(ctx context.Context, q ent.Query) (ent.Value, error) {
+	if q, ok := q.(*ent.ConfigItemQuery); ok {
+		return f(ctx, q)
+	}
+	return nil, fmt.Errorf("unexpected query type %T. expect *ent.ConfigItemQuery", q)
+}
+
+// The TraverseConfigItem type is an adapter to allow the use of ordinary function as Traverser.
+type TraverseConfigItem func(context.Context, *ent.ConfigItemQuery) error
+
+// Intercept is a dummy implementation of Intercept that returns the next Querier in the pipeline.
+func (f TraverseConfigItem) Intercept(next ent.Querier) ent.Querier {
+	return next
+}
+
+// Traverse calls f(ctx, q).
+func (f TraverseConfigItem) Traverse(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.ConfigItemQuery); ok {
+		return f(ctx, q)
+	}
+	return fmt.Errorf("unexpected query type %T. expect *ent.ConfigItemQuery", q)
 }
 
 // The CronTaskFunc type is an adapter to allow the use of ordinary function as a Querier.
@@ -434,6 +546,14 @@ func (f TraverseWorkerMetrics) Traverse(ctx context.Context, q ent.Query) error 
 // NewQuery returns the generic Query interface for the given typed query.
 func NewQuery(q ent.Query) (Query, error) {
 	switch q := q.(type) {
+	case *ent.CiChangeHistoryQuery:
+		return &query[*ent.CiChangeHistoryQuery, predicate.CiChangeHistory, cichangehistory.OrderOption]{typ: ent.TypeCiChangeHistory, tq: q}, nil
+	case *ent.CiLifecycleStateQuery:
+		return &query[*ent.CiLifecycleStateQuery, predicate.CiLifecycleState, cilifecyclestate.OrderOption]{typ: ent.TypeCiLifecycleState, tq: q}, nil
+	case *ent.ConfigAuditLogQuery:
+		return &query[*ent.ConfigAuditLogQuery, predicate.ConfigAuditLog, configauditlog.OrderOption]{typ: ent.TypeConfigAuditLog, tq: q}, nil
+	case *ent.ConfigItemQuery:
+		return &query[*ent.ConfigItemQuery, predicate.ConfigItem, configitem.OrderOption]{typ: ent.TypeConfigItem, tq: q}, nil
 	case *ent.CronTaskQuery:
 		return &query[*ent.CronTaskQuery, predicate.CronTask, crontask.OrderOption]{typ: ent.TypeCronTask, tq: q}, nil
 	case *ent.DataTargetQuery:

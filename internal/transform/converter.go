@@ -1,6 +1,7 @@
 package transform
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"strconv"
@@ -17,14 +18,17 @@ import (
 // 2. 模板转换
 // 3. 字符串操作（拼接、拆分）
 // 4. 数值计算
+// 5. 脚本转换（JavaScript）
 type TypeConverter struct {
-	logger logx.Logger
+	logger         logx.Logger
+	scriptExecutor *ScriptExecutor
 }
 
 // NewTypeConverter 创建类型转换器
 func NewTypeConverter(logger logx.Logger) *TypeConverter {
 	return &TypeConverter{
-		logger: logger,
+		logger:         logger,
+		scriptExecutor: NewScriptExecutor(logger),
 	}
 }
 
@@ -81,7 +85,7 @@ func (c *TypeConverter) TransformWithConfig(value interface{}, mapping *ent.Fiel
 	case TransformTypeCalculate:
 		return c.calculate(value, mapping)
 	case TransformTypeScript:
-		return nil, fmt.Errorf("script transform not implemented yet")
+		return c.executeScript(value, mapping)
 	default:
 		return nil, fmt.Errorf("unsupported transform type: %s", transformType)
 	}
@@ -373,6 +377,39 @@ func (c *TypeConverter) calculate(value interface{}, mapping *ent.FieldMapping) 
 	}
 
 	return 0, fmt.Errorf("unsupported expression: %s", expression)
+}
+
+// executeScript 执行 JavaScript 脚本转换
+func (c *TypeConverter) executeScript(value interface{}, mapping *ent.FieldMapping) (interface{}, error) {
+	if mapping.TransformConfig == "" {
+		return nil, fmt.Errorf("script config is empty")
+	}
+
+	var config TransformConfig
+	if err := json.Unmarshal([]byte(mapping.TransformConfig), &config); err != nil {
+		return nil, fmt.Errorf("failed to parse script config: %w", err)
+	}
+
+	if config.Script == "" {
+		return nil, fmt.Errorf("script is empty")
+	}
+
+	// 构造完整记录（如果有额外参数）
+	record := make(map[string]interface{})
+	if config.Params != nil {
+		for key, val := range config.Params {
+			record[key] = val
+		}
+	}
+
+	// 执行脚本
+	ctx := context.Background() // 使用 background context，实际应该从外部传入
+	result, err := c.scriptExecutor.Execute(ctx, config.Script, value, record)
+	if err != nil {
+		return nil, fmt.Errorf("script execution failed: %w", err)
+	}
+
+	return result, nil
 }
 
 // getTimeFormats 获取时间格式列表

@@ -9,6 +9,54 @@ import (
 	"github.com/coder-lulu/newbee-io-rpc/ent"
 )
 
+// The CiChangeHistoryFunc type is an adapter to allow the use of ordinary
+// function as CiChangeHistory mutator.
+type CiChangeHistoryFunc func(context.Context, *ent.CiChangeHistoryMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CiChangeHistoryFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.CiChangeHistoryMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiChangeHistoryMutation", m)
+}
+
+// The CiLifecycleStateFunc type is an adapter to allow the use of ordinary
+// function as CiLifecycleState mutator.
+type CiLifecycleStateFunc func(context.Context, *ent.CiLifecycleStateMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CiLifecycleStateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.CiLifecycleStateMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CiLifecycleStateMutation", m)
+}
+
+// The ConfigAuditLogFunc type is an adapter to allow the use of ordinary
+// function as ConfigAuditLog mutator.
+type ConfigAuditLogFunc func(context.Context, *ent.ConfigAuditLogMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ConfigAuditLogFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.ConfigAuditLogMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ConfigAuditLogMutation", m)
+}
+
+// The ConfigItemFunc type is an adapter to allow the use of ordinary
+// function as ConfigItem mutator.
+type ConfigItemFunc func(context.Context, *ent.ConfigItemMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ConfigItemFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.ConfigItemMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ConfigItemMutation", m)
+}
+
 // The CronTaskFunc type is an adapter to allow the use of ordinary
 // function as CronTask mutator.
 type CronTaskFunc func(context.Context, *ent.CronTaskMutation) (ent.Value, error)

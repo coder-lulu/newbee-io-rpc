@@ -1,0 +1,13 @@
+Name: config.rpc
+ListenOn: 0.0.0.0:0
+
+
+Log:
+  ServiceName: configRpcLogger
+  Mode: file
+  Path: /home/data/logs/config/rpc
+  Encoding: json
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCoolDownMillis: 100

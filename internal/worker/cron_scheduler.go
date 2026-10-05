@@ -9,6 +9,7 @@ import (
 	"github.com/coder-lulu/newbee-common/v2/orm/ent/hooks"
 	"github.com/coder-lulu/newbee-io-rpc/ent"
 	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
+	"github.com/coder-lulu/newbee-io-rpc/internal/lock"
 	"github.com/robfig/cron/v3"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -22,11 +23,12 @@ type CronScheduler struct {
 	taskMapLock sync.RWMutex
 	ctx         context.Context
 	cancel      context.CancelFunc
+	lockManager *lock.DistributedLockManager // 分布式锁管理器（防止多实例重复触发）
 }
 
 // NewCronScheduler creates a new CronScheduler instance
 // 创建新的 CronScheduler 实例
-func NewCronScheduler(db *ent.Client) *CronScheduler {
+func NewCronScheduler(db *ent.Client, lockManager *lock.DistributedLockManager) *CronScheduler {
 	// 创建 cron 实例，使用标准5字段格式 (分 时 日 月 周)
 	// 使用 UTC 时区，避免夏令时问题
 	c := cron.New(
@@ -39,11 +41,12 @@ func NewCronScheduler(db *ent.Client) *CronScheduler {
 	ctx, cancel := context.WithCancel(context.Background())
 
 	return &CronScheduler{
-		db:      db,
-		cron:    c,
-		taskMap: make(map[uint64]cron.EntryID),
-		ctx:     ctx,
-		cancel:  cancel,
+		db:          db,
+		cron:        c,
+		taskMap:     make(map[uint64]cron.EntryID),
+		ctx:         ctx,
+		cancel:      cancel,
+		lockManager: lockManager,
 	}
 }
 
@@ -206,10 +209,52 @@ func (cs *CronScheduler) UpdateTask(task *ent.CronTask) error {
 
 // executeTask executes a cron task by creating an InputTask instance
 // 执行 Cron 任务（创建一个 InputTask 实例）
+//
+// 🔒 多实例保护：使用分布式锁确保同一时刻只有一个实例能创建InputTask
 func (cs *CronScheduler) executeTask(cronTaskID uint64) {
 	logx.Infow("Cron task triggered",
 		logx.Field("cron_task_id", cronTaskID))
 
+	// 🔒 使用分布式锁防止多实例重复创建InputTask
+	// 锁的key格式：cron:task:{cronTaskID}:exec
+	// 锁的过期时间：30秒（足够完成一次InputTask创建）
+	// 策略：如果获取锁失败，跳过本次执行（由获取到锁的实例执行）
+	lockKey := fmt.Sprintf("cron:task:%d:exec", cronTaskID)
+
+	if cs.lockManager == nil {
+		logx.Infow("LockManager not initialized, executing without distributed lock protection",
+			logx.Field("cron_task_id", cronTaskID))
+		cs.executeTaskWithoutLock(cronTaskID)
+		return
+	}
+
+	// 尝试获取锁并执行
+	executed, err := cs.lockManager.ExecuteWithLockOrSkip(
+		cs.ctx,
+		lockKey,
+		30*time.Second, // 锁的过期时间
+		func() error {
+			cs.executeTaskWithoutLock(cronTaskID)
+			return nil
+		},
+	)
+
+	if err != nil {
+		logx.Errorw("Failed to execute cron task with lock",
+			logx.Field("cron_task_id", cronTaskID),
+			logx.Field("error", err))
+		return
+	}
+
+	if !executed {
+		logx.Infow("Cron task execution skipped (lock held by another instance)",
+			logx.Field("cron_task_id", cronTaskID),
+			logx.Field("lock_key", lockKey))
+	}
+}
+
+// executeTaskWithoutLock 实际执行任务的内部方法（不包含锁逻辑）
+func (cs *CronScheduler) executeTaskWithoutLock(cronTaskID uint64) {
 	// 使用 SystemContext 绕过租户隔离
 	systemCtx := hooks.NewSystemContext(cs.ctx)
 

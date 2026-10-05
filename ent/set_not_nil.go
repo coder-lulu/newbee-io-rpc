@@ -10,6 +10,1638 @@ import (
 )
 
 // set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilUpdatedAt(value *time.Time) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilUpdatedAt(value *time.Time) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilUpdatedAt(value *time.Time) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilDepartmentID(value *uint64) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilDepartmentID(value *uint64) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilDepartmentID(value *uint64) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilOperationID(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetOperationID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilOperationID(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetOperationID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilOperationID(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetOperationID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilCiID(value *uint64) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetCiID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilCiID(value *uint64) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetCiID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilCiID(value *uint64) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetCiID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilCiTypeID(value *uint64) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetCiTypeID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilCiTypeID(value *uint64) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetCiTypeID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilCiTypeID(value *uint64) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetCiTypeID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilCiType(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetCiType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilCiType(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetCiType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilCiType(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetCiType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilOperationType(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetOperationType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilOperationType(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetOperationType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilOperationType(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetOperationType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilOperationName(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetOperationName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilOperationName(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetOperationName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilOperationName(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetOperationName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilOperatorID(value *uint64) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetOperatorID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilOperatorID(value *uint64) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetOperatorID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilOperatorID(value *uint64) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetOperatorID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilOperatorName(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetOperatorName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilOperatorName(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetOperatorName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilOperatorName(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetOperatorName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilChangedFields(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetChangedFields(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilChangedFields(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetChangedFields(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilChangedFields(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetChangedFields(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilOldValues(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetOldValues(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilOldValues(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetOldValues(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilOldValues(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetOldValues(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilNewValues(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetNewValues(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilNewValues(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetNewValues(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilNewValues(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetNewValues(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilChangeReason(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetChangeReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilChangeReason(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetChangeReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilChangeReason(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetChangeReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilSource(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetSource(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilSource(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetSource(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilSource(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetSource(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilSourceDetail(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetSourceDetail(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilSourceDetail(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetSourceDetail(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilSourceDetail(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetSourceDetail(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilSourceTaskID(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetSourceTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilSourceTaskID(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetSourceTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilSourceTaskID(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetSourceTaskID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilIPAddress(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetIPAddress(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilIPAddress(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetIPAddress(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilIPAddress(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetIPAddress(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilUserAgent(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetUserAgent(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilUserAgent(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetUserAgent(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilUserAgent(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetUserAgent(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilNeedsApproval(value *bool) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetNeedsApproval(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilNeedsApproval(value *bool) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetNeedsApproval(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilNeedsApproval(value *bool) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetNeedsApproval(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilIsApproved(value *bool) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetIsApproved(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilIsApproved(value *bool) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetIsApproved(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilIsApproved(value *bool) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetIsApproved(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilApprovedBy(value *uint64) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetApprovedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilApprovedBy(value *uint64) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetApprovedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilApprovedBy(value *uint64) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetApprovedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilApprovedByName(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetApprovedByName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilApprovedByName(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetApprovedByName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilApprovedByName(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetApprovedByName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilApprovedAt(value *time.Time) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetApprovedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilApprovedAt(value *time.Time) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetApprovedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilApprovedAt(value *time.Time) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetApprovedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilApprovalComment(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetApprovalComment(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilApprovalComment(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetApprovalComment(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilApprovalComment(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetApprovalComment(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilStatus(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilStatus(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilStatus(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilErrorMessage(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilErrorMessage(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilErrorMessage(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetErrorMessage(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilIsRollback(value *bool) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetIsRollback(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilIsRollback(value *bool) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetIsRollback(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilIsRollback(value *bool) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetIsRollback(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilRollbackFromID(value *uint64) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetRollbackFromID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilRollbackFromID(value *uint64) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetRollbackFromID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilRollbackFromID(value *uint64) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetRollbackFromID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilCanRollback(value *bool) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetCanRollback(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilCanRollback(value *bool) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetCanRollback(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilCanRollback(value *bool) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetCanRollback(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilAffectedCount(value *int) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetAffectedCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilAffectedCount(value *int) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetAffectedCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilAffectedCount(value *int) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetAffectedCount(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilDurationMs(value *int) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetDurationMs(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilDurationMs(value *int) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetDurationMs(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilDurationMs(value *int) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetDurationMs(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdate) SetNotNilMetadata(value *string) *CiChangeHistoryUpdate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryUpdateOne) SetNotNilMetadata(value *string) *CiChangeHistoryUpdateOne {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *CiChangeHistoryCreate) SetNotNilMetadata(value *string) *CiChangeHistoryCreate {
+	if value != nil {
+		return _m.SetMetadata(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilUpdatedAt(value *time.Time) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilUpdatedAt(value *time.Time) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilDepartmentID(value *uint64) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilDepartmentID(value *uint64) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilDepartmentID(value *uint64) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilConfigKey(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetConfigKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilConfigKey(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetConfigKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilConfigKey(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetConfigKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilOldValue(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetOldValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilOldValue(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetOldValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilOldValue(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetOldValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilNewValue(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetNewValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilNewValue(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetNewValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilNewValue(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetNewValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilChangeType(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetChangeType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilChangeType(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetChangeType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilChangeType(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetChangeType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilChangedBy(value *uint64) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetChangedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilChangedBy(value *uint64) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetChangedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilChangedBy(value *uint64) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetChangedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilChangedByName(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetChangedByName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilChangedByName(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetChangedByName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilChangedByName(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetChangedByName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilServiceName(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetServiceName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilServiceName(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetServiceName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilServiceName(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetServiceName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilCategory(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetCategory(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilCategory(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetCategory(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilCategory(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetCategory(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilConfigGroup(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetConfigGroup(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilConfigGroup(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetConfigGroup(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilConfigGroup(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetConfigGroup(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilChangeReason(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetChangeReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilChangeReason(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetChangeReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilChangeReason(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetChangeReason(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilIPAddress(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetIPAddress(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilIPAddress(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetIPAddress(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilIPAddress(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetIPAddress(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilUserAgent(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetUserAgent(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilUserAgent(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetUserAgent(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilUserAgent(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetUserAgent(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilOldVersion(value *int) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetOldVersion(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilOldVersion(value *int) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetOldVersion(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilOldVersion(value *int) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetOldVersion(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilNewVersion(value *int) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetNewVersion(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilNewVersion(value *int) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetNewVersion(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilNewVersion(value *int) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetNewVersion(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilIsRollback(value *bool) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetIsRollback(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilIsRollback(value *bool) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetIsRollback(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilIsRollback(value *bool) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetIsRollback(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdate) SetNotNilRollbackFromLogID(value *string) *ConfigAuditLogUpdate {
+	if value != nil {
+		return _m.SetRollbackFromLogID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogUpdateOne) SetNotNilRollbackFromLogID(value *string) *ConfigAuditLogUpdateOne {
+	if value != nil {
+		return _m.SetRollbackFromLogID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigAuditLogCreate) SetNotNilRollbackFromLogID(value *string) *ConfigAuditLogCreate {
+	if value != nil {
+		return _m.SetRollbackFromLogID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilUpdatedAt(value *time.Time) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilUpdatedAt(value *time.Time) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilUpdatedAt(value *time.Time) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetUpdatedAt(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilStatus(value *uint8) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilStatus(value *uint8) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilStatus(value *uint8) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetStatus(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilDepartmentID(value *uint64) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilDepartmentID(value *uint64) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilDepartmentID(value *uint64) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetDepartmentID(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilConfigKey(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetConfigKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilConfigKey(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetConfigKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilConfigKey(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetConfigKey(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilConfigValue(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetConfigValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilConfigValue(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetConfigValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilConfigValue(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetConfigValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilValueType(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetValueType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilValueType(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetValueType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilValueType(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetValueType(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilCategory(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetCategory(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilCategory(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetCategory(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilCategory(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetCategory(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilServiceName(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetServiceName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilServiceName(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetServiceName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilServiceName(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetServiceName(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilDescription(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilDescription(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilDescription(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetDescription(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilDefaultValue(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetDefaultValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilDefaultValue(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetDefaultValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilDefaultValue(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetDefaultValue(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilVersion(value *int) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetVersion(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilVersion(value *int) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetVersion(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilVersion(value *int) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetVersion(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilUpdatedBy(value *uint64) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetUpdatedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilUpdatedBy(value *uint64) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetUpdatedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilUpdatedBy(value *uint64) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetUpdatedBy(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilIsReadonly(value *bool) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetIsReadonly(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilIsReadonly(value *bool) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetIsReadonly(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilIsReadonly(value *bool) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetIsReadonly(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilIsSensitive(value *bool) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetIsSensitive(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilIsSensitive(value *bool) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetIsSensitive(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilIsSensitive(value *bool) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetIsSensitive(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilScope(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetScope(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilScope(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetScope(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilScope(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetScope(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilConfigGroup(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetConfigGroup(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilConfigGroup(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetConfigGroup(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilConfigGroup(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetConfigGroup(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdate) SetNotNilTags(value *string) *ConfigItemUpdate {
+	if value != nil {
+		return _m.SetTags(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemUpdateOne) SetNotNilTags(value *string) *ConfigItemUpdateOne {
+	if value != nil {
+		return _m.SetTags(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
+func (_m *ConfigItemCreate) SetNotNilTags(value *string) *ConfigItemCreate {
+	if value != nil {
+		return _m.SetTags(*value)
+	}
+	return _m
+}
+
+// set field if value's pointer is not nil.
 func (_m *CronTaskUpdate) SetNotNilUpdatedAt(value *time.Time) *CronTaskUpdate {
 	if value != nil {
 		return _m.SetUpdatedAt(*value)

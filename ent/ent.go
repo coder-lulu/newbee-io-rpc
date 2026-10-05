@@ -12,6 +12,10 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
+	"github.com/coder-lulu/newbee-io-rpc/ent/cichangehistory"
+	"github.com/coder-lulu/newbee-io-rpc/ent/cilifecyclestate"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configauditlog"
+	"github.com/coder-lulu/newbee-io-rpc/ent/configitem"
 	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
 	"github.com/coder-lulu/newbee-io-rpc/ent/datatarget"
 	"github.com/coder-lulu/newbee-io-rpc/ent/discoverypool"
@@ -85,6 +89,10 @@ var (
 func checkColumn(t, c string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
+			cichangehistory.Table:         cichangehistory.ValidColumn,
+			cilifecyclestate.Table:        cilifecyclestate.ValidColumn,
+			configauditlog.Table:          configauditlog.ValidColumn,
+			configitem.Table:              configitem.ValidColumn,
 			crontask.Table:                crontask.ValidColumn,
 			datatarget.Table:              datatarget.ValidColumn,
 			discoverypool.Table:           discoverypool.ValidColumn,
