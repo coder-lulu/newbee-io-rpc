@@ -10,6 +10,7 @@ import (
 	"github.com/coder-lulu/newbee-io-rpc/types/io"
 
 	"github.com/zeromicro/go-zero/core/conf"
+	"github.com/zeromicro/go-zero/core/prometheus"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
@@ -26,7 +27,12 @@ func main() {
 
 	ctx := svc.NewServiceContext(c)
 
-	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
+	// The service context owns the metrics/health HTTP listener; keep RPC metrics
+	// enabled without starting a second Prometheus listener on the same address.
+	prometheus.Enable()
+	rpcConf := c.RpcServerConf
+	rpcConf.Prometheus.Host = ""
+	s := zrpc.MustNewServer(rpcConf, func(grpcServer *grpc.Server) {
 		io.RegisterIoServer(grpcServer, server.NewIoServer(ctx))
 
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
