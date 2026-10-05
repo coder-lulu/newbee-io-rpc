@@ -54,7 +54,7 @@ type ConfigOptions struct {
 
 const (
 	// Redis key前缀
-	redisConfigPrefix = "unified-io:config"
+	redisConfigPrefix  = "unified-io:config"
 	redisPubSubChannel = "unified-io:config:update"
 
 	// 默认缓存TTL
@@ -558,7 +558,9 @@ func (cc *ConfigCenter) recordAuditLog(
 		}
 
 		// 保存审计日志
-		if _, err := builder.Save(context.Background()); err != nil {
+		auditContext, cancel := newAuditContext(ctx)
+		defer cancel()
+		if _, err := builder.Save(auditContext); err != nil {
 			cc.logger.Errorw("Failed to record config audit log",
 				logx.Field("key", key),
 				logx.Field("change_type", changeType),
@@ -647,4 +649,9 @@ func (cc *ConfigCenter) GetConfigHistory(ctx context.Context, tenantID uint64, c
 	}
 
 	return logs, nil
+}
+
+// newAuditContext lets the audit write finish after the caller disconnects while retaining tenant identity.
+func newAuditContext(ctx context.Context) (context.Context, context.CancelFunc) {
+	return context.WithTimeout(context.WithoutCancel(ctx), 10*time.Second)
 }

@@ -31,7 +31,10 @@ func (l *GetConfigLogic) GetConfig(in *io.GetConfigReq) (*io.GetConfigResp, erro
 	}
 
 	// 获取租户ID
-	tenantID := l.ctx.Value("tenantId").(uint64)
+	tenantID, tenantErr := requireTenant(l.ctx)
+	if tenantErr != nil {
+		return nil, tenantErr
+	}
 
 	// 查询配置
 	cfg, err := l.svcCtx.DB.ConfigItem.Query().

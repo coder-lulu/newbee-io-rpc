@@ -3,6 +3,8 @@ package svc
 import (
 	"context"
 
+	"github.com/coder-lulu/newbee-cmdb-rpc/cmdbclient"
+	"github.com/coder-lulu/newbee-core/rpc/coreclient"
 	"github.com/coder-lulu/newbee-io-rpc/ent"
 	_ "github.com/coder-lulu/newbee-io-rpc/ent/runtime"
 	"github.com/coder-lulu/newbee-io-rpc/internal/config"
@@ -10,8 +12,6 @@ import (
 	"github.com/coder-lulu/newbee-io-rpc/internal/monitoring"
 	"github.com/coder-lulu/newbee-io-rpc/internal/service"
 	"github.com/coder-lulu/newbee-io-rpc/internal/worker"
-	"github.com/coder-lulu/newbee-cmdb-rpc/cmdbclient"
-	"github.com/coder-lulu/newbee-core/rpc/coreclient"
 	"github.com/coder-lulu/newbee-ops-rpc/opsclient"
 
 	"github.com/coder-lulu/newbee-common/v2/orm/ent/hooks"
@@ -21,18 +21,18 @@ import (
 )
 
 type ServiceContext struct {
-	Config            config.Config
-	DB                *ent.Client
-	Redis             redis.UniversalClient
-	CoreRpc           coreclient.Core                // Core服务RPC客户端
-	OpsRpc            opsclient.Ops                  // Ops-Center服务RPC客户端
-	CmdbRpc           cmdbclient.Cmdb                // CMDB服务RPC客户端
-	TaskWorker        *worker.TaskWorker             // 任务处理Worker
-	CronScheduler     *worker.CronScheduler          // Cron调度器
-	ConfigCenter      *service.ConfigCenter          // 配置中心服务
-	OutputProcessor   *worker.OutputProcessor        // 输出处理器
-	PrometheusServer  *monitoring.PrometheusServer   // Prometheus监控服务器
-	MetricsCollector  *monitoring.MetricsCollector   // 指标收集器
+	Config           config.Config
+	DB               *ent.Client
+	Redis            redis.UniversalClient
+	CoreRpc          coreclient.Core              // Core服务RPC客户端
+	OpsRpc           opsclient.Ops                // Ops-Center服务RPC客户端
+	CmdbRpc          cmdbclient.Cmdb              // CMDB服务RPC客户端
+	TaskWorker       *worker.TaskWorker           // 任务处理Worker
+	CronScheduler    *worker.CronScheduler        // Cron调度器
+	ConfigCenter     *service.ConfigCenter        // 配置中心服务
+	OutputProcessor  *worker.OutputProcessor      // 输出处理器
+	PrometheusServer *monitoring.PrometheusServer // Prometheus监控服务器
+	MetricsCollector *monitoring.MetricsCollector // 指标收集器
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -42,14 +42,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		ent.Debug(), // debug mode
 	)
 
-	// 🎯 使用统一Hook系统 - 一键设置租户和部门Hook
-	// 配置Unified-IO服务的租户过滤规则 - 添加特有的系统表
-	hooks.AddExcludedTable("cmdb_asset_types")    // 资产类型表是系统级数据
-	hooks.AddExcludedTable("cmdb_templates")      // 模板表是系统级数据
-	hooks.AddExcludedTable("cmdb_attribute_definitions") // 属性定义表是系统级数据
-
-	// 一键设置：初始化配置 + 注册所有hooks (租户Hook + 部门Hook)
-	if err := hooks.QuickSetup(db); err != nil {
+	if err := setupIOHooks(db); err != nil {
 		logx.Errorw("Failed to setup unified hooks", logx.Field("error", err.Error()))
 		panic("统一Hook初始化失败: " + err.Error())
 	}
@@ -263,4 +256,24 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		PrometheusServer: prometheusServer,
 		MetricsCollector: metricsCollector,
 	}
+}
+
+// setupIOHooks declares the one global metrics entity that has no TenantMixin.
+// Tenant-bearing IO entities continue to use strict tenant hooks.
+func setupIOHooks(db *ent.Client) error {
+	hooks.AddExcludedTable("cmdb_asset_types")
+	hooks.AddExcludedTable("cmdb_templates")
+	hooks.AddExcludedTable("cmdb_attribute_definitions")
+	hooks.AddExcludedTable("io_worker_metrics")
+	if err := hooks.QuickSetup(db); err != nil {
+		return err
+	}
+	tenantConfig := hooks.GlobalHookManager.GetConfig(hooks.FieldTypeTenant)
+	for _, entity := range tenantConfig.ExcludedEntities {
+		if entity == "WorkerMetrics" {
+			return nil
+		}
+	}
+	tenantConfig.ExcludedEntities = append(tenantConfig.ExcludedEntities, "WorkerMetrics")
+	return nil
 }

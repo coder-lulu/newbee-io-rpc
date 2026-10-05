@@ -11,7 +11,7 @@ import (
 	"github.com/coder-lulu/newbee-io-rpc/types/io"
 
 	"github.com/coder-lulu/newbee-io-rpc/internal/utils"
-    "github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type GetInputTaskListLogic struct {
@@ -95,25 +95,25 @@ func (l *GetInputTaskListLogic) GetInputTaskList(in *io.InputTaskListReq) (*io.I
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &io.InputTaskInfo{
-			Id:          &v.ID,
-			CreatedAt:   utils.GetPointer(v.CreatedAt.UnixMilli()),
-			UpdatedAt:   utils.GetPointer(v.UpdatedAt.UnixMilli()),
-			Status:	utils.GetPointer(uint32(v.Status)),
-			TaskName:	&v.TaskName,
-			TaskType:	&v.TaskType,
-			InputSource:	&v.InputSource,
-			SourceConfig:	&v.SourceConfig,
-			TaskStatus:	&v.TaskStatus,
-			DiscoveryPoolId:	v.DiscoveryPoolID,
-			ScheduledAt:	utils.GetUnixMilliPointer(v.ScheduledAt.UnixMilli()),
-			StartedAt:	utils.GetUnixMilliPointer(v.StartedAt.UnixMilli()),
-			CompletedAt:	utils.GetUnixMilliPointer(v.CompletedAt.UnixMilli()),
-			TotalRecords:	&v.TotalRecords,
-			ProcessedRecords:	&v.ProcessedRecords,
-			SuccessRecords:	&v.SuccessRecords,
-			FailedRecords:	&v.FailedRecords,
-			ErrorMessage:	&v.ErrorMessage,
-			Metadata:	&v.Metadata,
+			Id:               &v.ID,
+			CreatedAt:        utils.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt:        utils.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:           utils.GetPointer(uint32(v.Status)),
+			TaskName:         &v.TaskName,
+			TaskType:         &v.TaskType,
+			InputSource:      &v.InputSource,
+			SourceConfig:     &v.SourceConfig,
+			TaskStatus:       &v.TaskStatus,
+			DiscoveryPoolId:  v.DiscoveryPoolID,
+			ScheduledAt:      utils.TimeToUnixMilli(v.ScheduledAt),
+			StartedAt:        utils.TimeToUnixMilli(v.StartedAt),
+			CompletedAt:      utils.TimeToUnixMilli(v.CompletedAt),
+			TotalRecords:     &v.TotalRecords,
+			ProcessedRecords: &v.ProcessedRecords,
+			SuccessRecords:   &v.SuccessRecords,
+			FailedRecords:    &v.FailedRecords,
+			ErrorMessage:     &v.ErrorMessage,
+			Metadata:         &v.Metadata,
 		})
 	}
 

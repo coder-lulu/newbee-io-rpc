@@ -7,11 +7,12 @@ import (
 	"github.com/coder-lulu/newbee-io-rpc/ent/crontask"
 	"github.com/coder-lulu/newbee-io-rpc/ent/predicate"
 	"github.com/coder-lulu/newbee-io-rpc/internal/svc"
+	"github.com/coder-lulu/newbee-io-rpc/internal/utils"
 	"github.com/coder-lulu/newbee-io-rpc/internal/utils/dberrorhandler"
 	"github.com/coder-lulu/newbee-io-rpc/types/io"
 
 	"github.com/suyuan32/simple-admin-common/utils/pointy"
-    "github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type GetCronTaskListLogic struct {
@@ -83,21 +84,21 @@ func (l *GetCronTaskListLogic) GetCronTaskList(in *io.CronTaskListReq) (*io.Cron
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &io.CronTaskInfo{
-			Id:          &v.ID,
-			CreatedAt:   pointy.GetPointer(v.CreatedAt.UnixMilli()),
-			UpdatedAt:   pointy.GetPointer(v.UpdatedAt.UnixMilli()),
-			Status:	pointy.GetPointer(uint32(v.Status)),
-			TaskName:	&v.TaskName,
-			CronExpression:	&v.CronExpression,
-			InputSource:	&v.InputSource,
-			SourceConfig:	&v.SourceConfig,
-			Enabled:	&v.Enabled,
-			NextRunTime:	pointy.GetUnixMilliPointer(v.NextRunTime.UnixMilli()),
-			LastRunTime:	pointy.GetUnixMilliPointer(v.LastRunTime.UnixMilli()),
-			ExecutionCount:	pointy.GetPointer(int64(v.ExecutionCount)),
-			SuccessCount:	pointy.GetPointer(int64(v.SuccessCount)),
-			FailureCount:	pointy.GetPointer(int64(v.FailureCount)),
-			Description:	&v.Description,
+			Id:             &v.ID,
+			CreatedAt:      pointy.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt:      pointy.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:         pointy.GetPointer(uint32(v.Status)),
+			TaskName:       &v.TaskName,
+			CronExpression: &v.CronExpression,
+			InputSource:    &v.InputSource,
+			SourceConfig:   &v.SourceConfig,
+			Enabled:        &v.Enabled,
+			NextRunTime:    pointy.GetUnixMilliPointer(v.NextRunTime.UnixMilli()),
+			LastRunTime:    utils.TimeToUnixMilli(v.LastRunTime),
+			ExecutionCount: pointy.GetPointer(int64(v.ExecutionCount)),
+			SuccessCount:   pointy.GetPointer(int64(v.SuccessCount)),
+			FailureCount:   pointy.GetPointer(int64(v.FailureCount)),
+			Description:    &v.Description,
 		})
 	}
 

@@ -29,7 +29,10 @@ func (l *DeleteConfigLogic) DeleteConfig(in *io.DeleteConfigReq) (*io.BaseResp, 
 	}
 
 	// 获取租户ID
-	tenantID := l.ctx.Value("tenantId").(uint64)
+	tenantID, tenantErr := requireTenant(l.ctx)
+	if tenantErr != nil {
+		return nil, tenantErr
+	}
 
 	// 使用ConfigCenter.Delete删除配置（会自动记录审计日志）
 	err := l.svcCtx.ConfigCenter.Delete(l.ctx, *in.ConfigKey, tenantID)

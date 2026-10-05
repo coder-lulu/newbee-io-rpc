@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"time"
 	"go.openly.dev/pointy"
+	"time"
 )
 
 // GetPointer wraps pointy.Pointer for compatibility with goctls generated code
@@ -22,4 +22,13 @@ func GetTimeMilliPointer(v *int64) *time.Time {
 	}
 	t := time.UnixMilli(*v)
 	return &t
+}
+
+// TimeToUnixMilli preserves optional timestamps when reading entities.
+func TimeToUnixMilli(v *time.Time) *int64 {
+	if v == nil {
+		return nil
+	}
+	value := v.UnixMilli()
+	return &value
 }

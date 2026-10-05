@@ -31,7 +31,10 @@ func (l *GetConfigHistoryLogic) GetConfigHistory(in *io.GetConfigHistoryReq) (*i
 	}
 
 	// 获取租户ID
-	tenantID := l.ctx.Value("tenantId").(uint64)
+	tenantID, tenantErr := requireTenant(l.ctx)
+	if tenantErr != nil {
+		return nil, tenantErr
+	}
 
 	// 查询配置历史（按时间正序）
 	logs, err := l.svcCtx.DB.ConfigAuditLog.Query().
@@ -57,25 +60,25 @@ func (l *GetConfigHistoryLogic) GetConfigHistory(in *io.GetConfigHistoryReq) (*i
 		createdAt := log.CreatedAt.Unix()
 
 		items = append(items, &io.ConfigAuditLog{
-			Id:                 &log.ID,
-			TenantId:           &log.TenantID,
-			ConfigKey:          &log.ConfigKey,
-			OldValue:           &log.OldValue,
-			NewValue:           &log.NewValue,
-			ChangeType:         &log.ChangeType,
-			ChangedBy:          &log.ChangedBy,
-			ChangedByName:      &log.ChangedByName,
-			ServiceName:        &log.ServiceName,
-			Category:           &log.Category,
-			ConfigGroup:        &log.ConfigGroup,
-			ChangeReason:       &log.ChangeReason,
-			IpAddress:          &log.IPAddress,
-			UserAgent:          &log.UserAgent,
-			OldVersion:         &oldVersion,
-			NewVersion:         &newVersion,
-			IsRollback:         &log.IsRollback,
-			RollbackFromLogId:  &log.RollbackFromLogID,
-			CreatedAt:          &createdAt,
+			Id:                &log.ID,
+			TenantId:          &log.TenantID,
+			ConfigKey:         &log.ConfigKey,
+			OldValue:          &log.OldValue,
+			NewValue:          &log.NewValue,
+			ChangeType:        &log.ChangeType,
+			ChangedBy:         &log.ChangedBy,
+			ChangedByName:     &log.ChangedByName,
+			ServiceName:       &log.ServiceName,
+			Category:          &log.Category,
+			ConfigGroup:       &log.ConfigGroup,
+			ChangeReason:      &log.ChangeReason,
+			IpAddress:         &log.IPAddress,
+			UserAgent:         &log.UserAgent,
+			OldVersion:        &oldVersion,
+			NewVersion:        &newVersion,
+			IsRollback:        &log.IsRollback,
+			RollbackFromLogId: &log.RollbackFromLogID,
+			CreatedAt:         &createdAt,
 		})
 	}
 

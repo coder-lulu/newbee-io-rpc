@@ -11,7 +11,7 @@ import (
 	"github.com/coder-lulu/newbee-io-rpc/types/io"
 
 	"github.com/coder-lulu/newbee-io-rpc/internal/utils"
-    "github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type GetDiscoveryPoolListLogic struct {
@@ -116,32 +116,32 @@ func (l *GetDiscoveryPoolListLogic) GetDiscoveryPoolList(in *io.DiscoveryPoolLis
 
 	for _, v := range result.List {
 		resp.Data = append(resp.Data, &io.DiscoveryPoolInfo{
-			Id:          &v.ID,
-			CreatedAt:   utils.GetPointer(v.CreatedAt.UnixMilli()),
-			UpdatedAt:   utils.GetPointer(v.UpdatedAt.UnixMilli()),
-			Status:	utils.GetPointer(uint32(v.Status)),
-			Name:	&v.Name,
-			Description:	&v.Description,
-			DiscoveryType:	&v.DiscoveryType,
-			PoolStatus:	&v.PoolStatus,
-			DiscoveryConfig:	&v.DiscoveryConfig,
-			Schedule:	&v.Schedule,
-			BatchSize:	utils.GetPointer(int64(v.BatchSize)),
-			ConcurrentLimit:	utils.GetPointer(int64(v.ConcurrentLimit)),
-			MaxRetry:	utils.GetPointer(int64(v.MaxRetry)),
-			RetryInterval:	utils.GetPointer(int64(v.RetryInterval)),
-			FieldMapping:	&v.FieldMapping,
-			TotalRuns:	&v.TotalRuns,
-			SuccessRuns:	&v.SuccessRuns,
-			FailedRuns:	&v.FailedRuns,
-			LastRunAt:	utils.GetUnixMilliPointer(v.LastRunAt.UnixMilli()),
-			LastSuccessAt:	utils.GetUnixMilliPointer(v.LastSuccessAt.UnixMilli()),
-			LastError:	&v.LastError,
-			ApprovalStatus:	&v.ApprovalStatus,
-			ApprovedBy:	v.ApprovedBy,
-			ApprovedAt:	utils.GetUnixMilliPointer(v.ApprovedAt.UnixMilli()),
-			RejectionReason:	&v.RejectionReason,
-			Metadata:	&v.Metadata,
+			Id:              &v.ID,
+			CreatedAt:       utils.GetPointer(v.CreatedAt.UnixMilli()),
+			UpdatedAt:       utils.GetPointer(v.UpdatedAt.UnixMilli()),
+			Status:          utils.GetPointer(uint32(v.Status)),
+			Name:            &v.Name,
+			Description:     &v.Description,
+			DiscoveryType:   &v.DiscoveryType,
+			PoolStatus:      &v.PoolStatus,
+			DiscoveryConfig: &v.DiscoveryConfig,
+			Schedule:        &v.Schedule,
+			BatchSize:       utils.GetPointer(int64(v.BatchSize)),
+			ConcurrentLimit: utils.GetPointer(int64(v.ConcurrentLimit)),
+			MaxRetry:        utils.GetPointer(int64(v.MaxRetry)),
+			RetryInterval:   utils.GetPointer(int64(v.RetryInterval)),
+			FieldMapping:    &v.FieldMapping,
+			TotalRuns:       &v.TotalRuns,
+			SuccessRuns:     &v.SuccessRuns,
+			FailedRuns:      &v.FailedRuns,
+			LastRunAt:       utils.TimeToUnixMilli(v.LastRunAt),
+			LastSuccessAt:   utils.TimeToUnixMilli(v.LastSuccessAt),
+			LastError:       &v.LastError,
+			ApprovalStatus:  &v.ApprovalStatus,
+			ApprovedBy:      v.ApprovedBy,
+			ApprovedAt:      utils.TimeToUnixMilli(v.ApprovedAt),
+			RejectionReason: &v.RejectionReason,
+			Metadata:        &v.Metadata,
 		})
 	}
 

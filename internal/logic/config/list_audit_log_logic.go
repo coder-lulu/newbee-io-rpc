@@ -27,7 +27,10 @@ func NewListAuditLogLogic(ctx context.Context, svcCtx *svc.ServiceContext) *List
 
 func (l *ListAuditLogLogic) ListAuditLog(in *io.ListAuditLogReq) (*io.ListAuditLogResp, error) {
 	// 获取租户ID
-	tenantID := l.ctx.Value("tenantId").(uint64)
+	tenantID, tenantErr := requireTenant(l.ctx)
+	if tenantErr != nil {
+		return nil, tenantErr
+	}
 
 	// 构建查询
 	query := l.svcCtx.DB.ConfigAuditLog.Query().
@@ -82,25 +85,25 @@ func (l *ListAuditLogLogic) ListAuditLog(in *io.ListAuditLogReq) (*io.ListAuditL
 		createdAt := log.CreatedAt.Unix()
 
 		items = append(items, &io.ConfigAuditLog{
-			Id:                 &log.ID,
-			TenantId:           &log.TenantID,
-			ConfigKey:          &log.ConfigKey,
-			OldValue:           &log.OldValue,
-			NewValue:           &log.NewValue,
-			ChangeType:         &log.ChangeType,
-			ChangedBy:          &log.ChangedBy,
-			ChangedByName:      &log.ChangedByName,
-			ServiceName:        &log.ServiceName,
-			Category:           &log.Category,
-			ConfigGroup:        &log.ConfigGroup,
-			ChangeReason:       &log.ChangeReason,
-			IpAddress:          &log.IPAddress,
-			UserAgent:          &log.UserAgent,
-			OldVersion:         &oldVersion,
-			NewVersion:         &newVersion,
-			IsRollback:         &log.IsRollback,
-			RollbackFromLogId:  &log.RollbackFromLogID,
-			CreatedAt:          &createdAt,
+			Id:                &log.ID,
+			TenantId:          &log.TenantID,
+			ConfigKey:         &log.ConfigKey,
+			OldValue:          &log.OldValue,
+			NewValue:          &log.NewValue,
+			ChangeType:        &log.ChangeType,
+			ChangedBy:         &log.ChangedBy,
+			ChangedByName:     &log.ChangedByName,
+			ServiceName:       &log.ServiceName,
+			Category:          &log.Category,
+			ConfigGroup:       &log.ConfigGroup,
+			ChangeReason:      &log.ChangeReason,
+			IpAddress:         &log.IPAddress,
+			UserAgent:         &log.UserAgent,
+			OldVersion:        &oldVersion,
+			NewVersion:        &newVersion,
+			IsRollback:        &log.IsRollback,
+			RollbackFromLogId: &log.RollbackFromLogID,
+			CreatedAt:         &createdAt,
 		})
 	}
 

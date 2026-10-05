@@ -25,7 +25,10 @@ func NewListConfigLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ListCo
 
 func (l *ListConfigLogic) ListConfig(in *io.ListConfigReq) (*io.ListConfigResp, error) {
 	// 获取租户ID
-	tenantID := l.ctx.Value("tenantId").(uint64)
+	tenantID, tenantErr := requireTenant(l.ctx)
+	if tenantErr != nil {
+		return nil, tenantErr
+	}
 
 	// 构建查询
 	query := l.svcCtx.DB.ConfigItem.Query().

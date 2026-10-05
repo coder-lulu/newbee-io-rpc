@@ -33,7 +33,10 @@ func (l *UpdateConfigLogic) UpdateConfig(in *io.UpdateConfigReq) (*io.BaseResp, 
 	}
 
 	// 获取租户ID
-	tenantID := l.ctx.Value("tenantId").(uint64)
+	tenantID, tenantErr := requireTenant(l.ctx)
+	if tenantErr != nil {
+		return nil, tenantErr
+	}
 
 	// 构建配置选项
 	opts := &service.ConfigOptions{

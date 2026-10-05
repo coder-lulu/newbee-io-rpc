@@ -31,7 +31,10 @@ func (l *RollbackConfigLogic) RollbackConfig(in *io.RollbackConfigReq) (*io.Base
 	}
 
 	// 获取租户ID
-	tenantID := l.ctx.Value("tenantId").(uint64)
+	tenantID, tenantErr := requireTenant(l.ctx)
+	if tenantErr != nil {
+		return nil, tenantErr
+	}
 
 	// 查询审计日志
 	auditLog, err := l.svcCtx.DB.ConfigAuditLog.Get(l.ctx, *in.AuditLogId)

@@ -32,20 +32,19 @@ func (l *GetWorkerMetricsByIdLogic) GetWorkerMetricsById(in *io.IDReq) (*io.Work
 	}
 
 	return &io.WorkerMetricsInfo{
-		Id:          &result.ID,
-		CreatedAt:    utils.GetPointer(result.CreatedAt.UnixMilli()),
-		UpdatedAt:    utils.GetPointer(result.UpdatedAt.UnixMilli()),
-		WorkerId:	&result.WorkerID,
-		WorkerName:	&result.WorkerName,
-		WorkerStatus:	&result.WorkerStatus,
-		CurrentTasks:	utils.GetPointer(int64(result.CurrentTasks)),
-		TotalTasks:	utils.GetPointer(int64(result.TotalTasks)),
-		SuccessTasks:	utils.GetPointer(int64(result.SuccessTasks)),
-		FailedTasks:	utils.GetPointer(int64(result.FailedTasks)),
-		CpuUsage:	&result.CPUUsage,
-		MemoryUsage:	&result.MemoryUsage,
-		LastHeartbeat:	utils.GetUnixMilliPointer(result.LastHeartbeat.UnixMilli()),
-		Metadata:	&result.Metadata,
+		Id:            &result.ID,
+		CreatedAt:     utils.GetPointer(result.CreatedAt.UnixMilli()),
+		UpdatedAt:     utils.GetPointer(result.UpdatedAt.UnixMilli()),
+		WorkerId:      &result.WorkerID,
+		WorkerName:    &result.WorkerName,
+		WorkerStatus:  &result.WorkerStatus,
+		CurrentTasks:  utils.GetPointer(int64(result.CurrentTasks)),
+		TotalTasks:    utils.GetPointer(int64(result.TotalTasks)),
+		SuccessTasks:  utils.GetPointer(int64(result.SuccessTasks)),
+		FailedTasks:   utils.GetPointer(int64(result.FailedTasks)),
+		CpuUsage:      &result.CPUUsage,
+		MemoryUsage:   &result.MemoryUsage,
+		LastHeartbeat: utils.TimeToUnixMilli(result.LastHeartbeat),
+		Metadata:      &result.Metadata,
 	}, nil
 }
-
